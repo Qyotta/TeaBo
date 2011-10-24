@@ -210,13 +210,57 @@ td { vertical-align: top; }
 /* ==|== primary styles =====================================================
    Author: 
    ========================================================================== */
+html {
+    overflow: hidden;
+}
+body {
+    background: url('../images/background.gif');
+}
 
+nav.rightNavigation {
+    width: 40px;
+    position: absolute;
+    right: 0px;
+    top: 100px;
+}
+nav.rightNavigation ul {
+    width: 100%;
+    padding: 10px 0 0 0;
+    background: url('../images/t65.png');
+    border-radius: 10px 0 0 10px; 
+    -moz-border-radius: 10px 0 0 10px; 
+    -webkit-border-radius: 10px 0 0 10px; 
+}
+nav.rightNavigation ul li {
+    padding: 0 0 10px 8px;
+}
+nav.rightNavigation ul li img {
+    width: 25px;
+}
 
-
-
-
-
-
+nav.bottomNavigation {
+    height: 45px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background: url('../images/t65.png');
+}
+nav.bottomNavigation ul {
+    padding: 10px 0 0 20px;
+    float: left;
+    overflow: hidden;
+}
+nav.bottomNavigation ul li {
+    padding: 0 20px 0 0;
+    float: left;
+}
+nav.bottomNavigation ul li img {
+    width: 25px;
+}
+nav.bottomNavigation ul.right {
+    float: right;
+}
 
 
 
