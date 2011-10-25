@@ -218,13 +218,14 @@ body {
 }
 
 nav.rightNavigation {
-    width: 40px;
+    width: 300px;
     position: absolute;
-    right: 0px;
+    right: -260px;
     top: 100px;
 }
 nav.rightNavigation ul {
-    width: 100%;
+    width: 40px;
+    float: left;
     padding: 10px 0 0 0;
     background: url('../images/t65.png');
     border-radius: 10px 0 0 10px; 
@@ -234,8 +235,52 @@ nav.rightNavigation ul {
 nav.rightNavigation ul li {
     padding: 0 0 10px 8px;
 }
-nav.rightNavigation ul li img {
+nav.rightNavigation ul li a {
+    display: block;
     width: 25px;
+}
+nav.rightNavigation ul li a img {
+    width: 25px;
+}
+nav.rightNavigation div {
+    color: #FFFFFF;
+    float: left;
+    overflow: hidden;
+    background: url('../images/t65.png');
+    border-left: 1px solid #999999;
+    width: 239px;
+    min-height: 95px;
+    padding: 10px;
+}
+nav.rightNavigation div div {
+    display:none;
+    border-left: 0px;
+    background:0px;
+    float:none;
+    overflow:auto;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: none;
+    padding: 10px;
+    width: 239px;
+    min-height: 95px;
+}
+nav.rightNavigation div div.login {
+    display: block;
+}
+nav.rightNavigation div div input {
+    color: #555555;
+    height: 15px;
+    margin: 0 0 10px;
+    width: 230px;
+}
+nav.rightNavigation div div input.submit {
+    float: right;
+    height: 25px;
+    width: 80px;
+    margin: 0px;
+    color: #000000;
 }
 
 nav.bottomNavigation {
