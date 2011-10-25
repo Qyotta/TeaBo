@@ -20,49 +20,10 @@
 
     <?php echo $content; ?>
 
-    <nav class="rightNavigation">
-        <ul>
-            <li><a href="#login"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/user.png" alt="Login" title="Login" /></a></li>
-            <li><a href="#info"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/info.png" alt="Info" title="Info" /></a></li>
-            <li><a href="#settings"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/wrench.png" alt="Settings" title="Settings" /></a></li>
-        </ul>
-       
-        <div>
-            <div class="login">
-                <form id="login-form" action="index.php" method="post">
-                <input type="text" name="LoginForm[username]" placeholder="your username" /><?php //echo $form->textField($model,'username'); ?>
-                <input type="password" name="LoginForm[password]" placeholder="your password" /><?php //echo $form->passwordField($model,'password'); ?>
-                <input type="submit" name="yt0" value="Login" class="submit" /><?php //echo CHtml::submitButton('Login'); ?>
-                </form>
-            </div>
-            <div class="info">
-                some info text
-            </div>
-            <div class="settings">
-                some settings here
-            </div>
-        </div>
-    </nav>
+    <?php include dirname(__FILE__).'/../modules/rightNavigation.php'; ?>
 
-    <nav class="bottomNavigation">
-        <ul>
-            <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/pin_map.png" alt="Get URL" title="Get URL" /></a></li>
-            <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/zoom.png" alt="Search" title="Search" /></a></li>
-        </ul>
-        <ul class="right">
-            <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/calendar.png" alt="Search" title="Search" /></a></li>
-            <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/chart_line.png" alt="Search" title="Search" /></a></li>
-            <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/checkbox_checked.png" alt="Search" title="Search" /></a></li>
-            <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/doc_empty.png" alt="Search" title="Search" /></a></li>
-            <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/music.png" alt="Search" title="Search" /></a></li>
-            <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/notepad.png" alt="Search" title="Search" /></a></li>
-            <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/pencil.png" alt="Search" title="Search" /></a></li>
-            <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/picture.png" alt="Search" title="Search" /></a></li>
-            <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/preso.png" alt="Search" title="Search" /></a></li>
-            <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/spechbubble_sq_line.png" alt="Search" title="Search" /></a></li>
-            <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/tag.png" alt="Search" title="Search" /></a></li>
-        </ul>
-    </nav>
+    <?php include dirname(__FILE__).'/../modules/bottomNavigation.php'; ?>
+
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
