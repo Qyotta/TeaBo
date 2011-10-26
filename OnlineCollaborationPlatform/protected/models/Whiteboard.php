@@ -1,27 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "tbl_user".
+ * This is the model class for table "tbl_whiteboard".
  *
- * The followings are the available columns in table 'tbl_user':
+ * The followings are the available columns in table 'tbl_whiteboard':
  * @property integer $id
- * @property string $lastname
- * @property string $firstname
- * @property string $password
- * @property string $email
- * @property integer $isRegistered
- * @property string $lastVisit
- * @property string $created
+ * @property string $name
+ * @property string $date
+ * @property integer $owner
  *
  * The followings are the available model relations:
- * @property Whiteboard $whiteboard
- * @property Whiteboardusers $whiteboardusers
+ * @property Postit $postit
+ * @property User $id0
  */
-class User extends CActiveRecord
+class Whiteboard extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return User the static model class
+	 * @return Whiteboard the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -33,7 +29,7 @@ class User extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'tbl_user';
+		return 'tbl_whiteboard';
 	}
 
 	/**
@@ -44,13 +40,12 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('lastname, firstname, password, email, isRegistered, lastVisit, created', 'required'),
-			array('isRegistered', 'numerical', 'integerOnly'=>true),
-			array('lastname, firstname, email', 'length', 'max'=>255),
-			array('password', 'length', 'max'=>48),
+			array('name, date, owner', 'required'),
+			array('owner', 'numerical', 'integerOnly'=>true),
+			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, lastname, firstname, password, email, isRegistered, lastVisit, created', 'safe', 'on'=>'search'),
+			array('id, name, date, owner', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,7 +57,8 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'whiteboards' => array(self::HAS_MANY, 'Whiteboard', 'owner'),
+			'postit' => array(self::HAS_ONE, 'Postit', 'id'),
+			'owner' => array(self::BELONGS_TO, 'User', 'id'),
 		);
 	}
 
@@ -73,13 +69,9 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'lastname' => 'Lastname',
-			'firstname' => 'Firstname',
-			'password' => 'Password',
-			'email' => 'Email',
-			'isRegistered' => 'Is Registered',
-			'lastVisit' => 'Last Visit',
-			'created' => 'Created',
+			'name' => 'Name',
+			'date' => 'Date',
+			'owner' => 'Owner',
 		);
 	}
 
@@ -95,13 +87,9 @@ class User extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('lastname',$this->lastname,true);
-		$criteria->compare('firstname',$this->firstname,true);
-		$criteria->compare('password',$this->password,true);
-		$criteria->compare('email',$this->email,true);
-		$criteria->compare('isRegistered',$this->isRegistered);
-		$criteria->compare('lastVisit',$this->lastVisit,true);
-		$criteria->compare('created',$this->created,true);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('date',$this->date,true);
+		$criteria->compare('owner',$this->owner);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
