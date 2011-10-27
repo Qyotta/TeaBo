@@ -16,14 +16,26 @@ class WhiteboardController extends Controller
 		$whiteboard->date=date(DATE_RFC822); 
 		$whiteboard->owner=Yii::app()->user->id;
 		$whiteboard->save(); 
-		$this->render('//whiteboard/index',array("model"=>$whiteboard));
+		$this->render('//whiteboard/view',array("model"=>$whiteboard));
 		
 	}
 	public function actionView($id){
 		$whiteboard = Whiteboard::model()->findByPK($id);
-		$this->render('//whiteboard/view',array("model"=>$whiteboard));
+		if(!$whiteboard){
+			throw new CHttpException(404,'The specified whiteboard cannot be found.');
+		}
+		$this->render('//whiteboard/view',array("model" =>$whiteboard));
 	}
 
+	public function actionDelete($id){
+		$whiteboard = Whiteboard::model()->findByPK($id);	
+		if($whiteboard){
+			$whiteboard->delete();
+			$this->redirect(array('whiteboard/index'));
+		}else{
+			throw new CHttpException(404,'The specified whiteboard cannot be found.');
+		}
+	}
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()
