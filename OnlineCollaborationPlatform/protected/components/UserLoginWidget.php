@@ -20,7 +20,7 @@ class UserLoginWidget extends CWidget {
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
-				Yii::app()->controller->redirect(Yii::app()->user->returnUrl);
+				Yii::app()->controller->redirect(array('site/index'));
 		}
 		// display the login form
 		$this->render('user-login',array('model'=>$model));

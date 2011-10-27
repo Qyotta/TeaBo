@@ -11,13 +11,16 @@ class WhiteboardController extends Controller
 	
 	public function actionCreate()
 	{
-		$whiteboard = new Whiteboard;
-		$whiteboard->name='Whiteboard01'; 
-		$whiteboard->date=date(DATE_RFC822); 
-		$whiteboard->owner=Yii::app()->user->id;
-		$whiteboard->save(); 
-		$this->render('//whiteboard/view',array("model"=>$whiteboard));
-		
+		if (Yii::app() -> user -> isGuest){
+			
+		}else{
+			$whiteboard = new Whiteboard;
+			$whiteboard->name='Whiteboard01'; 
+			$whiteboard->date=date(DATE_RFC822); 
+			$whiteboard->owner=Yii::app()->user->id;
+			$whiteboard->save(); 
+			$this->render('//whiteboard/view',array("model"=>$whiteboard));
+		}
 	}
 	public function actionView($id){
 		$whiteboard = Whiteboard::model()->findByPK($id);
