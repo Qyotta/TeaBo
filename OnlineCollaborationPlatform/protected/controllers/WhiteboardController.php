@@ -7,8 +7,8 @@ class WhiteboardController extends Controller
 		if (Yii::app() -> user -> isGuest){
 			throw new CHttpException(403,'You are not allowed to list whiteboards. Please login to use this feature.');
 		}else{
-			// Alle Whiteboards, die dem eingeloggten User gehören aus der Datenbank holen.
-			$whiteboards = Whiteboard::model()->findAllByAttributes(array('owner'=>Yii::app()->user->id));
+			// Alle Whiteboards, die dem eingeloggten User gehören, aus der Datenbank holen.
+			$whiteboards = User::model()->findByPK(Yii::app()->user->id)->whiteboards;
 			$this->render('//whiteboard/list',array('whiteboards'=>$whiteboards));
 		}
 	}
@@ -22,7 +22,7 @@ class WhiteboardController extends Controller
 			$whiteboard = new Whiteboard;
 			$whiteboard->name='Whiteboard01'; 
 			$whiteboard->date=date(DATE_RFC822); 
-			$whiteboard->owner=Yii::app()->user->id;
+			$whiteboard->ownerId=Yii::app()->user->id;
 			
 			// Erzeugtes Whiteboard in der Datenbank ablegen.
 			$whiteboard->save(); 
@@ -52,7 +52,7 @@ class WhiteboardController extends Controller
 			$whiteboard = Whiteboard::model()->findByPK($id);
 			
 			if($whiteboard){
-				if($whiteboard->owner == Yii::app()->user->id){
+				if($whiteboard->ownerId == Yii::app()->user->id){
 					$whiteboard->delete();
 					$this->redirect(array('whiteboard/list'));
 				}

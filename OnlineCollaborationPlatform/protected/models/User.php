@@ -14,8 +14,8 @@
  * @property string $created
  *
  * The followings are the available model relations:
- * @property Whiteboard $whiteboard
- * @property Whiteboardusers $whiteboardusers
+ * @property Whiteboard[] $whiteboards
+ * @property Whiteboardusers[] $invitedToWhiteboards
  */
 class User extends CActiveRecord
 {
@@ -62,7 +62,8 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'whiteboards' => array(self::HAS_MANY, 'Whiteboard', 'owner'),
+			'whiteboards' => array(self::HAS_MANY, 'Whiteboard', 'ownerId'),
+			'invitedToWhiteboards' => array(self::HAS_MANY, 'User', 'tbl_whiteboardUsers(userId,whiteboardId)'),
 		);
 	}
 

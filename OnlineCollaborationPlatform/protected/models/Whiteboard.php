@@ -7,11 +7,12 @@
  * @property integer $id
  * @property string $name
  * @property string $date
- * @property integer $owner
+ * @property integer $ownerId
  *
  * The followings are the available model relations:
- * @property Postit $postit
- * @property User $id0
+ * @property Postit[] $postits
+ * @property User $owner
+ * @property Whiteboardusers[] $whiteboardusers
  */
 class Whiteboard extends CActiveRecord
 {
@@ -40,12 +41,12 @@ class Whiteboard extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, date, owner', 'required'),
-			array('owner', 'numerical', 'integerOnly'=>true),
+			array('name, date, ownerId', 'required'),
+			array('ownerId', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, date, owner', 'safe', 'on'=>'search'),
+			array('id, name, date, ownerId', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,8 +58,9 @@ class Whiteboard extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'postit' => array(self::HAS_ONE, 'Postit', 'id'),
-			'owner' => array(self::BELONGS_TO, 'User', 'id'),
+			'postits' => array(self::HAS_MANY, 'Postit', 'whiteboardId'),
+			'owner' => array(self::BELONGS_TO, 'User', 'ownerId'),
+			'whiteboardusers' => array(self::HAS_MANY, 'User', 'tbl_whiteboardUsers(whiteboardId, userId)'),
 		);
 	}
 
@@ -71,7 +73,7 @@ class Whiteboard extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'date' => 'Date',
-			'owner' => 'Owner',
+			'ownerId' => 'Owner',
 		);
 	}
 
@@ -89,7 +91,7 @@ class Whiteboard extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('date',$this->date,true);
-		$criteria->compare('owner',$this->owner);
+		$criteria->compare('ownerId',$this->ownerId);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
