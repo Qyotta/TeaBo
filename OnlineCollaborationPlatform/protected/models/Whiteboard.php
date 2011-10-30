@@ -143,7 +143,7 @@ class Whiteboard extends CActiveRecord
 			$mailer->Password   = "qwertz123";            // GMAIL password
 			$mailer->SetFrom('swplao@googlemail.com', 'Look Ahead Online');
 			$mailer->AddReplyTo("swplao@googlemail.com","Look Ahead Online");
-			$mailer->Subject    = "PHPMailer Test Subject via smtp (Gmail), basic";
+			$mailer->Subject    = "[lao] Invitation to Whiteboard";
 			$mailer->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
 			$mailer->MsgHTML($message);
 			$mailer->AddAddress("andreas@sattler-berlin.de", "SWP I - LAO");
