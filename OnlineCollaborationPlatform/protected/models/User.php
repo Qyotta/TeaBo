@@ -44,7 +44,7 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('lastname, firstname, password, email, isRegistered, lastVisit, created', 'required'),
+			array('password, email, isRegistered', 'required'),
 			array('isRegistered', 'numerical', 'integerOnly'=>true),
 			array('lastname, firstname, email', 'length', 'max'=>255),
 			array('password', 'length', 'max'=>48),
@@ -63,7 +63,7 @@ class User extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'whiteboards' => array(self::HAS_MANY, 'Whiteboard', 'ownerId'),
-			'invitedToWhiteboards' => array(self::HAS_MANY, 'User', 'tbl_whiteboardUsers(userId,whiteboardId)'),
+			'invitedToWhiteboards' => array(self::MANY_MANY, 'User', 'tbl_whiteboardUsers(userId,whiteboardId)'),
 		);
 	}
 
@@ -107,5 +107,16 @@ class User extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	public function generatePassword($length = 8)
+	{
+		$choose = str_split('1234567890abcdefghijklmnopqrstuvwz');
+		$pw = '';
+		for($i=0;$i<$length;$i++){
+			$str = $choose[array_rand($choose)];
+			$pw .= $str;
+		}
+		return $pw;	
 	}
 }

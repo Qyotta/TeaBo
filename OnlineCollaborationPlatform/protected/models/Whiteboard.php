@@ -60,7 +60,7 @@ class Whiteboard extends CActiveRecord
 		return array(
 			'postits' => array(self::HAS_MANY, 'Postit', 'whiteboardId'),
 			'owner' => array(self::BELONGS_TO, 'User', 'ownerId'),
-			'whiteboardusers' => array(self::HAS_MANY, 'User', 'tbl_whiteboardUsers(whiteboardId, userId)'),
+			'whiteboardusers' => array(self::MANY_MANY, 'User', 'tbl_whiteboardUsers(whiteboardId, userId)'),
 		);
 	}
 
@@ -96,5 +96,75 @@ class Whiteboard extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	/**
+	 * creates relation between user and whiteboard, identified by email
+	 * if email is not in the system a new user is generated
+	 * @TODO find better solution for saving relation, see: http://code.google.com/p/giix/source/browse/trunk/giix/components/GxActiveRecord.php || http://www.yiiframework.com/extension/esaverelatedbehavior/
+	 */
+	public function inviteUser($email)
+	{
+
+		$user = User::model()->findByAttributes(array('email'=>$email));
+		if($user===null){
+			$user = new User;
+			$user->email = $email;
+			$newpw = $user->generatePassword();
+			$user->password = sha1($newpw);
+			$user->isRegistered = 0;
+			$user->save();
+			$currentUser = User::model()->findByPK(Yii::app()->user->id);
+			
+			$message = 'Hello, <br />
+			'.$currentUser->firstname.' '.$currentUser->lastname.' has invited you to his Whiteboard "'.$this->name.'".<br />
+			<br />
+			You may login at http://'.Yii::app()->request->getServerName().Yii::app()->getRequest()->getBaseUrl().'.<br /><br />
+			
+			User: '.$email.'<br />
+			Password: '.$newpw.'<br />
+			<br />
+			With Regards,<br /><br />
+			
+			[l]ook [a]head [o]nline
+			';
+			
+			
+			$mailer = Yii::createComponent('application.extensions.mailer.EMailer');
+			
+			$mailer->IsSMTP(); // telling the class to use SMTP
+			$mailer->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+			                                           // 1 = errors and messages
+			                                           // 2 = messages only
+			$mailer->SMTPAuth   = true;                  // enable SMTP authentication
+			$mailer->SMTPSecure = "tls";                 // sets the prefix to the servier
+			$mailer->Host       = "smtp.googlemail.com";      // sets GMAIL as the SMTP server
+			$mailer->Port       = 587;                   // set the SMTP port for the GMAIL server
+			$mailer->Username   = "swplao@googlemail.com";  // GMAIL username
+			$mailer->Password   = "qwertz123";            // GMAIL password
+			$mailer->SetFrom('swplao@googlemail.com', 'Look Ahead Online');
+			$mailer->AddReplyTo("swplao@googlemail.com","Look Ahead Online");
+			$mailer->Subject    = "PHPMailer Test Subject via smtp (Gmail), basic";
+			$mailer->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
+			$mailer->MsgHTML($message);
+			$mailer->AddAddress("andreas@sattler-berlin.de", "SWP I - LAO");
+			$mailer->Send();
+
+
+		}
+		
+
+			
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand("INSERT INTO `tbl_whiteboardUsers` (whiteboardId, userId) VALUES($this->id, $user->id)");
+		$command->execute();
+
+/*
+		$whiteboardUsers = $this->whiteboardusers;
+		$whiteboardUsers[] = $user->id;
+		$whiteboardUsers->save();
+		CVarDumper::dump($whiteboardUsers);
+*/
+ 
+
 	}
 }

@@ -65,6 +65,11 @@ class WhiteboardController extends Controller
 			}
 		}
 	}
+	
+	public function actionInviteUser($id){
+		$whiteboard = Whiteboard::model()->findByPK($id);
+		$whiteboard->inviteUser('andreas@sattler-berlin.de'); //dummy!!
+	}
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()
