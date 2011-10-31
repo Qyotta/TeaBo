@@ -13,23 +13,43 @@ class WhiteboardController extends Controller
 		}
 	}
 	
+	
 	public function actionCreate()
 	{
 		if (Yii::app() -> user -> isGuest){
 			throw new CHttpException(403,'You are not allowed to create a whiteboard. Please login to use this feature.');
 		}else{
-			// Whiteboard wird erzeugt und mit Werten befüllt.
 			$whiteboard = new Whiteboard;
-			$whiteboard->name='Whiteboard01'; 
-			$whiteboard->date=date(DATE_RFC822); 
-			$whiteboard->ownerId=Yii::app()->user->id;
-			
-			// Erzeugtes Whiteboard in der Datenbank ablegen.
-			$whiteboard->save(); 
-			
-			// Weiterleiten um das Whiteboard nach dem Erstellen anzuzeigen.
-			$this->redirect(array('whiteboard/view','id'=>$whiteboard->id));
-			// $this->render('//whiteboard/view',array("model"=>$whiteboard));
+			if(isset($_POST['Whiteboard']))
+    		{
+
+				$whiteboard->attributes=$_POST['Whiteboard'];
+				$whiteboard->ownerId=Yii::app()->user->id;
+				$whiteboard->date = new CDbExpression('NOW()');
+			    if($whiteboard->validate())
+			    {
+			        $whiteboard->save(); 
+					$this->redirect(array('whiteboard/view','id'=>$whiteboard->id));
+					    // form inputs are valid, do something here
+			        return;
+			    }
+				
+				/*
+				$whiteboard->name='Whiteboard01'; 
+				$whiteboard->date=date(DATE_RFC822); 
+				$whiteboard->ownerId=Yii::app()->user->id;
+				*/
+				// Erzeugtes Whiteboard in der Datenbank ablegen.
+				//$whiteboard->save(); 
+				
+				// Weiterleiten um das Whiteboard nach dem Erstellen anzuzeigen.
+				// $this->redirect(array('whiteboard/view','id'=>$whiteboard->id));
+				// $this->render('//whiteboard/view',array("model"=>$whiteboard));
+			}
+			else 
+			{
+				$this->render('create',array('model'=>$whiteboard));
+			}
 		}
 	}
 	public function actionView($id){
@@ -68,7 +88,7 @@ class WhiteboardController extends Controller
 	
 	public function actionInviteUser($id){
 		$whiteboard = Whiteboard::model()->findByPK($id);
-		$whiteboard->inviteUser('andreas@sattler-berlin.de'); //dummy!!
+		$whiteboard-> inviteUser('andreas@sattler-berlin.de'); //dummy!!
 	}
 	// Uncomment the following methods and override them if needed
 	/*
