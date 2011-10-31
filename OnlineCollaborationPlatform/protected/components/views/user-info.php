@@ -1,16 +1,34 @@
-<h2>Hallo <span><?php echo $model->firstname; ?></span></h2> <?php echo CHtml::link('[Logout]',array('site/logout'),array('class'=>'logout')); ?>
+<h2>Hallo <span><?=$model->getUsername()?></span></h2> <?=CHtml::link('[Logout]',array('site/logout'),array('class'=>'logout'))?>
 
 <?php
+/*
+ * show list of all whiteboards, the user ownes
+ */
 $whiteboards = User::model()->findByPK(Yii::app()->user->id)->whiteboards;       
-if(isset($whiteboards) && count($whiteboards)>0){
-    if(count($whiteboards)>0) echo "<ul>";
+if(isset($whiteboards) && count($whiteboards)){
+    echo "<ul>";
     foreach($whiteboards as $w){
-        echo '<li>'.CHtml::link($w->name.'(#'.$w->id.')',array('whiteboard/view','id'=>$w->id)).' 
-        '.CHtml::link('[x]',array('whiteboard/delete','id'=>$w->id)).'</li>';
+        $linkToWhiteboard = CHtml::link($w->name,array('whiteboard/view','id'=>$w->id));
+        $linkToDelete = CHtml::link('[x]',array('whiteboard/delete','id'=>$w->id));
+        echo '<li>'.$linkToWhiteboard.$linkToDelete.'</li>';
     }
-    if(count($whiteboards)>0) echo "</ul>";
+    echo "</ul>";
 }else{
-    echo '<p>No whiteboard exist.</p>';
+    echo '<span>No whiteboard exist.</span>';
 }
 ?>
 
+<h2>open new whiteboard</h2>
+<?php 
+/*
+ * form to create a new whiteboard
+ */
+$form=$this->beginWidget('CActiveForm', array(
+    'id'=>'CreateWhiteboardForm',
+    'enableClientValidation'=>false,
+)); 
+echo $form->textField($createWhiteboardModel,'name').
+     CHtml::submitButton('Create');
+
+$this->endWidget();
+?>

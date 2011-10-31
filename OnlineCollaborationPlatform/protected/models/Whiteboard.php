@@ -132,7 +132,7 @@ class Whiteboard extends CActiveRecord
 			$mailer = Yii::createComponent('application.extensions.mailer.EMailer');
 			
 			$mailer->IsSMTP(); // telling the class to use SMTP
-			$mailer->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+			$mailer->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
 			                                           // 1 = errors and messages
 			                                           // 2 = messages only
 			$mailer->SMTPAuth   = true;                  // enable SMTP authentication

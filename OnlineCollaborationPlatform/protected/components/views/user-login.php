@@ -1,14 +1,18 @@
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php 
+/*
+ * form to login
+ */
+$form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
-)); ?>
+)); 
 
-	<?php echo $form->textField($model,'email'); ?>
-	<?php echo $form->passwordField($model,'password'); ?>
-	<?php echo CHtml::submitButton('Login'); ?>
-	
+echo $form->textField($model,'email',array('placeholder'=>'e-mail adress')).
+     $form->passwordField($model,'password',array('placeholder'=>'password')).
+     CHtml::submitButton('Login');
 
-<?php $this->endWidget(); ?>
+$this->endWidget();
+?>

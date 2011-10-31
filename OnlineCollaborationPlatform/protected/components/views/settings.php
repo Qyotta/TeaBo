@@ -1,32 +1,37 @@
-<?php
-$whiteboard = Whiteboard::model()->findByPK($model->whiteboardId);
-?>
 
 <div class="settings">
     <h2>User, having access to this whiteboard:</h2>
     <?php
-    if(count($whiteboard->whiteboardusers)) echo "<ul>";
-    foreach($whiteboard->whiteboardusers as $user) {
-        echo "<li>{$user->email}</li>";
+    /*
+     * show list of users, accessing to current whiteboard
+     */
+    if(count($whiteboard->whiteboardusers)) {
+        echo "<ul>";
+        foreach($whiteboard->whiteboardusers as $user) echo "<li>{$user->email}</li>";
+        echo "</ul>";
+    } else {
+        echo "<span>No user invited!</span>";
     }
-    if(count($whiteboard->whiteboardusers)) echo "</ul>";
-    else echo "<span>No user invited!</span>";
     ?>        
     
     <h2>Invite User</h2>
-    <?php $form=$this->beginWidget('CActiveForm', array(
+    <?php 
+    /*
+     * display form to invite new users to the whiteboard
+     */
+    $form=$this->beginWidget('CActiveForm', array(
         'id'=>'InviteUserForm',
         'enableClientValidation'=>true,
         'clientOptions'=>array(
             'validateOnSubmit'=>true,
         ),
-    )); ?>
+    ));
+    echo "
+         <input type=\"hidden\" name=\"id\" value=\"".$whiteboard->id."\" />
+         ".$form->textField($model,'user')."
+         ".CHtml::submitButton('Invite')."
+    ";
     
-    <input type="hidden" name="id" value="<?php echo $whiteboard->id ?>" />
-    <?php echo $form->textField($model,'user'); ?>
-    <?php echo CHtml::submitButton('Invite'); ?>
-        
-    
-    <?php $this->endWidget(); ?>
-
+    $this->endWidget();
+    ?>
 </div>

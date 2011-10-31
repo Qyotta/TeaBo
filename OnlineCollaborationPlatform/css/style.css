@@ -295,11 +295,12 @@ nav.rightNavigation div h2 {
 }
 nav.rightNavigation div h2 span {
     font-weight: bold;
+    display: inline;
 }
-nav.rightNavigation div.settings span {
+nav.rightNavigation div span {
     clear: both;
     display: block;
-    padding: 10px 0;
+    padding: 10px 0 20px;
 }
 nav.rightNavigation div ul {
     background: none;
@@ -309,13 +310,16 @@ nav.rightNavigation div ul {
     padding: 10px 0;
     width: auto;
 }
+nav.rightNavigation div div ul {
+    padding: 10px 0 20px;
+}
 nav.rightNavigation div ul li {
     padding: 0px;
     clear: both;
+    overflow: hidden;
 }
 nav.rightNavigation div ul li a {
     float: left;
-    overflow: hidden;
     width: auto;
     color: #91D1FF;
 }

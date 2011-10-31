@@ -119,4 +119,8 @@ class User extends CActiveRecord
 		}
 		return $pw;	
 	}
+    
+    public function getUsername() {
+        return $this->firstname === "" ? $this->email : $this->firstname;
+    }
 }

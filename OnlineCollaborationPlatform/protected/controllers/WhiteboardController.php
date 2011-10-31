@@ -74,7 +74,7 @@ class WhiteboardController extends Controller
 			if($whiteboard){
 				if($whiteboard->ownerId == Yii::app()->user->id){
 					$whiteboard->delete();
-					$this->redirect(array('whiteboard/list'));
+					$this->redirect(array('/'));
 				}
 				else{
 					throw new CHttpException(403,'You are not the owner. You are not allowed to delete this whiteboard.');
