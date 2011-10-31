@@ -296,6 +296,11 @@ nav.rightNavigation div h2 {
 nav.rightNavigation div h2 span {
     font-weight: bold;
 }
+nav.rightNavigation div.settings span {
+    clear: both;
+    display: block;
+    padding: 10px 0;
+}
 nav.rightNavigation div ul {
     background: none;
     border-radius: 0px;

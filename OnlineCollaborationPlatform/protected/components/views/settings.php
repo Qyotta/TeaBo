@@ -10,7 +10,7 @@ $whiteboard = Whiteboard::model()->findByPK($model->whiteboardId);
         echo "<li>{$user->email}</li>";
     }
     if(count($whiteboard->whiteboardusers)) echo "</ul>";
-    else echo "No user invited!";
+    else echo "<span>No user invited!</span>";
     ?>        
     
     <h2>Invite User</h2>
