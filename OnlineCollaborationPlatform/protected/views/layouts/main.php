@@ -14,7 +14,17 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" />
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/modernizr-2.0.6.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <?php echo $content; ?>
+
+    <?php $this->renderPartial('//modules/rightNavigation'); ?>
+
+    <?php $this->renderPartial('//modules/bottomNavigation'); ?>
+  
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/jquery-1.6.2.min.js"><\/script>')</script>
     <script defer src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins.js"></script>
     <script defer src="<?php echo Yii::app()->request->baseUrl; ?>/js/script.js"></script>
@@ -29,15 +39,6 @@
       <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
       <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
     <![endif]-->
-</head>
-
-<body>
-
-    <?php echo $content; ?>
-
-    <?php $this->renderPartial('//modules/rightNavigation'); ?>
-
-    <?php $this->renderPartial('//modules/bottomNavigation'); ?>
-  
+    
 </body>
 </html>

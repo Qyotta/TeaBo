@@ -146,7 +146,7 @@ class Whiteboard extends CActiveRecord
 			$mailer->Subject    = "[lao] Invitation to Whiteboard";
 			$mailer->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
 			$mailer->MsgHTML($message);
-			$mailer->AddAddress("andreas@sattler-berlin.de", "SWP I - LAO");
+			$mailer->AddAddress($email);
 			$mailer->Send();
 
 

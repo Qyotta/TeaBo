@@ -6,9 +6,11 @@
 		<li>
 			<a href="#info"><img src="<?php echo Yii::app() -> request -> baseUrl;?>/images/icons/info.png" alt="Info" title="Info" /></a>
 		</li>
+		<?php if (!Yii::app() -> user -> isGuest) { ?>
 		<li>
 			<a href="#settings"><img src="<?php echo Yii::app() -> request -> baseUrl;?>/images/icons/wrench.png" alt="Settings" title="Settings" /></a>
 		</li>
+		<?php } ?>
 	</ul>
 	<div>
 		<div class="login">
@@ -20,11 +22,15 @@
 			}
 			?>
 		</div>
+		
 		<div class="info">
 			some info text
 		</div>
-		<div class="settings">
-			some settings here
-		</div>
+		
+		<?php 
+		if (!Yii::app() -> user -> isGuest) { 
+		    $this -> widget('SettingsWidget');
+		} 
+		?>
 	</div>
 </nav>

@@ -258,11 +258,10 @@ nav.rightNavigation div div {
     background:0px;
     float:none;
     overflow:auto;
-    position: absolute;
     top: 0px;
     right: 0px;
     display: none;
-    padding: 10px;
+    padding: 0px;
     width: 239px;
     min-height: 95px;
 }
@@ -275,14 +274,51 @@ nav.rightNavigation div div input {
     margin: 0 0 10px;
     width: 230px;
 }
-nav.rightNavigation div div input.submit {
+nav.rightNavigation div div input:last-child {
     float: right;
     height: 25px;
     width: 80px;
     margin: 0px;
     color: #000000;
 }
-
+nav.rightNavigation a.logout {
+    color: #91D1FF;
+    display: block;
+    float: left;
+    margin: 0 0 0 15px;
+}
+nav.rightNavigation div h2 {
+    float: left;
+    font-weight: normal;
+    margin: 0;
+    font-size: 16px;
+}
+nav.rightNavigation div h2 span {
+    font-weight: bold;
+}
+nav.rightNavigation div ul {
+    background: none;
+    border-radius: 0px;
+    float: none;
+    clear:both;
+    padding: 10px 0;
+    width: auto;
+}
+nav.rightNavigation div ul li {
+    padding: 0px;
+    clear: both;
+}
+nav.rightNavigation div ul li a {
+    float: left;
+    overflow: hidden;
+    width: auto;
+    color: #91D1FF;
+}
+nav.rightNavigation div ul li a:last-child {
+    color: #FF0000;
+    display: block;
+    margin: 0 0 0 10px;
+}
 nav.bottomNavigation {
     height: 45px;
     width: 100%;

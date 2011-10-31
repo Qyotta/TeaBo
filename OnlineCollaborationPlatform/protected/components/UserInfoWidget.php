@@ -5,7 +5,7 @@ class UserInfoWidget extends CWidget {
 	}
 
 	protected function renderContent() {
-		$model = User::model()->findByPK(Yii::app()->user->id);
+	    $model = User::model()->findByPK(Yii::app()->user->id);
 		$this->render('user-info',array('model'=>$model));
 	}
 }
