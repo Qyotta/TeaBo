@@ -154,4 +154,21 @@ class Whiteboard extends CActiveRecord
  
 
 	}
+
+	public function getWhiteboardsByUserId($id)
+	{
+		$whiteboards = Yii::app()->db->createCommand()
+	    ->select('whiteboardId')
+	    ->from('tbl_whiteboardUsers')
+	    ->where('userId=:id', array(':id'=>$id))
+	    ->queryAll();
+		
+		return Whiteboard::model()->findAllByPk($whiteboards);
+	}
+
+	public function isOwner()
+	{
+		if($this->ownerId == Yii::app()->user->id) return true;
+		else return false;
+	}
 }

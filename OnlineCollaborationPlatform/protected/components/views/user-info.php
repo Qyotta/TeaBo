@@ -17,6 +17,21 @@ if(isset($whiteboards) && count($whiteboards)){
     echo '<span>No whiteboard exist.</span>';
 }
 ?>
+<?php
+//invitedToWhiteboards
+$invWhiteboards = Whiteboard::model()->getWhiteboardsByUserId(Yii::app()->user->id);
+
+if(isset($invWhiteboards) && count($invWhiteboards)){
+	echo "<h2>open assigned whiteboard</h2>";
+    echo "<ul>";
+	
+    foreach($invWhiteboards as $w){
+        $linkToWhiteboard = CHtml::link($w->name,array('whiteboard/view','id'=>$w->id));
+        echo '<li>'.$linkToWhiteboard.'</li>';
+    }
+    echo "</ul>";
+}
+?>
 
 <h2>open new whiteboard</h2>
 <?php 
@@ -29,6 +44,7 @@ $form=$this->beginWidget('CActiveForm', array(
 )); 
 echo $form->textField($createWhiteboardModel,'name').
      CHtml::submitButton('Create');
+
 
 $this->endWidget();
 ?>
