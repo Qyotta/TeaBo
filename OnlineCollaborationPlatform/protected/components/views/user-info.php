@@ -33,7 +33,7 @@ if(isset($invWhiteboards) && count($invWhiteboards)){
 }
 ?>
 
-<h2>open new whiteboard</h2>
+<h2>new whiteboard</h2>
 <?php 
 /*
  * form to create a new whiteboard
