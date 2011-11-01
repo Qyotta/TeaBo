@@ -129,25 +129,12 @@ class Whiteboard extends CActiveRecord
 			';
 			
 			
-			$mailer = Yii::createComponent('application.extensions.mailer.EMailer');
+			$mailer = new LAOMailer();
 			
-			$mailer->IsSMTP(); // telling the class to use SMTP
-			$mailer->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
-			                                           // 1 = errors and messages
-			                                           // 2 = messages only
-			$mailer->SMTPAuth   = true;                  // enable SMTP authentication
-			$mailer->SMTPSecure = "tls";                 // sets the prefix to the servier
-			$mailer->Host       = "smtp.googlemail.com";      // sets GMAIL as the SMTP server
-			$mailer->Port       = 587;                   // set the SMTP port for the GMAIL server
-			$mailer->Username   = "swplao@googlemail.com";  // GMAIL username
-			$mailer->Password   = "qwertz123";            // GMAIL password
-			$mailer->SetFrom('swplao@googlemail.com', 'Look Ahead Online');
-			$mailer->AddReplyTo("swplao@googlemail.com","Look Ahead Online");
-			$mailer->Subject    = "[lao] Invitation to Whiteboard";
-			$mailer->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
-			$mailer->MsgHTML($message);
-			$mailer->AddAddress($email);
-			$mailer->Send();
+			$mailer->setSubject("[lao] Invitation to Whiteboard");
+			$mailer->setMessage($message);
+			$mailer->addAddress($email);
+			$mailer->send();
 
 
 		}
