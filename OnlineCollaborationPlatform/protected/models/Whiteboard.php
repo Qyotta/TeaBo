@@ -129,8 +129,7 @@ class Whiteboard extends CActiveRecord
 			';
 			
 			
-			$mailer = new LAOMailer();
-			
+			$mailer = new LAOMailer;
 			$mailer->setSubject("[lao] Invitation to Whiteboard");
 			$mailer->setMessage($message);
 			$mailer->addAddress($email);

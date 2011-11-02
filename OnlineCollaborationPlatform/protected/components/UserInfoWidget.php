@@ -6,8 +6,8 @@ class UserInfoWidget extends CWidget {
 
 	protected function renderContent() {
 	    $createWhiteboardModel = new CreateWhiteboardForm;
-	    $model = User::model()->findByPK(Yii::app()->user->id);
-        
+	    $user = User::model()->findByPK(Yii::app()->user->id); 
+		
         // collect user input data
         if(isset($_POST['CreateWhiteboardForm']))
         {
@@ -16,7 +16,10 @@ class UserInfoWidget extends CWidget {
             if($createWhiteboardModel->validate() && $createWhiteboardModel->createWhiteboard())
                 Yii::app()->controller->redirect(array('site/index'));
         }
-        
-		$this->render('user-info',array('model'=>$model,'createWhiteboardModel'=>$createWhiteboardModel));
+        $invitedToWhiteboards = Whiteboard::model()->getWhiteboardsByUserId(Yii::app()->user->id);
+		$this->render('user-info',
+						array('user'=>$user,
+							  'createWhiteboardModel'=>$createWhiteboardModel,
+							  'invitedToWhiteboards'=>$invitedToWhiteboards));
 	}
 }

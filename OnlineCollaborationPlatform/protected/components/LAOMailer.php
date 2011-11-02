@@ -2,7 +2,7 @@
 /**
  * This class sets the default configuration for all mailings
  */
-class LAOMailer {
+class LAOMailer extends CApplicationComponent{
 
 	private $mailer;
 

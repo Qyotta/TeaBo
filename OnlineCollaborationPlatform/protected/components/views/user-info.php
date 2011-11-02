@@ -1,10 +1,10 @@
-<h2>Hallo <span><?=$model->getUsername()?></span></h2> <?=CHtml::link('[Logout]',array('site/logout'),array('class'=>'logout'))?>
+<h2>Hallo <span><?=$user->getUsername()?></span></h2> <?=CHtml::link('[Logout]',array('site/logout'),array('class'=>'logout'))?>
 
 <?php
 /*
  * show list of all whiteboards, the user ownes
  */
-$whiteboards = User::model()->findByPK(Yii::app()->user->id)->whiteboards;       
+$whiteboards = $user->whiteboards;
 if(isset($whiteboards) && count($whiteboards)){
     echo "<ul>";
     foreach($whiteboards as $w){
@@ -17,31 +17,34 @@ if(isset($whiteboards) && count($whiteboards)){
     echo '<span>No whiteboard exist.</span>';
 }
 ?>
-<?php
-//invitedToWhiteboards
-$invWhiteboards = Whiteboard::model()->getWhiteboardsByUserId(Yii::app()->user->id);
 
-if(isset($invWhiteboards) && count($invWhiteboards)){
+<?php
+
+/*
+ * show a list of whiteboards the user is invited to.
+ */
+if(isset($invitedToWhiteboards) && count($invitedToWhiteboards)>0){
 	echo "<h2>open assigned whiteboard</h2>";
     echo "<ul>";
 	
-    foreach($invWhiteboards as $w){
-        $linkToWhiteboard = CHtml::link($w->name,array('whiteboard/view','id'=>$w->id));
+    foreach($invitedToWhiteboards as $whiteboard){
+        $linkToWhiteboard = CHtml::link($whiteboard->name,array('whiteboard/view','id'=>$whiteboard->id));
         echo '<li>'.$linkToWhiteboard.'</li>';
     }
     echo "</ul>";
 }
 ?>
 
-<h2>new whiteboard</h2>
 <?php 
 /*
  * form to create a new whiteboard
  */
+echo '<h2>new whiteboard</h2>';
+
 $form=$this->beginWidget('CActiveForm', array(
     'id'=>'CreateWhiteboardForm',
-    'enableClientValidation'=>false,
-)); 
+    'enableClientValidation'=>false,));
+ 
 echo $form->textField($createWhiteboardModel,'name').
      CHtml::submitButton('Create');
 
