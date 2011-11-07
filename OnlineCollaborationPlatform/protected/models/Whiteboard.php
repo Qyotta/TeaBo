@@ -105,7 +105,11 @@ class Whiteboard extends CActiveRecord
 	public function inviteUser($email)
 	{
 
+		/**
+		 * search user in the database
+		 */
 		$user = User::model()->findByAttributes(array('email'=>$email));
+		
 		if($user===null){
 			$user = new User;
 			$user->email = $email;

@@ -34,15 +34,5 @@ class InviteUserForm extends CFormModel
             'user'=>'Email Address',
         );
     }
-    
-    /*
-     * 
-     */
-    public function inviteUser() {
-        $whiteboard = Whiteboard::model()->findByPK($this->whiteboardId);
-        $whiteboard-> inviteUser($this->user);
-        return true;
-    }
-
-    
+        
 }

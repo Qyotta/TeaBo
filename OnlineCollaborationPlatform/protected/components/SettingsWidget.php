@@ -16,7 +16,7 @@ class SettingsWidget extends CWidget {
             $model->attributes = $_POST['InviteUserForm'];
             // validate user input, invite him and redirect to the previous page if valid
             if($model->validate()) {
-                $model->inviteUser();
+                $whiteboard->inviteUser($model -> user);
             }
         }
         
