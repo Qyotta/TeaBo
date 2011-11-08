@@ -2,6 +2,9 @@
 
 class WhiteboardController extends Controller
 {
+    
+    public $activeWhiteboardId;
+    
 	public function actionList()
 	{
 		if (Yii::app() -> user -> isGuest){
@@ -58,6 +61,7 @@ class WhiteboardController extends Controller
 		if(!$whiteboard){
 			throw new CHttpException(404,'The specified whiteboard cannot be found.');
 		}else{
+		    $this->activeWhiteboardId = $id;
 			$this->render('//whiteboard/view',array('whiteboard'=>$whiteboard));
 		}
 	}

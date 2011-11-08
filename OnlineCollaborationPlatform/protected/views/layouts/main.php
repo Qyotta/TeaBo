@@ -22,7 +22,11 @@
 
     <?php $this->renderPartial('//modules/rightNavigation'); ?>
 
-    <?php $this->renderPartial('//modules/bottomNavigation'); ?>
+    <?php 
+    if (!Yii::app() -> user -> isGuest && Yii::app() -> controller -> action -> id === "view") {
+        $this->renderPartial('//modules/bottomNavigation');
+    }
+    ?>
   
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/jquery-1.6.2.min.js"><\/script>')</script>

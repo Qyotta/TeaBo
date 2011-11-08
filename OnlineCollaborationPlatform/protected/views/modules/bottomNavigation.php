@@ -11,10 +11,9 @@
         <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/music.png" alt="Search" title="Search" /></a></li>
         <li> 
             <?php 
-            // TODO show only if a whiteboard is selected
             echo CHtml::link(
             '<img src="'.Yii::app()->request->baseUrl.'/images/icons/notepad.png" alt="postIt" title="create new postIt" />',
-            array('postIt/create','whiteboardId'=>8 )); ?>
+            array('postIt/create','whiteboardId'=>Yii::app() -> controller -> activeWhiteboardId )); ?>
         </li>
         <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/pencil.png" alt="Search" title="Search" /></a></li>
         <li><a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/picture.png" alt="Search" title="Search" /></a></li>
