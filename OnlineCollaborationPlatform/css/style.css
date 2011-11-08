@@ -352,9 +352,21 @@ nav.bottomNavigation ul.right {
     float: right;
 }
 
-
-
-
+.whiteboard .postIt {
+    background: none repeat scroll 0 0 #FF0000;
+    border-radius: 5px 5px 5px 5px;
+    height: 200px;
+    padding: 5px;
+    width: 200px;
+    float:left;
+    margin:10px;
+}
+.whiteboard .postIt textarea {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    height: 199px;
+    width: 199px;
+}
 
 
 

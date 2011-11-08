@@ -36,6 +36,40 @@ $('nav.rightNavigation ul li a').click(function() {
     });
 })
 
+/*
+ * function to save a post it
+ */
+function savePostIt(elem) {
+    href = $(elem).find('form').attr('href');
+    text = $(elem).find('textarea').val();
+    
+    $.ajax({
+        url: href,
+        type: 'POST',
+        data: 'content='+text+'&x='+100+'&y='+200,
+        success: function(){
+            console.log('postIt saved')
+        }
+    });
+}
+
+/*
+ * create post-it form direct on the whiteboard
+ */
+$('.bottomNavigation ul li a').click(function() {
+    href = $(this).attr('href');
+    html = $('<div/>').addClass('postIt').focusout( function() 
+           {
+                savePostIt(this)
+           }).
+           append($('<form/>').attr('href',href).attr('method','post').
+           append($('<textarea/>').attr('name','content')));
+    
+    $('.whiteboard').append(html)
+    return false;
+});
+
+
 
 
 
