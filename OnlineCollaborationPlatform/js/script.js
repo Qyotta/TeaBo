@@ -46,7 +46,8 @@ function savePostIt(elem) {
     $.ajax({
         url: href,
         type: 'POST',
-        data: 'content='+text+'&x='+100+'&y='+200,
+        data: 'PostIt[text]='+text,
+        //&PostIt[xposition]='+Math.floor(Math.random()*800)+'&PostIt[yposition]='+Math.floor(Math.random()*800),
         success: function(){
             console.log('postIt saved')
         }

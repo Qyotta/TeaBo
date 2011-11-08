@@ -14,7 +14,16 @@ class PostItController extends Controller
 		$this->redirect(array('whiteboard/view','id'=>$whiteboardId));
 	}
 	
-	
+	public function actionUpdate($id){
+		$postit = PostIt::model()->findByPk($id);
+		var_dump($postit);
+		if($postit){
+			$postit->attributes = $_POST['PostIt'];
+			if($postit->validate() && $postit->save()){
+				Yii::app()->end();
+			}
+		}
+	}	
 
 	// Uncomment the following methods and override them if needed
 	/*
