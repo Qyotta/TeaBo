@@ -40,14 +40,17 @@ $('nav.rightNavigation ul li a').click(function() {
  * function to save a post it
  */
 function savePostIt(elem) {
-    href = $(elem).find('form').attr('href');
+    href = $(elem).find('form').attr('action');
     text = $(elem).find('textarea').val();
+    posLeft = $(elem).css('left').substr(0,$(elem).css('left').length-2);
+    posTop = $(elem).css('top').substr(0,$(elem).css('top').length-2);
+    
+    console.log(posTop + " - "+posLeft);
     
     $.ajax({
         url: href,
         type: 'POST',
-        data: 'PostIt[text]='+text,
-        //&PostIt[xposition]='+Math.floor(Math.random()*800)+'&PostIt[yposition]='+Math.floor(Math.random()*800),
+        data: 'PostIt[text]='+text+'&PostIt[x]='+posLeft+'&PostIt[y]='+posTop,
         success: function(){
             console.log('postIt saved')
         }
@@ -55,41 +58,54 @@ function savePostIt(elem) {
 }
 
 /*
+ * drag and drop options
+ */
+var dragAndDropOptions = {
+    stop: function(e,ui) {
+        href = $(this).find('form').attr('action');
+        text = $(this).find('textarea').val();
+        posLeft = ui.position.left;
+        posTop = ui.position.top;
+        $.ajax({
+            url: href,
+            type: 'POST',
+            data: 'PostIt[x]='+posLeft+'&PostIt[y]='+posTop
+        });
+    }
+}
+
+/*
  * create post-it form direct on the whiteboard
  */
 $('.bottomNavigation ul li a').click(function() {
     href = $(this).attr('href');
-    html = $('<div/>').addClass('postIt').focusout( function() 
+    posLeft = Math.floor(Math.random()*1100);
+    posTop = Math.floor(Math.random()*500);
+    
+    html = $('<div/>').addClass('postIt').
+           css('position','absolute').
+           css('left',posLeft).
+           css('top',posTop).
+           focusout( function() 
            {
                 savePostIt(this)
            }).
-           append($('<form/>').attr('href',href).attr('method','post').
+           draggable(dragAndDropOptions).
+           append($('<form/>').attr('action',href).attr('method','post').
            append($('<textarea/>').attr('name','content')));
     
     $('.whiteboard').append(html)
     return false;
 });
 
+/*
+ * update post-it
+ */
+$('.whiteboard .postIt').focusout( function() {
+    savePostIt(this);
+})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
+ * register drag and drop action for all post-it's from database
+ */
+$('.postIt').draggable(dragAndDropOptions);

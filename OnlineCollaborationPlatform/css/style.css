@@ -353,13 +353,14 @@ nav.bottomNavigation ul.right {
 }
 
 .whiteboard .postIt {
-    background: none repeat scroll 0 0 #FDFB8C;
+    background: none repeat scroll 0 0 #F8F7B6;
     border-radius: 5px 5px 5px 5px;
     height: 200px;
     padding: 5px;
     width: 200px;
     float:left;
     margin:10px;
+    cursor:move;
 }
 .whiteboard .postIt textarea {
     background: none repeat scroll 0 0 transparent;

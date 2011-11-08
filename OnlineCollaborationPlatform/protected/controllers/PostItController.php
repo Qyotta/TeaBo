@@ -5,20 +5,20 @@ class PostItController extends Controller
 	public function actionCreate($whiteboardId)
 	{
 		$model = new PostIt;
-		$model->text = "Dummy PostIt ich bin ein PostIt und du nicht!";
+		$model->text = $_POST['PostIt']['text'];
 		$model->whiteboardId = $whiteboardId;
-		$model->xposition = rand(0,800);
-		$model->yposition = rand(0,500);
-		$model->save();
-		
-		$this->redirect(array('whiteboard/view','id'=>$whiteboardId));
+        $model->xposition = $_POST['PostIt']['x'];
+        $model->yposition = $_POST['PostIt']['y'];
+        $model->save();
 	}
 	
 	public function actionUpdate($id){
 		$postit = PostIt::model()->findByPk($id);
 		var_dump($postit);
 		if($postit){
-			$postit->attributes = $_POST['PostIt'];
+			if(isset($_POST['PostIt']['text'])) $postit->text = $_POST['PostIt']['text'];
+            $postit->xposition = $_POST['PostIt']['x'];
+            $postit->yposition = $_POST['PostIt']['y'];
 			if($postit->validate() && $postit->save()){
 				Yii::app()->end();
 			}
