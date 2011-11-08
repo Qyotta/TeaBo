@@ -27,6 +27,7 @@ class LAOMailer extends CApplicationComponent{
 		$this -> mailer -> SetFrom('swplao@googlemail.com', 'Look Ahead Online');
 		$this -> mailer -> AddReplyTo("swplao@googlemail.com", "Look Ahead Online");
 		$this -> mailer -> AltBody = "To view the message, please use an HTML compatible email viewer!";
+		$this -> mailer -> CharSet = 'UTF-8'; // set charset to unicode
 		// optional, comment out and test
 
 	}
