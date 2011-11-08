@@ -7,7 +7,11 @@ class PostItController extends Controller
 		$model = new PostIt;
 		$model->text = "Dummy PostIt ich bin ein PostIt und du nicht!";
 		$model->whiteboardId = $whiteboardId;
+		$model->xposition = rand(0,800);
+		$model->yposition = rand(0,500);
 		$model->save();
+		
+		$this->redirect(array('whiteboard/view','id'=>$whiteboardId));
 	}
 	
 	
