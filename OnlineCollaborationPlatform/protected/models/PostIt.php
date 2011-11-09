@@ -9,6 +9,13 @@
  * @property integer $xposition
  * @property integer $yposition
  * @property integer $whiteboardId
+ * @property integer $ownerId
+ * @property integer $isLocked
+ * @property string $modified
+ *
+ * The followings are the available model relations:
+ * @property Whiteboard $whiteboard
+ * @property User $owner
  */
 class PostIt extends CActiveRecord
 {
@@ -37,11 +44,11 @@ class PostIt extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('text, xposition, yposition, whiteboardId', 'required'),
-			array('xposition, yposition, whiteboardId', 'numerical', 'integerOnly'=>true),
+			array('xposition, yposition, whiteboardId', 'required'),
+			array('xposition, yposition, whiteboardId, ownerId, isLocked', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, text, xposition, yposition, whiteboardId', 'safe', 'on'=>'search'),
+			array('id, text, xposition, yposition, whiteboardId, ownerId, isLocked, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,6 +60,8 @@ class PostIt extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'whiteboard' => array(self::BELONGS_TO, 'Whiteboard', 'whiteboardId'),
+			'owner' => array(self::BELONGS_TO, 'User', 'ownerId'),
 		);
 	}
 
@@ -67,6 +76,9 @@ class PostIt extends CActiveRecord
 			'xposition' => 'Xposition',
 			'yposition' => 'Yposition',
 			'whiteboardId' => 'Whiteboard',
+			'ownerId' => 'Owner',
+			'isLocked' => 'Is Locked',
+			'modified' => 'Modified',
 		);
 	}
 
@@ -86,9 +98,23 @@ class PostIt extends CActiveRecord
 		$criteria->compare('xposition',$this->xposition);
 		$criteria->compare('yposition',$this->yposition);
 		$criteria->compare('whiteboardId',$this->whiteboardId);
+		$criteria->compare('ownerId',$this->ownerId);
+		$criteria->compare('isLocked',$this->isLocked);
+		$criteria->compare('modified',$this->modified,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function toArray(){
+		$array = array(
+		'id' => $this->id,
+		'text' => $this->text,
+		'x' => $this->xposition,
+		'y' => $this->yposition,
+		'isLocked' => $this->isLocked,
+		);
+		return $array;
 	}
 }

@@ -40,17 +40,41 @@ $('nav.rightNavigation ul li a').click(function() {
  * function to save a post it
  */
 function savePostIt(elem) {
+	//URL for Request
     href = $(elem).find('form').attr('action');
+    // Text of Postit
     text = $(elem).find('textarea').val();
+    // Position x and y
     posLeft = $(elem).css('left').substr(0,$(elem).css('left').length-2);
     posTop = $(elem).css('top').substr(0,$(elem).css('top').length-2);
     
     console.log(posTop + " - "+posLeft);
     
+    //Request send data per href
     $.ajax({
         url: href,
         type: 'POST',
-        data: 'PostIt[text]='+text+'&PostIt[x]='+posLeft+'&PostIt[y]='+posTop,
+        data: 'PostIt[text]='+text+'&PostIt[x]='+posLeft+'&PostIt[y]='+posTop+'&PostIt[status]=unlock',
+        success: function(newhref){
+        	if(newhref != null && newhref.length > 0){
+        		$(elem).find('form').attr('action', newhref);
+        	}
+            console.log('postIt saved')
+        }
+    });
+}
+
+/*
+ * function to save a post it as locked
+ */
+function lockPostIt(elem) {
+    href = $(elem).find('form').attr('action');
+    
+    // Ajax request with parameters for lock
+    $.ajax({
+        url: href,
+        type: 'POST',
+        data: 'PostIt[status]=lock',
         success: function(){
             console.log('postIt saved')
         }
@@ -63,7 +87,6 @@ function savePostIt(elem) {
 var dragAndDropOptions = {
     stop: function(e,ui) {
         href = $(this).find('form').attr('action');
-        text = $(this).find('textarea').val();
         posLeft = ui.position.left;
         posTop = ui.position.top;
         $.ajax({
@@ -73,6 +96,7 @@ var dragAndDropOptions = {
         });
     }
 }
+
 
 /*
  * create post-it form direct on the whiteboard
@@ -98,12 +122,35 @@ $('.bottomNavigation ul li a').click(function() {
     return false;
 });
 
+/**
+ * Lock post-it
+ */
+$('.whiteboard .postIt').focusin( function() {
+    lockPostIt(this);
+})
+
 /*
  * update post-it
  */
 $('.whiteboard .postIt').focusout( function() {
     savePostIt(this);
 })
+
+/*
+ * data polling
+ */
+function pollData(url){
+	$.get(url,function(data){
+		
+		if(data.length > 0){
+		var postIts = eval('(' + data + ')');
+			for(i = 0; i < postIts.length; i++){
+				$('#postIt-'+postIts[i]['id']).find('textarea').val(postIts[i]['text']+" changed");
+			}
+		}
+        pollData(url); // repeat poll
+    });
+}
 
 /*
  * register drag and drop action for all post-it's from database

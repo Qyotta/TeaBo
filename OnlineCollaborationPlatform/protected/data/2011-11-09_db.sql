@@ -51,6 +51,7 @@ CREATE  TABLE IF NOT EXISTS `lao`.`tbl_postIt` (
   `whiteboardId` INT NOT NULL ,
   `ownerId` INT NULL ,
   `isLocked` TINYINT(1)  NOT NULL DEFAULT 0 ,
+  `modified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_postId_whiteboard` (`whiteboardId` ASC) ,
   INDEX `fk_postIt_owner` (`ownerId` ASC) ,
