@@ -3,6 +3,7 @@
 <?php $form = $this->beginWidget('CActiveForm', array(
     'id'=>'user-form',
     'enableAjaxValidation'=>true,
+    'action'=>array('postIt/update','id'=>$postit->id),
     'focus'=>array($postit,'text'),
 )); 
 
