@@ -145,7 +145,9 @@ function pollData(url){
 		if(data.length > 0){
 		var postIts = eval('(' + data + ')');
 			for(i = 0; i < postIts.length; i++){
-				$('#postIt-'+postIts[i]['id']).find('textarea').val(postIts[i]['text']+" changed");
+				$('#postIt-'+postIts[i]['id']).find('textarea').val(postIts[i]['text']);
+				$('#postIt-'+postIts[i]['id']).css('left',postIts[i]['x']+"px");
+    			$('#postIt-'+postIts[i]['id']).css('top',postIts[i]['y']+"px");
 			}
 		}
         pollData(url); // repeat poll
