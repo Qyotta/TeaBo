@@ -166,7 +166,7 @@ function pollData(url){
 				    	  		draggable(dragAndDropOptions).
 				    	  		append(form.append(textarea));
 				           
-				    textarea.val(postIts[i]['text'])
+				    textarea.val(postIts[i]['text']);
 				    
 				    $('.whiteboard').append(html);
 				}
@@ -174,6 +174,12 @@ function pollData(url){
 					elem.find('textarea').val(postIts[i]['text']);
 					elem.css('left',postIts[i]['x']+"px");
     				elem.css('top',postIts[i]['y']+"px");
+    				locked = $(elem).find('#locked');
+    				if(locked.length==0){
+    					elem.append($('<div/>').attr('id','locked').text(postIts[i]['isLocked']));
+    				}else{
+    					locked.text(postIts[i]['isLocked']);
+    				}
 				}
 			}
 		}
