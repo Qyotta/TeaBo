@@ -58,6 +58,7 @@ function savePostIt(elem) {
         success: function(newhref){
         	if(newhref != null && newhref.length > 0){
         		$(elem).find('form').attr('action', newhref);
+        		$(elem).attr('id','postIt-'+newhref.substr(-1));
         	}
             console.log('postIt saved')
         }
@@ -118,7 +119,7 @@ $('.bottomNavigation ul li a').click(function() {
            append($('<form/>').attr('action',href).attr('method','post').
            append($('<textarea/>').attr('name','content')));
     
-    $('.whiteboard').append(html)
+    $('.whiteboard').append(html);
     return false;
 });
 
@@ -141,13 +142,39 @@ $('.whiteboard .postIt').focusout( function() {
  */
 function pollData(url){
 	$.get(url,function(data){
-		
 		if(data.length > 0){
 		var postIts = eval('(' + data + ')');
 			for(i = 0; i < postIts.length; i++){
-				$('#postIt-'+postIts[i]['id']).find('textarea').val(postIts[i]['text']);
-				$('#postIt-'+postIts[i]['id']).css('left',postIts[i]['x']+"px");
-    			$('#postIt-'+postIts[i]['id']).css('top',postIts[i]['y']+"px");
+				postItHtmlId = 'postIt-'+postIts[i]['id'];
+				var elem = $('#'+postItHtmlId);
+				if(elem.length==0){
+					console.log("postit not exists "+postItHtmlId);
+					action = postIts[i]['action'];
+					
+					form = $('<form/>').attr('action',action).attr('method','post');
+					textarea = $('<textarea/>').attr('name','content');
+										
+				    html = $('<div/>').
+				    			addClass('postIt').
+				    	  		attr('id',postItHtmlId).
+				    	  		css('position','absolute').
+				    	  		css('left',postIts[i]['x']+"px").
+				    	  		css('top',postIts[i]['y']+"px").
+				    	  		focusout( function() {
+				    	  			savePostIt(this)
+				    	  		}).
+				    	  		draggable(dragAndDropOptions).
+				    	  		append(form.append(textarea));
+				           
+				    textarea.val(postIts[i]['text'])
+				    
+				    $('.whiteboard').append(html);
+				}
+				else{
+					elem.find('textarea').val(postIts[i]['text']);
+					elem.css('left',postIts[i]['x']+"px");
+    				elem.css('top',postIts[i]['y']+"px");
+				}
 			}
 		}
         pollData(url); // repeat poll

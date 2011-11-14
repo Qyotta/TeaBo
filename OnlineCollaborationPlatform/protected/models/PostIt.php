@@ -109,11 +109,12 @@ class PostIt extends CActiveRecord
 
 	public function toArray(){
 		$array = array(
-		'id' => $this->id,
-		'text' => $this->text,
-		'x' => $this->xposition,
-		'y' => $this->yposition,
-		'isLocked' => $this->isLocked,
+			'id' => $this->id,
+			'text' => $this->text,
+			'x' => $this->xposition,
+			'y' => $this->yposition,
+			'isLocked' => $this->isLocked,
+			'action' => Yii::app()->controller->createUrl('postIt/update', array('id' => $this->id)),
 		);
 		return $array;
 	}
