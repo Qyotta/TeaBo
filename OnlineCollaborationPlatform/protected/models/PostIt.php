@@ -115,6 +115,7 @@ class PostIt extends CActiveRecord
 			'y' => $this->yposition,
 			'isLocked' => $this->isLocked,
 			'action' => Yii::app()->controller->createUrl('postIt/update', array('id' => $this->id)),
+			'ownerId' => $this->ownerId,
 		);
 		return $array;
 	}

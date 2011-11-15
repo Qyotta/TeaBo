@@ -117,7 +117,7 @@ $('.bottomNavigation ul li a').click(function() {
            }).
            draggable(dragAndDropOptions).
            append($('<form/>').attr('action',href).attr('method','post').
-           append($('<textarea/>').attr('name','content')));
+           append($('<textarea/>').attr('name','content').elasticArea()));
     
     $('.whiteboard').append(html);
     return false;
@@ -141,9 +141,10 @@ $('.whiteboard .postIt').focusout( function() {
  * data polling
  */
 function pollData(url){
+    var test = url;
 	$.get(url,function(data){
-		if(data.length > 0){
-		var postIts = eval('(' + data + ')');
+        if(data.length > 0){
+            var postIts = data;
 			for(i = 0; i < postIts.length; i++){
 				postItHtmlId = 'postIt-'+postIts[i]['id'];
 				var elem = $('#'+postItHtmlId);
@@ -152,7 +153,7 @@ function pollData(url){
 					action = postIts[i]['action'];
 					
 					form = $('<form/>').attr('action',action).attr('method','post');
-					textarea = $('<textarea/>').attr('name','content');
+					textarea = $('<textarea/>').attr('name','content').elasticArea();
 										
 				    html = $('<div/>').
 				    			addClass('postIt').
@@ -171,23 +172,61 @@ function pollData(url){
 				    $('.whiteboard').append(html);
 				}
 				else{
-					elem.find('textarea').val(postIts[i]['text']);
+					textarea = elem.find('textarea')[0];
+					textarea.value = postIts[i]['text'];
+					textarea.style.height = textarea.scrollHeight/2 + 'px';
+                    textarea.style.height = textarea.scrollHeight + 'px';
+                    textarea.style.height = textarea.style.height === '0px' ? '17px' : textarea.style.height;
+					
 					elem.css('left',postIts[i]['x']+"px");
     				elem.css('top',postIts[i]['y']+"px");
-    				locked = $(elem).find('#locked');
+    				locked = $(elem).find('.locked');
     				if(locked.length==0){
-    					elem.append($('<div/>').attr('id','locked').text(postIts[i]['isLocked']));
+    					elem.append($('<img/>').attr('class','locked').attr('src','../images/locked.png'));
+    					if(!parseInt(postIts[i]['isLocked'])) {
+    					    locked.css('display','none');
+    					}
     				}else{
-    					locked.text(postIts[i]['isLocked']);
+    				    if(parseInt(postIts[i]['isLocked']) === 1 && parseInt(postIts[i]['ownerId']) !== 1) {
+                            locked.css('display','block');
+                            // FIXME compare with own id
+                            $(textarea).attr('readonly','readonly');
+                        } else {
+                            locked.css('display','none');
+                            $(textarea).removeAttr('readonly');
+                        }
     				}
 				}
 			}
 		}
         pollData(url); // repeat poll
+    }, 'json').
+    error( function() {
+        // server doesn't answer - send request again
+        pollData(url);
     });
 }
+
+/*
+ * elastic textarea
+ */
+jQuery.fn.elasticArea = function() {
+  return this.each(function(){
+    function resizeTextarea() {
+      this.style.height = this.scrollHeight/2 + 'px';
+      this.style.height = this.scrollHeight + 'px';
+      this.style.height = this.style.height === '0px' ? '17px' : this.style.height;
+    }
+    $(this).keypress(resizeTextarea)
+    .keydown(resizeTextarea)
+    .keyup(resizeTextarea)
+    .css('overflow','hidden');
+    resizeTextarea.call(this);
+  });
+};
 
 /*
  * register drag and drop action for all post-it's from database
  */
 $('.postIt').draggable(dragAndDropOptions);
+$('.postIt textarea').elasticArea();

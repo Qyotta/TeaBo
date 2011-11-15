@@ -355,20 +355,32 @@ nav.bottomNavigation ul.right {
 .whiteboard .postIt {
     background: none repeat scroll 0 0 #F8F7B6;
     border-radius: 5px 5px 5px 5px;
-    height: 200px;
     padding: 5px;
     width: 200px;
     float:left;
     margin:10px;
     cursor:move;
+    -webkit-box-shadow: 0px 0px 5px #AAA;
+    -moz-box-shadow: 0px 0px 5px #AAA;
+    -o-box-shadow: 0px 0px 5px #AAA;
+    box-shadow: 0px 0px 5px #AAA;
 }
 .whiteboard .postIt textarea {
     background: none repeat scroll 0 0 transparent;
     border: 0 none;
-    height: 199px;
+    height:17px;
+    line-height: 17px;
     width: 199px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F8F7B6), to(#F8F7B6));
+    background: -moz-linear-gradient(100% 100% 90deg,#F8F7B6, #FDFDCC);
 }
-
+.locked {
+    position: relative;
+    left: 5px;
+    margin: 5px 0 0;
+    width: 10px;
+    margin: 5px 0 0;
+}
 
 
 
