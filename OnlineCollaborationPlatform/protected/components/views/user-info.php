@@ -1,4 +1,4 @@
-<h2>Hallo <span><?=$user->getUsername()?></span></h2> <?=CHtml::link('[Logout]',array('site/logout'),array('class'=>'logout'))?>
+<h2>Hallo <span data-userId="<?=$user->getUserId()?>"><?=$user->getUsername()?></span></h2> <?=CHtml::link('[Logout]',array('site/logout'),array('class'=>'logout'))?>
 
 <?php
 /*

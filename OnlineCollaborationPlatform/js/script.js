@@ -14,7 +14,7 @@ $('nav.rightNavigation').hover(function() {
 }, function() {
     // this will be fired on the onMouseLeave
     // action: jQuery animation to slide the element back to the right
-    $(this).stop(true, false).animate({ right: '-260px' }, 500);
+    $(this).stop(true, false).delay(1500).animate({ right: '-260px' }, 500);
 })
 
 
@@ -48,8 +48,6 @@ function savePostIt(elem) {
     posLeft = $(elem).css('left').substr(0,$(elem).css('left').length-2);
     posTop = $(elem).css('top').substr(0,$(elem).css('top').length-2);
     
-    console.log(posTop + " - "+posLeft);
-    
     //Request send data per href
     $.ajax({
         url: href,
@@ -60,7 +58,6 @@ function savePostIt(elem) {
         		$(elem).find('form').attr('action', newhref);
         		$(elem).attr('id','postIt-'+newhref.substr(-1));
         	}
-            console.log('postIt saved')
         }
     });
 }
@@ -127,6 +124,7 @@ $('.bottomNavigation ul li a').click(function() {
  * Lock post-it
  */
 $('.whiteboard .postIt').focusin( function() {
+    console.log('in');
     lockPostIt(this);
 })
 
@@ -134,6 +132,7 @@ $('.whiteboard .postIt').focusin( function() {
  * update post-it
  */
 $('.whiteboard .postIt').focusout( function() {
+    console.log('out');
     savePostIt(this);
 })
 
@@ -178,8 +177,13 @@ function pollData(url){
                     textarea.style.height = textarea.scrollHeight + 'px';
                     textarea.style.height = textarea.style.height === '0px' ? '17px' : textarea.style.height;
 					
+					// elem.animate({
+					    // left: postIts[i]['x']+"px",
+					    // top: postIts[i]['y']+"px"
+					// },1500);
 					elem.css('left',postIts[i]['x']+"px");
     				elem.css('top',postIts[i]['y']+"px");
+    				
     				locked = $(elem).find('.locked');
     				if(locked.length==0){
     					elem.append($('<img/>').attr('class','locked').attr('src','../images/locked.png'));
@@ -187,13 +191,14 @@ function pollData(url){
     					    locked.css('display','none');
     					}
     				}else{
-    				    if(parseInt(postIts[i]['isLocked']) === 1 && parseInt(postIts[i]['ownerId']) !== 1) {
+    				    userId = $('.rightNavigation div.login h2 span').attr('data-userId');
+    				    if(parseInt(postIts[i]['isLocked']) === 1){//} && parseInt(postIts[i]['ownerId']) !== userId) {
                             locked.css('display','block');
                             // FIXME compare with own id
-                            $(textarea).attr('readonly','readonly');
+                            //$(textarea).attr('readonly','readonly');
                         } else {
                             locked.css('display','none');
-                            $(textarea).removeAttr('readonly');
+                            //$(textarea).removeAttr('readonly');
                         }
     				}
 				}

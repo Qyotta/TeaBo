@@ -123,4 +123,8 @@ class User extends CActiveRecord
     public function getUsername() {
         return $this->firstname === "" ? $this->email : $this->firstname;
     }
+    
+    public function getUserId() {
+        return $this->id;
+    }
 }
