@@ -4,6 +4,7 @@ class PostItController extends Controller {
 
 	public function actionCreate($whiteboardId) {
 		$model = new PostIt;
+		$model -> headline = $_POST['PostIt']['headline'];
 		$model -> text = $_POST['PostIt']['text'];
 		$model -> whiteboardId = $whiteboardId;
 		$model -> xposition = $_POST['PostIt']['x'];
@@ -37,6 +38,9 @@ class PostItController extends Controller {
 				$postit -> xposition = $_POST['PostIt']['x'];
 				$postit -> yposition = $_POST['PostIt']['y'];
 			}
+
+			if (isset($_POST['PostIt']['headline']))
+				$postit -> text = $_POST['PostIt']['headline'];
 
 			// Set only Text when Text is given
 			if (isset($_POST['PostIt']['text']))

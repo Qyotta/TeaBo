@@ -4,9 +4,9 @@
     'id'=>'user-form',
     'enableAjaxValidation'=>true,
     'action'=>array('postIt/update','id'=>$postit->id),
-    'focus'=>array($postit,'text'),
+    'focus'=>array($postit,'headline'),
 )); 
-
+echo $form->textField($postit, 'headline');
 echo $form->textArea($postit, 'text');
 
 $this->endWidget();

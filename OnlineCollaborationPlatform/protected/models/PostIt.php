@@ -5,17 +5,20 @@
  *
  * The followings are the available columns in table 'tbl_postIt':
  * @property integer $id
+ * @property string $headline
  * @property string $text
  * @property integer $xposition
  * @property integer $yposition
  * @property integer $whiteboardId
  * @property integer $ownerId
+ * @property integer $currentEditor
  * @property integer $isLocked
  * @property string $modified
  *
  * The followings are the available model relations:
  * @property Whiteboard $whiteboard
  * @property User $owner
+ * @property User $currentEditor0
  */
 class PostIt extends CActiveRecord
 {
@@ -46,9 +49,10 @@ class PostIt extends CActiveRecord
 		return array(
 			array('xposition, yposition, whiteboardId', 'required'),
 			array('xposition, yposition, whiteboardId, ownerId, isLocked', 'numerical', 'integerOnly'=>true),
+			array('headline', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, text, xposition, yposition, whiteboardId, ownerId, isLocked, modified', 'safe', 'on'=>'search'),
+			array('id, headline, text, xposition, yposition, whiteboardId, ownerId, isLocked, modified', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,6 +66,7 @@ class PostIt extends CActiveRecord
 		return array(
 			'whiteboard' => array(self::BELONGS_TO, 'Whiteboard', 'whiteboardId'),
 			'owner' => array(self::BELONGS_TO, 'User', 'ownerId'),
+			'currentEditor0' => array(self::BELONGS_TO, 'User', 'currentEditor'),
 		);
 	}
 
@@ -72,11 +77,13 @@ class PostIt extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'headline' => 'Headline',
 			'text' => 'Text',
 			'xposition' => 'Xposition',
 			'yposition' => 'Yposition',
 			'whiteboardId' => 'Whiteboard',
 			'ownerId' => 'Owner',
+			'currentEditor' => 'Current Editor',
 			'isLocked' => 'Is Locked',
 			'modified' => 'Modified',
 		);
@@ -94,11 +101,13 @@ class PostIt extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('headline',$this->headline,true);
 		$criteria->compare('text',$this->text,true);
 		$criteria->compare('xposition',$this->xposition);
 		$criteria->compare('yposition',$this->yposition);
 		$criteria->compare('whiteboardId',$this->whiteboardId);
 		$criteria->compare('ownerId',$this->ownerId);
+		$criteria->compare('currentEditor',$this->currentEditor);
 		$criteria->compare('isLocked',$this->isLocked);
 		$criteria->compare('modified',$this->modified,true);
 
@@ -110,6 +119,7 @@ class PostIt extends CActiveRecord
 	public function toArray(){
 		$array = array(
 			'id' => $this->id,
+			'headline' => $this->headline,
 			'text' => $this->text,
 			'x' => $this->xposition,
 			'y' => $this->yposition,

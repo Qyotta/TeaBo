@@ -42,6 +42,9 @@ $('nav.rightNavigation ul li a').click(function() {
 function savePostIt(elem) {
 	//URL for Request
     href = $(elem).find('form').attr('action');
+    
+    headline = $(elem).find('input[type=text]').val();
+    
     // Text of Postit
     text = $(elem).find('textarea').val();
     // Position x and y
@@ -52,7 +55,7 @@ function savePostIt(elem) {
     $.ajax({
         url: href,
         type: 'POST',
-        data: 'PostIt[text]='+text+'&PostIt[x]='+posLeft+'&PostIt[y]='+posTop+'&PostIt[status]=unlock',
+        data: 'PostIt[headline]='+headline+'&PostIt[text]='+text+'&PostIt[x]='+posLeft+'&PostIt[y]='+posTop+'&PostIt[status]=unlock',
         success: function(newhref){
         	if(newhref != null && newhref.length > 0){
         		$(elem).find('form').attr('action', newhref);
@@ -114,6 +117,7 @@ $('.bottomNavigation ul li a').click(function() {
            }).
            draggable(dragAndDropOptions).
            append($('<form/>').attr('action',href).attr('method','post').
+           append($('<input/>').attr('name', 'headline')).
            append($('<textarea/>').attr('name','content').elasticArea()));
     
     $('.whiteboard').append(html);
@@ -152,6 +156,7 @@ function pollData(url){
 					action = postIts[i]['action'];
 					
 					form = $('<form/>').attr('action',action).attr('method','post');
+					input =$('<input/>').attr('name', 'headline');
 					textarea = $('<textarea/>').attr('name','content').elasticArea();
 										
 				    html = $('<div/>').
@@ -164,13 +169,17 @@ function pollData(url){
 				    	  			savePostIt(this)
 				    	  		}).
 				    	  		draggable(dragAndDropOptions).
+				    	  		append(form.append(input));
 				    	  		append(form.append(textarea));
-				           
+				    input.val(postIts[i]['headline']);
 				    textarea.val(postIts[i]['text']);
 				    
 				    $('.whiteboard').append(html);
 				}
 				else{
+					headline = elem.find('input[type=text]')[0];
+					headline.value = postIts[i]['headline'];
+					//FIX ME
 					textarea = elem.find('textarea')[0];
 					textarea.value = postIts[i]['text'];
 					textarea.style.height = textarea.scrollHeight/2 + 'px';
