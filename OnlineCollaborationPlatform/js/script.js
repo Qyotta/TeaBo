@@ -118,7 +118,7 @@ $('.bottomNavigation ul li a').click(function() {
            draggable(dragAndDropOptions).
            append($('<form/>').attr('action',href).attr('method','post').
            append($('<input/>').attr('name', 'PostIt[headline]').attr('type','text').attr('placeholder','your title')).
-           append($('<textarea/>').attr('name','content').elasticArea()));
+           append($('<textarea/>').attr('name','content').attr('placeholder','your text').elasticArea()));
     
     $('.whiteboard').append(html);
     return false;
@@ -155,7 +155,7 @@ function pollData(url){
 					
 					form = $('<form/>').attr('action',action).attr('method','post');
 					input =$('<input/>').attr('name', 'PostIt[headline]').attr('type','text').attr('placeholder','your title');
-					textarea = $('<textarea/>').attr('name','content').elasticArea();
+					textarea = $('<textarea/>').attr('name','content').attr('placeholder','your text').elasticArea();
 										
 				    html = $('<div/>').
 				    			addClass('postIt').

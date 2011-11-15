@@ -8,7 +8,7 @@
 )); 
 
 echo $form->textField($postit, 'headline',array('placeholder'=>'your title'));
-echo $form->textArea($postit, 'text');
+echo $form->textArea($postit, 'text',array('placeholder'=>'your text'));
 
 $this->endWidget();
 ?>
