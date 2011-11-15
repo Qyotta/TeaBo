@@ -6,7 +6,8 @@
     'action'=>array('postIt/update','id'=>$postit->id),
     'focus'=>array($postit,'headline'),
 )); 
-echo $form->textField($postit, 'headline');
+
+echo $form->textField($postit, 'headline',array('placeholder'=>'your title'));
 echo $form->textArea($postit, 'text');
 
 $this->endWidget();

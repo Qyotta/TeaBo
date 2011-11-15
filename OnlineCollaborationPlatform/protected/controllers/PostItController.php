@@ -40,7 +40,7 @@ class PostItController extends Controller {
 			}
 
 			if (isset($_POST['PostIt']['headline']))
-				$postit -> text = $_POST['PostIt']['headline'];
+				$postit -> headline = $_POST['PostIt']['headline'];
 
 			// Set only Text when Text is given
 			if (isset($_POST['PostIt']['text']))

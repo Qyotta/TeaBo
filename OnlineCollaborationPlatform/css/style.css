@@ -371,8 +371,15 @@ nav.bottomNavigation ul.right {
     height:17px;
     line-height: 17px;
     width: 199px;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F8F7B6), to(#F8F7B6));
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FDFDCC), to(#F8F7B6));
     background: -moz-linear-gradient(100% 100% 90deg,#F8F7B6, #FDFDCC);
+}
+.whiteboard .postIt input {
+    background: #FDFDCC;
+    border: 0;
+    font-size: 20px;
+    height: 30px;
+    width: 199px;
 }
 .locked {
     position: relative;

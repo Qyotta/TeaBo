@@ -43,9 +43,9 @@ function savePostIt(elem) {
 	//URL for Request
     href = $(elem).find('form').attr('action');
     
+    // headline of PostIt
     headline = $(elem).find('input[type=text]').val();
-    
-    // Text of Postit
+    // Text of PostIt
     text = $(elem).find('textarea').val();
     // Position x and y
     posLeft = $(elem).css('left').substr(0,$(elem).css('left').length-2);
@@ -117,7 +117,7 @@ $('.bottomNavigation ul li a').click(function() {
            }).
            draggable(dragAndDropOptions).
            append($('<form/>').attr('action',href).attr('method','post').
-           append($('<input/>').attr('name', 'headline')).
+           append($('<input/>').attr('name', 'PostIt[headline]').attr('type','text').attr('placeholder','your title')).
            append($('<textarea/>').attr('name','content').elasticArea()));
     
     $('.whiteboard').append(html);
@@ -128,7 +128,6 @@ $('.bottomNavigation ul li a').click(function() {
  * Lock post-it
  */
 $('.whiteboard .postIt').focusin( function() {
-    console.log('in');
     lockPostIt(this);
 })
 
@@ -136,7 +135,6 @@ $('.whiteboard .postIt').focusin( function() {
  * update post-it
  */
 $('.whiteboard .postIt').focusout( function() {
-    console.log('out');
     savePostIt(this);
 })
 
@@ -156,7 +154,7 @@ function pollData(url){
 					action = postIts[i]['action'];
 					
 					form = $('<form/>').attr('action',action).attr('method','post');
-					input =$('<input/>').attr('name', 'headline');
+					input =$('<input/>').attr('name', 'PostIt[headline]').attr('type','text').attr('placeholder','your title');
 					textarea = $('<textarea/>').attr('name','content').elasticArea();
 										
 				    html = $('<div/>').
