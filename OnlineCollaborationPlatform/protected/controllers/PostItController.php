@@ -60,6 +60,9 @@ class PostItController extends Controller {
 		ignore_user_abort(false);
 		// if the connection ends, terminate immediately
 
+		//TODO: sleep is not very recommended, workaround for multiple pulls without change!
+		sleep(1);
+
 		//Find all PostIts by Whiteboard Id
 		$date = new CDbExpression('NOW()');
 		$criteria = new CDbCriteria;
@@ -69,9 +72,9 @@ class PostItController extends Controller {
 		while (count($postIts) == 0) {
 
 			$postIts = PostIt::model() -> findAll($criteria);
-
+			
 		}
-		if(count($postIts) > 0){
+		if(count($postIts) > 0){		
 			$array = array();
 			foreach($postIts as $postIt){
 				$array[] = $postIt->toArray();
@@ -79,7 +82,7 @@ class PostItController extends Controller {
 			echo json_encode($array);
 		}
 		
-		//sleep(1);
+		
 	}
 
 
