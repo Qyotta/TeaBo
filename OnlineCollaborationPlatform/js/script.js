@@ -118,7 +118,8 @@ $('.bottomNavigation ul li a').click(function() {
            draggable(dragAndDropOptions).
            append($('<form/>').attr('action',href).attr('method','post').
            append($('<input/>').attr('name', 'PostIt[headline]').attr('type','text').attr('placeholder','your title')).
-           append($('<textarea/>').attr('name','content').attr('placeholder','your text').elasticArea()));
+           append($('<textarea/>').attr('name','content').attr('placeholder','your text').elasticArea()).
+           append($('<span/>').addClass('postit-author').text('Created by '+userFirstname+' '+userLastname)));
     
     $('.whiteboard').append(html);
     return false;
@@ -236,6 +237,12 @@ jQuery.fn.elasticArea = function() {
     resizeTextarea.call(this);
   });
 };
+
+$('.postIt').hover(function(){
+	$($(this).find('.postit-author')[0]).css('display','block');
+}, function() {
+	$($(this).find('.postit-author')[0]).css('display','none');
+})
 
 /*
  * register drag and drop action for all post-it's from database

@@ -1,5 +1,9 @@
 <h2>Hallo <span data-userId="<?=$user->getUserId()?>"><?=$user->getUsername()?></span></h2> <?=CHtml::link('[Logout]',array('site/logout'),array('class'=>'logout'))?>
-
+<script>
+	var userFirstname="<?=$user->firstname?>";
+	var userLastname="<?=$user->lastname?>";
+	var userEmail="<?=$user->email?>";
+</script>
 <?php
 /*
  * show list of all whiteboards, the user ownes
