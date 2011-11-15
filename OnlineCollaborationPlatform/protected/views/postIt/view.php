@@ -13,5 +13,5 @@ echo $form->textArea($postit, 'text',array('placeholder'=>'your text'));
 $this->endWidget();
 ?>
 
-    
+    <span class="postit-author"><?php echo 'Created by '.$postit->owner->firstname." ".$postit->owner->lastname;?></span>
 </div>
