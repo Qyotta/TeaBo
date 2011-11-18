@@ -55,7 +55,7 @@ class PostItController extends Controller {
 	}
 
 	public function actionGetData($whiteboardId) {
-		set_time_limit(30);
+		set_time_limit(20);
 		// force connection only after 5 minutes
 		ignore_user_abort(false);
 		// if the connection ends, terminate immediately

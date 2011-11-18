@@ -119,7 +119,7 @@ $('.bottomNavigation ul li a').click(function() {
            append($('<form/>').attr('action',href).attr('method','post').
            append($('<input/>').attr('name', 'PostIt[headline]').attr('type','text').attr('placeholder','your title')).
            append($('<textarea/>').attr('name','content').attr('placeholder','your text').elasticArea()).
-           append($('<span/>').addClass('postit-author').text('Created by '+userFirstname+' '+userLastname)));
+           append($('<span/>').addClass('postit-author').text('Created by '+((userFirstname.length > 0) ? userFirstname +' '+userLastname : userEmail))));
     
     $('.whiteboard').append(html);
     return false;
@@ -151,7 +151,7 @@ function pollData(url){
 				postItHtmlId = 'postIt-'+postIts[i]['id'];
 				var elem = $('#'+postItHtmlId);
 				if(elem.length==0){
-					console.log("postit not exists "+postItHtmlId);
+					console.log("postit not exists "+postItHtmlId + ", creating");
 					action = postIts[i]['action'];
 					
 					form = $('<form/>').attr('action',action).attr('method','post');
@@ -168,8 +168,9 @@ function pollData(url){
 				    	  			savePostIt(this)
 				    	  		}).
 				    	  		draggable(dragAndDropOptions).
-				    	  		append(form.append(input));
+				    	  		append(form.append(input)).
 				    	  		append(form.append(textarea));
+
 				    input.val(postIts[i]['headline']);
 				    textarea.val(postIts[i]['text']);
 				    
@@ -178,7 +179,7 @@ function pollData(url){
 				else{
 					headline = elem.find('input[type=text]')[0];
 					headline.value = postIts[i]['headline'];
-					//FIX ME
+					//FIXME
 					textarea = elem.find('textarea')[0];
 					textarea.value = postIts[i]['text'];
 					textarea.style.height = textarea.scrollHeight/2 + 'px';
@@ -218,6 +219,7 @@ function pollData(url){
         // server doesn't answer - send request again
         pollData(url);
     });
+    console.log('end');
 }
 
 /*
@@ -238,11 +240,14 @@ jQuery.fn.elasticArea = function() {
   });
 };
 
-$('.postIt').hover(function(){
-	$($(this).find('.postit-author')[0]).css('display','block');
-}, function() {
-	$($(this).find('.postit-author')[0]).css('display','none');
-})
+$('.postIt').live('hover', function(){
+	if($($(this).find('.postit-author')[0]).css('display') == 'block'){
+		$($(this).find('.postit-author')[0]).css('display','none');
+	}
+	else {
+		$($(this).find('.postit-author')[0]).css('display','block');
+	}
+});
 
 /*
  * register drag and drop action for all post-it's from database
