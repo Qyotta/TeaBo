@@ -34,13 +34,13 @@
 </head>
 
 <body>
-<h1>Notes</h1>
+<h1>Whiteboard</h1>
 <div class="whiteboard">
 	<input type="submit" id="create_note_btn" value="Create a Note">
 	<c:forEach var="note" items="${notes}">
 		<div class="postIt" id="postIt-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
 			<input type="text" name="title" value="<c:out value='${note.title}'/>"/>
-			<textarea type="text" name="text"><c:out value='${note.text}'/></textarea>
+			<textarea name="text"><c:out value='${note.text}'/></textarea>
 			<input type="submit"/>
 		</div>
 	</c:forEach>

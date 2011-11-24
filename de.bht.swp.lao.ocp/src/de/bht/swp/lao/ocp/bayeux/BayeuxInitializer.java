@@ -36,19 +36,22 @@ public class BayeuxInitializer implements DestructionAwareBeanPostProcessor, Ser
     private BayeuxServer bayeuxServer;
     private ServerAnnotationProcessor processor;
 
-    @Inject
+    @SuppressWarnings("unused")
+	@Inject
     private void setBayeuxServer(BayeuxServer bayeuxServer)
     {
         this.bayeuxServer = bayeuxServer;
     }
 
-    @PostConstruct
+    @SuppressWarnings("unused")
+	@PostConstruct
     private void init()
     {
         this.processor = new ServerAnnotationProcessor(bayeuxServer);
     }
 
-    @PreDestroy
+    @SuppressWarnings("unused")
+	@PreDestroy
     private void destroy()
     {
     }
