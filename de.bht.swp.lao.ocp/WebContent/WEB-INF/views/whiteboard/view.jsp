@@ -18,17 +18,21 @@
 
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
 	
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery/jquery-1.6.2.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/jquery/jquery-1.6.2.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery/json2.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/org/cometd.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery/jquery.cometd.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/jquery/json2.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/org/cometd.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/jquery/jquery.cometd.js"></script>
     <script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
     
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/application.js"></script>
     <script type="text/javascript">
         var config = {
             contextPath: '${pageContext.request.contextPath}'
+        };
+        
+        var whiteboard = {
+        	id: '${whiteboard.id}'	
         };
     </script>
 </head>

@@ -6,7 +6,6 @@
     {        
     	function _refresh(message){
     		note = $('#postIt-'+message.data.id);
-    		console.log(message.data.id);
     		if(note.length==0){
     			title = $('<input/>').attr('name','title').val(message.data.title);
     			text = $('<textarea/>').attr('name','text').val(message.data.text);
@@ -33,7 +32,7 @@
     	}
     	
         function _publish(_id,_title,_text,_x,_y,_creator){
-        	cometd.publish('/service/note', { id:parseInt(_id), title: _title, text:_text, x:parseInt(_x), y:parseInt(_y), creator:_creator });
+        	cometd.publish('/service/note', { id:parseInt(_id), title: _title, text:_text, x:parseInt(_x), y:parseInt(_y), creator:_creator, whiteboardid:parseInt(whiteboard.id) });
         }
 
         // Function that manages the connection status with the Bayeux server
@@ -56,7 +55,7 @@
             {
                 cometd.batch(function()
                 {
-                    cometd.subscribe('/note',_refresh);
+                    cometd.subscribe('/note/'+whiteboard.id,_refresh);
                 });
             }
         }
@@ -85,7 +84,6 @@
         	}
         	else{
         		id = divId.split('-')[1];
-        		console.log(id);
         	}
         	
             // title of PostIt

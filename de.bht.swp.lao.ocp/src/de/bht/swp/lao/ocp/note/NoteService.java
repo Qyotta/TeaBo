@@ -14,6 +14,7 @@ import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
 
+import de.bht.swp.lao.ocp.whiteboard.WhiteboardDao;
 
 @Named
 @Singleton
@@ -29,6 +30,9 @@ public class NoteService {
 	@Inject
 	private NoteDao noteDao;
 	
+	@Inject
+	private WhiteboardDao whiteboardDao;
+	
 	@Listener(value = {"/service/note"})
 	public void processNote(ServerSession remote, ServerMessage.Mutable message){
 		Map<String,Object> data = message.getDataAsMap();
@@ -39,6 +43,7 @@ public class NoteService {
 		String text = (String)data.get("text");
 		Long x = (Long)data.get("x");
 		Long y = (Long)data.get("y");
+		Long whiteboardid = (Long)data.get("whiteboardid");
 		
 		Note note = new Note();
 		note.setId(id);
@@ -47,7 +52,7 @@ public class NoteService {
 		note.setText(text);
 		note.setX(x.intValue());
 		note.setY(y.intValue());
-		
+		note.setWhiteboard(whiteboardDao.findById(whiteboardid));
 		noteDao.save(note);
 		
 		Map<String,Object> output = new HashMap<String,Object>();
@@ -57,8 +62,10 @@ public class NoteService {
 		output.put("text", text);
 		output.put("x", x);
 		output.put("y", y);
-		for(ServerSession session:bayeux.getChannel("/note").getSubscribers()){
-			session.deliver(serverSession, "/note", output, null);
+		
+		String channel = "/note/"+whiteboardid;
+		for(ServerSession session:bayeux.getChannel(channel).getSubscribers()){
+			session.deliver(serverSession, channel, output, null);
 		}
 	}
 }

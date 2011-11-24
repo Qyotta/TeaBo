@@ -52,4 +52,15 @@ public class NoteDaoImpl implements NoteDao {
 		}
 	}
 
+	@Override
+	public List<Note> findAllbyWhiteboardId(Long id) {
+		List<Note> found = new ArrayList<Note>();
+		for(Note note:notes){
+			if(note.getWhiteboard().getId().equals(id)){
+				found.add(note);
+			}
+		}
+		return found;
+	}
+
 }

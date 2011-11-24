@@ -7,6 +7,7 @@
 
     <context:component-scan base-package="de.bht.swp.lao.ocp" />
 	
+	<bean id="whiteboardCreateValidator" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardCreateValidator"/>
 	<bean id="userLoginValidator" class="de.bht.swp.lao.ocp.user.UserLoginValidator" />
 	
 </beans>

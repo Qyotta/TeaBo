@@ -1,6 +1,7 @@
 package de.bht.swp.lao.ocp.note;
 
 import de.bht.swp.lao.ocp.user.User;
+import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 
 public class Note {
 	private Long id;
@@ -9,8 +10,17 @@ public class Note {
 	private Integer x;
 	private Integer y;
 	private User creator;
-	
+	private Whiteboard whiteboard;
+
 	public Note(){}
+	
+	public Whiteboard getWhiteboard() {
+		return whiteboard;
+	}
+
+	public void setWhiteboard(Whiteboard whiteboard) {
+		this.whiteboard = whiteboard;
+	}
 	
 	public String getTitle() {
 		return title;
@@ -59,4 +69,6 @@ public class Note {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	
 }

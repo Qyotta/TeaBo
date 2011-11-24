@@ -28,7 +28,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jetty-util-7.4.4.v20110707.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jsr250-api-1.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/junit-4.7.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.18.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.context.support-3.0.0.M3.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.web.servlet-3.0.0.M3.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-aop-3.0.5.RELEASE.jar"/>
@@ -38,7 +37,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-core-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-expression-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-jdbc-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-orm-3.0.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-test-3.0.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-tx-3.0.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-web-3.0.5.RELEASE.jar"/>

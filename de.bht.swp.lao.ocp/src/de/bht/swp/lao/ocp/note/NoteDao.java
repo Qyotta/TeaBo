@@ -6,4 +6,5 @@ public interface NoteDao {
 	public Note findById(Long id);
 	public List<Note> findAll();
 	public void save(Note note);
+	public List<Note> findAllbyWhiteboardId(Long id);
 }
