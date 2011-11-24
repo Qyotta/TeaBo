@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
@@ -32,18 +31,11 @@
         };
     </script>
 </head>
-
 <body>
-<h1>Whiteboard <c:out value='${whiteboard.name}'/>(logged in as <c:out value="${user.email}"/>)</h1>
-<div class="whiteboard">
-	<input type="submit" id="create_note_btn" value="Create a Note">
-	<c:forEach var="note" items="${notes}">
-		<div class="postIt" id="postIt-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
-			<input type="text" name="title" value="<c:out value='${note.title}'/>"/>
-			<textarea name="text"><c:out value='${note.text}'/></textarea>
-			<input type="submit"/>
-		</div>
-	</c:forEach>
-</div>
+<ul>
+<c:forEach var="whiteboard" items="${whiteboards}">
+		<li><a href="${pageContext.request.contextPath}/whiteboard/view-<c:out value="${whiteboard.id}"/>.htm"><c:out value="${whiteboard.name}"/></a></li>
+</c:forEach>
+</ul>
 </body>
 </html>

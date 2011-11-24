@@ -35,7 +35,7 @@ public class UserController {
 			return "/user/login";
 		} else {
 			request.getSession().setAttribute("user", userDao.findByEmail(loginFormData.getEmail()));
-			return "redirect:/whiteboard/view-0.htm";
+			return "redirect:/whiteboard/list.htm";
 		}
 	}
 
