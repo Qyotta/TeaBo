@@ -6,5 +6,7 @@
                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <context:component-scan base-package="de.bht.swp.lao.ocp" />
-
+	
+	<bean id="userLoginValidator" class="de.bht.swp.lao.ocp.user.UserLoginValidator" />
+	
 </beans>
