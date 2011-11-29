@@ -29,7 +29,7 @@ var test;
     			// resize all new textarea notes
     			text.css('height',text[0].scrollHeight/2 + 'px');
     			text.css('height',text[0].scrollHeight + 'px');
-    			text.css('height',text[0].style.height === '0px' ? '17px' : this.style.height);
+    			text.css('height',parseInt(text[0].css('height')) === 0 ? '17px' : this.style.height);
     			
     		}
     		else{
