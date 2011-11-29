@@ -23,7 +23,12 @@ var test;
 	    				append(title).
 	    				append(text).
 	    				append(creator).
-	    				append(submit)
+	    				append(submit).
+	    				hover(function() {
+	    		        	$(this).find('span.creator').css('display','block');
+	    		        }, function() {
+	    		        	$(this).find('span.creator').css('display','none');
+	    		        })
     			);
     			
     			// resize all new textarea notes
@@ -188,6 +193,11 @@ var test;
         };
         
         $('.postIt').find('textarea').elasticArea();
+        $('.postIt input[name="title"]').hover(function() {
+        	$(this).parent().find('span.creator').css('display','block');
+        }, function() {
+        	$(this).parent().find('span.creator').css('display','none');
+        });
         
     });
 })(jQuery);
