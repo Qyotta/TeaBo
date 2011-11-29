@@ -54,5 +54,10 @@ public class WhiteboardDaoImpl implements WhiteboardDao{
 			return false;
 		}
 	}
+
+	@Override
+	public void delete(Whiteboard whiteboard) {
+		whiteboards.remove(whiteboard);
+	}
 	
 }

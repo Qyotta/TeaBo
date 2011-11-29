@@ -43,7 +43,7 @@
 <ul>
 <h2>Whiteboard List</h2>
 <c:forEach var="whiteboard" items="${whiteboards}">
-		<li><a href="${pageContext.request.contextPath}/whiteboard/view-<c:out value="${whiteboard.id}"/>.htm"><c:out value="${whiteboard.name}"/></a></li>
+		<li><a href="${pageContext.request.contextPath}/whiteboard/view-<c:out value="${whiteboard.id}"/>.htm"><c:out value="${whiteboard.name}"/></a> <a href="${pageContext.request.contextPath}/whiteboard/delete-<c:out value="${whiteboard.id}"/>.htm">Delete</a></li>
 </c:forEach>
 </ul>
 </body>

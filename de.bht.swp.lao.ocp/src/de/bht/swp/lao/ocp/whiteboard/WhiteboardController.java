@@ -38,6 +38,13 @@ public class WhiteboardController {
 		return "whiteboard/view";
 	}
 	
+	@RequestMapping(value="/delete-{whiteboardId}.htm", method=RequestMethod.GET)
+	public String delete(ModelMap model,HttpServletRequest request,@PathVariable("whiteboardId")Long whiteboardId){
+		whiteboardDao.delete(whiteboardDao.findById(whiteboardId));
+		model.addAttribute("user", request.getSession().getAttribute("user"));
+		return "redirect:/whiteboard/list.htm";
+	}
+	
 	@RequestMapping(value="/list.htm",method=RequestMethod.GET)
 	public String list(ModelMap model,HttpServletRequest request){
 		List<Whiteboard> whiteboards = whiteboardDao.findAll();
@@ -51,7 +58,10 @@ public class WhiteboardController {
 		createWhiteboardData.setCreator((User)request.getSession().getAttribute("user"));
 		whiteboardCreateValidator.validate(createWhiteboardData, result);
 		if (result.hasErrors()) {
-			return "/user/login.htm";
+			if(result.hasFieldErrors("name")){
+				return "whiteboard/list";
+			}
+			return "redirect:/user/login.htm";
 		} else {
 			Whiteboard w = new Whiteboard();
 			w.setName(createWhiteboardData.getName());
