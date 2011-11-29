@@ -352,6 +352,10 @@ nav.bottomNavigation ul.right {
     float: right;
 }
 
+.whiteboard {
+	position:relative;
+}
+
 .whiteboard .postIt {
     background: none repeat scroll 0 0 #F8F7B6;
     position:absolute;

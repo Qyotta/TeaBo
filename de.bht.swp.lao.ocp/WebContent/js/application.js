@@ -154,7 +154,7 @@ var test;
         });
         
         //new note
-        $('#create_note_btn').click(function(){
+        $('.bottomNavigation .right .createPostIt').click(function(){
         	title = $('<input/>').attr('name','title').attr('placeholder','your title');
 			text = $('<textarea/>').attr('name','text').attr('placeholder','your text').elasticArea();
 			submit = $('<input/>').attr('type','submit');
