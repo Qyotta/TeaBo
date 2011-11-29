@@ -33,8 +33,29 @@
     		}
     	}
     	
+    	function _refreshProgress(message){
+    		note = $('#postIt-'+message.data.id);
+    		if(note.length > 0){
+    			locked = $(note).find('.locked');
+				if(locked.length==0){
+					locked = $('<img/>').attr('class','locked').attr('src','../images/locked.png');
+					note.append(locked);
+				}
+				if(message.data.inProgress == false){
+					    locked.css('display','none');
+				} 
+				else{
+					locked.css('display','block');
+				}
+    		}
+    	}
+    	
         function _publish(_id,_title,_text,_x,_y){
         	cometd.publish('/service/note', { id:parseInt(_id), title: _title, text:_text, x:parseInt(_x), y:parseInt(_y), creator:user.email, whiteboardid:parseInt(whiteboard.id) });
+        }
+        
+        function _publishProgressState(_id, _inProgress){
+        	cometd.publish('/service/note/setProgress', {id:parseInt(_id), inProgress:Boolean(_inProgress), whiteboardid:parseInt(whiteboard.id)});
         }
 
         // Function that manages the connection status with the Bayeux server
@@ -58,6 +79,7 @@
                 cometd.batch(function()
                 {
                     cometd.subscribe('/note/'+whiteboard.id,_refresh);
+                    cometd.subscribe('/note/'+whiteboard.id+'/progress',_refreshProgress);
                 });
             }
         }
@@ -78,6 +100,7 @@
         cometd.addListener('/meta/connect', _metaConnect);
         cometd.handshake();
         
+        //save
         $(".postIt input[type=submit]").live("click",function(){
         	clickedNote = $(this).parent();
         	divId = clickedNote.attr("id");
@@ -102,6 +125,27 @@
             
         });
         
+        //mark note as in progress
+        
+        $('.postIt input[type=text], .postIt textarea').live('focus', function (){
+        	clickedNote = $(this).parent();
+        	divId = clickedNote.attr("id");
+        	if(divId != undefined){
+        		id = divId.split('-')[1];
+        		_publishProgressState(id, true);
+        	}
+        });
+        
+        $('.postIt input[type=text], .postIt textarea').live('blur', function (){
+        	clickedNote = $(this).parent();
+        	divId = clickedNote.attr("id");
+        	if(divId != undefined){
+        		id = divId.split('-')[1];
+        		_publishProgressState(id, false);
+        	}
+        });
+        
+        //new note
         $('#create_note_btn').click(function(){
         	title = $('<input/>').attr('name','title').attr('placeholder','your title');
 			text = $('<textarea/>').attr('name','text').attr('placeholder','your text');

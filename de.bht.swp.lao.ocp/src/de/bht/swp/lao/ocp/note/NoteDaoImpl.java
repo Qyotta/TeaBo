@@ -38,6 +38,13 @@ public class NoteDaoImpl implements NoteDao {
 		}
 	}
 	
+	public void saveProgress(Note note) {
+		if(note.getId() != null){
+			Note found =findById(note.getId());
+			found.setInProgress(note.isInProgress());
+		}
+	}
+	
 	private boolean update(Note note){
 		Note old = findById(note.getId());
 		if(old!=null){

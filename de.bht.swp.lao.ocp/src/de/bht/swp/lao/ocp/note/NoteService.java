@@ -73,4 +73,30 @@ public class NoteService {
 			session.deliver(serverSession, channel, output, null);
 		}
 	}
+	
+	@Listener(value = {"/service/note/setProgress"})
+	public void setProgress(ServerSession remote, ServerMessage.Mutable message){
+		Map<String,Object> data = message.getDataAsMap();
+		
+		Long id = (Long)data.get("id"); 
+		Boolean inProgress = (Boolean)data.get("inProgress");
+		Long whiteboardid = (Long)data.get("whiteboardid");
+		
+		Note note = new Note();
+		note.setId(id);
+		
+		note.setInProgress(inProgress);
+		note.setWhiteboard(whiteboardDao.findById(whiteboardid));
+		noteDao.saveProgress(note);
+		
+		Map<String,Object> output = new HashMap<String,Object>();
+		output.put("id", note.getId());
+		output.put("inProgress", note.isInProgress());
+		
+		
+		String channel = "/note/"+whiteboardid+"/progress";
+		for(ServerSession session:bayeux.getChannel(channel).getSubscribers()){
+			session.deliver(serverSession, channel, output, null);
+		}
+	}
 }
