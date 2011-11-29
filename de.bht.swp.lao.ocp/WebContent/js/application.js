@@ -11,7 +11,7 @@ var test;
     		if(note.length==0){
     			title = $('<input/>').attr('name','title').val(message.data.title);
     			text = $('<textarea/>').attr('name','text').val(message.data.text).elasticArea();
-    			creator = $('<span/>').attr('name','creator').html(message.data.creator);
+    			creator = $('<span/>').addClass('creator').html(message.data.creator);
     			submit = $('<input/>').attr('type','submit');
     			
     			$('.whiteboard').append(
@@ -37,7 +37,7 @@ var test;
     			note.css('top',message.data.y+'px');
     			note.find('input[name=title]').val(message.data.title);
     			note.find('textarea[name=text]').val(message.data.text);
-    			note.find('span[name=creator]').html(message.data.creator);
+    			note.find('span.creator').html(message.data.creator);
     		}
     	}
     	
@@ -59,11 +59,11 @@ var test;
     	}
     	
         function _publish(_id,_title,_text,_x,_y){
-        	cometd.publish('/service/note', { id:parseInt(_id), title: _title, text:_text, x:parseInt(_x), y:parseInt(_y), creator:user.email, whiteboardid:parseInt(whiteboard.id) });
+        	cometd.publish('/service/note', { id:parseInt(_id), title: _title, text:_text, x:parseInt(_x), y:parseInt(_y), creator:$('.whiteboard').attr('data-user-mail'), whiteboardid:parseInt($('.whiteboard').attr('data-whiteboard-id')) });
         }
         
         function _publishProgressState(_id, _inProgress){
-        	cometd.publish('/service/note/setProgress', {id:parseInt(_id), inProgress:Boolean(_inProgress), whiteboardid:parseInt(whiteboard.id)});
+        	cometd.publish('/service/note/setProgress', {id:parseInt(_id), inProgress:Boolean(_inProgress), whiteboardid:parseInt($('.whiteboard').attr('data-whiteboard-id'))});
         }
 
         // Function that manages the connection status with the Bayeux server
@@ -86,8 +86,8 @@ var test;
             {
                 cometd.batch(function()
                 {
-                    cometd.subscribe('/note/'+whiteboard.id,_refresh);
-                    cometd.subscribe('/note/'+whiteboard.id+'/progress',_refreshProgress);
+                    cometd.subscribe('/note/'+$('.whiteboard').attr('data-whiteboard-id'),_refresh);
+                    cometd.subscribe('/note/'+$('.whiteboard').attr('data-whiteboard-id')+'/progress',_refreshProgress);
                 });
             }
         }
@@ -98,7 +98,7 @@ var test;
             cometd.disconnect(true);
         });
 
-        var cometURL = location.protocol + "//" + location.host + config.contextPath + "/cometd";
+        var cometURL = location.protocol + "//" + location.host + $('.whiteboard').attr('data-context-path') + "/cometd";
         cometd.configure({
             url: cometURL,
             logLevel: 'debug'
