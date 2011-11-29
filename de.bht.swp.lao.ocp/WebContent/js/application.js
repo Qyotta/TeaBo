@@ -1,3 +1,5 @@
+var test;
+
 (function($)
 {
     var cometd = $.cometd;
@@ -9,12 +11,8 @@
     		if(note.length==0){
     			title = $('<input/>').attr('name','title').val(message.data.title);
     			text = $('<textarea/>').attr('name','text').val(message.data.text).elasticArea();
-    			creator = $('<span/>').attr('name','creator').val(message.data.creator);
+    			creator = $('<span/>').attr('name','creator').html(message.data.creator);
     			submit = $('<input/>').attr('type','submit');
-    			
-    			text.css('height',text[0].scrollHeight/2 + 'px');
-    			text.css('height',text[0].scrollHeight + 'px');
-    			text.css('height',text.css('height') === '0px' ? '17px' : text.css('height'));
     			
     			$('.whiteboard').append(
     				$('<div/>').
@@ -27,6 +25,11 @@
 	    				append(creator).
 	    				append(submit)
     			);
+    			
+    			// resize all new textarea notes
+    			text.css('height',text[0].scrollHeight/2 + 'px');
+    			text.css('height',text[0].scrollHeight + 'px');
+    			text.css('height',text[0].style.height === '0px' ? '17px' : this.style.height);
     			
     		}
     		else{
