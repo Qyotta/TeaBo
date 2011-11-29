@@ -8,9 +8,14 @@
     		note = $('#postIt-'+message.data.id);
     		if(note.length==0){
     			title = $('<input/>').attr('name','title').val(message.data.title);
-    			text = $('<textarea/>').attr('name','text').val(message.data.text);
+    			text = $('<textarea/>').attr('name','text').val(message.data.text).elasticArea();
     			creator = $('<span/>').attr('name','creator').val(message.data.creator);
     			submit = $('<input/>').attr('type','submit');
+    			
+    			text.css('height',text[0].scrollHeight/2 + 'px');
+    			text.css('height',text[0].scrollHeight + 'px');
+    			text.css('height',text.css('height') === '0px' ? '17px' : text.css('height'));
+    			
     			$('.whiteboard').append(
     				$('<div/>').
 	    				addClass('postIt').
@@ -104,7 +109,7 @@
         
         $('#create_note_btn').click(function(){
         	title = $('<input/>').attr('name','title').attr('placeholder','your title');
-			text = $('<textarea/>').attr('name','text').attr('placeholder','your text');
+			text = $('<textarea/>').attr('name','text').attr('placeholder','your text').elasticArea();
 			submit = $('<input/>').attr('type','submit');
 			div=$('<div/>').
 				addClass('postIt').
@@ -116,6 +121,26 @@
 				append(submit);
 			$('.whiteboard').append(div);
         });
+        
+        /*
+         * elastic textarea
+         */
+        jQuery.fn.elasticArea = function() {
+          return this.each(function(){
+            function resizeTextarea() {
+              this.style.height = this.scrollHeight/2 + 'px';
+              this.style.height = this.scrollHeight + 'px';
+              this.style.height = this.style.height === '0px' ? '17px' : this.style.height;
+            }
+            $(this).keypress(resizeTextarea)
+            .keydown(resizeTextarea)
+            .keyup(resizeTextarea)
+            .css('overflow','hidden');
+            resizeTextarea.call(this);
+          });
+        };
+        
+        $('.postIt').find('textarea').elasticArea();
         
     });
 })(jQuery);
