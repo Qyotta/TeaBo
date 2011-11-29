@@ -11,6 +11,7 @@ public class Note {
 	private Integer y;
 	private User creator;
 	private Whiteboard whiteboard;
+	private Boolean inProgress;
 
 	public Note(){}
 	
@@ -68,6 +69,14 @@ public class Note {
 	
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public void setInProgress(Boolean inProgress){
+		this.inProgress = inProgress;
+	}
+	
+	public Boolean isInProgress(){
+		return this.inProgress;
 	}
 	
 	
