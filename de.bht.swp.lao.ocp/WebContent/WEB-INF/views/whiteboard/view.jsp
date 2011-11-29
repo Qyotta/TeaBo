@@ -31,6 +31,10 @@
             contextPath: '${pageContext.request.contextPath}'
         };
         
+        var user = {
+        	email :'${user.email}'
+        };
+        
         var whiteboard = {
         	id: '${whiteboard.id}'	
         };
@@ -45,6 +49,7 @@
 		<div class="postIt" id="postIt-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
 			<input type="text" name="title" value="<c:out value='${note.title}'/>"/>
 			<textarea name="text"><c:out value='${note.text}'/></textarea>
+			<span name="creator"><c:out value='${note.creator.email}'/></span>
 			<input type="submit"/>
 		</div>
 	</c:forEach>

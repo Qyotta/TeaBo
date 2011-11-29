@@ -14,6 +14,7 @@ import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
 
+import de.bht.swp.lao.ocp.user.UserDao;
 import de.bht.swp.lao.ocp.whiteboard.WhiteboardDao;
 
 @Named
@@ -32,6 +33,9 @@ public class NoteService {
 	
 	@Inject
 	private WhiteboardDao whiteboardDao;
+	
+	@Inject
+	private UserDao userDao;
 	
 	@Listener(value = {"/service/note"})
 	public void processNote(ServerSession remote, ServerMessage.Mutable message){
@@ -52,12 +56,13 @@ public class NoteService {
 		note.setText(text);
 		note.setX(x.intValue());
 		note.setY(y.intValue());
+		note.setCreator(userDao.findByEmail(creator));
 		note.setWhiteboard(whiteboardDao.findById(whiteboardid));
 		noteDao.save(note);
 		
 		Map<String,Object> output = new HashMap<String,Object>();
 		output.put("id", note.getId());
-		output.put("creator", creator);
+		output.put("creator", note.getCreator().getEmail());
 		output.put("title", title);
 		output.put("text", text);
 		output.put("x", x);
