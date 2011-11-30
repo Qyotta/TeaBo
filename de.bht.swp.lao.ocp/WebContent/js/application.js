@@ -1,18 +1,21 @@
-var test;
+var saveInterval;
+var activeNoteId;
 
 (function($)
 {
     var cometd = $.cometd;
-
+    
     $(document).ready(function()
     {        
     	function _refresh(message){
+    		if( activeNoteId == message.data.id ){
+    			return null;
+    		}
     		note = $('#postIt-'+message.data.id);
     		if(note.length==0){
     			title = $('<input/>').attr('name','title').val(message.data.title);
     			text = $('<textarea/>').attr('name','text').val(message.data.text).elasticArea();
     			creator = $('<span/>').addClass('creator').html(message.data.creator);
-    			submit = $('<input/>').attr('type','submit');
     			
     			$('.whiteboard').append(
     				$('<div/>').
@@ -23,7 +26,6 @@ var test;
 	    				append(title).
 	    				append(text).
 	    				append(creator).
-	    				append(submit).
 	    				hover(function() {
 	    		        	$(this).find('span.creator').css('display','block');
 	    		        }, function() {
@@ -82,7 +84,7 @@ var test;
             }
 
         }
-
+        
         // Function invoked when first contacting the server and
         // when the server has lost the state of this client
         function _metaHandshake(handshake)
@@ -113,17 +115,8 @@ var test;
         cometd.addListener('/meta/connect', _metaConnect);
         cometd.handshake();
         
-        //save
-        $(".postIt input[type=submit]").live("click",function(){
-        	clickedNote = $(this).parent();
-        	divId = clickedNote.attr("id");
-        	if(divId==undefined){
-        		id = null;
-        	}
-        	else{
-        		id = divId.split('-')[1];
-        	}
-        	
+        
+        function saveNote(clickedNote, id){            	
             // title of PostIt
             title = $(clickedNote).find('input[name=title]').val();
             // Text of PostIt
@@ -135,11 +128,9 @@ var test;
             	clickedNote.remove();
             }
             _publish(id,title,text,x,y);
-            
-        });
+    	}
         
         //mark note as in progress
-        
         $('.postIt input[type=text], .postIt textarea').live('focus', function (){
         	clickedNote = $(this).parent();
         	divId = clickedNote.attr("id");
@@ -147,6 +138,9 @@ var test;
         		id = divId.split('-')[1];
         		_publishProgressState(id, true);
         	}
+        	
+        	activeNoteId = id;
+   	     	saveInterval = window.setInterval(function() { saveNote(clickedNote, id) } , 500);
         });
         
         $('.postIt input[type=text], .postIt textarea').live('blur', function (){
@@ -156,22 +150,17 @@ var test;
         		id = divId.split('-')[1];
         		_publishProgressState(id, false);
         	}
+        	activeNoteId = null;
+        	window.clearInterval(saveInterval);
+        	saveNote(clickedNote, id);
         });
         
         //new note
         $('.bottomNavigation .right .createPostIt').click(function(){
-        	title = $('<input/>').attr('name','title').attr('placeholder','your title');
-			text = $('<textarea/>').attr('name','text').attr('placeholder','your text').elasticArea();
-			submit = $('<input/>').attr('type','submit');
-			div=$('<div/>').
-				addClass('postIt').
-				css('position','absolute').
-				css('left',Math.floor(Math.random()*700)+'px').
-				css('top',Math.floor(Math.random()*400)+'px').
-				append(title).
-				append(text).
-				append(submit);
-			$('.whiteboard').append(div);
+			posx = Math.floor(Math.random()*700);
+			posy = Math.floor(Math.random()*400);
+			
+			_publish(null,"","",posx,posy);
         });
         
         /*

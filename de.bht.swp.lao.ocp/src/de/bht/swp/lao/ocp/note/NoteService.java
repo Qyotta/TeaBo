@@ -50,8 +50,7 @@ public class NoteService {
 		Long whiteboardid = (Long)data.get("whiteboardid");
 		
 		Note note = new Note();
-		note.setId(id);
-		
+		note.setId(id);		
 		note.setTitle(title);
 		note.setText(text);
 		note.setX(x.intValue());

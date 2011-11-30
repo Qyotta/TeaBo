@@ -33,7 +33,6 @@
 			<input type="text" name="title" value="<c:out value='${note.title}'/>"/>
 			<textarea name="text"><c:out value='${note.text}'/></textarea>
 			<span class="creator"><c:out value='${note.creator.email}'/></span>
-			<input type="submit"/>
 		</div>
 	</c:forEach>
 </div>
