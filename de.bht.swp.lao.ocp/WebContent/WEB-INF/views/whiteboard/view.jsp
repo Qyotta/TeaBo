@@ -50,7 +50,7 @@
         <li><a href="#"><img src="../images/icons/checkbox_checked.png" alt="Search" title="Search" /></a></li>
         <li><a href="#"><img src="../images/icons/doc_empty.png" alt="Search" title="Search" /></a></li>
         <li><a href="#"><img src="../images/icons/music.png" alt="Search" title="Search" /></a></li>
-        <li><a class="createPostIt"><img src="../images/icons/notepad.png" alt="create_postIt" title="create new postIt" /></a></li>
+        <li><a href="#" class="createPostIt"><img src="../images/icons/notepad.png" alt="create_postIt" title="create new postIt" /></a></li>
         <li><a href="#"><img src="../images/icons/pencil.png" alt="Search" title="Search" /></a></li>
         <li><a href="#"><img src="../images/icons/picture.png" alt="Search" title="Search" /></a></li>
         <li><a href="#"><img src="../images/icons/preso.png" alt="Search" title="Search" /></a></li>
