@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import de.bht.swp.lao.ocp.mailer.MailData;
+import de.bht.swp.lao.ocp.mailer.Mailer;
 import de.bht.swp.lao.ocp.note.NoteDao;
 import de.bht.swp.lao.ocp.user.User;
 
@@ -35,6 +37,7 @@ public class WhiteboardController {
 		model.addAttribute("notes", noteDao.findAllbyWhiteboardId(whiteboardId));
 		model.addAttribute("whiteboard",whiteboardDao.findById(whiteboardId));
 		model.addAttribute("user", request.getSession().getAttribute("user"));
+		model.addAttribute("mailaddress", new MailData());
 		return "whiteboard/view";
 	}
 	
@@ -68,5 +71,12 @@ public class WhiteboardController {
 			whiteboardDao.save(w);
 			return "redirect:/whiteboard/view-"+w.getId()+".htm";
 		}
+	}
+	
+	@RequestMapping(value="/inviteuser.htm", method = RequestMethod.POST)
+	public String sendMail(@ModelAttribute("mailaddress") MailData mailData, BindingResult result, HttpServletRequest request){
+		Mailer mailer = new Mailer();
+		mailer.sendMessage(mailData.getAddress());
+		return "redirect:/whiteboard/list.htm";
 	}
 }

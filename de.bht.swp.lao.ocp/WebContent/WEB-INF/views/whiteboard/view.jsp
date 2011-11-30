@@ -27,6 +27,12 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/application.js"></script>
 
 <h1>Whiteboard <c:out value='${whiteboard.name}'/>(logged in as <c:out value="${user.email}"/>)</h1>
+
+<form:form method="post" commandName="mailaddress" action="inviteuser.htm">
+	Mail: <form:input path="address"/><br/>
+	<input type="submit" value="Submit">
+</form:form>
+	
 <div class="whiteboard" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">
 	<c:forEach var="note" items="${notes}">
 		<div class="postIt" id="postIt-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
