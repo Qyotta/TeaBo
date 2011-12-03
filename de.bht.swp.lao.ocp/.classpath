@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_14">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-6-openjdk">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
@@ -28,17 +28,17 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jetty-util-7.4.4.v20110707.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jsr250-api-1.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/junit-4.7.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.context.support-3.0.0.M3.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.web.servlet-3.0.0.M3.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-aop-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-asm-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-beans-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-context-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-core-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-expression-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-jdbc-3.0.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-test-3.0.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-tx-3.0.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-web-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-aop-3.0.5.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/sources/spring-aop-3.0.5.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-asm-3.0.5.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/sources/spring-asm-3.0.5.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-beans-3.0.5.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/sources/spring-beans-3.0.5.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-context-3.0.5.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/sources/spring-context-3.0.5.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-core-3.0.5.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/sources/spring-core-3.0.5.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-expression-3.0.5.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/sources/spring-expression-3.0.5.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-jdbc-3.0.5.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/sources/spring-jdbc-3.0.5.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-test-3.0.1.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/sources/spring-test-3.0.1.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-tx-3.0.1.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/sources/spring-tx-3.0.1.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-web-3.0.5.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/sources/spring-web-3.0.5.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.context.support-3.0.5.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/sources/org.springframework.context.support-sources-3.0.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.web.servlet-3.0.5.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/sources/org.springframework.web.servlet-sources-3.0.5.RELEASE.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
