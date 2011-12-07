@@ -33,7 +33,7 @@
 </head>
 
 <body>
-	<form:form method="post" commandName="loginFormData">
+	<form:form name="loginFormData" modelAttribute="loginFormData" method="POST" commandName="loginFormData" action="login.htm">
 		<form:errors path="errors" cssClass="error"/>
 		
 		Email: <form:errors path="email" cssClass="error"/><br />
@@ -45,5 +45,38 @@
 		<input type="submit" value="Submit">
  
 	</form:form>
+	
+	<h2>Noch keinen Account?</h2>	
+	<input type="button" value="Registieren"><p>
+	
+		
+		<form:form name="registerFormData" modelAttribute="registerFormData" method="POST" commandName="registerFormData" action="register.htm">
+		<form:errors path="errors" cssClass="error"/>
+	
+		*Email: <form:errors path="email" cssClass="registerError"/><br />
+		<form:input path="email"/><br /><br />
+ 
+		*Password: <form:errors path="password" cssClass="registerError"/><br />
+		<form:password path="password"/><br /><br />
+		
+		Firstname: <form:errors path="firstname" cssClass="registerError"/><br />
+		<form:input path="firstname"/><br /><br />
+ 
+		Lastname: <form:errors path="lastname" cssClass="registerError"/><br />
+		<form:input path="lastname"/><br /><br />
+		
+		Position: <form:errors path="position" cssClass="registerError"/><br />
+		<form:input path="position"/><br /><br />
+		
+		<p>* is required</p>
+ 
+ 		<input type="submit" value="Submit">
+	
+		</form:form>
+		
+
+	
+	
+	
 </body>
 </html>

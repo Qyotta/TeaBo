@@ -20,8 +20,8 @@ public class UserLoginValidator implements Validator{
 	public void validate(Object obj, Errors errors) {
 		LoginFormData loginFormData = (LoginFormData)obj;
 		
-		ValidationUtils.rejectIfEmpty(errors, "email", "field.required","email is required!");
-		ValidationUtils.rejectIfEmpty(errors, "password", "field.required", "password is required!");
+		ValidationUtils.rejectIfEmpty(errors, "email", "field.required","Login Email is required!");
+		ValidationUtils.rejectIfEmpty(errors, "password", "field.required", "Login Password is required!");
 		
 		if(!errors.hasErrors()){
 			User user = userDao.findByEmail(loginFormData.getEmail());

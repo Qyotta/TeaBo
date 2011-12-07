@@ -9,5 +9,10 @@
 	
 	<bean id="whiteboardCreateValidator" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardCreateValidator"/>
 	<bean id="userLoginValidator" class="de.bht.swp.lao.ocp.user.UserLoginValidator" />
+	<bean id="userRegisterValidator" class="de.bht.swp.lao.ocp.user.UserRegisterValidator" />
+	  <!--
+	<bean id="registerUser" class="de.bht.swp.lao.ocp.user.UserController"></bean>
+	<bean id="loginFormData" class="de.bht.swp.lao.ocp.user.UserController"></bean>
+	-->
 	
 </beans>
