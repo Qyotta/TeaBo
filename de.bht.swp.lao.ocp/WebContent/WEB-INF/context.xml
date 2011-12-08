@@ -13,14 +13,14 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
 	default-autowire="byName">
 
+	<context:component-scan base-package="de.bht.swp.lao.ocp" />
+	<context:annotation-config />
 	
-	<bean id="whiteboardCreateValidator" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardCreateValidator"/>
+	<bean id="whiteboardCreateValidator" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardCreateValidator" />
 	<bean id="userLoginValidator" class="de.bht.swp.lao.ocp.user.UserLoginValidator" />
 	<bean id="userRegisterValidator" class="de.bht.swp.lao.ocp.user.UserRegisterValidator" />
 	
-
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -30,6 +30,7 @@
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="ocpPU" />
+		<property name="dataSource" ref="dataSource"/>
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="true" />
@@ -37,11 +38,16 @@
 				<property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			</bean>
 		</property>
+		<property name="loadTimeWeaver" ref="loadTimeWeaver"></property>
 	</bean>
-
-	<context:component-scan base-package="de.bht.swp.lao.ocp" />
-	<context:annotation-config />
-
-	<tx:annotation-driven />
 	
+	<bean id="transactionManager" 
+			class="org.springframework.orm.jpa.JpaTransactionManager" >
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+	<context:load-time-weaver weaver-class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
+
 </beans>
