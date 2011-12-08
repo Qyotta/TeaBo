@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.sun.istack.internal.NotNull;
+
 @Entity
 public class User {
 	@Id
@@ -13,7 +15,10 @@ public class User {
 	private String firstname;
 	private String lastname;
 	private String email;
+	
+	@NotNull
 	private String password;
+	
 	private String position;
 	
 	public Integer getId() {
