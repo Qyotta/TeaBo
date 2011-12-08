@@ -25,6 +25,7 @@ public class UserLoginValidator implements Validator{
 		
 		if(!errors.hasErrors()){
 			User user = userDao.findByEmail(loginFormData.getEmail());
+			
 			if(user==null || !user.getPassword().equals(loginFormData.getPassword())){
 				errors.rejectValue("errors", "not.valid", "email/password isn't valid");
 			}

@@ -25,21 +25,17 @@ public class UserController {
 	UserDao userDao;
 	
 	@RequestMapping(value="/login.htm", method = RequestMethod.GET)
-	public ModelAndView registerClicked() {
+	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView("user/login");
 		mav.addObject("loginFormData", new LoginFormData());
-		mav.addObject("registerFormData", new RegisterFormData());
-		
 		return mav;
 	}
 
 	@RequestMapping(value="/login.htm", method = RequestMethod.POST)
-	public String onSubmit(@ModelAttribute("loginFormData") LoginFormData loginFormData, @ModelAttribute("registerFormData") RegisterFormData registerFormData, BindingResult result, HttpServletRequest request) {
-		System.out.println("findAll: " + userDao.findAll().size());
+	public String onSubmit(@ModelAttribute("loginFormData") LoginFormData loginFormData , BindingResult result, HttpServletRequest request) {
 		userLoginValidator.validate(loginFormData, result);
 		
 		if (result.hasErrors()) {
-			System.out.println("Login Error");
 			return "user/login";
 		} else {
 			request.getSession().setAttribute("user", userDao.findByEmail( loginFormData.getEmail()));
@@ -47,18 +43,20 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping(value="/register.htm", method = RequestMethod.GET)
+	public ModelAndView register() {
+		ModelAndView mav = new ModelAndView("user/register");
+		mav.addObject("registerFormData", new RegisterFormData());
+		return mav;
+	}
+	
 	@RequestMapping(value="/register.htm", method = RequestMethod.POST)
-	public String registerUser(
-			@ModelAttribute("loginFormData") LoginFormData loginFormData, @ModelAttribute("registerFormData") RegisterFormData registerFormData, BindingResult result, HttpServletRequest request) {
-		System.out.println("register clicked");
-		
+	public String registerSubmitted(@ModelAttribute("registerFormData") RegisterFormData registerFormData, BindingResult result, HttpServletRequest request) {
 		userRegisterValidator.validate(registerFormData, result);
 		
 		if(result.hasErrors()){
-			System.out.println("Register Error");
-			return "user/login";
+			return "user/register";
 		}else{
-			System.out.println("no Errors");
 			User newUser = new User();
 			newUser.setEmail(registerFormData.getEmail());
 			newUser.setFirstname(registerFormData.getFirstname());
