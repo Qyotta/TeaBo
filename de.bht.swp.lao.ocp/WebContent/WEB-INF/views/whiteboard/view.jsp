@@ -28,7 +28,7 @@
 
 <h1>Whiteboard <c:out value='${whiteboard.name}'/>(logged in as <c:out value="${user.email}"/>)</h1>
 
-<form:form method="post" commandName="mailaddress" action="inviteuser.htm">
+<form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
 	Mail: <form:input path="address"/><br/>
 	<input type="submit" value="Submit">
 </form:form>

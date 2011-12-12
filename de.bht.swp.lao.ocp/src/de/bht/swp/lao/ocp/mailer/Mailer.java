@@ -11,6 +11,9 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
+import de.bht.swp.lao.ocp.user.User;
+import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
+
 public class Mailer {
 private JavaMailSenderImpl sender;
     
@@ -23,20 +26,19 @@ private JavaMailSenderImpl sender;
         this.sender.setProtocol("smtp");
         Properties props = this.sender.getJavaMailProperties();
         props.put("mail.smtp.starttls.enable", "true");
-
-
     }
 
-    public void sendMessage(final String mailaddress) {
+    public void sendMessage(final User invitedUser,final Whiteboard whiteboard) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws MessagingException {
-                mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(mailaddress));
+                mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(invitedUser.getEmail()));
                 mimeMessage.setFrom(new InternetAddress("swplao@googlemail.com"));
                 mimeMessage.setSubject("[lao] Invitation to Whiteboard");
-                mimeMessage.setText("Hello "+mailaddress+ ",\n"+
-                		"you were invited you to a Whiteboard \n"+
-						"You may login at ...\n"+ 
-						"User: "+mailaddress+"\n\n"+
+                mimeMessage.setText("Hello,\n"+
+                		"you were invited to "+whiteboard.getName()+" Whiteboard \n"+
+						"You may login at <a href='http://localhost:8080/de.bht.swp.lao.ocp/user/login.htm'>Online Collaboration Platform</a>...\n"+ 
+						"User: "+invitedUser.getEmail()+"\n"+
+						"Password: "+invitedUser.getPassword()+"\n\n"+
 						"With Regards,\n\n"+
 						"[l]ook [a]head [o]nline");
             }

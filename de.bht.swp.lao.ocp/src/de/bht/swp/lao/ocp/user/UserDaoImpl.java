@@ -39,7 +39,13 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	@Transactional
 	public void save(User user) {
-		em.persist(user);
+		if(user!=null){
+			em.merge(user);
+		}
+		else
+		{
+			em.persist(user);
+		}
 	}
 
 }

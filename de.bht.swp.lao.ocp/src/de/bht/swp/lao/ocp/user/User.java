@@ -1,10 +1,19 @@
 package de.bht.swp.lao.ocp.user;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.sun.istack.internal.NotNull;
+
+import de.bht.swp.lao.ocp.note.Note;
+import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 
 @Entity
 public class User {
@@ -21,6 +30,45 @@ public class User {
 	
 	private String position;
 	
+	@OneToMany(mappedBy="creator",targetEntity=Note.class)
+	private Set<Note> notes;
+	
+	@OneToMany(mappedBy="creator",targetEntity=Whiteboard.class,fetch=FetchType.EAGER)
+	private Set<Whiteboard> whiteboards;
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	private Set<Whiteboard> assignedWhiteboards;
+	
+	public Set<Whiteboard> getAssignedWhiteboards() {
+		return assignedWhiteboards;
+	}
+	public void setAssignedWhiteboards(Set<Whiteboard> assignedWhiteboards) {
+		this.assignedWhiteboards = assignedWhiteboards;
+	}
+	public Set<Note> getNotes() {
+		return notes;
+	}
+	public void setNotes(Set<Note> notes) {
+		this.notes = notes;
+	}
+	public Set<Whiteboard> getWhiteboards() {
+		return whiteboards;
+	}
+	public void setWhiteboards(Set<Whiteboard> whiteboards) {
+		this.whiteboards = whiteboards;
+	}
+	
+	public void addAssignedWhiteboard(Whiteboard w){
+		if(assignedWhiteboards==null){
+			assignedWhiteboards = new HashSet<Whiteboard>();
+		}
+		
+		this.assignedWhiteboards.add(w);
+	}
+
+	public void removeAssignedWhiteboard(Whiteboard w){
+		this.assignedWhiteboards.remove(w);
+	}
 	public Integer getId() {
 		return id;
 	}

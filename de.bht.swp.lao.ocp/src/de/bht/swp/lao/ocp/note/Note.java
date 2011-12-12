@@ -1,16 +1,29 @@
 package de.bht.swp.lao.ocp.note;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 
+@Entity
 public class Note {
+	@Id
+	@GeneratedValue
 	private Long id;
 	private String title;
 	private String text;
 	private Integer x;
 	private Integer y;
+	
+	@ManyToOne
 	private User creator;
+	
+	@ManyToOne
 	private Whiteboard whiteboard;
+	
 	private Boolean inProgress;
 
 	public Note(){}

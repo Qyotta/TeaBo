@@ -49,14 +49,20 @@ public class NoteService {
 		Long y = (Long)data.get("y");
 		Long whiteboardid = (Long)data.get("whiteboardid");
 		
-		Note note = new Note();
-		note.setId(id);		
+		Note note = null;
+		if(id!=null){
+			note = noteDao.findById(id);
+		}
+		else{
+			note = new Note();
+			note.setCreator(userDao.findByEmail(creator));
+			note.setWhiteboard(whiteboardDao.findById(whiteboardid));
+		}
+		
 		note.setTitle(title);
 		note.setText(text);
 		note.setX(x.intValue());
 		note.setY(y.intValue());
-		note.setCreator(userDao.findByEmail(creator));
-		note.setWhiteboard(whiteboardDao.findById(whiteboardid));
 		noteDao.save(note);
 		
 		Map<String,Object> output = new HashMap<String,Object>();
@@ -81,12 +87,9 @@ public class NoteService {
 		Boolean inProgress = (Boolean)data.get("inProgress");
 		Long whiteboardid = (Long)data.get("whiteboardid");
 		
-		Note note = new Note();
-		note.setId(id);
-		
+		Note note = noteDao.findById(id);
 		note.setInProgress(inProgress);
-		note.setWhiteboard(whiteboardDao.findById(whiteboardid));
-		noteDao.saveProgress(note);
+		noteDao.save(note);
 		
 		Map<String,Object> output = new HashMap<String,Object>();
 		output.put("id", note.getId());
