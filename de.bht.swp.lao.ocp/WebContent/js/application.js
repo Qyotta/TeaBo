@@ -13,8 +13,8 @@ var activeNoteId;
     		}
     		note = $('#postIt-'+message.data.id);
     		if(note.length==0){
-    			title = $('<input/>').attr('name','title').val(message.data.title);
-    			text = $('<textarea/>').attr('name','text').val(message.data.text).elasticArea();
+    			title = $('<input/>').attr('name','title').attr('placeholder','your title').val(message.data.title);
+    			text = $('<textarea/>').attr('name','text').attr('placeholder','your note text').val(message.data.text).elasticArea();
     			creator = $('<span/>').addClass('creator').html(message.data.creator);
     			
     			$('.whiteboard').append(
