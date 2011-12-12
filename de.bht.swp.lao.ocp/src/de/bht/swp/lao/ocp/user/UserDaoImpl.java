@@ -6,10 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Repository
 public class UserDaoImpl implements UserDao {
 
 	@PersistenceContext
@@ -41,7 +39,13 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	@Transactional
 	public void save(User user) {
-		em.persist(user);
+		if(user!=null){
+			em.merge(user);
+		}
+		else
+		{
+			em.persist(user);
+		}
 	}
 
 }

@@ -1,63 +1,51 @@
 package de.bht.swp.lao.ocp.whiteboard;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-@Repository
+import org.springframework.transaction.annotation.Transactional;
+
+import de.bht.swp.lao.ocp.user.User;
+
 public class WhiteboardDaoImpl implements WhiteboardDao{
 	
-	private List<Whiteboard> whiteboards = new ArrayList<Whiteboard>();
-	
-	public WhiteboardDaoImpl(){
-		Whiteboard w = new Whiteboard();
-		w.setName("Mockup");
-		save(w);
-	}
+	@PersistenceContext
+	private EntityManager em;
 	
 	@Override
 	public Whiteboard findById(Long id) {
-		for(Whiteboard whiteboard:whiteboards){
-			if(whiteboard.getId().equals(id)){
-				return whiteboard;
-			}
-		}
-		return null;	
+		return em.find(Whiteboard.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Whiteboard> findAll() {
-		return whiteboards;
+		return (List<Whiteboard>)em.createQuery("from Whiteboard w").getResultList();
 	}
 
 	@Override
+	@Transactional
 	public void save(Whiteboard whiteboard) {
-		if(whiteboard.getId()==null || !update(whiteboard)){
-			if(whiteboards.size()>0){
-				Whiteboard last=whiteboards.get(whiteboards.size()-1);
-				whiteboard.setId(last.getId()+1);
-			}else{
-				whiteboard.setId(new Long(1));
-			}
-			whiteboards.add(whiteboard);
-		}
+		em.persist(whiteboard);
 	}
 	
-	private boolean update(Whiteboard whiteboard){
-		Whiteboard old = findById(whiteboard.getId());
-		if(old!=null){
-			old.setId(whiteboard.getId());
-			old.setName(whiteboard.getName());
-			return true;
-		}else{
-			return false;
-		}
-	}
-
+	@SuppressWarnings("unchecked")
 	@Override
+	public List<Whiteboard> findByOwner(User user){
+		return (List<Whiteboard>)em.createQuery("from Whiteboard w where w.owner.id=?1").setParameter(1, user.getId()).getResultList();
+	}
+	
+	@Override
+	@Transactional
 	public void delete(Whiteboard whiteboard) {
-		whiteboards.remove(whiteboard);
+		Whiteboard w=em.find(Whiteboard.class, whiteboard.getId());
+		for(User u:w.getAssignedUsers()){
+			u.removeAssignedWhiteboard(w);
+		}
+		em.merge(w);
+		em.remove(w);
 	}
 	
 }

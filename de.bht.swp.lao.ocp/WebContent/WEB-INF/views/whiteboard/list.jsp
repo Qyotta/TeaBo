@@ -53,16 +53,39 @@
 		<br />
 		<input type="submit" value="Submit">
 	</form:form>
-	<h2>Whiteboard List</h2>
-	<ul>
-		<c:forEach var="whiteboard" items="${whiteboards}">
-			<li><a
-				href="${pageContext.request.contextPath}/whiteboard/view-<c:out value="${whiteboard.id}"/>.htm"><c:out
-						value="${whiteboard.name}" />
-			</a> <a
-				href="${pageContext.request.contextPath}/whiteboard/delete-<c:out value="${whiteboard.id}"/>.htm">Delete</a>
-			</li>
-		</c:forEach>
-	</ul>
+	<h2>Created Whiteboards</h2>
+	<c:choose>
+		<c:when test="${whiteboards.isEmpty()}">
+			<p>No whiteboard created yet.</p>
+		</c:when>
+		<c:otherwise>
+			<ul>
+				<c:forEach var="whiteboard" items="${whiteboards}">
+					<li><a
+						href="${pageContext.request.contextPath}/whiteboard/view-<c:out value="${whiteboard.id}"/>.htm"><c:out
+								value="${whiteboard.name}" /> </a> <a
+						href="${pageContext.request.contextPath}/whiteboard/delete-<c:out value="${whiteboard.id}"/>.htm">Delete</a>
+					</li>
+				</c:forEach>
+			</ul>
+		</c:otherwise>
+	</c:choose>
+
+	<h2>Assigned whiteboards</h2>
+	<c:choose>
+		<c:when test="${assignedWhiteboards.isEmpty()}">
+			<p>No whiteboard assigned yet.</p>
+		</c:when>
+		<c:otherwise>
+			<ul>
+				<c:forEach var="whiteboard" items="${assignedWhiteboards}">
+					<li><a
+						href="${pageContext.request.contextPath}/whiteboard/view-<c:out value="${whiteboard.id}"/>.htm"><c:out
+								value="${whiteboard.name}" /> </a>
+					</li>
+				</c:forEach>
+			</ul>
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>

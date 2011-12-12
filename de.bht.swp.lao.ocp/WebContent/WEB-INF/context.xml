@@ -14,11 +14,17 @@
 	default-autowire="byName">
 
 	<context:component-scan base-package="de.bht.swp.lao.ocp" />
-	<context:annotation-config />
+	
 	
 	<bean id="whiteboardCreateValidator" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardCreateValidator" />
 	<bean id="userLoginValidator" class="de.bht.swp.lao.ocp.user.UserLoginValidator" />
 	<bean id="userRegisterValidator" class="de.bht.swp.lao.ocp.user.UserRegisterValidator" />
+	
+	<bean id="userDao" class="de.bht.swp.lao.ocp.user.UserDaoImpl" />
+	<bean id="noteDao" class="de.bht.swp.lao.ocp.note.NoteDaoImpl" />
+	<bean id="whiteboardDao" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardDaoImpl" />
+	
+	
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="username" value="root" />
@@ -38,16 +44,20 @@
 				<property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			</bean>
 		</property>
-		<property name="loadTimeWeaver" ref="loadTimeWeaver"></property>
+		<!-- <property name="loadTimeWeaver" ref="loadTimeWeaver"></property>-->
 	</bean>
+	
+	
+	<context:annotation-config />
 	
 	<bean id="transactionManager" 
 			class="org.springframework.orm.jpa.JpaTransactionManager" >
+		<property name="dataSource" ref="dataSource" />
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 	
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
-	<context:load-time-weaver weaver-class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
+	<!-- <context:load-time-weaver weaver-class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>-->
 
 </beans>
