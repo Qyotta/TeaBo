@@ -90,7 +90,6 @@ public class WhiteboardController {
 			invitedUser = new User();
 			invitedUser.setEmail(emailAddress);
 			invitedUser.setPassword("qwertz");
-			userDao.save(invitedUser);
 		}
 		Whiteboard w = whiteboardDao.findById(whiteboardId);
 		invitedUser.addAssignedWhiteboard(w);
