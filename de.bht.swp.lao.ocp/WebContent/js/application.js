@@ -13,7 +13,33 @@ var activeNoteId;
     		}
     		note = $('#postIt-'+message.data.id);
     		if(note.length==0){
-    			title = $('<input/>').attr('name','title').attr('placeholder','your title').val(message.data.title);
+    			title = $('<input/>').attr('name','title').attr('placeholder','your title').val(message.data.title).
+				hover(function() {
+		        	$(this).parent().find('span.creator').css('display','block');
+		        }, function() {
+		        	$(this).parent().find('span.creator').css('display','none');
+		        }).focus(function (){
+		        	clickedNote = $(this).parent();
+		        	divId = clickedNote.attr("id");
+		        	if(divId != undefined){
+		        		id = divId.split('-')[1];
+		        		_publishProgressState(id, true);
+		        	}
+		        	
+		        	activeNoteId = id;
+		   	     	saveInterval = window.setInterval(function() { saveNote(clickedNote, id); } , 500);
+		        }).blur(function (){
+		        	clickedNote = $(this).parent();
+		        	divId = clickedNote.attr("id");
+		        	if(divId != undefined){
+		        		id = divId.split('-')[1];
+		        		_publishProgressState(id, false);
+		        	}
+		        	
+		        	activeNoteId = id;
+		   	     	saveInterval = window.setInterval(function() { saveNote(clickedNote, id); } , 500);
+		        });
+    			
     			text = $('<textarea/>').attr('name','text').attr('placeholder','your note text').val(message.data.text).elasticArea();
     			creator = $('<span/>').addClass('creator').html(message.data.creator);
     			
@@ -25,17 +51,13 @@ var activeNoteId;
 	    				css('top',message.data.y).
 	    				append(title).
 	    				append(text).
-	    				append(creator).
-	    				hover(function() {
-	    		        	$(this).find('span.creator').css('display','block');
-	    		        }, function() {
-	    		        	$(this).find('span.creator').css('display','none');
-	    		        })
+	    				append(creator).draggable({
+	    		        	stop: function(e,ui) {
+	    		        		var id = $(this).attr('id').split('-')[1];
+	    		        		saveNote(this,id);
+	    		        	}
+	    		        })	    		        
     			);
-    			
-    			$(function() {
-    			    $(".whiteboard .postIt").draggable();
-    			  });
     			
     			// resize all new textarea notes
     			text.css('height',text[0].scrollHeight/2 + 'px');
@@ -144,7 +166,7 @@ var activeNoteId;
         	}
         	
         	activeNoteId = id;
-   	     	saveInterval = window.setInterval(function() { saveNote(clickedNote, id) } , 500);
+   	     	saveInterval = window.setInterval(function() { saveNote(clickedNote, id); } , 500);
         });
         
         $('.postIt input[type=text], .postIt textarea').live('blur', function (){
@@ -185,6 +207,12 @@ var activeNoteId;
           });
         };
         
+        $(".whiteboard .postIt").draggable({
+        	stop: function(e,ui) {
+        		var id = $(this).attr('id').split('-')[1];
+        		saveNote(this,id);
+        	}
+        });
         $('.postIt').find('textarea').elasticArea();
         $('.postIt input[name="title"]').hover(function() {
         	$(this).parent().find('span.creator').css('display','block');
