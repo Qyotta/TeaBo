@@ -22,8 +22,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/jquery/json2.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/org/cometd.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/jquery/jquery.cometd.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/application.js"></script>
 
 <h1>Whiteboard <c:out value='${whiteboard.name}'/>(logged in as <c:out value="${user.email}"/>)</h1>
