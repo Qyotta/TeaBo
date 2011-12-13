@@ -33,6 +33,10 @@ var activeNoteId;
 	    		        })
     			);
     			
+    			$(function() {
+    			    $(".whiteboard .postIt").draggable();
+    			  });
+    			
     			// resize all new textarea notes
     			text.css('height',text[0].scrollHeight/2 + 'px');
     			text.css('height',text[0].scrollHeight + 'px');

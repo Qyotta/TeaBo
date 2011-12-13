@@ -19,13 +19,14 @@ private JavaMailSenderImpl sender;
     
     public Mailer() {
         this.sender = new JavaMailSenderImpl();
+        Properties props = this.sender.getJavaMailProperties();
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.auth", "true");
         this.sender.setHost("smtp.googlemail.com");
         this.sender.setPort(587);
         this.sender.setUsername("swplao@googlemail.com");
         this.sender.setPassword("qwertz123");
         this.sender.setProtocol("smtp");
-        Properties props = this.sender.getJavaMailProperties();
-        props.put("mail.smtp.starttls.enable", "true");
     }
 
     public void sendMessage(final User invitedUser,final Whiteboard whiteboard) {
