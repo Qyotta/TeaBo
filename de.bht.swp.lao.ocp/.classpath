@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/antlr-2.7.6.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/antlr-runtime-3.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/aopalliance-1.0.jar"/>
