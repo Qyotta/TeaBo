@@ -1,14 +1,23 @@
 package de.bht.swp.lao.ocp.user;
 
+import com.sun.istack.internal.NotNull;
+
 public class RegisterFormData {
 
 	private String email;
+	@NotNull
 	private String password;
+	
+	@NotNull
+	private String passwordvalidate;
 	private String errors;
 	private String firstname;
 	private String lastname;
 	private String position;
+	
+	
 	public String getEmail() {
+		
 		return email;
 	}
 	public void setEmail(String email) {
@@ -19,6 +28,12 @@ public class RegisterFormData {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getPasswordvalidate() {
+		return passwordvalidate;
+	}
+	public void setPasswordvalidate(String passwordvalidate) {
+		this.passwordvalidate = passwordvalidate;
 	}
 	public String getErrors() {
 		return errors;
@@ -44,5 +59,6 @@ public class RegisterFormData {
 	public void setPosition(String position) {
 		this.position = position;
 	}
+	
 	
 }

@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>User login</title>
+    <title>User register</title>
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -34,7 +34,7 @@
 
 <body>
 	<h2>Registrieren</h2>	
-		<form:form name="registerFormData" modelAttribute="registerFormData" method="POST" commandName="registerFormData" action="register.htm">
+		<form:form name="registerFormData" method="POST" commandName="registerFormData" action="register.htm">
 		<form:errors path="errors" cssClass="error"/>
 	
 		*Email: <form:errors path="email" cssClass="registerError"/><br />
@@ -42,6 +42,9 @@
  
 		*Password: <form:errors path="password" cssClass="registerError"/><br />
 		<form:password path="password"/><br /><br />
+		
+		<!--  *Confirm Password: <form:errors path="password" cssClass="registerError"/><br />
+		<form:input path="password"/><br /><br />-->
 		
 		Firstname: <form:errors path="firstname" cssClass="registerError"/><br />
 		<form:input path="firstname"/><br /><br />
@@ -54,7 +57,9 @@
 		
 		<p>* is required</p>
  
+ 		<p><a href="${pageContext.request.contextPath}/user/login.htm">Cancel</a></p>	
  		<input type="submit" value="Submit">
+ 		
 	
 		</form:form>
 </body>

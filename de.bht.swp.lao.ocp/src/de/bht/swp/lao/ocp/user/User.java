@@ -9,8 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-
 import com.sun.istack.internal.NotNull;
+
 
 import de.bht.swp.lao.ocp.note.Note;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
