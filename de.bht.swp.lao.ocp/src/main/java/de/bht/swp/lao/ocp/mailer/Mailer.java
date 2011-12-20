@@ -2,13 +2,13 @@ package de.bht.swp.lao.ocp.mailer;
 
 import java.util.Properties;
 
-import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
 import de.bht.swp.lao.ocp.user.User;
@@ -32,16 +32,17 @@ private JavaMailSenderImpl sender;
     public void sendMessage(final User invitedUser,final Whiteboard whiteboard) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws MessagingException {
-                mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(invitedUser.getEmail()));
-                mimeMessage.setFrom(new InternetAddress("swplao@googlemail.com"));
-                mimeMessage.setSubject("[lao] Invitation to Whiteboard");
-                mimeMessage.setText("Hello,\n"+
-                		"you were invited to "+whiteboard.getName()+" Whiteboard \n"+
-						"You may login at <a href='http://localhost:8080/de.bht.swp.lao.ocp/user/login.htm'>Online Collaboration Platform</a>...\n"+ 
-						"User: "+invitedUser.getEmail()+"\n"+
-						"Password: "+invitedUser.getPassword()+"\n\n"+
-						"With Regards,\n\n"+
-						"[l]ook [a]head [o]nline");
+            	MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            	message.setTo(new InternetAddress(invitedUser.getEmail()));
+            	message.setFrom(new InternetAddress("swplao@googlemail.com"));
+            	message.setSubject("[lao] Invitation to Whiteboard");
+            	message.setText("Hello,<br />"+
+                		"you were invited to "+whiteboard.getName()+" Whiteboard <br />"+
+						"You may login at <a href='http://localhost:8080/de.bht.swp.lao.ocp/user/login.htm'>Online Collaboration Platform</a>...<br />"+ 
+						"User: "+invitedUser.getEmail()+"<br />"+
+						"Password: "+invitedUser.getPassword()+"<br /><br />"+
+						"With Regards,<br /><br />"+
+						"[l]ook [a]head [o]nline", true);
             }
         };
         try{
