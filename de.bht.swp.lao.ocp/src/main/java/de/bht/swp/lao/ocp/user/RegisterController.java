@@ -21,6 +21,8 @@ public class RegisterController {
 	@Inject
 	UserDao userDao;
 	
+	private RegisterController(){}
+	
 	public RegisterController(UserRegisterValidator userRegisterValidator){
 		this.userRegisterValidator=userRegisterValidator;
 	}
