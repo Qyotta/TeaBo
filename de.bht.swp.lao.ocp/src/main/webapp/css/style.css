@@ -406,6 +406,12 @@ nav.bottomNavigation ul.right {
 	display:none;
 }
 
+#upload-dialog {
+	background: #ffffff;
+	border: 1px solid #000000;
+	overflow: hidden;
+}
+
 
 
 /* ==|== non-semantic helper classes ========================================
