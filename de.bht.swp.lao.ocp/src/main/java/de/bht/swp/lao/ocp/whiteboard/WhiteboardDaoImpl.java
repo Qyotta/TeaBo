@@ -1,5 +1,6 @@
 package de.bht.swp.lao.ocp.whiteboard;
 
+import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,6 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import de.bht.swp.lao.ocp.note.Note;
 import de.bht.swp.lao.ocp.user.User;
 
 public class WhiteboardDaoImpl implements WhiteboardDao{
@@ -41,9 +43,15 @@ public class WhiteboardDaoImpl implements WhiteboardDao{
 	@Transactional
 	public void delete(Whiteboard whiteboard) {
 		Whiteboard w=em.find(Whiteboard.class, whiteboard.getId());
+		for(Note n:w.getNotes()) {
+			em.remove(n);
+		}
 		for(User u:w.getAssignedUsers()){
 			u.removeAssignedWhiteboard(w);
+			em.merge(u);
 		}
+
+		w.setAssignedUsers(new HashSet<User>());
 		em.merge(w);
 		em.remove(w);
 	}
