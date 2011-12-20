@@ -229,6 +229,8 @@ var activeNoteId;
         
         $('a.uploadFile').live('click', function(e){
         	e.preventDefault();
+        	$('#upload-dialog > form > ul > li').not(":first-child").remove();
+        	$('#upload-dialog > form > ul > li:first-child > input[type="file"]').val("");
         	$('#upload-dialog').dialog('open');
         });
         
