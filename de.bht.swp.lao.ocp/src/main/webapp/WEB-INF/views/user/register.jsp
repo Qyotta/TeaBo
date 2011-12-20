@@ -33,9 +33,9 @@
 </head>
 
 <body>
-	<h2>Registrieren</h2>	
+	<h2>Register</h2>	
 		<form:form name="registerFormData" method="POST" commandName="registerFormData" action="register.htm">
-		<form:errors path="errors" cssClass="error"/>
+		<FONT color="red"><form:errors path="errors" cssClass="error"/></FONT><br /><br />
 	
 		*Email: <form:errors path="email" cssClass="registerError"/><br />
 		<form:input path="email"/><br /><br />
@@ -43,8 +43,8 @@
 		*Password: <form:errors path="password" cssClass="registerError"/><br />
 		<form:password path="password"/><br /><br />
 		
-		<!--  *Confirm Password: <form:errors path="password" cssClass="registerError"/><br />
-		<form:input path="password"/><br /><br />-->
+		*Confirm Password: <form:errors path="passwordvalidate" cssClass="registerError"/><br />
+		<form:input path="passwordvalidate"/><br /><br />
 		
 		Firstname: <form:errors path="firstname" cssClass="registerError"/><br />
 		<form:input path="firstname"/><br /><br />

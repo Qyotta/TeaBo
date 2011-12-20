@@ -46,11 +46,13 @@ public class RegisterController {
 			newUser.setFirstname(registerFormData.getFirstname());
 			newUser.setLastname(registerFormData.getLastname());
 			newUser.setPassword(registerFormData.getPassword());
+			newUser.setPasswordvalidate(registerFormData.getPasswordvalidate());
 			newUser.setPosition(registerFormData.getPosition());
 			userDao.save(newUser);
 			request.getSession().setAttribute("user", userDao.findByEmail( registerFormData.getEmail()));
 			
-			return "redirect:/whiteboard/list.htm";
+			return "user/registrationSuccess";
+			//return "redirect:/whiteboard/list.htm";
 		}
 	}
 }

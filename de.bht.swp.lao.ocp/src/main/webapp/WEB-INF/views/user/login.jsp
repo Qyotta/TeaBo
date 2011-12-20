@@ -46,8 +46,8 @@
  
 	</form:form>
 	
-	<h2>Noch keinen Account?</h2>	
-	<p><a href="${pageContext.request.contextPath}/user/register.htm">Registrieren</a></p>	
+	<h2>Create new account:</h2>	
+	<p><a href="${pageContext.request.contextPath}/user/register.htm">Register</a></p>	
 		
 </body>
 </html>
