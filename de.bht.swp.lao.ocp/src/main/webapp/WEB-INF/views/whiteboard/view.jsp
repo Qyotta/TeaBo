@@ -32,7 +32,16 @@
 	Mail: <form:input path="address"/><br/>
 	<input type="submit" value="Submit">
 </form:form>
-	
+
+<div id="upload-dialog" >	
+<form:form method="post" enctype="multipart/form-data" commandName="fileupload" action="uploadfile.htm">
+	<ul> 
+		<li>File: <input type="file" name="datafile[]"> </li>
+	</ul> <button type="button">+</button><br/>
+	<input type="submit" value="Submit"> 
+</form:form>
+</div>
+
 <div class="whiteboard" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">
 	<c:forEach var="note" items="${notes}">
 		<div class="postIt" id="postIt-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
@@ -53,7 +62,7 @@
         <li><a href="#"><img src="../images/icons/calendar.png" alt="Search" title="Search" /></a></li>
         <li><a href="#"><img src="../images/icons/chart_line.png" alt="Search" title="Search" /></a></li>
         <li><a href="#"><img src="../images/icons/checkbox_checked.png" alt="Search" title="Search" /></a></li>
-        <li><a href="#"><img src="../images/icons/doc_empty.png" alt="Search" title="Search" /></a></li>
+        <li><a href="#" class="uploadFile"><img src="../images/icons/doc_empty.png" alt="Search" title="Load File" /></a></li>
         <li><a href="#"><img src="../images/icons/music.png" alt="Search" title="Search" /></a></li>
         <li><a href="#" class="createPostIt"><img src="../images/icons/notepad.png" alt="create_postIt" title="create new postIt" /></a></li>
         <li><a href="#"><img src="../images/icons/pencil.png" alt="Search" title="Search" /></a></li>

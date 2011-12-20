@@ -220,5 +220,42 @@ var activeNoteId;
         	$(this).parent().find('span.creator').css('display','none');
         });
         
+        $('#upload-dialog').dialog({
+        	autoOpen:false,
+        	modal:true,
+        	width:400,
+        	title:"File Upload"
+        });
+        
+        $('a.uploadFile').live('click', function(e){
+        	e.preventDefault();
+        	$('#upload-dialog > form > ul > li').not(":first-child").remove();
+        	$('#upload-dialog > form > ul > li:first-child > input[type="file"]').val("");
+        	$('#upload-dialog').dialog('open');
+        });
+        
+        $('#upload-dialog > form > button').live('click',function(e){
+        	toClone = $('#upload-dialog > form > ul > li:first-child').clone();
+        	toClone.find('input[type="file"]').val("");
+        	toClone.appendTo('#upload-dialog > form > ul');
+        });
+        
+        $('input[type="file"]').live('change',function(){
+        	input = $(this).val();
+        	fileExtension = [".pdf",".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odp", ".odf"];
+        	found = false;
+        	for( var index in fileExtension ){
+        		var ext = fileExtension[index];
+	        	if( (input.toLowerCase().indexOf(ext, input.length - ext.length)) !== -1){
+	        		found = true;
+	        	}
+        	}
+        	if ( !found ){
+	        	alert("not allowed");
+	    		$(this).val("");
+        	}
+        });
+        
     });
+    
 })(jQuery);
