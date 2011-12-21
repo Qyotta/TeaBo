@@ -29,10 +29,10 @@ public class UserRegisterValidator implements Validator {
 
 		if (!registerError.hasErrors()) {
 			if(registerFormData==null || registerFormData.getEmail()==null || registerFormData.getPassword()==null){
-				registerError.rejectValue("errors", "not.valid", "Email/Password isn't valid");
+				registerError.rejectValue("errors", "not.valid", "Email/Password isn't valid!");
 			}
 			if(!(registerFormData.getPassword().equals(registerFormData.getPasswordvalidate()))){
-				registerError.rejectValue("errors", "not.valid", "Password and Confirm Password Not match");
+				registerError.rejectValue("errors", "not.valid", "Password and Confirm Password do not match!");
 			}
 		}
 	}
