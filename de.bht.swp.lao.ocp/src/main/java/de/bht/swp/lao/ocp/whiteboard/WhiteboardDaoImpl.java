@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import de.bht.swp.lao.ocp.modules.WhiteboardObject;
 import de.bht.swp.lao.ocp.note.Note;
 import de.bht.swp.lao.ocp.user.User;
 
@@ -43,7 +44,7 @@ public class WhiteboardDaoImpl implements WhiteboardDao{
 	@Transactional
 	public void delete(Whiteboard whiteboard) {
 		Whiteboard w=em.find(Whiteboard.class, whiteboard.getId());
-		for(Note n:w.getNotes()) {
+		for(WhiteboardObject n:w.getWhiteboardObjects()) {
 			em.remove(n);
 		}
 		for(User u:w.getAssignedUsers()){

@@ -21,6 +21,7 @@ public class RegisterController {
 	@Inject
 	UserDao userDao;
 	
+	@SuppressWarnings("unused")
 	private RegisterController(){}
 	
 	public RegisterController(UserRegisterValidator userRegisterValidator){
