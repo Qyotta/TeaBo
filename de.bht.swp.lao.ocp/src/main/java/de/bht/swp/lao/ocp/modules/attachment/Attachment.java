@@ -2,9 +2,9 @@ package de.bht.swp.lao.ocp.modules.attachment;
 
 import com.mysql.jdbc.Blob;
 
-import de.bht.swp.lao.ocp.modules.WhiteboardObject;
+import de.bht.swp.lao.ocp.modules.WhiteboardItem;
 
-public class Attachment extends WhiteboardObject {
+public class Attachment extends WhiteboardItem {
 
 	private Blob data;
 	private String text;

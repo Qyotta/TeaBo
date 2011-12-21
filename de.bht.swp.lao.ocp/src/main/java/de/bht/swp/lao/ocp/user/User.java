@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 
 import com.sun.istack.internal.NotNull;
 
-import de.bht.swp.lao.ocp.modules.WhiteboardObject;
+import de.bht.swp.lao.ocp.modules.WhiteboardItem;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 
 @Entity
@@ -31,8 +31,8 @@ public class User {
 	
 	private String position;
 	
-	@OneToMany(mappedBy="creator",targetEntity=WhiteboardObject.class)
-	private Set<WhiteboardObject> whiteboardObjects;
+	@OneToMany(mappedBy="creator",targetEntity=WhiteboardItem.class)
+	private Set<WhiteboardItem> whiteboardItems;
 	
 	@OneToMany(mappedBy="creator",targetEntity=Whiteboard.class,fetch=FetchType.EAGER)
 	private Set<Whiteboard> whiteboards;
@@ -46,11 +46,11 @@ public class User {
 	public void setAssignedWhiteboards(Set<Whiteboard> assignedWhiteboards) {
 		this.assignedWhiteboards = assignedWhiteboards;
 	}
-	public Set<WhiteboardObject> getWhiteboardObjects() {
-		return whiteboardObjects;
+	public Set<WhiteboardItem> getWhiteboardObjects() {
+		return whiteboardItems;
 	}
-	public void setWhiteboardObjects(Set<WhiteboardObject> notes) {
-		this.whiteboardObjects = notes;
+	public void setWhiteboardObjects(Set<WhiteboardItem> notes) {
+		this.whiteboardItems = notes;
 	}
 	public Set<Whiteboard> getWhiteboards() {
 		return whiteboards;

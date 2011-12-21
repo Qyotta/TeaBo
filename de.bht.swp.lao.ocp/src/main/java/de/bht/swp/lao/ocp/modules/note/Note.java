@@ -2,10 +2,10 @@ package de.bht.swp.lao.ocp.modules.note;
 
 import javax.persistence.Entity;
 
-import de.bht.swp.lao.ocp.modules.WhiteboardObject;
+import de.bht.swp.lao.ocp.modules.WhiteboardItem;
 
 @Entity
-public class Note extends WhiteboardObject{
+public class Note extends WhiteboardItem{
 
 	private String title;
 	private String text;

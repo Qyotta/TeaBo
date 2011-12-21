@@ -9,7 +9,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import de.bht.swp.lao.ocp.modules.WhiteboardObject;
+import de.bht.swp.lao.ocp.modules.WhiteboardItem;
 import de.bht.swp.lao.ocp.user.User;
 
 @Entity
@@ -20,8 +20,8 @@ public class Whiteboard {
 	
 	private String name;
 	
-	@OneToMany(mappedBy="whiteboard",targetEntity=WhiteboardObject.class)
-	private Set<WhiteboardObject> whiteboardObjects;
+	@OneToMany(mappedBy="whiteboard",targetEntity=WhiteboardItem.class)
+	private Set<WhiteboardItem> whiteboardItems;
 	
 	@ManyToMany(mappedBy="assignedWhiteboards")
 	private Set<User> assignedUsers;
@@ -35,11 +35,11 @@ public class Whiteboard {
 	@ManyToOne
 	private User creator;
 	
-	public Set<WhiteboardObject> getWhiteboardObjects() {
-		return whiteboardObjects;
+	public Set<WhiteboardItem> getWhiteboardObjects() {
+		return whiteboardItems;
 	}
-	public void setWhiteboardObjects(Set<WhiteboardObject> notes) {
-		this.whiteboardObjects = notes;
+	public void setWhiteboardObjects(Set<WhiteboardItem> notes) {
+		this.whiteboardItems = notes;
 	}
 	public User getCreator() {
 		return creator;

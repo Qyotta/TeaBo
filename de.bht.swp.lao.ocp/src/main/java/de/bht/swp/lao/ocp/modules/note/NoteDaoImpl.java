@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.bht.swp.lao.ocp.modules.IWhiteboardItemDao;
-import de.bht.swp.lao.ocp.modules.WhiteboardObject;
+import de.bht.swp.lao.ocp.modules.WhiteboardItem;
 
 public class NoteDaoImpl implements IWhiteboardItemDao {
 
@@ -16,30 +16,30 @@ public class NoteDaoImpl implements IWhiteboardItemDao {
 	private EntityManager em;
 	
 	@Override
-	public WhiteboardObject findById(Long id) {
+	public WhiteboardItem findById(Long id) {
 		return em.find(Note.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<WhiteboardObject> findAll() {
-		return (List<WhiteboardObject>)em.createQuery("from Note n ").getResultList();
+	public List<WhiteboardItem> findAll() {
+		return (List<WhiteboardItem>)em.createQuery("from Note n ").getResultList();
 	}
 
 	@Override
 	@Transactional
-	public void save(WhiteboardObject whiteboardObject){ 
-		if(whiteboardObject.getId()!=null){
-			em.merge(whiteboardObject);
+	public void save(WhiteboardItem whiteboardItem){ 
+		if(whiteboardItem.getId()!=null){
+			em.merge(whiteboardItem);
 		}else{
-			em.persist(whiteboardObject);
+			em.persist(whiteboardItem);
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<WhiteboardObject> findAllbyWhiteboardId(Long id) {
-		return (List<WhiteboardObject>)em.createQuery("from Note n where n.whiteboard.id=?1").setParameter(1, id).getResultList();
+	public List<WhiteboardItem> findAllbyWhiteboardId(Long id) {
+		return (List<WhiteboardItem>)em.createQuery("from Note n where n.whiteboard.id=?1").setParameter(1, id).getResultList();
 	}
 
 }
