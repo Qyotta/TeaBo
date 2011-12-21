@@ -44,7 +44,7 @@
 		<form:password path="password"/><br /><br />
 		
 		*Confirm Password: <form:errors path="passwordvalidate" cssClass="registerError"/><br />
-		<form:input path="passwordvalidate"/><br /><br />
+		<form:password path="passwordvalidate"/><br /><br />
 		
 		Firstname: <form:errors path="firstname" cssClass="registerError"/><br />
 		<form:input path="firstname"/><br /><br />
