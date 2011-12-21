@@ -27,7 +27,6 @@ public class User {
 	
 	@NotNull
 	private String password;
-//	private String passwordvalidate;
 	
 	private String position;
 	
@@ -100,12 +99,6 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-//	public String getPasswordvalidate() {
-//		return passwordvalidate;
-//	}
-//	public void setPasswordvalidate(String passwordvalidate) {
-//		this.passwordvalidate = passwordvalidate;
-//	}
 	public String getPosition() {
 		return position;
 	}
