@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import de.bht.swp.lao.ocp.mailer.MailData;
 import de.bht.swp.lao.ocp.mailer.Mailer;
-import de.bht.swp.lao.ocp.note.NoteDao;
+import de.bht.swp.lao.ocp.modules.IWhiteboardItemDao;
 import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.user.UserDao;
 
@@ -23,7 +23,7 @@ import de.bht.swp.lao.ocp.user.UserDao;
 public class WhiteboardController {
 	
 	@Inject
-	private NoteDao noteDao;
+	private IWhiteboardItemDao noteDao;
 	
 	@Inject
 	private WhiteboardDao whiteboardDao;

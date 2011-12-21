@@ -1,6 +1,5 @@
-package de.bht.swp.lao.ocp.note;
+package de.bht.swp.lao.ocp.modules.note;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import de.bht.swp.lao.ocp.modules.WhiteboardObject;

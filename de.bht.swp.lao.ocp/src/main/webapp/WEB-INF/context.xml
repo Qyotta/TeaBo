@@ -21,7 +21,7 @@
 	<bean id="userRegisterValidator" class="de.bht.swp.lao.ocp.user.UserRegisterValidator" />
 	
 	<bean id="userDao" class="de.bht.swp.lao.ocp.user.UserDaoImpl" />
-	<bean id="noteDao" class="de.bht.swp.lao.ocp.note.NoteDaoImpl" />
+	<bean id="noteDao" class="de.bht.swp.lao.ocp.modules.note.NoteDaoImpl" />
 	<bean id="whiteboardDao" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardDaoImpl" />
 	
 	

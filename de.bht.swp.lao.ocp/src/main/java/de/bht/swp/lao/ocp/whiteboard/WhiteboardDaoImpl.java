@@ -9,7 +9,6 @@ import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.bht.swp.lao.ocp.modules.WhiteboardObject;
-import de.bht.swp.lao.ocp.note.Note;
 import de.bht.swp.lao.ocp.user.User;
 
 public class WhiteboardDaoImpl implements WhiteboardDao{

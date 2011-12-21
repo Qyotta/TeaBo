@@ -1,4 +1,4 @@
-package de.bht.swp.lao.ocp.note;
+package de.bht.swp.lao.ocp.modules.note;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +14,7 @@ import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
 
+import de.bht.swp.lao.ocp.modules.IWhiteboardItemDao;
 import de.bht.swp.lao.ocp.user.UserDao;
 import de.bht.swp.lao.ocp.whiteboard.WhiteboardDao;
 
@@ -29,7 +30,7 @@ public class NoteService {
 	private ServerSession serverSession;
 	
 	@Inject
-	private NoteDao noteDao;
+	private IWhiteboardItemDao noteDao;
 	
 	@Inject
 	private WhiteboardDao whiteboardDao;
@@ -51,7 +52,9 @@ public class NoteService {
 		
 		Note note = null;
 		if(id!=null){
-			note = noteDao.findById(id);
+			if (noteDao.findById(id) instanceof Note){
+				note = (Note) noteDao.findById(id);
+			}
 		}
 		else{
 			note = new Note();
@@ -87,7 +90,7 @@ public class NoteService {
 		Boolean inProgress = (Boolean)data.get("inProgress");
 		Long whiteboardid = (Long)data.get("whiteboardid");
 		
-		Note note = noteDao.findById(id);
+		Note note = (Note) noteDao.findById(id);
 		note.setInProgress(inProgress);
 		noteDao.save(note);
 		
