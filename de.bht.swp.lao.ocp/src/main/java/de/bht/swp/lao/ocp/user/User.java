@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import com.sun.istack.internal.NotNull;
+import javax.persistence.Column;
 
 
 import de.bht.swp.lao.ocp.note.Note;
@@ -25,7 +25,7 @@ public class User {
 	private String lastname;
 	private String email;
 	
-	@NotNull
+	@Column(nullable=false)
 	private String password;
 	private String passwordvalidate;
 	
