@@ -1,19 +1,22 @@
 package de.bht.swp.lao.ocp.modules.attachment;
 
-import com.mysql.jdbc.Blob;
+import javax.persistence.Entity;
+
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import de.bht.swp.lao.ocp.modules.WhiteboardItem;
 
+@Entity
 public class Attachment extends WhiteboardItem {
 
-	private Blob data;
+	private CommonsMultipartFile data;
 	private String text;
 	
-	public Blob getData() {
+	public CommonsMultipartFile getData() {
 		return data;
 	}
 	
-	public void setData(Blob data) {
+	public void setData(CommonsMultipartFile data) {
 		this.data = data;
 	}
 	

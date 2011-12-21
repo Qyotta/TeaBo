@@ -22,6 +22,7 @@
 	
 	<bean id="userDao" class="de.bht.swp.lao.ocp.user.UserDaoImpl" />
 	<bean id="noteDao" class="de.bht.swp.lao.ocp.modules.note.NoteDaoImpl" />
+	<bean id="attachmentDao" class="de.bht.swp.lao.ocp.modules.attachment.AttachmentDaoImpl" />
 	<bean id="whiteboardDao" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardDaoImpl" />
 	
 	
