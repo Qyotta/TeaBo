@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
@@ -41,7 +41,7 @@
 </form:form>
 <h2>Created Whiteboards</h2>
 <c:choose>
-	<c:when test="${whiteboards.isEmpty()}">
+	<c:when test="${fn:length(whiteboards) == 0}">
 		<p>No whiteboard created yet.</p>
 	</c:when>
 	<c:otherwise>
@@ -59,7 +59,7 @@
 
 <h2>Assigned whiteboards</h2>
 <c:choose>
-	<c:when test="${assignedWhiteboards.isEmpty()}">
+	<c:when test="${fn:length(assignedWhiteboards) == 0}">
 		<p>No whiteboard assigned yet.</p>
 	</c:when>
 	<c:otherwise>

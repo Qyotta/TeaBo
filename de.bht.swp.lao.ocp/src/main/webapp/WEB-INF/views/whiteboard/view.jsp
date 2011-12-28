@@ -59,16 +59,7 @@
     </ul>
 
     <ul class="right">
-        <li><a href="#"><img src="../images/icons/calendar.png" alt="Search" title="Search" /></a></li>
-        <li><a href="#"><img src="../images/icons/chart_line.png" alt="Search" title="Search" /></a></li>
-        <li><a href="#"><img src="../images/icons/checkbox_checked.png" alt="Search" title="Search" /></a></li>
-        <li><a href="#" class="uploadFile"><img src="../images/icons/doc_empty.png" alt="Search" title="Load File" /></a></li>
-        <li><a href="#"><img src="../images/icons/music.png" alt="Search" title="Search" /></a></li>
+        <li><a href="#" class="uploadFile"><img src="../images/icons/doc_empty.png" alt="uploadFile" title="Load File" /></a></li>
         <li><a href="#" class="createPostIt"><img src="../images/icons/notepad.png" alt="create_postIt" title="create new postIt" /></a></li>
-        <li><a href="#"><img src="../images/icons/pencil.png" alt="Search" title="Search" /></a></li>
-        <li><a href="#"><img src="../images/icons/picture.png" alt="Search" title="Search" /></a></li>
-        <li><a href="#"><img src="../images/icons/preso.png" alt="Search" title="Search" /></a></li>
-        <li><a href="#"><img src="../images/icons/spechbubble_sq_line.png" alt="Search" title="Search" /></a></li>
-        <li><a href="#"><img src="../images/icons/tag.png" alt="Search" title="Search" /></a></li>
-    </ul>
+	</ul>
 </nav> 
