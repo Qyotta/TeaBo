@@ -1,14 +1,14 @@
 package de.bht.swp.lao.ocp.user;
 
-import com.sun.istack.internal.NotNull;
+import javax.persistence.Column;
 
 public class RegisterFormData {
 
 	private String email;
-	@NotNull
+	@Column(nullable=false)
 	private String password;
 	
-	@NotNull
+	@Column(nullable=false)
 	private String passwordvalidate;
 	private String errors;
 	private String firstname;
