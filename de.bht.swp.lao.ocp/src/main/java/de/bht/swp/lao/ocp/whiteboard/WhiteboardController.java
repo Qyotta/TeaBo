@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import de.bht.swp.lao.ocp.mailer.MailData;
 import de.bht.swp.lao.ocp.mailer.Mailer;
-import de.bht.swp.lao.ocp.modules.IWhiteboardItemDao;
 import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.user.UserDao;
+import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 @Controller
 @RequestMapping(value="/whiteboard/*")

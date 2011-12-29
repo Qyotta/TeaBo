@@ -1,10 +1,10 @@
-package de.bht.swp.lao.ocp.modules.attachment;
+package de.bht.swp.lao.ocp.attachment;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 
-import de.bht.swp.lao.ocp.modules.WhiteboardItem;
+import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 @Entity
 public class Attachment extends WhiteboardItem {

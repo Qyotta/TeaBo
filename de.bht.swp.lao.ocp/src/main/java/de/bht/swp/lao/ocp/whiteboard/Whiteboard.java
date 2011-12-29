@@ -9,8 +9,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import de.bht.swp.lao.ocp.modules.WhiteboardItem;
 import de.bht.swp.lao.ocp.user.User;
+import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 @Entity
 public class Whiteboard {

@@ -1,4 +1,4 @@
-package de.bht.swp.lao.ocp.modules;
+package de.bht.swp.lao.ocp.whiteboarditem;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;

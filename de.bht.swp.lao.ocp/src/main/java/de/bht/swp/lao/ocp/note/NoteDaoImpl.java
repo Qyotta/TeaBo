@@ -1,4 +1,4 @@
-package de.bht.swp.lao.ocp.modules.note;
+package de.bht.swp.lao.ocp.note;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import de.bht.swp.lao.ocp.modules.IWhiteboardItemDao;
-import de.bht.swp.lao.ocp.modules.WhiteboardItem;
+import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
+import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 public class NoteDaoImpl implements IWhiteboardItemDao {
 

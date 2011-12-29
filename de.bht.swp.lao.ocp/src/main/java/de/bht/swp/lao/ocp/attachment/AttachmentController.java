@@ -1,4 +1,4 @@
-package de.bht.swp.lao.ocp.modules.attachment;
+package de.bht.swp.lao.ocp.attachment;
 
 import java.io.IOException;
 
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import de.bht.swp.lao.ocp.modules.IWhiteboardItemDao;
 import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 import de.bht.swp.lao.ocp.whiteboard.WhiteboardDao;
+import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 @Controller
 @RequestMapping(value="/whiteboard/*")

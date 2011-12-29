@@ -1,4 +1,4 @@
-package de.bht.swp.lao.ocp.modules;
+package de.bht.swp.lao.ocp.whiteboarditem;
 
 import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;

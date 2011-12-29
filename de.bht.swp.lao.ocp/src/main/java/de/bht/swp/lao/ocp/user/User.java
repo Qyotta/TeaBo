@@ -12,8 +12,8 @@ import javax.persistence.OneToMany;
 
 import javax.persistence.Column;
 
-import de.bht.swp.lao.ocp.modules.WhiteboardItem;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
+import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 @Entity
 public class User {

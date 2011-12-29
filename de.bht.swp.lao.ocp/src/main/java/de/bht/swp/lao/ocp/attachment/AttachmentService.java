@@ -1,4 +1,4 @@
-package de.bht.swp.lao.ocp.modules.attachment;
+package de.bht.swp.lao.ocp.attachment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,9 +14,9 @@ import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
 
-import de.bht.swp.lao.ocp.modules.IWhiteboardItemDao;
 import de.bht.swp.lao.ocp.user.UserDao;
 import de.bht.swp.lao.ocp.whiteboard.WhiteboardDao;
+import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 @Named
 @Singleton

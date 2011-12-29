@@ -1,8 +1,8 @@
-package de.bht.swp.lao.ocp.modules.note;
+package de.bht.swp.lao.ocp.note;
 
 import javax.persistence.Entity;
 
-import de.bht.swp.lao.ocp.modules.WhiteboardItem;
+import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 @Entity
 public class Note extends WhiteboardItem{

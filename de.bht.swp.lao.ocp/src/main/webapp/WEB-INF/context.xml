@@ -20,15 +20,13 @@
 		<property name="maxUploadSize" value="16777215" />
 	</bean>
 
-	<bean id="userLoginValidator" class="de.bht.swp.lao.ocp.user.UserLoginValidator" />
-	<bean id="userRegisterValidator" class="de.bht.swp.lao.ocp.user.UserRegisterValidator" />
+	<bean id="userLoginValidator" class="de.bht.swp.lao.ocp.login.UserLoginValidator" />
+	<bean id="userRegisterValidator" class="de.bht.swp.lao.ocp.register.UserRegisterValidator" />
 
 	<bean id="userDao" class="de.bht.swp.lao.ocp.user.UserDaoImpl" />
-	<bean id="noteDao" class="de.bht.swp.lao.ocp.modules.note.NoteDaoImpl" />
-	<bean id="attachmentDao" class="de.bht.swp.lao.ocp.modules.attachment.AttachmentDaoImpl" />
+	<bean id="noteDao" class="de.bht.swp.lao.ocp.note.NoteDaoImpl" />
+	<bean id="attachmentDao" class="de.bht.swp.lao.ocp.attachment.AttachmentDaoImpl" />
 	<bean id="whiteboardDao" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardDaoImpl" />
-
-
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -49,9 +47,7 @@
 				<property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			</bean>
 		</property>
-		<!-- <property name="loadTimeWeaver" ref="loadTimeWeaver"></property> -->
 	</bean>
-
 
 	<context:annotation-config />
 
@@ -62,7 +58,5 @@
 
 	<tx:annotation-driven transaction-manager="transactionManager"
 		proxy-target-class="true" />
-
-	<!-- <context:load-time-weaver weaver-class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/> -->
 
 </beans>

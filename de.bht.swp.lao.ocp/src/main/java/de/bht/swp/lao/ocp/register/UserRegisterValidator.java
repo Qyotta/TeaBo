@@ -1,9 +1,11 @@
-package de.bht.swp.lao.ocp.user;
+package de.bht.swp.lao.ocp.register;
 
 import javax.inject.Inject;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+
+import de.bht.swp.lao.ocp.user.UserDao;
 
 public class UserRegisterValidator implements Validator {
 

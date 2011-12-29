@@ -1,4 +1,4 @@
-package de.bht.swp.lao.ocp.user;
+package de.bht.swp.lao.ocp.register;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import de.bht.swp.lao.ocp.user.User;
+import de.bht.swp.lao.ocp.user.UserDao;
 
 
 @Controller
