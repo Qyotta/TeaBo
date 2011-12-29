@@ -13,7 +13,6 @@ import org.cometd.bayeux.server.ServerSession;
 import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import de.bht.swp.lao.ocp.modules.IWhiteboardItemDao;
 import de.bht.swp.lao.ocp.user.UserDao;
@@ -45,7 +44,6 @@ public class AttachmentService {
 		Long id = (Long)data.get("id"); 
 		String creator = (String)data.get("creator");
 		String text = (String)data.get("text");
-		CommonsMultipartFile file = (CommonsMultipartFile)data.get("data");
 		Long x = (Long)data.get("x");
 		Long y = (Long)data.get("y");
 		Long whiteboardid = (Long)data.get("whiteboardid");

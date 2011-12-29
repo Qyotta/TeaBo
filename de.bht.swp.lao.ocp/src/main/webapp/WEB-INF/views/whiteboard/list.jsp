@@ -30,12 +30,9 @@
 </script>
 
 <h2>Create Whiteboard</h2>
-<form:form method="post" commandName="createWhiteboardData">
-	<form:errors path="errors" cssClass="error" />
-	<br />
-	Name: <form:errors path="name" cssClass="error" />
-	<br />
-	<form:input path="name" />
+<form:form method="post">
+	Name: <br />
+	<input name="name" />
 	<br />
 	<input type="submit" value="Submit">
 </form:form>

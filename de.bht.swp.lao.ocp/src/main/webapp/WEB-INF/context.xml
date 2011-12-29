@@ -20,7 +20,6 @@
 		<property name="maxUploadSize" value="16777215" />
 	</bean>
 
-	<bean id="whiteboardCreateValidator" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardCreateValidator" />
 	<bean id="userLoginValidator" class="de.bht.swp.lao.ocp.user.UserLoginValidator" />
 	<bean id="userRegisterValidator" class="de.bht.swp.lao.ocp.user.UserRegisterValidator" />
 

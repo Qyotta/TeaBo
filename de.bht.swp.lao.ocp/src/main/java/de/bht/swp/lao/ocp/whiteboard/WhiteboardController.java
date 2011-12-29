@@ -3,7 +3,6 @@ package de.bht.swp.lao.ocp.whiteboard;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import de.bht.swp.lao.ocp.mailer.MailData;
 import de.bht.swp.lao.ocp.mailer.Mailer;
@@ -30,9 +30,6 @@ public class WhiteboardController {
 	
 	@Inject
 	private UserDao userDao;
-	
-	@Autowired
-	private WhiteboardCreateValidator whiteboardCreateValidator;
 	
 	@RequestMapping(value="/view-{whiteboardId}.htm", method=RequestMethod.GET)
 	public String view(ModelMap model,HttpServletRequest request,@PathVariable("whiteboardId")Long whiteboardId){
@@ -55,7 +52,6 @@ public class WhiteboardController {
 	public String list(ModelMap model,HttpServletRequest request){
 		User user = (User)request.getSession().getAttribute("user");
 		user = userDao.findById(user.getId());
-		model.addAttribute("createWhiteboardData", new CreateWhiteboardData());
 		
 		model.addAttribute("whiteboards", user.getWhiteboards());
 		model.addAttribute("assignedWhiteboards", user.getAssignedWhiteboards());
@@ -63,21 +59,21 @@ public class WhiteboardController {
 	}
 	
 	@RequestMapping(value="/list.htm", method = RequestMethod.POST)
-	public String onSubmit(@ModelAttribute("createWhiteboardData") CreateWhiteboardData createWhiteboardData, BindingResult result, HttpServletRequest request) {
-		createWhiteboardData.setCreator((User)request.getSession().getAttribute("user"));
-		whiteboardCreateValidator.validate(createWhiteboardData, result);
-		if (result.hasErrors()) {
-			if(result.hasFieldErrors("name")){
-				return "whiteboard/list";
-			}
-			return "redirect:/user/login.htm";
-		} else {
-			Whiteboard w = new Whiteboard();
-			w.setName(createWhiteboardData.getName());
-			w.setCreator(createWhiteboardData.getCreator());
-			whiteboardDao.save(w);
-			return "redirect:/whiteboard/view-"+w.getId()+".htm";
+	public String onSubmit(@RequestParam("name") String name,HttpServletRequest request) {
+		User user = (User)request.getSession().getAttribute("user");
+		
+		if (name==null || name.equals("")) {
+			return "whiteboard/list";
 		}
+		
+		if(user==null){
+			return "redirect:/user/login.htm";
+		}
+		Whiteboard w = new Whiteboard();
+		w.setName(name);
+		w.setCreator(user);
+		whiteboardDao.save(w);
+		return "redirect:/whiteboard/view-"+w.getId()+".htm";
 	}
 	
 	@RequestMapping(value="/inviteuser-{whiteboardId}.htm", method = RequestMethod.POST)
