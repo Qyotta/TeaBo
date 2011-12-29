@@ -1,31 +1,44 @@
 package de.bht.swp.lao.ocp.modules.attachment;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import javax.persistence.Lob;
 
 import de.bht.swp.lao.ocp.modules.WhiteboardItem;
 
 @Entity
 public class Attachment extends WhiteboardItem {
-
-	private CommonsMultipartFile data;
-	private String text;
 	
-	public CommonsMultipartFile getData() {
+	@Lob
+	@Column(length=16777215)
+	private byte[] data;
+	
+	private String filename;
+	
+	private String shortDescription;
+	
+	public byte[] getData() {
 		return data;
 	}
 	
-	public void setData(CommonsMultipartFile data) {
+	public void setData(byte[] data) {
 		this.data = data;
 	}
 	
-	public String getText() {
-		return text;
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 	
-	public void setText(String text) {
-		this.text = text;
+	public String getShortDescription() {
+		return shortDescription;
+	}
+	
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
 	}
 
 }

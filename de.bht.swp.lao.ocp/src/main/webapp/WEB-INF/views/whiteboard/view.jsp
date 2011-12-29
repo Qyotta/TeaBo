@@ -36,8 +36,9 @@
 <div id="upload-dialog" >	
 <form:form method="post" enctype="multipart/form-data" commandName="fileupload" action="uploadfile-${whiteboard.id}.htm">
 	<ul> 
-		<li>File: <input type="file" path="data"> </li>
-	</ul> <button type="button">+</button><br/>
+		<li>File: <input type="file" name="data"> </li>
+	</ul> <!-- <button type="button">+</button><br/> -->
+	<textarea name="shortDescription"></textarea>
 	<input type="submit" value="Submit"> 
 </form:form>
 </div>

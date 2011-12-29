@@ -60,10 +60,8 @@ public class AttachmentService {
 			attachment = new Attachment();
 			attachment.setCreator(userDao.findByEmail(creator));
 			attachment.setWhiteboard(whiteboardDao.findById(whiteboardid));
-			attachment.setData(file);
 		}
 		
-		attachment.setText(text);
 		attachment.setX(x.intValue());
 		attachment.setY(y.intValue());
 		attachmentDao.save(attachment);
