@@ -16,17 +16,17 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
-import de.bht.swp.lao.ocp.whiteboard.WhiteboardDao;
+import de.bht.swp.lao.ocp.whiteboard.IWhiteboardDao;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 @Controller
 @RequestMapping(value="/attachment/*")
 public class AttachmentController {
 	@Inject
-	private IWhiteboardItemDao attachmentDao;
+	private IWhiteboardItemDao<Attachment> attachmentDao;
 	
 	@Inject
-	private WhiteboardDao whiteboardDao;
+	private IWhiteboardDao whiteboardDao;
 	
 	@RequestMapping(value="/uploadfile-{whiteboardId}.htm", method = RequestMethod.POST)
 	public String uploadFile(@RequestParam("data") MultipartFile data, @RequestParam("shortDescription") String shortDescription, MultipartHttpServletRequest request,@PathVariable("whiteboardId")Long whiteboardId) throws IOException{

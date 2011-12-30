@@ -23,10 +23,10 @@
 	<bean id="userLoginValidator" class="de.bht.swp.lao.ocp.login.UserLoginValidator" />
 	<bean id="userRegisterValidator" class="de.bht.swp.lao.ocp.register.UserRegisterValidator" />
 
-	<bean id="userDao" class="de.bht.swp.lao.ocp.user.UserDaoImpl" />
-	<bean id="noteDao" class="de.bht.swp.lao.ocp.note.NoteDaoImpl" />
-	<bean id="attachmentDao" class="de.bht.swp.lao.ocp.attachment.AttachmentDaoImpl" />
-	<bean id="whiteboardDao" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardDaoImpl" />
+	<bean id="userDao" class="de.bht.swp.lao.ocp.user.UserDao" />
+	<bean id="noteDao" class="de.bht.swp.lao.ocp.note.NoteDao" />
+	<bean id="attachmentDao" class="de.bht.swp.lao.ocp.attachment.AttachmentDao" />
+	<bean id="whiteboardDao" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardDao" />
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

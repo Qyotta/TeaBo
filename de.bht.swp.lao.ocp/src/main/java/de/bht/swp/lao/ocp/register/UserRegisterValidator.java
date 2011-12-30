@@ -5,12 +5,12 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import de.bht.swp.lao.ocp.user.UserDao;
+import de.bht.swp.lao.ocp.user.IUserDao;
 
 public class UserRegisterValidator implements Validator {
 
 	@Inject
-	UserDao userDao;
+	IUserDao userDao;
 
 	@Override
 	public boolean supports(Class<?> clazz) {
