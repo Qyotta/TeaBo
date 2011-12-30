@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import de.bht.swp.lao.ocp.attachment.Attachment;
 import de.bht.swp.lao.ocp.mailer.MailData;
 import de.bht.swp.lao.ocp.mailer.Mailer;
+import de.bht.swp.lao.ocp.note.Note;
 import de.bht.swp.lao.ocp.user.User;
-import de.bht.swp.lao.ocp.user.UserDao;
+import de.bht.swp.lao.ocp.user.IUserDao;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 @Controller
@@ -23,16 +25,16 @@ import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 public class WhiteboardController {
 	
 	@Inject
-	private IWhiteboardItemDao noteDao;
+	private IWhiteboardItemDao<Note> noteDao;
 	
 	@Inject
-	private IWhiteboardItemDao attachmentDao;
+	private IWhiteboardItemDao<Attachment> attachmentDao;
 	
 	@Inject
-	private WhiteboardDao whiteboardDao;
+	private IWhiteboardDao whiteboardDao;
 	
 	@Inject
-	private UserDao userDao;
+	private IUserDao userDao;
 	
 	@RequestMapping(value="/view-{whiteboardId}.htm", method=RequestMethod.GET)
 	public String view(ModelMap model,HttpServletRequest request,@PathVariable("whiteboardId")Long whiteboardId){

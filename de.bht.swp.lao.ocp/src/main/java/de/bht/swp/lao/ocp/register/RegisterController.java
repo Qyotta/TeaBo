@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import de.bht.swp.lao.ocp.user.User;
-import de.bht.swp.lao.ocp.user.UserDao;
+import de.bht.swp.lao.ocp.user.IUserDao;
 
 
 @Controller
@@ -22,7 +22,7 @@ public class RegisterController {
 	UserRegisterValidator userRegisterValidator;
 	
 	@Inject
-	UserDao userDao;
+	IUserDao userDao;
 	
 	@SuppressWarnings("unused")
 	private RegisterController(){}

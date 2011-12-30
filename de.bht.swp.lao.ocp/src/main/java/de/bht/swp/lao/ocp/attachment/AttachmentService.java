@@ -14,8 +14,8 @@ import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
 
-import de.bht.swp.lao.ocp.user.UserDao;
-import de.bht.swp.lao.ocp.whiteboard.WhiteboardDao;
+import de.bht.swp.lao.ocp.user.IUserDao;
+import de.bht.swp.lao.ocp.whiteboard.IWhiteboardDao;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 @Named
@@ -29,13 +29,13 @@ public class AttachmentService {
 	private ServerSession serverSession;
 	
 	@Inject
-	private IWhiteboardItemDao attachmentDao;
+	private IWhiteboardItemDao<Attachment> attachmentDao;
 	
 	@Inject
-	private WhiteboardDao whiteboardDao;
+	private IWhiteboardDao whiteboardDao;
 	
 	@Inject
-	private UserDao userDao;
+	private IUserDao userDao;
 	
 	@Listener(value = {"/service/attachment"})
 	public void processAttachment(ServerSession remote, ServerMessage.Mutable message){

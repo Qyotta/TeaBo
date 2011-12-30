@@ -16,7 +16,7 @@ import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="type", discriminatorType=DiscriminatorType.STRING)
-public abstract class WhiteboardItem implements IWhiteboardItem {
+public abstract class WhiteboardItem {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
@@ -30,45 +30,43 @@ public abstract class WhiteboardItem implements IWhiteboardItem {
 	@ManyToOne
 	private Whiteboard whiteboard;
 
-	@Override
 	public Long getId() {
 		return id;
 	}
-	@Override
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	@Override
+
 	public Integer getX() {
 		return x;
 	}
-	@Override
+
 	public void setX(Integer x) {
 		this.x = x;
 	}
-	@Override
+
 	public Integer getY() {
 		return y;
 	}
-	@Override
+
 	public void setY(Integer y) {
 		this.y = y;
 	}
-	@Override
+
 	public User getCreator() {
 		return creator;
 	}
-	@Override
+
 	public void setCreator(User creator) {
 		this.creator = creator;
 	}
-	@Override
+
 	public Whiteboard getWhiteboard() {
 		return whiteboard;
 	}
-	@Override
+
 	public void setWhiteboard(Whiteboard whiteboard) {
 		this.whiteboard = whiteboard;
 	}
-	
 }
