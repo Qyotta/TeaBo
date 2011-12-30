@@ -26,6 +26,9 @@ public class WhiteboardController {
 	private IWhiteboardItemDao noteDao;
 	
 	@Inject
+	private IWhiteboardItemDao attachmentDao;
+	
+	@Inject
 	private WhiteboardDao whiteboardDao;
 	
 	@Inject
@@ -34,6 +37,7 @@ public class WhiteboardController {
 	@RequestMapping(value="/view-{whiteboardId}.htm", method=RequestMethod.GET)
 	public String view(ModelMap model,HttpServletRequest request,@PathVariable("whiteboardId")Long whiteboardId){
 		model.addAttribute("notes", noteDao.findAllbyWhiteboardId(whiteboardId));
+		model.addAttribute("attachments", attachmentDao.findAllbyWhiteboardId(whiteboardId));
 		model.addAttribute("whiteboard",whiteboardDao.findById(whiteboardId));
 		model.addAttribute("user", request.getSession().getAttribute("user"));
 		model.addAttribute("mailaddress", new MailData());

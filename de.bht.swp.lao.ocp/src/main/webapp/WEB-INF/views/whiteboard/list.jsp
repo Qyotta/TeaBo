@@ -10,7 +10,7 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js" lang="en">
 <!--<![endif]-->
-
+<head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>[lao] - Online Collaboration Platform</title>
@@ -28,7 +28,8 @@
 		contextPath : '${pageContext.request.contextPath}'
 	};
 </script>
-
+</head>
+<body>
 <h2>Create Whiteboard</h2>
 <form:form method="post">
 	Name: <br />
@@ -70,3 +71,5 @@
 		</ul>
 	</c:otherwise>
 </c:choose>
+</body>
+</html>

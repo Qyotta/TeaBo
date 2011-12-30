@@ -7,7 +7,7 @@
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-
+<head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>[lao] - Online Collaboration Platform</title>
@@ -25,7 +25,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/application.js"></script>
-
+</head>
+<body>
 <h1>Whiteboard <c:out value='${whiteboard.name}'/>(logged in as <c:out value="${user.email}"/>)</h1>
 
 <form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
@@ -51,6 +52,14 @@
 			<span class="creator"><c:out value='${note.creator.email}'/></span>
 		</div>
 	</c:forEach>
+	<c:forEach var="attachment" items="${attachments}">
+		<div class="postIt" id="attachment-<c:out value="${attachment.id}"/>" style="left:<c:out value="${attachment.x}"/>px; top:<c:out value="${attachment.y}"/>px;">
+			<p><img src="${pageContext.request.contextPath}/images/teambox-free-file-icons/32px/${attachment.fileExtension}.png"></p>
+			<p><c:out value='${attachment.filename}'/></p>
+			<textarea name="text"><c:out value='${attachment.shortDescription}'/></textarea>
+			<span class="creator"><c:out value='${attachment.creator.email}'/></span>
+		</div>
+	</c:forEach>
 </div>
 
 <nav class="bottomNavigation">
@@ -63,4 +72,6 @@
         <li><a href="#" class="uploadFile"><img src="../images/icons/doc_empty.png" alt="uploadFile" title="Load File" /></a></li>
         <li><a href="#" class="createPostIt"><img src="../images/icons/notepad.png" alt="create_postIt" title="create new postIt" /></a></li>
 	</ul>
-</nav> 
+</nav>
+</body>
+</html> 

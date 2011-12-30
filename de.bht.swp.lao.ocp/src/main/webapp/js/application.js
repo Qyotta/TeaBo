@@ -242,7 +242,7 @@ var activeNoteId;
         
         $('input[type="file"]').live('change',function(){
         	input = $(this).val();
-        	fileExtension = [".pdf",".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odp", ".odf"];
+        	fileExtension = [".pdf",".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odp", ".odf", ".odt"];
         	found = false;
         	for( var index in fileExtension ){
         		var ext = fileExtension[index];
