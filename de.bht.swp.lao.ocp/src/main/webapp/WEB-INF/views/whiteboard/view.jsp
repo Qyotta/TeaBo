@@ -25,6 +25,15 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/application.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/whiteboard-view.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+	showStartHelp();
+});
+</script>
+
 </head>
 <body>
 <h1>Whiteboard <c:out value='${whiteboard.name}'/>(logged in as <c:out value="${user.email}"/>)</h1>
@@ -42,6 +51,20 @@
 	<textarea name="shortDescription"></textarea>
 	<input type="submit" value="Submit"> 
 </form:form>
+</div>
+
+<div id="startscreen">
+	<input type="button" id="prev" value="prev" />
+	<ul>
+		<li>Info 1234</li>
+		<li>Fooabdeewfewf</li>
+		<li>edjewidjewiodjdwe</li>
+	</ul>
+	<input type="button" id="next" value="next" />
+	<div class="fixed-bottom">
+		<input type="checkbox" name="showAgain" id="showAgain" value="1" checked="checked"/> Show this again 
+		<input type="button" id="showClose" value="close" />
+	</div>
 </div>
 
 <div class="whiteboard" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">

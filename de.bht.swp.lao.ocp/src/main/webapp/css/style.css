@@ -412,6 +412,58 @@ nav.bottomNavigation ul.right {
 	overflow: hidden;
 }
 
+#startscreen {
+	display:none;
+	background:#FFFFFF;
+	width:90%;
+	height:90%;
+	position:absolute;
+	overflow:hidden;
+	z-index:9999999;
+	/*transparency*/ 
+	opacity:.95;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=95)";
+	filter: alpha(opacity=95);	
+	
+	-webkit-box-shadow: 0px 0px 30px #AAA;
+    -moz-box-shadow: 0px 0px 30px #AAA;
+    -o-box-shadow: 0px 0px 30px #AAA;
+    box-shadow: 0px 0px 30px #AAA;
+}
+
+#startscreen #prev{
+	position:absolute;
+	left:3px;
+	top:30px;
+	display:none;
+}
+
+#startscreen #next{
+	position:absolute;
+	right:3px;
+	top:30px;
+}
+
+#startscreen ul{
+	padding:0 80px;
+}
+
+#startscreen ul li{
+	display:none;
+}
+
+#startscreen ul li:first-child{
+	display:block;
+}
+
+#startscreen .fixed-bottom{
+	position:absolute;
+	bottom:0;
+	width:100%;
+	text-align:center;
+	
+}
+
 
 
 /* ==|== non-semantic helper classes ========================================
