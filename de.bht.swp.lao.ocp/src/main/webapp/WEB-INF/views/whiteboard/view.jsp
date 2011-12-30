@@ -35,7 +35,7 @@
 </form:form>
 
 <div id="upload-dialog" >	
-<form:form method="post" enctype="multipart/form-data" commandName="fileupload" action="uploadfile-${whiteboard.id}.htm">
+<form:form method="post" enctype="multipart/form-data" commandName="fileupload" action="${pageContext.request.contextPath}/attachment/uploadfile-${whiteboard.id}.htm">
 	<ul> 
 		<li>File: <input type="file" name="data"> </li>
 	</ul> <!-- <button type="button">+</button><br/> -->
@@ -55,7 +55,9 @@
 	<c:forEach var="attachment" items="${attachments}">
 		<div class="postIt" id="attachment-<c:out value="${attachment.id}"/>" style="left:<c:out value="${attachment.x}"/>px; top:<c:out value="${attachment.y}"/>px;">
 			<p><img src="${pageContext.request.contextPath}/images/teambox-free-file-icons/32px/${attachment.fileExtension}.png"></p>
-			<p><c:out value='${attachment.filename}'/></p>
+			<p>${attachment.filename}
+				<a href="${pageContext.request.contextPath}/attachment/${attachment.id}/${attachment.filename}/download.htm">download</a>
+			</p>
 			<textarea name="text"><c:out value='${attachment.shortDescription}'/></textarea>
 			<span class="creator"><c:out value='${attachment.creator.email}'/></span>
 		</div>
