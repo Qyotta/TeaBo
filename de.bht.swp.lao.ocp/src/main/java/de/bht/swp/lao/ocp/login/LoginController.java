@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import de.bht.swp.lao.ocp.user.UserDao;
+import de.bht.swp.lao.ocp.user.IUserDao;
 
 @Controller
 @RequestMapping(value = "/user/login.htm")
@@ -21,7 +21,7 @@ public class LoginController {
 	UserLoginValidator userLoginValidator;
 	
 	@Inject
-	UserDao userDao;
+	IUserDao userDao;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView login() {

@@ -14,8 +14,8 @@ import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
 
-import de.bht.swp.lao.ocp.user.UserDao;
-import de.bht.swp.lao.ocp.whiteboard.WhiteboardDao;
+import de.bht.swp.lao.ocp.user.IUserDao;
+import de.bht.swp.lao.ocp.whiteboard.IWhiteboardDao;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 @Named
@@ -30,13 +30,13 @@ public class NoteService {
 	private ServerSession serverSession;
 	
 	@Inject
-	private IWhiteboardItemDao noteDao;
+	private IWhiteboardItemDao<Note> noteDao;
 	
 	@Inject
-	private WhiteboardDao whiteboardDao;
+	private IWhiteboardDao whiteboardDao;
 	
 	@Inject
-	private UserDao userDao;
+	private IUserDao userDao;
 	
 	@Listener(value = {"/service/note"})
 	public void processNote(ServerSession remote, ServerMessage.Mutable message){

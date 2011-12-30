@@ -8,27 +8,26 @@ import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
-import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
-public class AttachmentDaoImpl implements IWhiteboardItemDao {
+public class AttachmentDao implements IWhiteboardItemDao<Attachment> {
 
 	@PersistenceContext
 	private EntityManager em;
 	
 	@Override
-	public WhiteboardItem findById(Long id) {
+	public Attachment findById(Long id) {
 		return em.find(Attachment.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<WhiteboardItem> findAll() {
-		return (List<WhiteboardItem>)em.createQuery("from Attachment n ").getResultList();
+	public List<Attachment> findAll() {
+		return (List<Attachment>)em.createQuery("from Attachment n ").getResultList();
 	}
 
 	@Override
 	@Transactional
-	public void save(WhiteboardItem whiteboardItem) {
+	public void save(Attachment whiteboardItem) {
 		if(whiteboardItem.getId()!=null){
 			em.merge(whiteboardItem);
 		}else{
@@ -38,7 +37,7 @@ public class AttachmentDaoImpl implements IWhiteboardItemDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<WhiteboardItem> findAllbyWhiteboardId(Long id) {
+	public List<Attachment> findAllbyWhiteboardId(Long id) {
 		return em.createQuery("from Attachment n where n.whiteboard.id=?1").setParameter(1, id).getResultList();
 	}
 
