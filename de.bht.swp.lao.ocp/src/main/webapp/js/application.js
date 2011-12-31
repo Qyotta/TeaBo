@@ -9,7 +9,7 @@ var activeNoteId;
 					function() {
 						// posts a new note
 						function _postNote(_x, _y) {
-							cometd.publish('/service/post/note', {
+							cometd.publish('/service/note/post/', {
 								x : parseInt(_x),
 								y : parseInt(_y),
 								creator : $('.whiteboard').attr(
@@ -21,7 +21,6 @@ var activeNoteId;
 
 						// create a posted note
 						function _handlePostedNote(message) {
-							console.log("new note");
 							title = $('<input/>').attr('name', 'title').attr(
 									'placeholder', 'your title').hover(
 									function() {
@@ -96,7 +95,7 @@ var activeNoteId;
 							_title = $(_note).find('input[name=title]').val();
 							_text = $(_note).find('textarea[name=text]').val();
 							
-							cometd.publish('/service/edit/note', {id:parseInt(_id),title:_title,text:_text,
+							cometd.publish('/service/note/edit/', {id:parseInt(_id),title:_title,text:_text,
 								whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))}
 							);
 						}
@@ -168,7 +167,6 @@ var activeNoteId;
 						function _handleProgressedWhiteboardItem(message) {
 							_id = message.data.id;
 							
-							console.log("\n\n\n Progressed \n\n\n");
 							whiteboardItem = null;
 							note = $('#note-' + _id);
 							
@@ -200,7 +198,21 @@ var activeNoteId;
 								}
 							}
 						}
-
+						
+						function _handlePostedAttachment(message){
+							
+							_id = message.data.id;
+							_creator = message.data.creator;
+							_shortDescription = message.data.text;
+							_x = message.data.x;
+							_y = message.data.y;
+							
+						}
+						
+						function _handleAttachmentProgress(message){
+							_id = message.data.id;
+						}
+						
 						// Function that manages the connection status with the
 						// Bayeux server
 						var _connected = false;
@@ -217,10 +229,12 @@ var activeNoteId;
 						function _metaHandshake(handshake) {
 							if (handshake.successful === true) {
 								cometd.batch(function() {
-									cometd.subscribe('/posted/note/'+ $('.whiteboard').attr('data-whiteboard-id'),_handlePostedNote);
-									cometd.subscribe('/edited/note/'+$('.whiteboard').attr('data-whiteboard-id'),_handleUpdatedNote);
+									cometd.subscribe('/note/posted/'+ $('.whiteboard').attr('data-whiteboard-id'),_handlePostedNote);
+									cometd.subscribe('/note/edited/'+$('.whiteboard').attr('data-whiteboard-id'),_handleUpdatedNote);
 									cometd.subscribe('/whiteboardItem/move/'+$('.whiteboard').attr('data-whiteboard-id'),_handleMovedWhiteboardItem);
 									cometd.subscribe('/whiteboardItem/progress/'+$('.whiteboard').attr('data-whiteboard-id'),_handleProgressedWhiteboardItem);
+									cometd.subscribe('/attachment/posted/'+$('.whiteboard').attr('data-whiteboard-id'),_handlePostedAttachment);
+									cometd.subscribe('/attachment/progress/'+$('.whiteboard').attr('data-whiteboard-id'),_handleAttachmentProgress);
 								});
 							}
 						}

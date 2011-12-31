@@ -40,7 +40,7 @@ public class NoteService {
 	@Inject
 	private IUserDao userDao;
 	
-	@Listener(value = {"/service/post/note"})
+	@Listener(value = {"/service/note/post/"})
 	public void processPost(ServerSession remote, ServerMessage.Mutable message){
 		Map<String,Object> data = message.getDataAsMap();
 		
@@ -62,7 +62,6 @@ public class NoteService {
 		
 		// Persist the created Note
 		noteDao.save(note);
-		System.out.println("Note created.");
 		
 		Map<String,Object> output = new HashMap<String,Object>();
 		
@@ -71,13 +70,13 @@ public class NoteService {
 		output.put("y", y);
 		output.put("creator", creator);
 		
-		String channel = "/posted/note/"+whiteboardid;
+		String channel = "/note/posted/"+whiteboardid;
 		for(ServerSession session:bayeux.getChannel(channel).getSubscribers()){
 			session.deliver(serverSession, channel, output, null);
 		}
 	}
 	
-	@Listener(value = {"/service/edit/note"})
+	@Listener(value = {"/service/note/edit/"})
 	public void processEdit(ServerSession remote, ServerMessage.Mutable message){
 		Map<String,Object> data = message.getDataAsMap();
 
@@ -91,8 +90,6 @@ public class NoteService {
 		
 		noteDao.save(note);
 		
-		System.out.println("Note edited.");
-		
 		Map<String,Object> output = new HashMap<String,Object>();
 		
 		output.put("id", id);
@@ -100,8 +97,8 @@ public class NoteService {
 		output.put("title", title);
 		output.put("text", text);
 		
-		String channel = "/edited/note/"+data.get("whiteboardid");
-		System.out.println(channel);
+		String channel = "/note/edited/"+data.get("whiteboardid");
+
 		for(ServerSession session:bayeux.getChannel(channel).getSubscribers()){
 			session.deliver(serverSession, channel, output, null);
 		}
