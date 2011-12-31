@@ -42,11 +42,6 @@ public class Attachment extends WhiteboardItem {
 	}
 	
 	public String getFileExtension(){
-		System.out.println();
-		System.out.println();
-		System.out.println(filename.substring(filename.lastIndexOf(".")));
-		System.out.println();
-		System.out.println();
 		return filename.substring(filename.lastIndexOf(".")+1);
 	}
 }

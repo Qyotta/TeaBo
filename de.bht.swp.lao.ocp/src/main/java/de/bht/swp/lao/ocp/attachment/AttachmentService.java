@@ -60,8 +60,8 @@ public class AttachmentService {
 			attachment.setWhiteboard(whiteboardDao.findById(whiteboardid));
 		}
 		
-		attachment.setX(x.intValue());
-		attachment.setY(y.intValue());
+		attachment.setX(x);
+		attachment.setY(y);
 		attachmentDao.save(attachment);
 		
 		Map<String,Object> output = new HashMap<String,Object>();

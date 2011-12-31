@@ -35,8 +35,8 @@ public class AttachmentController {
 		attachment.setCreator((User)request.getSession().getAttribute("user"));
 		Whiteboard w = whiteboardDao.findById(whiteboardId);
 		attachment.setWhiteboard(w);
-		attachment.setX(100);
-		attachment.setY(150);
+		attachment.setX(new Long(100));
+		attachment.setY(new Long(150));
 		attachment.setData(data.getBytes());
 		attachment.setFilename(data.getOriginalFilename());
 		attachment.setShortDescription(shortDescription);

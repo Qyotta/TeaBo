@@ -356,7 +356,7 @@ nav.bottomNavigation ul.right {
 	position:relative;
 }
 
-.whiteboard .postIt {
+.whiteboard .note {
     background: none repeat scroll 0 0 #F8F7B6;
     position:absolute;
     padding: 5px;
@@ -369,7 +369,7 @@ nav.bottomNavigation ul.right {
     -o-box-shadow: 0px 0px 5px #AAA;
     box-shadow: 0px 0px 5px #AAA;
 }
-.whiteboard .postIt textarea {
+.whiteboard .note textarea {
     background: none repeat scroll 0 0 transparent;
     border: 0 none;
     height:17px;
@@ -378,7 +378,7 @@ nav.bottomNavigation ul.right {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FDFDCC), to(#F8F7B6));
     background: -moz-linear-gradient(100% 100% 90deg,#F8F7B6, #FDFDCC);
 }
-.whiteboard .postIt input {
+.whiteboard .note input {
     background: #FDFDCC;
     border: 0;
     font-size: 20px;
@@ -392,7 +392,7 @@ nav.bottomNavigation ul.right {
     width: 10px;
     padding: 0 0 5px;
 }
-.postIt .creator {
+.note .creator {
 	display: none;
 	float: left;
 	font-size:10px;

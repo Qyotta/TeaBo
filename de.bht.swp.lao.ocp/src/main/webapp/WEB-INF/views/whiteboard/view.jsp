@@ -69,14 +69,14 @@ $(document).ready(function() {
 
 <div class="whiteboard" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">
 	<c:forEach var="note" items="${notes}">
-		<div class="postIt" id="postIt-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
+		<div class="note" id="note-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
 			<input type="text" name="title" value="<c:out value='${note.title}'/>"/>
 			<textarea name="text"><c:out value='${note.text}'/></textarea>
 			<span class="creator"><c:out value='${note.creator.email}'/></span>
 		</div>
 	</c:forEach>
 	<c:forEach var="attachment" items="${attachments}">
-		<div class="postIt" id="attachment-<c:out value="${attachment.id}"/>" style="left:<c:out value="${attachment.x}"/>px; top:<c:out value="${attachment.y}"/>px;">
+		<div class="note" id="attachment-<c:out value="${attachment.id}"/>" style="left:<c:out value="${attachment.x}"/>px; top:<c:out value="${attachment.y}"/>px;">
 			<p><img src="${pageContext.request.contextPath}/images/teambox-free-file-icons/32px/${attachment.fileExtension}.png"></p>
 			<p>${attachment.filename}
 				<a href="${pageContext.request.contextPath}/attachment/${attachment.id}/${attachment.filename}/download.htm">download</a>
@@ -95,7 +95,7 @@ $(document).ready(function() {
 
     <ul class="right">
         <li><a href="#" class="uploadFile"><img src="../images/icons/doc_empty.png" alt="uploadFile" title="Load File" /></a></li>
-        <li><a href="#" class="createPostIt"><img src="../images/icons/notepad.png" alt="create_postIt" title="create new postIt" /></a></li>
+        <li><a href="#" class="createNote"><img src="../images/icons/notepad.png" alt="create_note" title="create new note" /></a></li>
 	</ul>
 </nav>
 </body>
