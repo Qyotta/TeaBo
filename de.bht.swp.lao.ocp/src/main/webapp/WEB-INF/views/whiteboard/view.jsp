@@ -45,9 +45,10 @@ $(document).ready(function() {
 <div id="upload-dialog" >	
 <form:form method="post" enctype="multipart/form-data" commandName="fileupload" action="${pageContext.request.contextPath}/attachment/uploadfile-${whiteboard.id}.htm">
 	<ul> 
-		<li>File: <input type="file" name="data"> </li>
+		<li>File: <input type="file" name="data"> 
+		Description<br />
+		<textarea name="shortDescription"></textarea></li>
 	</ul> <!-- <button type="button">+</button><br/> -->
-	<textarea name="shortDescription"></textarea>
 	<input type="submit" value="Submit"> 
 </form:form>
 </div>
@@ -125,7 +126,6 @@ $(document).ready(function() {
 <div class="whiteboard" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">
 	<c:forEach var="note" items="${notes}">
 		<div class="note" id="note-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
-			<input type="text" name="title" value="<c:out value='${note.title}'/>"/>
 			<textarea name="text"><c:out value='${note.text}'/></textarea>
 			<span class="creator"><c:out value='${note.creator.email}'/></span>
 		</div>

@@ -19,42 +19,18 @@ var activeNoteId;
 
 		// create a posted note
 		function _handlePostedNote(message) {
-			title = $('<input/>').attr('name', 'title').attr(
-					'placeholder', 'your title').hover(
-					function() {
-						$(this).parent().find('span.creator')
-								.css('display', 'block');
-					},
-					function() {
-						$(this).parent().find('span.creator')
-								.css('display', 'none');
-					}).focus(function() {
-				clickedNote = $(this).parent();
-				divId = clickedNote.attr("id");
-				id = divId.split('-')[1];
-				_reportProgressStateWhiteboardItem(id, true);
-
-				activeNoteId = id;
-				saveInterval = window.setInterval(function() {
-					_editNote(clickedNote, id);
-				}, 500);
-			}).blur(function() {
-				clickedNote = $(this).parent();
-				divId = clickedNote.attr("id");
-				if (divId != undefined) {
-					id = divId.split('-')[1];
-					_reportProgressStateWhiteboardItem(id, false);
-				}
-
-				activeNoteId = id;
-				saveInterval = window.setInterval(function() {
-					_editNote(clickedNote, id);
-				}, 500);
-			});
 
 			text = $('<textarea/>').attr('name', 'text').attr(
 					'placeholder', 'your note text')
-					.elasticArea();
+					.elasticArea().hover(
+							function() {
+								$(this).parent().find('span.creator')
+										.css('display', 'block');
+							},
+							function() {
+								$(this).parent().find('span.creator')
+										.css('display', 'none');
+							});
 			creator = $('<span/>').addClass('creator').html(
 					message.data.creator);
 
@@ -68,7 +44,6 @@ var activeNoteId;
 													+ message.data.id)
 									.css('left', message.data.x)
 									.css('top', message.data.y)
-									.append(title)
 									.append(text)
 									.append(creator)
 									.draggable(
@@ -88,26 +63,25 @@ var activeNoteId;
 					parseInt(text[0].css('height')) === 0 ?
 							'17px': this.style.height);
 		}
-		
+
 		function _editNote(_note, _id) {
-			_title = $(_note).find('input[name=title]').val();
 			_text = $(_note).find('textarea[name=text]').val();
-			
-			cometd.publish('/service/note/edit/', {id:parseInt(_id),title:_title,text:_text,
+
+			cometd.publish('/service/note/edit/', {id:parseInt(_id),text:_text,
 				whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))}
 			);
 		}
-		
+
 		// edits a whiteboardItem
 		function _moveWhiteboardItem(_whiteboardItem, _id) {
 			_x = $(_whiteboardItem).css('left').substr(0,$(_whiteboardItem).css('left').length - 2);
 			_y = $(_whiteboardItem).css('top').substr(0,$(_whiteboardItem).css('top').length - 2);
-			
+
 			cometd.publish('/service/whiteboardItem/move', {id:parseInt(_id),x:parseInt(_x),y:parseInt(_y),
 				whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))}
 			);
 		}
-		
+
 		function _reportProgressStateWhiteboardItem(_id, _inProgress) {
 			cometd.publish('/service/whiteboardItem/progress', {
 				id : parseInt(_id),
@@ -115,7 +89,7 @@ var activeNoteId;
 				whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
 			});
 		}
-		
+
 		// updates a note
 		function _handleUpdatedNote(message) {
 			if (activeNoteId == message.data.id) {
@@ -125,26 +99,24 @@ var activeNoteId;
 			if (note.length == 0) {
 
 			} else {
-				note.find('input[name=title]').val(
-						message.data.title);
 				note.find('textarea[name=text]').val(
 						message.data.text);
 			}
 		}
-		
+
 		//updates a moved whiteboarditem
 		function _handleMovedWhiteboardItem(message){
 			_id = message.data.id;
 			_x = message.data.x;
 			_y = message.data.y;
-			
+
 			if (activeNoteId == _id) {
 				return null;
 			}
-			
+
 			whiteboardItem = null;
 			note = $('#note-' + _id);
-			
+
 			if (note.length != 0) {
 				whiteboardItem  = note;
 			}
@@ -154,20 +126,20 @@ var activeNoteId;
 					whiteboardItem = attachment;
 				}
 			}
-			
+
 			if(whiteboardItem==null){
 				return null;
 			}else{
 				whiteboardItem.css('left', _x).css('top', _y);
 			}
 		}
-		
+
 		function _handleProgressedWhiteboardItem(message) {
 			_id = message.data.id;
-			
+
 			whiteboardItem = null;
 			note = $('#note-' + _id);
-			
+
 			if (note.length != 0) {
 				whiteboardItem  = note;
 			}
@@ -177,7 +149,7 @@ var activeNoteId;
 					whiteboardItem = attachment;
 				}
 			}
-			
+
 			if (whiteboardItem==null) {
 				return null;
 			}else{
@@ -196,7 +168,7 @@ var activeNoteId;
 				}
 			}
 		}
-		
+
 		function _handlePostedAttachment(message){
 			console.log("_handlePostedAttachment");
 			_id = message.data.id;
@@ -207,20 +179,20 @@ var activeNoteId;
 			_y = message.data.y;
 
 			console.log(_id+' '+_creator+' '+_filename+' '+_shortDescription+' '+_x+' '+_y);
-			
+
 			var ext = _filename.split('.').pop();
 			var basePath = $('.whiteboard').attr('data-context-path');
 			var imgPath = basePath+"/images/teambox-free-file-icons/32px/"+ext+".png";
 			console.log(imgPath);
 			var template = '<div class="note"><p><img src="'+imgPath+'"/></p><p id="filename"><a/></p><textarea name="text"/><span class="creator"></span></div>';
 			var view = $(template);
-			
+
 			var filename = $('#filename',view);
 			filename.prepend(_filename);
 			var link = $('a',filename);
 			link.attr('href','neu');
 			link.html('download');
-			
+
 			var shortDescription = $('textarea',view);
 			shortDescription.html(_shortDescription);
 
@@ -234,14 +206,14 @@ var activeNoteId;
 							}});
 			$('.whiteboard').append(view);
 		}
-		
+
 		function _postAttachment(form){
 			_creator = $('creator',form).val();
 			_x = 100;
 			_y = 125;
 			_text = $('#text',form).val();
 			_filename = $('input[type="file"]',form).val();
-			
+
 			cometd.publish('/service/attachment/post/', {
 				creator : _creator,
 				x : parseInt(_x),
@@ -251,7 +223,7 @@ var activeNoteId;
 				whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
 			});
 		}
-		
+
 		// Function that manages the connection status with the
 		// Bayeux server
 		var _connected = false;
@@ -338,8 +310,7 @@ var activeNoteId;
 		 * elastic textarea
 		 */
 		jQuery.fn.elasticArea = function() {
-			return this
-					.each(function() {
+			return this.each(function() {
 						function resizeTextarea() {
 							this.style.height = this.scrollHeight
 									/ 2 + 'px';
@@ -363,7 +334,7 @@ var activeNoteId;
 			}
 		});
 		$('.note').find('textarea').elasticArea();
-		$('.note input[name="title"]').hover(
+		$('.note textarea').hover(
 				function() {
 					$(this).parent().find('span.creator').css(
 							'display', 'block');
@@ -380,32 +351,34 @@ var activeNoteId;
 			title : "File Upload"
 		});
 
-		$('a.uploadFile')
-				.live(
-						'click',
-						function(e) {
-							e.preventDefault();
-							$('#upload-dialog > form > ul > li')
-									.not(":first-child")
-									.remove();
-							$(
-									'#upload-dialog > form > ul > li:first-child > input[type="file"]')
-									.val("");
-							$('#upload-dialog').dialog('open');
-						});
+		$('a.uploadFile').live(
+			'click',
+			function(e) {
+				e.preventDefault();
+				$('#upload-dialog > form > ul > li')
+						.not(":first-child")
+						.remove();
+				$(
+						'#upload-dialog > form > ul > li:first-child > input[type="file"]')
+						.val("");
+				$('#upload-dialog').dialog('open');
+				$('#upload-dialog').css('min-height', '142px');
+				$('#upload-dialog').css('height', 'auto');
+			}
+		);
 
-		$('#upload-dialog > form > button')
-				.live(
-						'click',
-						function(e) {
-							toClone = $(
-									'#upload-dialog > form > ul > li:first-child')
-									.clone();
-							toClone.find('input[type="file"]')
-									.val("");
-							toClone
-									.appendTo('#upload-dialog > form > ul');
-						});
+		$('#upload-dialog > form > button').live(
+			'click',
+			function(e) {
+				toClone = $(
+						'#upload-dialog > form > ul > li:first-child')
+						.clone();
+				toClone.find('input[type="file"]')
+						.val("");
+				toClone
+						.appendTo('#upload-dialog > form > ul');
+			}
+		);
 
 		$('#fileupload').submit(function(event) {
 			event.preventDefault();
@@ -414,4 +387,5 @@ var activeNoteId;
 		});
 
 	});
+
 })(jQuery);
