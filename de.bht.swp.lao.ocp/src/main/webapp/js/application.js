@@ -200,17 +200,58 @@ var activeNoteId;
 						}
 						
 						function _handlePostedAttachment(message){
-							
+							console.log("_handlePostedAttachment");
 							_id = message.data.id;
 							_creator = message.data.creator;
+							_filename = message.data.filename;
 							_shortDescription = message.data.text;
 							_x = message.data.x;
 							_y = message.data.y;
+
+							console.log(_id+' '+_creator+' '+_filename+' '+_shortDescription+' '+_x+' '+_y);
 							
+							var ext = _filename.split('.').pop();
+							var basePath = $('.whiteboard').attr('data-context-path');
+							var imgPath = basePath+"/images/teambox-free-file-icons/32px/"+ext+".png";
+							console.log(imgPath);
+							var template = '<div class="note"><p><img src="'+imgPath+'"/></p><p id="filename"><a/></p><textarea name="text"/><span class="creator"></span></div>';
+							var view = $(template);
+							
+							var filename = $('#filename',view);
+							filename.prepend(_filename);
+							var link = $('a',filename);
+							link.attr('href','neu');
+							link.html('download');
+							
+							var shortDescription = $('textarea',view);
+							shortDescription.html(_shortDescription);
+
+							var creator = $('.creator',view);
+							creator.html(_creator);
+							view.attr('id','attachment-'+_id);
+							view.draggable({
+											stop : function(e, ui) {
+												var id = $(this).attr('id').split('-')[1];
+												_moveWhiteboardItem(this,id);
+											}});
+							$('.whiteboard').append(view);
 						}
 						
-						function _handleAttachmentProgress(message){
-							_id = message.data.id;
+						function _postAttachment(form){
+							_creator = $('creator',form).val();
+							_x = 100;
+							_y = 125;
+							_text = $('#text',form).val();
+							_filename = $('input[type="file"]',form).val();
+							
+							cometd.publish('/service/attachment/post/', {
+								creator : _creator,
+								x : parseInt(_x),
+								y : parseInt(_y),
+								text : _text,
+								filename : _filename,
+								whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
+							});
 						}
 						
 						// Function that manages the connection status with the
@@ -234,7 +275,6 @@ var activeNoteId;
 									cometd.subscribe('/whiteboardItem/move/'+$('.whiteboard').attr('data-whiteboard-id'),_handleMovedWhiteboardItem);
 									cometd.subscribe('/whiteboardItem/progress/'+$('.whiteboard').attr('data-whiteboard-id'),_handleProgressedWhiteboardItem);
 									cometd.subscribe('/attachment/posted/'+$('.whiteboard').attr('data-whiteboard-id'),_handlePostedAttachment);
-									cometd.subscribe('/attachment/progress/'+$('.whiteboard').attr('data-whiteboard-id'),_handleAttachmentProgress);
 								});
 							}
 						}
@@ -249,7 +289,7 @@ var activeNoteId;
 								+ "/cometd";
 						cometd.configure({
 							url : cometURL,
-							logLevel : 'debug'
+							logLevel : 'info'
 						});
 
 						cometd.addListener('/meta/handshake', _metaHandshake);
@@ -369,31 +409,11 @@ var activeNoteId;
 													.appendTo('#upload-dialog > form > ul');
 										});
 
-						$('input[type="file"]')
-								.live(
-										'change',
-										function() {
-											input = $(this).val();
-											fileExtension = [ ".pdf", ".doc",
-													".docx", ".xls", ".xlsx",
-													".ppt", ".pptx", ".odp",
-													".odf", ".odt" ];
-											found = false;
-											for ( var index in fileExtension) {
-												var ext = fileExtension[index];
-												if ((input.toLowerCase()
-														.indexOf(
-																ext,
-																input.length
-																		- ext.length)) !== -1) {
-													found = true;
-												}
-											}
-											if (!found) {
-												alert("not allowed");
-												$(this).val("");
-											}
-										});
+						$('#fileupload').submit(function(event) {
+							event.preventDefault();
+							_postAttachment($('#fileupload'));
+							$('#upload-dialog').dialog('close');
+  						});
 
 					});
 

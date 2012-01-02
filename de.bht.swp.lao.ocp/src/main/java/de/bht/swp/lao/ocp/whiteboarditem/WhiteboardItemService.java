@@ -14,8 +14,6 @@ import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
 
-import de.bht.swp.lao.ocp.note.Note;
-
 @Named
 @Singleton
 @Service("attachmentService")

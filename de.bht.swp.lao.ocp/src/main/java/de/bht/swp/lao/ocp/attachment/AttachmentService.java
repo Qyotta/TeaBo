@@ -17,6 +17,7 @@ import org.cometd.java.annotation.Session;
 import de.bht.swp.lao.ocp.user.IUserDao;
 import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.whiteboard.IWhiteboardDao;
+import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 @Named
@@ -40,10 +41,13 @@ public class AttachmentService {
 	
 	@Listener(value = {"/service/attachment/post/"})
 	public void processPost(ServerSession remote, ServerMessage.Mutable message){
+
+		System.out.println("Attachment posted.");
+		
 		Map<String,Object> data = message.getDataAsMap();
 		
-		Long id = (Long)data.get("id"); 
 		String creator = (String)data.get("creator");
+		String filename = (String)data.get("filename");
 		String text = (String)data.get("text");
 		Long x = (Long)data.get("x");
 		Long y = (Long)data.get("y");
@@ -51,15 +55,24 @@ public class AttachmentService {
 		
 		Attachment attachment = new Attachment();
 		attachment.setShortDescription(text);
+		attachment.setFilename(filename);
 		attachment.setX(x);
 		attachment.setY(y);
 		
 		User user = userDao.findByEmail(creator);
 		attachment.setCreator(user);
 		
+		Whiteboard w = whiteboardDao.findById(whiteboardid);
+		attachment.setWhiteboard(w);
+		
+		attachmentDao.save(attachment);
+		
+		System.out.println("Attachment saved.");
+		
 		Map<String,Object> output = new HashMap<String,Object>();
-		output.put("id", id);
+		output.put("id", attachment.getId());
 		output.put("creator", creator);
+		output.put("filename", filename);
 		output.put("text", text);
 		output.put("x", x);
 		output.put("y", y);

@@ -29,7 +29,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
+	var basePath = "${pageContext.request.contextPath}";
 	showStartHelp();
 });
 </script>
