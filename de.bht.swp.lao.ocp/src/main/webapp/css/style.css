@@ -412,23 +412,75 @@ nav.bottomNavigation ul.right {
 	overflow: hidden;
 }
 
-#startscreen {
-	display:none;
+#startscreen div.lightbox {
 	background:#FFFFFF;
-	width:90%;
-	height:90%;
+	width:600px;
 	position:absolute;
+	left:50%;
+	margin:0 0 0 -300px;
 	overflow:hidden;
 	z-index:9999999;
+    padding:20px;
 	/*transparency*/ 
 	opacity:.95;
 	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=95)";
-	filter: alpha(opacity=95);	
-	
+	filter: alpha(opacity=95);
+	/*box shadow*/
 	-webkit-box-shadow: 0px 0px 30px #AAA;
     -moz-box-shadow: 0px 0px 30px #AAA;
     -o-box-shadow: 0px 0px 30px #AAA;
     box-shadow: 0px 0px 30px #AAA;
+}
+#startscreen div.bubble {
+	position:absolute;
+	background: #000;
+	color: #fff;	
+    /*transparency*/ 
+    opacity:.75;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    filter: alpha(opacity=75);
+    /*box shadow*/
+    -webkit-box-shadow: 0px 0px 30px #AAA;
+    -moz-box-shadow: 0px 0px 30px #AAA;
+    -o-box-shadow: 0px 0px 30px #AAA;
+    box-shadow: 0px 0px 30px #AAA;
+    /*border-radius*/
+    -webkit-border-radius:10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+    
+    width:300px;
+    padding:10px;
+}
+#startscreen div.bubble img.bottom {
+	bottom: -50px;
+    position: absolute;
+}
+#startscreen div.bubble img.left {
+    left: -50px;
+    position: absolute;
+}
+#startscreen div.bubble img.top {
+    top: -50px;
+    position: absolute;
+}
+#startscreen div.bubble img.right {
+    right: -50px;
+    position: absolute;
+}
+
+#startscreen #createNote {
+	bottom: 95px;
+	right: 30px;
+}
+#startscreen #uploadFile {
+    bottom: 95px;
+    right: 70px;
+}
+#startscreen #inviteUser {
+    left: 100px;
+    top: 160px;
 }
 
 #startscreen #prev{
@@ -438,30 +490,30 @@ nav.bottomNavigation ul.right {
 	display:none;
 }
 
+#startscreen div {
+	display:none;
+}
+#startscreen div div {
+	display:block;
+}
+#startscreen .showAgain {
+	font-size: 10px;
+    margin-top: 30px;
+}
+
 #startscreen #next{
 	position:absolute;
 	right:3px;
 	top:30px;
 }
 
-#startscreen ul{
-	padding:0 80px;
-}
-
-#startscreen ul li{
-	display:none;
-}
-
-#startscreen ul li:first-child{
-	display:block;
-}
-
-#startscreen .fixed-bottom{
+#startscreen button.closeToolTip {
 	position:absolute;
-	bottom:0;
-	width:100%;
-	text-align:center;
-	
+	top:10px;
+	right:10px;
+	background:none;
+	color:#fff;
+	border:0;
 }
 
 
