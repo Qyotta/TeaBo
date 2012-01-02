@@ -38,7 +38,7 @@
 		<FONT color="red"><form:errors path="errors" cssClass="error"/></FONT><br /><br />
 	
 		*Email: <form:errors path="email" cssClass="registerError"/><br />
-		<form:input path="email"/><br /><br />
+		<form:input type="email" path="email"/><br /><br />
  
 		*Password: <form:errors path="password" cssClass="registerError"/><br />
 		<form:password path="password"/><br /><br />
@@ -56,9 +56,12 @@
 		<form:input path="position"/><br /><br />
 		
 		<p>* is required</p>
+		
+		<input type="submit" value="Submit">
+		<input type="reset" value="Cancel">
  
- 		<p><a href="${pageContext.request.contextPath}/user/login.htm">Cancel</a></p>	
- 		<input type="submit" value="Submit">
+ 		<p><a href="${pageContext.request.contextPath}/user/login.htm">Back</a></p>	
+ 		
  		
 	
 		</form:form>
