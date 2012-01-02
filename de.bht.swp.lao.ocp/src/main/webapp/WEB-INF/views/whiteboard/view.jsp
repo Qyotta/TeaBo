@@ -70,7 +70,6 @@ $(document).ready(function() {
 <div class="whiteboard" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">
 	<c:forEach var="note" items="${notes}">
 		<div class="note" id="note-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
-			<input type="text" name="title" value="<c:out value='${note.title}'/>"/>
 			<textarea name="text"><c:out value='${note.text}'/></textarea>
 			<span class="creator"><c:out value='${note.creator.email}'/></span>
 		</div>

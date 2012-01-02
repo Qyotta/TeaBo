@@ -81,11 +81,9 @@ public class NoteService {
 		Map<String,Object> data = message.getDataAsMap();
 
 		Long id = (Long)data.get("id");
-		String title = (String)data.get("title");
 		String text = (String)data.get("text");
 		
 		Note note = noteDao.findById(id);
-		note.setTitle(title);
 		note.setText(text);
 		
 		noteDao.save(note);
@@ -94,7 +92,6 @@ public class NoteService {
 		
 		output.put("id", id);
 
-		output.put("title", title);
 		output.put("text", text);
 		
 		String channel = "/note/edited/"+data.get("whiteboardid");
