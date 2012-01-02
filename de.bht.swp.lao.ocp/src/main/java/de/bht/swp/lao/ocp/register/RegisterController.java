@@ -51,6 +51,7 @@ public class RegisterController {
 			newUser.setLastname(registerFormData.getLastname());
 			newUser.setPassword(registerFormData.getPassword());
 			newUser.setPosition(registerFormData.getPosition());
+			newUser.setShowToolTips(true);
 			userDao.save(newUser);
 			request.getSession().setAttribute("user", userDao.findByEmail( registerFormData.getEmail()));
 			

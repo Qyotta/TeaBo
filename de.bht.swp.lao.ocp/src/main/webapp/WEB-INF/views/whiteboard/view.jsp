@@ -146,6 +146,7 @@ $(document).ready(function() {
     <ul>
         <li><a href="#"><img src="../images/icons/pin_map.png" alt="Get URL" title="Get URL" /></a></li>
         <li><a href="#"><img src="../images/icons/zoom.png" alt="Search" title="Search" /></a></li>
+        <li><a href="#" class="showToolTips"><img src="../images/icons/info.png" alt="Show Tooltips" title="Show Tooltips" /></a></li>
     </ul>
 
     <ul class="right">
