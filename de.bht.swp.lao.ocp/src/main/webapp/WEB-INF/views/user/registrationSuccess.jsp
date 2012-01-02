@@ -33,8 +33,8 @@
 </head>
 
 <body>
-	<h1>Registration successful!</h1>
-	<h2>Welcome on Online Collaboration Platform
+	<h1>Welcome on [lao]</h1>
+	<h2>Registration successful!
 	<a href="${pageContext.request.contextPath}/whiteboard/list.htm">Go on!</a>	</h2>	
 </body>
 </html>

@@ -50,25 +50,25 @@
 
 	<form:form name="registerFormData" method="POST"
 		commandName="registerFormData" action="register.htm">
-		<FONT color="red"><form:errors path="errors" cssClass="error" /></FONT>
+		<FONT color="red"><form:errors path="errors" cssClass="error" /></FONT></br>
 		<br />
 	
-		*Email: <form:errors path="email" cssClass="registerError" />
+		*Email: <FONT color="red"><form:errors path="email" cssClass="registerError" /></FONT>
 		<br />
 		<form:input type="email" path="email" />
 		<br />
 		<br />
  
-		*Password: <form:errors path="password" cssClass="registerError" />
+		*Password: <FONT color="red"><form:errors  path="password" cssClass="registerError" /></FONT>
 		<br />
-		<form:password path="password" />
+		<form:password type="password" path="password" />
 		<br />
 		<br />
 		
-		*Confirm Password: <form:errors path="passwordvalidate"
-			cssClass="registerError" />
+		*Confirm Password: <FONT color="red"><form:errors path="passwordvalidate"
+			cssClass="registerError" /></FONT>
 		<br />
-		<form:password path="passwordvalidate" />
+		<form:password type="password" path="passwordvalidate" />
 		<br />
 		<br />
 		
