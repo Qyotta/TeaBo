@@ -21,42 +21,18 @@ var activeNoteId;
 
 						// create a posted note
 						function _handlePostedNote(message) {
-							title = $('<input/>').attr('name', 'title').attr(
-									'placeholder', 'your title').hover(
-									function() {
-										$(this).parent().find('span.creator')
-												.css('display', 'block');
-									},
-									function() {
-										$(this).parent().find('span.creator')
-												.css('display', 'none');
-									}).focus(function() {
-								clickedNote = $(this).parent();
-								divId = clickedNote.attr("id");
-								id = divId.split('-')[1];
-								_reportProgressStateWhiteboardItem(id, true);
-
-								activeNoteId = id;
-								saveInterval = window.setInterval(function() {
-									_editNote(clickedNote, id);
-								}, 500);
-							}).blur(function() {
-								clickedNote = $(this).parent();
-								divId = clickedNote.attr("id");
-								if (divId != undefined) {
-									id = divId.split('-')[1];
-									_reportProgressStateWhiteboardItem(id, false);
-								}
-
-								activeNoteId = id;
-								saveInterval = window.setInterval(function() {
-									_editNote(clickedNote, id);
-								}, 500);
-							});
 
 							text = $('<textarea/>').attr('name', 'text').attr(
 									'placeholder', 'your note text')
-									.elasticArea();
+									.elasticArea().hover(
+											function() {
+												$(this).parent().find('span.creator')
+														.css('display', 'block');
+											},
+											function() {
+												$(this).parent().find('span.creator')
+														.css('display', 'none');
+											});
 							creator = $('<span/>').addClass('creator').html(
 									message.data.creator);
 
@@ -70,7 +46,6 @@ var activeNoteId;
 																	+ message.data.id)
 													.css('left', message.data.x)
 													.css('top', message.data.y)
-													.append(title)
 													.append(text)
 													.append(creator)
 													.draggable(
@@ -92,10 +67,9 @@ var activeNoteId;
 						}
 						
 						function _editNote(_note, _id) {
-							_title = $(_note).find('input[name=title]').val();
 							_text = $(_note).find('textarea[name=text]').val();
 							
-							cometd.publish('/service/note/edit/', {id:parseInt(_id),title:_title,text:_text,
+							cometd.publish('/service/note/edit/', {id:parseInt(_id),text:_text,
 								whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))}
 							);
 						}
@@ -127,8 +101,6 @@ var activeNoteId;
 							if (note.length == 0) {
 
 							} else {
-								note.find('input[name=title]').val(
-										message.data.title);
 								note.find('textarea[name=text]').val(
 										message.data.text);
 							}
@@ -365,7 +337,7 @@ var activeNoteId;
 							}
 						});
 						$('.note').find('textarea').elasticArea();
-						$('.note input[name="title"]').hover(
+						$('.note textarea').hover(
 								function() {
 									$(this).parent().find('span.creator').css(
 											'display', 'block');
