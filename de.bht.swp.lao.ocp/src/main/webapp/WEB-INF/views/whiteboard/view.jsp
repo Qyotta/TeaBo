@@ -46,9 +46,10 @@ $(document).ready(function() {
 <div id="upload-dialog" >	
 <form:form method="post" enctype="multipart/form-data" commandName="fileupload" action="${pageContext.request.contextPath}/attachment/uploadfile-${whiteboard.id}.htm">
 	<ul> 
-		<li>File: <input type="file" name="data"> </li>
+		<li>File: <input type="file" name="data"> 
+		Description<br />
+		<textarea name="shortDescription"></textarea></li>
 	</ul> <!-- <button type="button">+</button><br/> -->
-	<textarea name="shortDescription"></textarea>
 	<input type="submit" value="Submit"> 
 </form:form>
 </div>

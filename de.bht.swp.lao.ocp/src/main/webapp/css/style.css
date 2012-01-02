@@ -412,6 +412,44 @@ nav.bottomNavigation ul.right {
 	overflow: hidden;
 }
 
+#upload-dialog ul{
+	list-style-type:none;
+}
+
+
+.ui-dialog-titlebar{
+	overflow:hidden;
+	margin:0 0 -1px;
+	height:20px;
+}
+
+#ui-dialog-title-upload-dialog{
+	background:#ffffff;
+	border: 1px solid #000000;
+	overflow: hidden;
+	font-weight:bold;
+	padding:2px 4px 0;
+	float:left;
+}
+
+.ui-dialog-titlebar-close{
+	float:right;
+	background:#ffffff;
+	overflow: hidden;
+	font-weight:bold;
+	padding:2px 4px;
+	border-color: #000000;;
+    border-style: solid;
+    border-width: 1px 1px 0;
+}
+
+.ui-dialog-titlebar-close span{
+	background:#ffffff;
+	overflow: hidden;
+	font-weight:bold;
+	padding:2px 4px:
+}
+
 #startscreen {
 	display:none;
 	background:#FFFFFF;

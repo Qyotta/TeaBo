@@ -366,6 +366,8 @@ var activeNoteId;
 													'#upload-dialog > form > ul > li:first-child > input[type="file"]')
 													.val("");
 											$('#upload-dialog').dialog('open');
+											$('#upload-dialog').css('min-height', '142px');
+											$('#upload-dialog').css('height', 'auto');
 										});
 
 						$('#upload-dialog > form > button')
