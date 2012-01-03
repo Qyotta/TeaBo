@@ -356,7 +356,7 @@ nav.bottomNavigation ul.right {
 	position:relative;
 }
 
-.whiteboard .postIt {
+.whiteboard .note {
     background: none repeat scroll 0 0 #F8F7B6;
     position:absolute;
     padding: 5px;
@@ -369,7 +369,7 @@ nav.bottomNavigation ul.right {
     -o-box-shadow: 0px 0px 5px #AAA;
     box-shadow: 0px 0px 5px #AAA;
 }
-.whiteboard .postIt textarea {
+.whiteboard .note textarea {
     background: none repeat scroll 0 0 transparent;
     border: 0 none;
     height:17px;
@@ -378,7 +378,7 @@ nav.bottomNavigation ul.right {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FDFDCC), to(#F8F7B6));
     background: -moz-linear-gradient(100% 100% 90deg,#F8F7B6, #FDFDCC);
 }
-.whiteboard .postIt input {
+.whiteboard .note input {
     background: #FDFDCC;
     border: 0;
     font-size: 20px;
@@ -392,7 +392,7 @@ nav.bottomNavigation ul.right {
     width: 10px;
     padding: 0 0 5px;
 }
-.postIt .creator {
+.note .creator {
 	display: none;
 	float: left;
 	font-size:10px;
@@ -410,6 +410,148 @@ nav.bottomNavigation ul.right {
 	background: #ffffff;
 	border: 1px solid #000000;
 	overflow: hidden;
+}
+
+#upload-dialog ul{
+	list-style-type:none;
+}
+
+
+.ui-dialog-titlebar{
+	overflow:hidden;
+	margin:0 0 -1px;
+	height:20px;
+}
+
+#ui-dialog-title-upload-dialog{
+	background:#ffffff;
+	border: 1px solid #000000;
+	overflow: hidden;
+	font-weight:bold;
+	padding:2px 4px 0;
+	float:left;
+}
+
+.ui-dialog-titlebar-close{
+	float:right;
+	background:#ffffff;
+	overflow: hidden;
+	font-weight:bold;
+	padding:2px 4px;
+	border-color: #000000;;
+    border-style: solid;
+    border-width: 1px 1px 0;
+}
+
+.ui-dialog-titlebar-close span{
+	background:#ffffff;
+	overflow: hidden;
+	font-weight:bold;
+	padding:2px 4px:
+}
+
+#startscreen div.lightbox {
+	background:#FFFFFF;
+	width:600px;
+	position:absolute;
+	left:50%;
+	margin:0 0 0 -300px;
+	overflow:hidden;
+	z-index:9999999;
+    padding:20px;
+	/*transparency*/ 
+	opacity:.95;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=95)";
+	filter: alpha(opacity=95);
+	/*box shadow*/
+	-webkit-box-shadow: 0px 0px 30px #AAA;
+    -moz-box-shadow: 0px 0px 30px #AAA;
+    -o-box-shadow: 0px 0px 30px #AAA;
+    box-shadow: 0px 0px 30px #AAA;
+}
+#startscreen div.bubble {
+	position:absolute;
+	background: #000;
+	color: #fff;	
+    /*transparency*/ 
+    opacity:.75;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    filter: alpha(opacity=75);
+    /*box shadow*/
+    -webkit-box-shadow: 0px 0px 30px #AAA;
+    -moz-box-shadow: 0px 0px 30px #AAA;
+    -o-box-shadow: 0px 0px 30px #AAA;
+    box-shadow: 0px 0px 30px #AAA;
+    /*border-radius*/
+    -webkit-border-radius:10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+    
+    width:300px;
+    padding:10px;
+}
+#startscreen div.bubble img.bottom {
+	bottom: -50px;
+    position: absolute;
+}
+#startscreen div.bubble img.left {
+    left: -50px;
+    position: absolute;
+}
+#startscreen div.bubble img.top {
+    top: -50px;
+    position: absolute;
+}
+#startscreen div.bubble img.right {
+    right: -50px;
+    position: absolute;
+}
+
+#startscreen #createNote {
+	bottom: 95px;
+	right: 30px;
+}
+#startscreen #uploadFile {
+    bottom: 95px;
+    right: 70px;
+}
+#startscreen #inviteUser {
+    left: 100px;
+    top: 160px;
+}
+
+#startscreen #prev{
+	position:absolute;
+	left:3px;
+	top:30px;
+	display:none;
+}
+
+#startscreen div {
+	display:none;
+}
+#startscreen div div {
+	display:block;
+}
+#startscreen .showAgain {
+	font-size: 10px;
+    margin-top: 30px;
+}
+
+#startscreen #next{
+	position:absolute;
+	right:3px;
+	top:30px;
+}
+
+#startscreen button.closeToolTip {
+	position:absolute;
+	top:10px;
+	right:10px;
+	background:none;
+	color:#fff;
+	border:0;
 }
 
 

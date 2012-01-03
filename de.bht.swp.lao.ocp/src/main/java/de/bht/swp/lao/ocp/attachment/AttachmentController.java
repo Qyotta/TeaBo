@@ -2,6 +2,8 @@ package de.bht.swp.lao.ocp.attachment;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -11,12 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import de.bht.swp.lao.ocp.user.User;
-import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
-import de.bht.swp.lao.ocp.whiteboard.IWhiteboardDao;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 @Controller
@@ -25,23 +25,22 @@ public class AttachmentController {
 	@Inject
 	private IWhiteboardItemDao<Attachment> attachmentDao;
 	
-	@Inject
-	private IWhiteboardDao whiteboardDao;
-	
 	@RequestMapping(value="/uploadfile-{whiteboardId}.htm", method = RequestMethod.POST)
-	public String uploadFile(@RequestParam("data") MultipartFile data, @RequestParam("shortDescription") String shortDescription, MultipartHttpServletRequest request,@PathVariable("whiteboardId")Long whiteboardId) throws IOException{
+	public @ResponseBody Map<String, ?> uploadFile(@RequestParam("data") MultipartFile data, @RequestParam("id") Long id, MultipartHttpServletRequest request,@PathVariable("whiteboardId")Long whiteboardId) throws IOException{
+		System.out.println();
+		System.out.println();
+		System.out.println("upload");
+		System.out.println();
+		System.out.println();
+		Attachment attachment = attachmentDao.findById(id);
 		
-		Attachment attachment = new Attachment();
-		attachment.setCreator((User)request.getSession().getAttribute("user"));
-		Whiteboard w = whiteboardDao.findById(whiteboardId);
-		attachment.setWhiteboard(w);
-		attachment.setX(100);
-		attachment.setY(150);
 		attachment.setData(data.getBytes());
 		attachment.setFilename(data.getOriginalFilename());
-		attachment.setShortDescription(shortDescription);
+		
 		attachmentDao.save(attachment);
-		return "redirect:/whiteboard/view-"+whiteboardId+".htm";
+		
+//		return "redirect:/whiteboard/view-"+whiteboardId+".htm";
+		return Collections.singletonMap("status", "ok");
 	}
 	
 	@RequestMapping(value="/{attachmentid}/{filename}/download.htm",method = RequestMethod.GET)

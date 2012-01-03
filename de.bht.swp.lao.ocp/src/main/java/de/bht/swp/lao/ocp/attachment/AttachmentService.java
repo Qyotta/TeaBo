@@ -15,7 +15,9 @@ import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
 
 import de.bht.swp.lao.ocp.user.IUserDao;
+import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.whiteboard.IWhiteboardDao;
+import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 @Named
@@ -37,41 +39,48 @@ public class AttachmentService {
 	@Inject
 	private IUserDao userDao;
 	
-	@Listener(value = {"/service/attachment"})
-	public void processAttachment(ServerSession remote, ServerMessage.Mutable message){
+	@Listener(value = {"/service/attachment/post/"})
+	public void processPost(ServerSession remote, ServerMessage.Mutable message){
+
+		System.out.println("Attachment posted.");
+		
 		Map<String,Object> data = message.getDataAsMap();
 		
-		Long id = (Long)data.get("id"); 
 		String creator = (String)data.get("creator");
+		
+		 String  filename = (String)data.get("filename");
 		String text = (String)data.get("text");
 		Long x = (Long)data.get("x");
 		Long y = (Long)data.get("y");
 		Long whiteboardid = (Long)data.get("whiteboardid");
+		Long uid = (Long)data.get("uid");
 		
-		Attachment attachment = null;
-		if(id!=null){
-			if (attachmentDao.findById(id) instanceof Attachment){
-				attachment = (Attachment) attachmentDao.findById(id);
-			}
-		}
-		else{
-			attachment = new Attachment();
-			attachment.setCreator(userDao.findByEmail(creator));
-			attachment.setWhiteboard(whiteboardDao.findById(whiteboardid));
-		}
+		Attachment attachment = new Attachment();
+		attachment.setShortDescription(text);
+		attachment.setX(x);
+		attachment.setY(y);
+		attachment.setFilename(filename);
 		
-		attachment.setX(x.intValue());
-		attachment.setY(y.intValue());
+		User user = userDao.findByEmail(creator);
+		attachment.setCreator(user);
+		
+		Whiteboard w = whiteboardDao.findById(whiteboardid);
+		attachment.setWhiteboard(w);
+		
 		attachmentDao.save(attachment);
+		
+		System.out.println("Attachment saved.");
 		
 		Map<String,Object> output = new HashMap<String,Object>();
 		output.put("id", attachment.getId());
-		output.put("creator", attachment.getCreator().getEmail());
+		output.put("creator", creator);
 		output.put("text", text);
 		output.put("x", x);
 		output.put("y", y);
+		output.put("filename", filename);
+		output.put("uid", uid);
 		
-		String channel = "/attachment/"+whiteboardid;
+		String channel = "/attachment/posted/"+whiteboardid;
 		for(ServerSession session:bayeux.getChannel(channel).getSubscribers()){
 			session.deliver(serverSession, channel, output, null);
 		}

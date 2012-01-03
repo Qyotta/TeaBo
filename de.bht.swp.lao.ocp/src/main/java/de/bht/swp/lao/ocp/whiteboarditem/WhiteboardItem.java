@@ -16,20 +16,22 @@ import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="type", discriminatorType=DiscriminatorType.STRING)
-public abstract class WhiteboardItem {
+public class WhiteboardItem {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	private Integer x;
-	private Integer y;
+	private Long x;
+	private Long y;
 	
 	@ManyToOne
 	private User creator;
 	
 	@ManyToOne
 	private Whiteboard whiteboard;
-
+	
+	private Boolean inProgress;
+	
 	public Long getId() {
 		return id;
 	}
@@ -38,19 +40,19 @@ public abstract class WhiteboardItem {
 		this.id = id;
 	}
 
-	public Integer getX() {
+	public Long getX() {
 		return x;
 	}
 
-	public void setX(Integer x) {
+	public void setX(Long x) {
 		this.x = x;
 	}
 
-	public Integer getY() {
+	public Long getY() {
 		return y;
 	}
 
-	public void setY(Integer y) {
+	public void setY(Long y) {
 		this.y = y;
 	}
 
@@ -68,5 +70,13 @@ public abstract class WhiteboardItem {
 
 	public void setWhiteboard(Whiteboard whiteboard) {
 		this.whiteboard = whiteboard;
+	}
+	
+	public void setInProgress(Boolean inProgress){
+		this.inProgress = inProgress;
+	}
+	
+	public Boolean isInProgress(){
+		return this.inProgress;
 	}
 }

@@ -26,8 +26,9 @@
 	<bean id="userDao" class="de.bht.swp.lao.ocp.user.UserDao" />
 	<bean id="noteDao" class="de.bht.swp.lao.ocp.note.NoteDao" />
 	<bean id="attachmentDao" class="de.bht.swp.lao.ocp.attachment.AttachmentDao" />
+	<bean id="whiteboardItemDao" class="de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItemDao"/>
 	<bean id="whiteboardDao" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardDao" />
-
+	
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="username" value="root" />
