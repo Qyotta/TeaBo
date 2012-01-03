@@ -2,8 +2,6 @@ package de.bht.swp.lao.ocp.attachment;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -26,12 +23,7 @@ public class AttachmentController {
 	private IWhiteboardItemDao<Attachment> attachmentDao;
 	
 	@RequestMapping(value="/uploadfile-{whiteboardId}.htm", method = RequestMethod.POST)
-	public @ResponseBody Map<String, ?> uploadFile(@RequestParam("data") MultipartFile data, @RequestParam("id") Long id, MultipartHttpServletRequest request,@PathVariable("whiteboardId")Long whiteboardId) throws IOException{
-		System.out.println();
-		System.out.println();
-		System.out.println("upload");
-		System.out.println();
-		System.out.println();
+	public void uploadFile(@RequestParam("data") MultipartFile data, @RequestParam("id") Long id, MultipartHttpServletRequest request,@PathVariable("whiteboardId")Long whiteboardId,HttpServletResponse response) throws IOException{
 		Attachment attachment = attachmentDao.findById(id);
 		
 		attachment.setData(data.getBytes());
@@ -39,8 +31,10 @@ public class AttachmentController {
 		
 		attachmentDao.save(attachment);
 		
-//		return "redirect:/whiteboard/view-"+whiteboardId+".htm";
-		return Collections.singletonMap("status", "ok");
+		response.setHeader("Content-type"," application/json");
+		String s = "{'id':'"+attachment.getId()+"'}";
+		response.getOutputStream().write(s.getBytes());
+		response.flushBuffer();
 	}
 	
 	@RequestMapping(value="/{attachmentid}/{filename}/download.htm",method = RequestMethod.GET)
