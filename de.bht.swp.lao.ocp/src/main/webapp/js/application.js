@@ -101,8 +101,8 @@ var activeUpload=null;
 			if (note.length == 0) {
 
 			} else {
-				note.find('textarea[name=text]').val(
-						message.data.text);
+				note.find('textarea[name=text]').val(message.data.text);
+				note.find('textarea[name=text]').elasticArea();
 			}
 		}
 
