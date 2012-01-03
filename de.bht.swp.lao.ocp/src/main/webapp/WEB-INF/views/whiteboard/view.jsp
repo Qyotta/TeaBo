@@ -44,9 +44,10 @@ $(document).ready(function() {
 </form:form>
 
 <div id="upload-dialog" >	
-<form:form method="post" enctype="multipart/form-data" commandName="fileupload" action="${pageContext.request.contextPath}/attachment/uploadfile-${whiteboard.id}.htm">
+<iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
+<form:form method="post" enctype="multipart/form-data" id="fileupload" commandName="fileupload" action="${pageContext.request.contextPath}/attachment/uploadfile-${whiteboard.id}.htm" target="uploadFrame">
 	<ul> 
-		<li>File: <input type="file" name="data"> 
+		<li>File: <input type="file" name="data"> <input type="hidden" name="id" id="uploadId" />
 		Description<br />
 		<textarea name="shortDescription"></textarea></li>
 	</ul> <!-- <button type="button">+</button><br/> -->

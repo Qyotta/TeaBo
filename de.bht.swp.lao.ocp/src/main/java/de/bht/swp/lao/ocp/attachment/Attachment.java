@@ -17,6 +17,8 @@ public class Attachment extends WhiteboardItem {
 	
 	private String shortDescription;
 	
+	private Boolean uploaded;
+	
 	public byte[] getData() {
 		return data;
 	}
@@ -43,5 +45,13 @@ public class Attachment extends WhiteboardItem {
 	
 	public String getFileExtension(){
 		return filename.substring(filename.lastIndexOf(".")+1);
+	}
+
+	public Boolean getUploaded() {
+		return uploaded;
+	}
+
+	public void setUploaded(Boolean uploaded) {
+		this.uploaded = uploaded;
 	}
 }
