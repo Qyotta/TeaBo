@@ -1,6 +1,8 @@
 var saveInterval;
 var activeNoteId;
 
+var activeUpload=null;
+
 (function($) {
 	var cometd = $.cometd;
 
@@ -177,7 +179,12 @@ var activeNoteId;
 			_shortDescription = message.data.text;
 			_x = message.data.x;
 			_y = message.data.y;
-
+			_uid = message.data.uid;
+			
+			if(activeUpload!=null && _uid===activeUpload[1]){
+				_uploadFile(_id);
+			}
+			
 			console.log(_id+' '+_creator+' '+_filename+' '+_shortDescription+' '+_x+' '+_y);
 
 			var ext = _filename.split('.').pop();
@@ -188,7 +195,7 @@ var activeNoteId;
 			var view = $(template);
 
 			var filename = $('#filename',view);
-			filename.prepend(_filename);
+			//filename.prepend(_filename);
 			var link = $('a',filename);
 			link.attr('href','neu');
 			link.html('download');
@@ -206,21 +213,35 @@ var activeNoteId;
 							}});
 			$('.whiteboard').append(view);
 		}
+		
+		function _uploadFile(id){
+			form = activeUpload[0];
+			console.log('start upload');
+			
+			var fileinput = $('input[type=file]',form);
+			
+			//
+			// TODO uploadfile
+			//	
+					
+			activeUpload = null;
+		}
 
 		function _postAttachment(form){
 			_creator = $('creator',form).val();
 			_x = 100;
 			_y = 125;
-			_text = $('#text',form).val();
+			_text = $('textarea[name=shortDescription]',form).val();
 			_filename = $('input[type="file"]',form).val();
-
+			
 			cometd.publish('/service/attachment/post/', {
 				creator : _creator,
+				filename : _filename,
 				x : parseInt(_x),
 				y : parseInt(_y),
 				text : _text,
-				filename : _filename,
-				whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
+				whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id')),
+				uid : activeUpload[1]
 			});
 		}
 
@@ -381,9 +402,12 @@ var activeNoteId;
 		);
 
 		$('#fileupload').submit(function(event) {
-			event.preventDefault();
-			_postAttachment($('#fileupload'));
 			$('#upload-dialog').dialog('close');
+			event.preventDefault();
+			
+			activeUpload = [$('#fileupload'),new Date().getTime()];
+			console.log(activeUpload);
+			_postAttachment($('#fileupload'));
 		});
 
 	});

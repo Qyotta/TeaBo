@@ -27,7 +27,11 @@ public class AttachmentController {
 	
 	@RequestMapping(value="/uploadfile-{whiteboardId}.htm", method = RequestMethod.POST)
 	public @ResponseBody Map<String, ?> uploadFile(@RequestParam("data") MultipartFile data, @RequestParam("id") Long id, MultipartHttpServletRequest request,@PathVariable("whiteboardId")Long whiteboardId) throws IOException{
-
+		System.out.println();
+		System.out.println();
+		System.out.println("upload");
+		System.out.println();
+		System.out.println();
 		Attachment attachment = attachmentDao.findById(id);
 		
 		attachment.setData(data.getBytes());

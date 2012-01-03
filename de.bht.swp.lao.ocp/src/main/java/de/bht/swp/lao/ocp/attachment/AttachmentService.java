@@ -47,17 +47,19 @@ public class AttachmentService {
 		Map<String,Object> data = message.getDataAsMap();
 		
 		String creator = (String)data.get("creator");
-		String filename = (String)data.get("filename");
+		
+		 String  filename = (String)data.get("filename");
 		String text = (String)data.get("text");
 		Long x = (Long)data.get("x");
 		Long y = (Long)data.get("y");
 		Long whiteboardid = (Long)data.get("whiteboardid");
+		Long uid = (Long)data.get("uid");
 		
 		Attachment attachment = new Attachment();
 		attachment.setShortDescription(text);
-		attachment.setFilename(filename);
 		attachment.setX(x);
 		attachment.setY(y);
+		attachment.setFilename(filename);
 		
 		User user = userDao.findByEmail(creator);
 		attachment.setCreator(user);
@@ -72,10 +74,11 @@ public class AttachmentService {
 		Map<String,Object> output = new HashMap<String,Object>();
 		output.put("id", attachment.getId());
 		output.put("creator", creator);
-		output.put("filename", filename);
 		output.put("text", text);
 		output.put("x", x);
 		output.put("y", y);
+		output.put("filename", filename);
+		output.put("uid", uid);
 		
 		String channel = "/attachment/posted/"+whiteboardid;
 		for(ServerSession session:bayeux.getChannel(channel).getSubscribers()){
