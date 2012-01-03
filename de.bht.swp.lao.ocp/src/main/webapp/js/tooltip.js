@@ -2,7 +2,10 @@ var toolTipCnt = 0,
 	toolTips = null;
 
 function closeToolTip() {
-	//TODO: submit value
+	var cometd = $.cometd;
+	cometd.publish('/service/user/tooltips/', {
+		showToolTips : 0
+	});
 	$(toolTips[toolTipCnt-1]).fadeOut(500);
 }
 
@@ -45,6 +48,11 @@ $(document).ready(function() {
 	
 	$('#startscreen .prevToolTip').click(function() {
 		prevToolTip();
+	});
+	
+	$('.bottomNavigation a.showToolTips').click(function() {
+		toolTipCnt = 0;
+		nextToolTip();
 	});
 	
 	
