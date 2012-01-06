@@ -38,28 +38,25 @@
         var config = {
             contextPath: '${pageContext.request.contextPath}'
         };
-    </script>
+    
+</script>
+    
 </head>
 
 <body>
-	<h2>Register</h2>
-	<h3>
-		Existing Costumer? <a
-			href="${pageContext.request.contextPath}/user/login.htm">Sign in</a>
-	</h3>
+	<h2>Registration</h2>
 
 	<form:form name="registerFormData" method="POST"
 		commandName="registerFormData" action="register.htm">
-		<FONT color="red"><form:errors path="errors" cssClass="error" /></FONT></br>
-		<br />
+		<form:errors path="errors" cssClass="registerError" /></br>
 	
-		*Email: <FONT color="red"><form:errors path="email" cssClass="registerError" /></FONT>
+		*Email: <form:errors path="email" cssClass="registerError" />
 		<br />
 		<form:input type="email" path="email" />
 		<br />
 		<br />
- 
-		*Password: <FONT color="red"><form:errors  path="password" cssClass="registerError" /></FONT>
+		
+		*Password: <form:errors  path="password" cssClass="registerError" />
 		<br />
 		<form:password type="password" path="password" />
 		<br />
@@ -95,12 +92,12 @@
 		</p>
 
 		<input type="submit" value="Create Account">
-		<input type="reset" value="Cancel">
 
 		<p>
-			<a href="${pageContext.request.contextPath}/user/login.htm">Back</a>
+			<a href="${pageContext.request.contextPath}/user/login.htm">Go Back</a>
 		</p>
 
 	</form:form>
+	
 </body>
 </html>

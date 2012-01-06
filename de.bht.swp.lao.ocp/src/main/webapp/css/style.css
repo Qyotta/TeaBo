@@ -554,6 +554,10 @@ nav.bottomNavigation ul.right {
 	border:0;
 }
 
+.registerError{
+	color: red;
+}
+
 
 
 /* ==|== non-semantic helper classes ========================================
