@@ -39,6 +39,32 @@ public class AttachmentService {
 	@Inject
 	private IUserDao userDao;
 	
+	@Listener(value = {"/service/attachment/complete"})
+	public void completeUpload(ServerSession remote, ServerMessage.Mutable message){
+		System.out.println("upload completed.");
+		Map<String,Object> data = message.getDataAsMap();
+		
+		Long id = (Long) data.get("id");
+		Long whiteboardid = (Long)data.get("whiteboardid");
+		
+		Attachment attachment = attachmentDao.findById(id);
+		
+		attachment.setUploaded(true);
+		
+		attachmentDao.save(attachment);
+		
+		Map<String,Object> output = new HashMap<String,Object>();
+		output.put("id", id);
+		output.put("filename", attachment.getFilename());
+		output.put("uploaded", true);
+		
+		String channel = "/attachment/upload/complete/"+whiteboardid;
+		for(ServerSession session:bayeux.getChannel(channel).getSubscribers()){
+			session.deliver(serverSession, channel, output, null);
+		}
+		
+	}
+	
 	@Listener(value = {"/service/attachment/post/"})
 	public void processPost(ServerSession remote, ServerMessage.Mutable message){
 

@@ -2,10 +2,11 @@ var toolTipCnt = 0,
 	toolTips = null;
 
 function closeToolTip() {
-	var cometd = $.cometd;
-	cometd.publish('/service/user/tooltips/', {
-		showToolTips : 0
-	});
+	$.ajax({
+        url: "/de.bht.swp.lao.ocp/user/setToolTipFlag.htm",
+        type: 'POST',
+        data: 'value='+$('#showAgain').is(':checked')
+    });
 	$(toolTips[toolTipCnt-1]).fadeOut(500);
 }
 
@@ -36,7 +37,19 @@ function prevToolTip() {
 $(document).ready(function() {
 	
 	toolTips = $('#startscreen div[data-type="tooltip"]');
-	nextToolTip();
+	$.ajax({
+        url: "/de.bht.swp.lao.ocp/user/showAgain.htm",
+        type: 'POST',
+        success: function(jsonData) {
+            alert(jsonData);
+        },
+        error: function(jsonData) {
+            console.log(jsonData.responseText.substr(10,4));
+            if(jsonData.responseText.substr(10,4) == "true")
+            	nextToolTip();
+        }
+    });
+	
 	
 	$('#startscreen .closeToolTip').click(function(){
 		closeToolTip();
