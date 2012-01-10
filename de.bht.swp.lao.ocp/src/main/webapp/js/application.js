@@ -189,18 +189,18 @@ var activeUpload=null;
 			console.log(imgPath);
 			var image;
 			if (activeUpload != null && _uid === activeUpload[1]){
-				image = imgPath;
+				image = basePath + "/images/loading.gif";
 			} else {
 				image = basePath +"/images/stop.gif";
 			}
-			var template = '<div class="note"><p><img src="'+ image + '"/></p><p id="filename"></p><textarea name="text"/><span class="creator"></span></div>';
+			var template = '<div class="attachment draggable"><p class="image"><img src="'+ image + '"/></p><p class="filename"></p><span class="creator"></span></div>';
 			var view = $(template);
 
 			//var filename = $('#filename',view);
 			//filename.prepend(_filename);
 
-			var shortDescription = $('textarea',view);
-			shortDescription.html(_shortDescription);
+			// var shortDescription = $('textarea',view);
+			// shortDescription.html(_shortDescription);
 
 			var creator = $('.creator',view);
 			creator.html(_creator);
@@ -240,10 +240,7 @@ var activeUpload=null;
 			var imgPath = basePath+"/images/teambox-free-file-icons/32px/"+ext+".png";
 			$('#attachment-'+message.data.id+ ' img').attr('src', imgPath);
 			var attachment = $('#attachment-'+message.data.id);
-			attachment.append('<a/>');
-			var link = $('a',attachment);
-			link.attr('href',basePath+"/attachment/"+message.data.id+"/"+message.data.filename+"/download.htm");
-			link.html('download');
+			attachment.find(".filename").text(message.data.filename.substr(0,11));
 		}
 
 		function _postAttachment(form){
@@ -368,7 +365,7 @@ var activeUpload=null;
 					});
 		};
 
-		$(".whiteboard .note").draggable({
+		$(".whiteboard .draggable").draggable({
 			stop : function(e, ui) {
 				var id = $(this).attr('id').split('-')[1];
 				_moveWhiteboardItem(this, id);

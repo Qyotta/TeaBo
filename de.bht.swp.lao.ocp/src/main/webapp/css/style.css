@@ -559,6 +559,18 @@ nav.bottomNavigation ul.right {
 	color: red;
 }
 
+.whiteboard .attachment{
+	cursor: move;
+	width: 120px;
+}
+.whiteboard .attachment .image{
+    text-align: center;
+}
+
+.whiteboard .attachment .filename{
+	text-align: center;
+    font-weight: bold;
+}
 
 
 /* ==|== non-semantic helper classes ========================================

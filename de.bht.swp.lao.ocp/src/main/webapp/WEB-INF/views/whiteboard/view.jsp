@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
@@ -127,18 +128,17 @@ $(document).ready(function() {
 
 <div class="whiteboard" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">
 	<c:forEach var="note" items="${notes}">
-		<div class="note" id="note-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
+		<div class="note draggable" id="note-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
 			<textarea name="text"><c:out value='${note.text}'/></textarea>
 			<span class="creator"><c:out value='${note.creator.email}'/></span>
 		</div>
 	</c:forEach>
 	<c:forEach var="attachment" items="${attachments}">
-		<div class="note" id="attachment-<c:out value="${attachment.id}"/>" style="left:<c:out value="${attachment.x}"/>px; top:<c:out value="${attachment.y}"/>px;">
-			<p><img src="${pageContext.request.contextPath}/images/teambox-free-file-icons/32px/${attachment.fileExtension}.png"></p>
-			<p>${attachment.filename}
-				<a href="${pageContext.request.contextPath}/attachment/${attachment.id}/${attachment.filename}/download.htm">download</a>
+		<div class="attachment draggable" id="attachment-<c:out value="${attachment.id}"/>" style="left:<c:out value="${attachment.x}"/>px; top:<c:out value="${attachment.y}"/>px;">
+			<p class="image"><img src="${pageContext.request.contextPath}/images/teambox-free-file-icons/32px/${attachment.fileExtension}.png"></p>
+			<p class="filename">
+	       	    <c:out value="${fn:substring(attachment.filename,0,11)}"/>
 			</p>
-			<textarea name="text"><c:out value='${attachment.shortDescription}'/></textarea>
 			<span class="creator"><c:out value='${attachment.creator.email}'/></span>
 		</div>
 	</c:forEach>
