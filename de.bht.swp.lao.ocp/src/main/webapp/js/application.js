@@ -187,12 +187,17 @@ var activeUpload=null;
 			var basePath = $('.whiteboard').attr('data-context-path');
 			var imgPath = basePath+"/images/teambox-free-file-icons/32px/"+ext+".png";
 			console.log(imgPath);
-			var template = '<div class="note"><p><img src="'+basePath+'/images/stop.gif"/></p><p id="filename"></p><textarea name="text"/><span class="creator"></span></div>';
+			var image;
+			if (activeUpload != null && _uid === activeUpload[1]){
+				image = imgPath;
+			} else {
+				image = basePath +"/images/stop.gif";
+			}
+			var template = '<div class="note"><p><img src="'+ image + '"/></p><p id="filename"></p><textarea name="text"/><span class="creator"></span></div>';
 			var view = $(template);
 
-			var filename = $('#filename',view);
+			//var filename = $('#filename',view);
 			//filename.prepend(_filename);
-			
 
 			var shortDescription = $('textarea',view);
 			shortDescription.html(_shortDescription);
@@ -221,7 +226,7 @@ var activeUpload=null;
 			$('#uploadFrame').load(function(){
 				var attachment = eval("(" +$(this).contents().find("pre").text()+ ")");
 				cometd.publish('/service/attachment/complete', {
-					id : attachment['id'],
+					id : parseInt(attachment['id']),
 					whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
 				});
 			});
@@ -420,7 +425,7 @@ var activeUpload=null;
 			$('#upload-dialog').dialog('close');
 			event.preventDefault();
 			
-			activeUpload = [$('#fileupload'),new Date().getTime()];
+			activeUpload = [$('#fileupload'), new Date().getTime()];
 			console.log(activeUpload);
 			_postAttachment($('#fileupload'));
 		});
