@@ -17,7 +17,18 @@ var activeUpload=null;
 				whiteboardid : parseInt($('.whiteboard').attr(
 						'data-whiteboard-id'))
 			});
+			
 		}
+		
+		$(".rightNavigation").hover(function() { 
+	        $(".rightNavigation").stop(true, false).animate({ 
+	            right: "0px", 
+	        }, 200); 
+		},function() { 
+	        $(".rightNavigation").stop(true, false).animate({ 
+	            right: "-199px", 
+	        }, 200); 
+		});
 
 		// create a posted note
 		function _handlePostedNote(message) {
@@ -424,7 +435,10 @@ var activeUpload=null;
 			console.log(activeUpload);
 			_postAttachment($('#fileupload'));
 		});
+		
+		
 
 	});
+	
 
 })(jQuery);
