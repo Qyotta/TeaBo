@@ -411,10 +411,9 @@ var activeUpload=null;
 				toClone = $(
 						'#upload-dialog > form > ul > li:first-child')
 						.clone();
-				toClone.find('input[type="file"]')
-						.val("");
-				toClone
-						.appendTo('#upload-dialog > form > ul');
+				toClone.find('input[type="file"]').val("");
+				toClone.find('textarea').html("");
+				toClone.appendTo('#upload-dialog > form > ul');
 			}
 		);
 
@@ -425,6 +424,30 @@ var activeUpload=null;
 			activeUpload = [$('#fileupload'), new Date().getTime()];
 			console.log(activeUpload);
 			_postAttachment($('#fileupload'));
+		});
+		
+		$('#fileupload input[type="file"]').live('change',function(){
+        	input = $(this).val();
+        	fileExtension = [".pdf",".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odp", ".odf"];
+        	found = false;
+        	for( var index in fileExtension ){
+        		var ext = fileExtension[index];
+	        	if( (input.toLowerCase().indexOf(ext, input.length - ext.length)) !== -1){
+	        		found = true;
+	        	}
+        	}
+        	if ( !found ){
+	        	alert("not allowed");
+	    		$(this).val("");
+        	}
+        });
+		
+		$('#fileupload textarea').live('keyup', function(){
+			var maxchar = 170;
+			if($(this).val().length >= maxchar){
+				$(this).val($(this).val().substring(0, maxchar));
+				alert("The maximum amount of chars is "+maxchar);
+			}
 		});
 
 	});

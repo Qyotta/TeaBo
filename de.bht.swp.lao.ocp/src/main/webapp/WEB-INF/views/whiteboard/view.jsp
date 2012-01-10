@@ -50,7 +50,7 @@ $(document).ready(function() {
 	<ul> 
 		<li>File: <input type="file" name="data"> <input type="hidden" name="id" id="uploadId" />
 		Description<br />
-		<textarea name="shortDescription"></textarea></li>
+		<textarea name="shortDescription" maxlength="170"></textarea></li>
 	</ul> <!-- <button type="button">+</button><br/> -->
 	<input type="submit" value="Submit"> 
 </form:form>
