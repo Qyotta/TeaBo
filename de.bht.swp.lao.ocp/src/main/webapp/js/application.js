@@ -198,15 +198,20 @@ var activeUpload=null;
 			var basePath = $('.whiteboard').attr('data-context-path');
 			var imgPath = basePath+"/images/teambox-free-file-icons/32px/"+ext+".png";
 			console.log(imgPath);
-			var template = '<div class="note"><p><img src="'+basePath+'/images/stop.gif"/></p><p id="filename"></p><textarea name="text"/><span class="creator"></span></div>';
+			var image;
+			if (activeUpload != null && _uid === activeUpload[1]){
+				image = basePath + "/images/loading.gif";
+			} else {
+				image = basePath +"/images/stop.gif";
+			}
+			var template = '<div class="attachment draggable"><p class="image"><img src="'+ image + '"/></p><p class="filename"></p><span class="creator"></span></div>';
 			var view = $(template);
 
-			var filename = $('#filename',view);
+			//var filename = $('#filename',view);
 			//filename.prepend(_filename);
-			
 
-			var shortDescription = $('textarea',view);
-			shortDescription.html(_shortDescription);
+			// var shortDescription = $('textarea',view);
+			// shortDescription.html(_shortDescription);
 
 			var creator = $('.creator',view);
 			creator.html(_creator);
@@ -232,7 +237,7 @@ var activeUpload=null;
 			$('#uploadFrame').load(function(){
 				var attachment = eval("(" +$(this).contents().find("pre").text()+ ")");
 				cometd.publish('/service/attachment/complete', {
-					id : attachment['id'],
+					id : parseInt(attachment['id']),
 					whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
 				});
 			});
@@ -246,10 +251,7 @@ var activeUpload=null;
 			var imgPath = basePath+"/images/teambox-free-file-icons/32px/"+ext+".png";
 			$('#attachment-'+message.data.id+ ' img').attr('src', imgPath);
 			var attachment = $('#attachment-'+message.data.id);
-			attachment.append('<a/>');
-			var link = $('a',attachment);
-			link.attr('href',basePath+"/attachment/"+message.data.id+"/"+message.data.filename+"/download.htm");
-			link.html('download');
+			attachment.find(".filename").text(message.data.filename.substr(0,11));
 		}
 
 		function _postAttachment(form){
@@ -374,7 +376,7 @@ var activeUpload=null;
 					});
 		};
 
-		$(".whiteboard .note").draggable({
+		$(".whiteboard .draggable").draggable({
 			stop : function(e, ui) {
 				var id = $(this).attr('id').split('-')[1];
 				_moveWhiteboardItem(this, id);
@@ -420,10 +422,9 @@ var activeUpload=null;
 				toClone = $(
 						'#upload-dialog > form > ul > li:first-child')
 						.clone();
-				toClone.find('input[type="file"]')
-						.val("");
-				toClone
-						.appendTo('#upload-dialog > form > ul');
+				toClone.find('input[type="file"]').val("");
+				toClone.find('textarea').html("");
+				toClone.appendTo('#upload-dialog > form > ul');
 			}
 		);
 
@@ -431,12 +432,36 @@ var activeUpload=null;
 			$('#upload-dialog').dialog('close');
 			event.preventDefault();
 			
-			activeUpload = [$('#fileupload'),new Date().getTime()];
+			activeUpload = [$('#fileupload'), new Date().getTime()];
 			console.log(activeUpload);
 			_postAttachment($('#fileupload'));
 		});
 		
+
+		$('#fileupload input[type="file"]').live('change',function(){
+        	input = $(this).val();
+        	fileExtension = [".pdf",".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odp", ".odf"];
+        	found = false;
+        	for( var index in fileExtension ){
+        		var ext = fileExtension[index];
+	        	if( (input.toLowerCase().indexOf(ext, input.length - ext.length)) !== -1){
+	        		found = true;
+	        	}
+        	}
+        	if ( !found ){
+	        	alert("not allowed");
+	    		$(this).val("");
+        	}
+        });
 		
+		$('#fileupload textarea').live('keyup', function(){
+			var maxchar = 170;
+			if($(this).val().length >= maxchar){
+				$(this).val($(this).val().substring(0, maxchar));
+				alert("The maximum amount of chars is "+maxchar);
+			}
+		});
+
 
 	});
 	

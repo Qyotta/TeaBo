@@ -43,8 +43,8 @@ public class AttachmentService {
 	public void completeUpload(ServerSession remote, ServerMessage.Mutable message){
 		System.out.println("upload completed.");
 		Map<String,Object> data = message.getDataAsMap();
-		
-		Long id = (Long) data.get("id");
+
+		Long id = (Long) data.get("id"); 
 		Long whiteboardid = (Long)data.get("whiteboardid");
 		
 		Attachment attachment = attachmentDao.findById(id);
@@ -62,7 +62,6 @@ public class AttachmentService {
 		for(ServerSession session:bayeux.getChannel(channel).getSubscribers()){
 			session.deliver(serverSession, channel, output, null);
 		}
-		
 	}
 	
 	@Listener(value = {"/service/attachment/post/"})
