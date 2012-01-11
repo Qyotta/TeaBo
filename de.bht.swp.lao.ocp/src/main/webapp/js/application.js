@@ -251,11 +251,12 @@ var activeUpload=null;
 		
 		function _handleUploadCompleteAttachment(message){
 			var ext = message.data.filename.split('.').pop();
+			var filename = message.data.filename.substr(0, message.data.filename.length - (ext.length + 1));
 			var basePath = $('.whiteboard').attr('data-context-path');
 			var imgPath = basePath+"/images/teambox-free-file-icons/32px/"+ext+".png";
 			$('#attachment-'+message.data.id+ ' img').attr('src', imgPath);
 			var attachment = $('#attachment-'+message.data.id);
-			attachment.find(".filename").text(message.data.filename.substr(0,11));
+			attachment.find(".filename").text(filename.substr(0,11));
 			attachment.append("<input type=\"hidden\" name=\"filename\" class=\"full_filename\" value=\""+message.data.filename+"\">"+
 							  "<input type=\"hidden\" name=\"creator\" class=\"creator\" value=\""+message.data.creatoremail+"\">"+
 							  "<input type=\"hidden\" name=\"description\" class=\"description\" value=\""+message.data.description+"\">");

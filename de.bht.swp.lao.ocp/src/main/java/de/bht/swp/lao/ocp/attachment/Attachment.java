@@ -46,6 +46,16 @@ public class Attachment extends WhiteboardItem {
 	public String getFileExtension(){
 		return filename.substring(filename.lastIndexOf(".")+1);
 	}
+	
+	public int getFileNameLenght(){
+		int back;
+		if (this.filename.lastIndexOf(".") > 11){
+			back = 11;
+		} else {
+			back = this.filename.lastIndexOf(".");
+		}
+		return back;
+	}
 
 	public Boolean getUploaded() {
 		return uploaded;
