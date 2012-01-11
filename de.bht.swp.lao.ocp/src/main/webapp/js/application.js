@@ -206,9 +206,11 @@ var activeUpload=null;
 			} else {
 				image = basePath +"/images/stop.gif";
 			}
-			var template = '<div class="attachment draggable"><p class="image"><img src="'+ image + '"/></p><p class="filename"></p><span class="creator"></span></div>';
+			var template = '<div class="attachment draggable"><p class="image"><img src="'+ image + '"/></p><p class="filename"></p></div>';
 			var view = $(template);
-
+			view.css('left',_x+'px');
+			view.css('top',_y+'px');
+			
 			//var filename = $('#filename',view);
 			//filename.prepend(_filename);
 
@@ -254,12 +256,15 @@ var activeUpload=null;
 			$('#attachment-'+message.data.id+ ' img').attr('src', imgPath);
 			var attachment = $('#attachment-'+message.data.id);
 			attachment.find(".filename").text(message.data.filename.substr(0,11));
+			attachment.append("<input type=\"hidden\" name=\"filename\" class=\"full_filename\" value=\""+message.data.filename+"\">"+
+							  "<input type=\"hidden\" name=\"creator\" class=\"creator\" value=\""+message.data.creatoremail+"\">"+
+							  "<input type=\"hidden\" name=\"description\" class=\"description\" value=\""+message.data.description+"\">");
 		}
 
 		function _postAttachment(form){
 			_creator = $('creator',form).val();
-			_x = 100;
-			_y = 125;
+			_x = 0;
+			_y = 30;
 			_text = $('textarea[name=shortDescription]',form).val();
 			_filename = $('input[type="file"]',form).val();
 			
@@ -442,7 +447,7 @@ var activeUpload=null;
 
 		$('#fileupload input[type="file"]').live('change',function(){
         	input = $(this).val();
-        	fileExtension = [".pdf",".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odp", ".odf"];
+        	fileExtension = [".pdf",".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odt", ".odp", ".odf"];
         	found = false;
         	for( var index in fileExtension ){
         		var ext = fileExtension[index];
@@ -464,7 +469,7 @@ var activeUpload=null;
 			}
 		});
 		
-		$('.attachment').click(function(event){
+		$('.attachment').live('click', function(){
 			var attachment = $(this);
 			var rightNavigation = $('.rightNavigation');
 			var basePath = $('.whiteboard').attr('data-context-path');
