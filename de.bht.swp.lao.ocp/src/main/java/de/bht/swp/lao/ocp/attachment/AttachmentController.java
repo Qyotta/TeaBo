@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 @Controller
@@ -25,10 +26,11 @@ public class AttachmentController {
 	@RequestMapping(value="/uploadfile-{whiteboardId}.htm", method = RequestMethod.POST)
 	public void uploadFile(@RequestParam("data") MultipartFile data, @RequestParam("id") Long id, MultipartHttpServletRequest request,@PathVariable("whiteboardId")Long whiteboardId,HttpServletResponse response) throws IOException{
 		Attachment attachment = attachmentDao.findById(id);
+		User user = (User)request.getSession().getAttribute("user");
 		
 		attachment.setData(data.getBytes());
 		attachment.setFilename(data.getOriginalFilename());
-		
+		attachment.setCreator(user);
 		attachmentDao.save(attachment);
 		
 		response.setHeader("Content-type"," application/json");

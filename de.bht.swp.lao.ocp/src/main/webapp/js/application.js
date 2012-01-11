@@ -24,11 +24,13 @@ var activeUpload=null;
 	        $(".rightNavigation").stop(true, false).animate({ 
 	            right: "0px", 
 	        }, 200); 
-		},function() { 
-	        $(".rightNavigation").stop(true, false).animate({ 
-	            right: "-199px", 
-	        }, 200); 
-		});
+		}
+//		,function() { 
+//	        $(".rightNavigation").stop(true, false).animate({ 
+//	            right: "-199px", 
+//	        }, 200); 
+//		}
+		);
 
 		// create a posted note
 		function _handlePostedNote(message) {
@@ -461,7 +463,32 @@ var activeUpload=null;
 				alert("The maximum amount of chars is "+maxchar);
 			}
 		});
-
+		
+		$('.attachment').click(function(event){
+			var attachment = $(this);
+			var rightNavigation = $('.rightNavigation');
+			var basePath = $('.whiteboard').attr('data-context-path');
+			
+			var full_name = $('<div/>').attr('class','full_filename').html(attachment.find('.full_filename').val());
+			var creator = $('<div/>').attr('class','creator').html('uploded by '+attachment.find('.creator').val());
+			var description = $('<textarea/>').attr('class','description').html(attachment.find('.description').val());
+			var id = $(this).attr('id').split('-')[1];
+			var download = $('<a/>').attr('href',basePath+"/attachment/"+id+"/"+attachment.find('.full_filename').val()+"/download.htm").html('[DownloadButton]');
+			
+			var fileinfo = $('<div/>')
+								.attr('class','fileinfo')
+								.append(full_name)
+								.append(creator)
+								.append($('<br/>'))
+								.append(download)
+								.append($('<br/>'))
+								.append($('<br/>'))
+								.append($('<div/>').html('Discription:'))
+								.append(description);
+			
+			rightNavigation.find('.fileinfo').remove();
+			rightNavigation.append(fileinfo);
+		});
 
 	});
 	
