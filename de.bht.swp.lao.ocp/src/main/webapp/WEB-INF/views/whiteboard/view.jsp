@@ -39,7 +39,7 @@ $(document).ready(function() {
 <body>
     <nav class="topNavigation">
         <h1 class="logo">
-            <a href="/"><img src="../images/lao_logo.jpg" /></a>
+            <a href="${pageContext.request.contextPath}/user/login.htm"><img src="../images/lao_logo.jpg" /></a>
         </h1>
         <h1 class="whiteboard_name">Whiteboard <c:out value='${whiteboard.name}'/>(logged in as <c:out value="${user.email}"/>)</h1>
     </nav>

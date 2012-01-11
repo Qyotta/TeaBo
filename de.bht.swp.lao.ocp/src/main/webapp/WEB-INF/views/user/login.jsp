@@ -33,8 +33,7 @@
 	src="${pageContext.request.contextPath}/js/libs/jquery/jquery.cometd.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/application.js"></script>
+
 
 
 <script type="text/javascript">
@@ -47,30 +46,27 @@
 <body>
 	<nav class="topNavigation">
 		<h1>
-			<a href="/"><img src="../images/lao_logo.jpg" /></a>
+			<a href="${pageContext.request.contextPath}/user/login.htm"><img
+				src="../images/lao_logo.jpg" /></a>
 		</h1>
 	</nav>
-	
+
 	<div class="loginContainer">
 
 		<form:form name="loginFormData" modelAttribute="loginFormData"
 			method="POST" commandName="loginFormData" action="login.htm">
-			<form:errors path="errors" cssClass="error" />
-
+			
 			<h1>Welcome to [lao] - Please Login</h1>
+			<form:errors path="errors" cssClass="error" />
+            <form:errors path="email" cssClass="error" />
+            <form:errors path="password" cssClass="error" />
 
 			<dl>
-				<dt>
-					Email:
-					<form:errors path="email" cssClass="error" />
-				</dt>
+				<dt>Email:</dt>
 				<dd>
 					<form:input type="email" path="email" />
 				</dd>
-				<dt>
-					Password:
-					<form:errors path="password" cssClass="error" />
-				</dt>
+				<dt>Password:</dt>
 				<dd>
 					<form:password path="password" />
 				</dd>

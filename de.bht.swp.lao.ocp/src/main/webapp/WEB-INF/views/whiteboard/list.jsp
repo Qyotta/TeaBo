@@ -41,7 +41,7 @@
 
 	<nav class="topNavigation">
 		<h1>
-			<a href="/"><img src="../images/lao_logo.jpg" /></a>
+			<a href="${pageContext.request.contextPath}/user/login.htm"><img src="../images/lao_logo.jpg" /></a>
 		</h1>
 	</nav>
 	<div class="rightNavigation">

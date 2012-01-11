@@ -38,7 +38,6 @@
         var config = {
             contextPath: '${pageContext.request.contextPath}'
         };
-    
 </script>
 
 </head>
@@ -46,7 +45,8 @@
 <body>
 	<nav class="topNavigation">
 		<h1>
-			<a href="/"><img src="../images/lao_logo.jpg" /></a>
+			<a href="${pageContext.request.contextPath}/user/login.htm"><img
+				src="../images/lao_logo.jpg" /></a>
 		</h1>
 	</nav>
 
@@ -58,34 +58,33 @@
 		</h1>
 
 		<h2>Registration</h2>
-		<h3>Fields with * are required</h3>
+		<h3>Fields with * are required.</h3>
 
 		<form:form name="registerFormData" method="POST"
 			commandName="registerFormData" action="register.htm">
 			<form:errors path="errors" cssClass="registerError" />
+			<form:errors path="email" cssClass="registerError" />
+			<form:errors path="password" cssClass="registerError" />
+			<form:errors path="passwordvalidate" cssClass="registerError" />
 			</br>
 
 			<dl>
-				<dt>
-					Email Address*
-					<form:errors path="email" cssClass="registerError" />
-				</dt>
+				<dt>E-Mail Address*</dt>
 				<dd>
 					<form:input type="email" path="email" />
+					<img class="exclamation hide" src="../images/exclamation_mark.png">
 				</dd>
 				<dt>
 					Choose Password*
-					<form:errors path="password" cssClass="registerError" />
 				</dt>
 				<dd>
 					<form:password type="password" path="password" />
+					<img class="exclamation hide" src="../images/exclamation_mark.png">
 				</dd>
-				<dt>
-					Confirm Password*
-					<form:errors path="passwordvalidate" cssClass="registerError" />
-				</dt>
+				<dt>Confirm Password*</dt>
 				<dd>
 					<form:password type="password" path="passwordvalidate" />
+					<img class="exclamation hide" src="../images/exclamation_mark.png">
 				</dd>
 				<dt>
 					First Name
@@ -102,20 +101,28 @@
 					<form:input path="lastname" />
 				</dd>
 				<dt>
-					Position 
-					<h4> (e.g. Project Manager)</h4>
+					Position
+					<h4>(e.g. Project Manager)</h4>
 					<form:errors path="position" cssClass="registerError" />
 				</dt>
 				<dd>
 					<form:input path="position" />
 				</dd>
-				<dt>
-					<input type="submit" value="Register Now" class="submitButton">
-				</dt>
-				<dd>
-					<a href="${pageContext.request.contextPath}/user/login.htm">Cancel</a>
-				</dd>
 			</dl>
+
+			<div class="registerCancelButtons">
+
+				<input type="submit" value="Register Now" class="submitButton">
+
+				<a href="${pageContext.request.contextPath}/user/login.htm"> <input
+					type="button" value="Cancel" class="submitButton">
+				</a>
+
+			</div>
+
+			<!--  <div class="exclamation_mark">
+				
+			</div>-->
 	</div>
 
 	</form:form>
