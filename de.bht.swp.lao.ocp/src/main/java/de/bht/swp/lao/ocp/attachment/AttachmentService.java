@@ -56,6 +56,8 @@ public class AttachmentService {
 		Map<String,Object> output = new HashMap<String,Object>();
 		output.put("id", id);
 		output.put("filename", attachment.getFilename());
+		output.put("creatoremail", attachment.getCreator().getEmail());
+		output.put("description", attachment.getShortDescription());
 		output.put("uploaded", true);
 		
 		String channel = "/attachment/upload/complete/"+whiteboardid;

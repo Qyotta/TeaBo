@@ -147,7 +147,7 @@ $(document).ready(function() {
 		<div class="attachment draggable" id="attachment-<c:out value="${attachment.id}"/>" style="left:<c:out value="${attachment.x}"/>px; top:<c:out value="${attachment.y}"/>px;">
 			<p class="image"><img src="${pageContext.request.contextPath}/images/teambox-free-file-icons/32px/${attachment.fileExtension}.png"></p>
 			<p class="filename">
-	       	    <c:out value="${fn:substring(attachment.filename,0,11)}"/>
+	       	    <c:out value="${fn:substring(attachment.filename,0, attachment.fileNameLenght)}"/>
 			</p>
 			<input type="hidden" name="filename" class="full_filename" value="${attachment.filename}">
 			<input type="hidden" name="creator" class="creator" value="${attachment.creator.email}">

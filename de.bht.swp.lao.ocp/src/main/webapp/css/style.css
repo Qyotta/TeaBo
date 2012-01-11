@@ -481,7 +481,7 @@ nav.rightNavigation div {
 	padding: 10px;
 }
 
-nav.topNavigation h1 {
+nav.topNavigation h1.logo {
 	position: absolute;
 	left: 4px;
 	top: 3px;
@@ -489,6 +489,11 @@ nav.topNavigation h1 {
 	-webkit-box-shadow: 0px 0px 5px #000000;
 	-moz-box-shadow: 0px 0px 5px #000000;
 	-box-shadow: 0px 0px 5px #000000;
+}
+
+nav.topNavigation h1.whiteboard_name {
+	margin: 0px 0px 0px 139px;
+	color: #ffffff;
 }
 
 nav.rightNavigation div div {
@@ -922,10 +927,6 @@ nav.bottomNavigation ul.right {
 	margin: 3px 0 2px 0;
 }
 
-.creator {
-	display: none;
-}
-
 #upload-dialog {
 	background: #ffffff;
 	border: 1px solid #000000;
@@ -1086,6 +1087,9 @@ nav.bottomNavigation ul.right {
 	color: red;
 }
 
+.draggable{
+	position: absolute;
+}
 
 .whiteboard .attachment{
 	cursor: move;

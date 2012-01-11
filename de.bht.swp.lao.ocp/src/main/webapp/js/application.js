@@ -24,11 +24,13 @@ var activeUpload=null;
 	        $(".rightNavigation").stop(true, false).animate({ 
 	            right: "0px", 
 	        }, 200); 
-		},function() { 
-	        $(".rightNavigation").stop(true, false).animate({ 
-	            right: "-199px", 
-	        }, 200); 
-		});
+		}
+//		,function() { 
+//	        $(".rightNavigation").stop(true, false).animate({ 
+//	            right: "-199px", 
+//	        }, 200); 
+//		}
+		);
 
 		// create a posted note
 		function _handlePostedNote(message) {
@@ -204,9 +206,11 @@ var activeUpload=null;
 			} else {
 				image = basePath +"/images/stop.gif";
 			}
-			var template = '<div class="attachment draggable"><p class="image"><img src="'+ image + '"/></p><p class="filename"></p><span class="creator"></span></div>';
+			var template = '<div class="attachment draggable"><p class="image"><img src="'+ image + '"/></p><p class="filename"></p></div>';
 			var view = $(template);
-
+			view.css('left',_x+'px');
+			view.css('top',_y+'px');
+			
 			//var filename = $('#filename',view);
 			//filename.prepend(_filename);
 
@@ -247,17 +251,21 @@ var activeUpload=null;
 		
 		function _handleUploadCompleteAttachment(message){
 			var ext = message.data.filename.split('.').pop();
+			var filename = message.data.filename.substr(0, message.data.filename.length - (ext.length + 1));
 			var basePath = $('.whiteboard').attr('data-context-path');
 			var imgPath = basePath+"/images/teambox-free-file-icons/32px/"+ext+".png";
 			$('#attachment-'+message.data.id+ ' img').attr('src', imgPath);
 			var attachment = $('#attachment-'+message.data.id);
-			attachment.find(".filename").text(message.data.filename.substr(0,11));
+			attachment.find(".filename").text(filename.substr(0,11));
+			attachment.append("<input type=\"hidden\" name=\"filename\" class=\"full_filename\" value=\""+message.data.filename+"\">"+
+							  "<input type=\"hidden\" name=\"creator\" class=\"creator\" value=\""+message.data.creatoremail+"\">"+
+							  "<input type=\"hidden\" name=\"description\" class=\"description\" value=\""+message.data.description+"\">");
 		}
 
 		function _postAttachment(form){
 			_creator = $('creator',form).val();
-			_x = 100;
-			_y = 125;
+			_x = 0;
+			_y = 30;
 			_text = $('textarea[name=shortDescription]',form).val();
 			_filename = $('input[type="file"]',form).val();
 			
@@ -440,7 +448,7 @@ var activeUpload=null;
 
 		$('#fileupload input[type="file"]').live('change',function(){
         	input = $(this).val();
-        	fileExtension = [".pdf",".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odp", ".odf"];
+        	fileExtension = [".pdf",".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odt", ".odp", ".odf"];
         	found = false;
         	for( var index in fileExtension ){
         		var ext = fileExtension[index];
@@ -461,7 +469,32 @@ var activeUpload=null;
 				alert("The maximum amount of chars is "+maxchar);
 			}
 		});
-
+		
+		$('.attachment').live('click', function(){
+			var attachment = $(this);
+			var rightNavigation = $('.rightNavigation');
+			var basePath = $('.whiteboard').attr('data-context-path');
+			
+			var full_name = $('<div/>').attr('class','full_filename').html(attachment.find('.full_filename').val());
+			var creator = $('<div/>').attr('class','creator').html('uploded by '+attachment.find('.creator').val());
+			var description = $('<textarea/>').attr('class','description').html(attachment.find('.description').val());
+			var id = $(this).attr('id').split('-')[1];
+			var download = $('<a/>').attr('href',basePath+"/attachment/"+id+"/"+attachment.find('.full_filename').val()+"/download.htm").html('[DownloadButton]');
+			
+			var fileinfo = $('<div/>')
+								.attr('class','fileinfo')
+								.append(full_name)
+								.append(creator)
+								.append($('<br/>'))
+								.append(download)
+								.append($('<br/>'))
+								.append($('<br/>'))
+								.append($('<div/>').html('Discription:'))
+								.append(description);
+			
+			rightNavigation.find('.fileinfo').remove();
+			rightNavigation.append(fileinfo);
+		});
 
 	});
 	
