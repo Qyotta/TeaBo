@@ -37,7 +37,17 @@ $(document).ready(function() {
 
 </head>
 <body>
-<h1>Whiteboard <c:out value='${whiteboard.name}'/>(logged in as <c:out value="${user.email}"/>)</h1>
+    <nav class="topNavigation">
+        <h1 class="logo">
+            <a href="/"><img src="../images/lao_logo.jpg" /></a>
+        </h1>
+        <h1 class="whiteboard_name">Whiteboard <c:out value='${whiteboard.name}'/>(logged in as <c:out value="${user.email}"/>)</h1>
+    </nav>
+    <div class="rightNavigation">
+        <a class="slideLeftButton"> <img src="../images/slide_button.png"></a>
+
+    </div>
+
 
 <form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
 	Mail: <form:input path="address"/><br/>
@@ -139,7 +149,9 @@ $(document).ready(function() {
 			<p class="filename">
 	       	    <c:out value="${fn:substring(attachment.filename,0,11)}"/>
 			</p>
-			<span class="creator"><c:out value='${attachment.creator.email}'/></span>
+			<input type="hidden" name="filename" class="full_filename" value="${attachment.filename}">
+			<input type="hidden" name="creator" class="creator" value="${attachment.creator.email}">
+			<input type="hidden" name="description" class="description" value="${attachment.shortDescription}">
 		</div>
 	</c:forEach>
 </div>
