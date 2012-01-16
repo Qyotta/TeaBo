@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
@@ -62,29 +64,51 @@
 
 		<form:form name="registerFormData" method="POST"
 			commandName="registerFormData" action="register.htm">
-			<form:errors path="errors" cssClass="registerError" />
+			<!--<form:errors path="errors" cssClass="registerError" />
 			<form:errors path="email" cssClass="registerError" />
 			<form:errors path="password" cssClass="registerError" />
 			<form:errors path="passwordvalidate" cssClass="registerError" />
+			-->
+
 			</br>
+
+			<c:forEach items="${errors.allErrors}" var="error">
+
+				<c:if test="${error.code=='not.valid'}">
+				<c:out value="asldfjlasdfjlöasdjfklöasdjflöaksdfj"></c:out>
+				
+				</c:if>
+
+			</c:forEach>
+
 
 			<dl>
 				<dt>E-Mail Address*</dt>
 				<dd>
-					<form:input type="email" path="email" />
-					<img class="exclamation hide" src="../images/exclamation_mark.png">
+					<form:input path="email" />
+
+					<spring:hasBindErrors name="registerFormData">
+						<img class="exclamation" src="../images/exclamation_mark.png">
+						<font color="red"><c:out value="${status.defaultMessage}"></c:out></font>
+					</spring:hasBindErrors>
+
 				</dd>
-				<dt>
-					Choose Password*
-				</dt>
+				<dt>Choose Password*</dt>
 				<dd>
 					<form:password type="password" path="password" />
-					<img class="exclamation hide" src="../images/exclamation_mark.png">
+					<spring:hasBindErrors name="registerFormData">
+						<img class="exclamation" src="../images/exclamation_mark.png">
+						<c:out value="${status.defaultMessage}"></c:out>
+					</spring:hasBindErrors>
+
 				</dd>
 				<dt>Confirm Password*</dt>
 				<dd>
 					<form:password type="password" path="passwordvalidate" />
-					<img class="exclamation hide" src="../images/exclamation_mark.png">
+					<spring:hasBindErrors name="registerFormData">
+						<img class="exclamation" src="../images/exclamation_mark.png">
+						<c:out value="${status.defaultMessage}"></c:out>
+					</spring:hasBindErrors>
 				</dd>
 				<dt>
 					First Name
