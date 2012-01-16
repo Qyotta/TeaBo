@@ -638,7 +638,7 @@ nav.topNavigation {
 
 .rightNavigation {
 	position: absolute;
-	background: #B2B2B2;
+	background: #626262;
 	width: 200px;
 	right: -199px;
 	top: 25px;
@@ -652,6 +652,17 @@ nav.topNavigation {
 	opacity: 0.65;
 	-o-opacity: 0.65;
 	border-left: 1px solid #3E3E3E;
+	color: #FFFFFF;
+}
+
+.rightNavigation h3{	
+    margin: 0px;
+    font-style: normal;
+}
+.rightNavigation textarea.description{
+	background: #B2B2B2;
+	height: 173px;
+	border-color: #000000;
 }
 
 .registrationSuccess {
@@ -928,9 +939,14 @@ nav.bottomNavigation ul.right {
 }
 
 #upload-dialog {
-	background: #ffffff;
+	background: #494949;
 	border: 1px solid #000000;
 	overflow: hidden;
+	color: #B2B2B2;
+}
+
+#upload-dialog div.support_files{
+	font-size: 80%;
 }
 
 #upload-dialog ul {
