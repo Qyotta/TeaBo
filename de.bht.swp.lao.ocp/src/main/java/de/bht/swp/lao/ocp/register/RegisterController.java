@@ -39,11 +39,13 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String registerSubmitted(@ModelAttribute("registerFormData") RegisterFormData registerFormData, BindingResult result, HttpServletRequest request) {
+	public ModelAndView registerSubmitted(@ModelAttribute("registerFormData") RegisterFormData registerFormData, BindingResult result, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
 		userRegisterValidator.validate(registerFormData, result);
 		
 		if(result.hasErrors()){
-			return "user/register";
+			mav.setViewName("user/register");
+			mav.addObject("errors", result);
 		}else{
 			User newUser = new User();
 			newUser.setEmail(registerFormData.getEmail());
@@ -54,9 +56,8 @@ public class RegisterController {
 			newUser.setShowToolTips(true);
 			userDao.save(newUser);
 			request.getSession().setAttribute("user", userDao.findByEmail( registerFormData.getEmail()));
-			
-			return "user/registrationSuccess";
-			//return "redirect:/whiteboard/list.htm";
+			mav.setViewName("user/registrationSuccess");
 		}
+		return mav;
 	}
 }
