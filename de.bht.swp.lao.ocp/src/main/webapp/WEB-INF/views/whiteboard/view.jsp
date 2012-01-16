@@ -54,15 +54,20 @@ $(document).ready(function() {
 	<input type="submit" value="Submit">
 </form:form>
 
-<div id="upload-dialog" >	
+<div id="upload-dialog" title="Upload a file">	
+<div class="support_files">Supported file types are PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, ODT, ODP, ODF</div>
 <iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
 <form:form method="post" enctype="multipart/form-data" id="fileupload" commandName="fileupload" action="${pageContext.request.contextPath}/attachment/uploadfile-${whiteboard.id}.htm" target="uploadFrame">
-	<ul> 
-		<li>File: <input type="file" name="data"> <input type="hidden" name="id" id="uploadId" />
-		Description<br />
-		<textarea name="shortDescription" maxlength="170"></textarea></li>
-	</ul> <!-- <button type="button">+</button><br/> -->
-	<input type="submit" value="Submit"> 
+	<!-- ul --> 
+		<!-- li -->
+		<div class="fileinput">File <input type="file" name="data"> <input type="hidden" name="id" id="uploadId" /></div><br/>
+		<div class="description">Description <textarea name="shortDescription" maxlength="170"></textarea></div><!-- /li -->
+	<!-- </ul> <button type="button">+</button><br/> -->
+	<br/>
+	<div class="buttonline" >
+		<button type="button" class="cancel">Cancel</button>
+		<input type="submit" value="Submit">
+	</div> 
 </form:form>
 </div>
 

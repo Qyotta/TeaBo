@@ -940,13 +940,33 @@ nav.bottomNavigation ul.right {
 
 #upload-dialog {
 	background: #494949;
-	border: 1px solid #000000;
+	border: 1px solid #B2B2B2;
 	overflow: hidden;
 	color: #B2B2B2;
 }
 
 #upload-dialog div.support_files{
-	font-size: 80%;
+	font-size: 70%;
+}
+
+#upload-dialog div.fileinput{
+    margin-left: 55px;
+}
+
+#upload-dialog div.fileinput input{
+    background: #FFFFFF;
+}
+
+#upload-dialog div.description{
+    margin-left: 5px;
+}
+
+#upload-dialog div.description textarea{
+    width: 310px;
+}
+
+#upload-dialog div.buttonline{
+    margin-left: 35%;
 }
 
 #upload-dialog ul {
@@ -960,11 +980,13 @@ nav.bottomNavigation ul.right {
 }
 
 #ui-dialog-title-upload-dialog {
-	background: #ffffff;
-	border: 1px solid #000000;
+	background: #494949;
+	color: #B2B2B2;
+	border: 1px solid #B2B2B2;
 	overflow: hidden;
 	font-weight: bold;
-	padding: 2px 4px 0;
+	padding: 2px 4px;
+	width: 420px;
 	float: left;
 }
 

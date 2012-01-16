@@ -403,9 +403,11 @@ var activeUpload=null;
 
 		$('#upload-dialog').dialog({
 			autoOpen : false,
+			closeOnEscape: false,
+			open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
 			modal : true,
-			width : 400,
-			title : "File Upload"
+			width : 420,
+			draggable: false
 		});
 
 		$('a.uploadFile').live(
@@ -424,17 +426,21 @@ var activeUpload=null;
 			}
 		);
 
-		$('#upload-dialog > form > button').live(
-			'click',
-			function(e) {
-				toClone = $(
-						'#upload-dialog > form > ul > li:first-child')
-						.clone();
-				toClone.find('input[type="file"]').val("");
-				toClone.find('textarea').html("");
-				toClone.appendTo('#upload-dialog > form > ul');
-			}
-		);
+//		$('#upload-dialog > form > button').live(
+//			'click',
+//			function(e) {
+//				toClone = $(
+//						'#upload-dialog > form > ul > li:first-child')
+//						.clone();
+//				toClone.find('input[type="file"]').val("");
+//				toClone.find('textarea').html("");
+//				toClone.appendTo('#upload-dialog > form > ul');
+//			}
+//		);
+		
+		$('#fileupload button.cancel').click(function(){
+			$('#upload-dialog').dialog('close');
+		});
 
 		$('#fileupload input[type=submit]').click(function(event) {
 			$('#upload-dialog').dialog('close');
@@ -475,7 +481,7 @@ var activeUpload=null;
 			var rightNavigation = $('.rightNavigation');
 			var basePath = $('.whiteboard').attr('data-context-path');
 			
-			var full_name = $('<div/>').attr('class','full_filename').html(attachment.find('.full_filename').val());
+			var full_name = $('<h3/>').attr('class','full_filename').html(attachment.find('.full_filename').val());
 			var creator = $('<div/>').attr('class','creator').html('uploded by '+attachment.find('.creator').val());
 			var description = $('<textarea/>').attr('class','description').html(attachment.find('.description').val());
 			var id = $(this).attr('id').split('-')[1];
@@ -489,7 +495,7 @@ var activeUpload=null;
 								.append(download)
 								.append($('<br/>'))
 								.append($('<br/>'))
-								.append($('<div/>').html('Discription:'))
+								.append($('<div/>').html('Description:'))
 								.append(description);
 			
 			rightNavigation.find('.fileinfo').remove();
