@@ -44,7 +44,6 @@ $(document).ready(function() {
             alert(jsonData);
         },
         error: function(jsonData) {
-            console.log(jsonData.responseText.substr(10,4));
             if(jsonData.responseText.substr(10,4) == "true")
             	nextToolTip();
         }

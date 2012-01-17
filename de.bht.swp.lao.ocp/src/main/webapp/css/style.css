@@ -761,9 +761,8 @@ nav.topNavigation {
 }
 
 .exclamation {
-	position: absolute;
-	left: 190px;
-	top: 3px;
+	display:inline!important;
+	position: relative;
 }
 
 .errors {
@@ -819,8 +818,8 @@ nav.topNavigation {
 	width:191px!important;
 	font-weight:normal;
 }
-.registerContainer div {
-	margin: 30px 0 10px 102px;  
+.registerCancelButtons {
+	margin: 20px 0 10px 102px;  
 }
 
 .registerContainer dl dt span {
@@ -867,13 +866,13 @@ nav.topNavigation {
     padding-top: 4px;
     text-align: right;
     width: 133px;
-    margin-bottom:10px;
+    clear:both;
 }
 .loginContainer dl dt a, .registerContainer dl dt a {
     color: #B2B2B2
 }
 .loginContainer dl dd, .registerContainer dl dd {
-	margin-bottom:10px;
+	margin-bottom:5px;
 }
 .loginContainer dl input.button, .registerContainer dl input.button {
     margin:3px 0 0 0;
@@ -980,6 +979,7 @@ nav.bottomNavigation ul li a span {
 	overflow: hidden;
 	color: #B2B2B2;
 	display:none;
+	width:430px!important;
 }
 
 #upload-dialog div.support_files {

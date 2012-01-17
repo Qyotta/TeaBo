@@ -494,11 +494,11 @@ var activeUpload=null;
 			draggable: false
 		});
 		
-		$('a.inviteUser').live('click',	function(e) {
-			e.preventDefault();
+		$('a[href="invite"]').live('click',	function(e) {
 			$('#invite-dialog').dialog('open');
 			$('#invite-dialog').css('min-height', '142px');
 			$('#invite-dialog').css('height', 'auto');
+			return false;
 		});
 		
 		$('#invite-dialog button.cancel').click(function(){

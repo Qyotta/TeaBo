@@ -32,8 +32,7 @@
     </h1>
     <div class="right">
         <div>
-            <a href="#">Log out</a>
-            <a href="#">Back to Main Panel</a>
+            <a href="../user/login.htm">Log out</a>
         </div>
         <div>
             <b>User:</b><c:out value="${user.email}"/>

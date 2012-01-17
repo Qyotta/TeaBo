@@ -23,7 +23,6 @@
 <script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/application.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/jquery/jquery.ajaxfileupload.js"></script>
 <script src="${pageContext.request.contextPath}/js/tooltip.js"></script>
 <script type="text/javascript">$(document).ready(function() {var basePath = "${pageContext.request.contextPath}"});</script>
 
@@ -36,8 +35,8 @@
     <div class="right">
         <div>
             <a href="invite">Invite a person</a>
-            <a href="../user/login.htm">Log out</a>
             <a href="list.htm">Back to Main Panel</a>
+            <a href="../user/login.htm">Log out</a>
         </div>
         <div>
             <b>User:</b><c:out value="${user.email}"/>
