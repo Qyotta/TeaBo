@@ -1002,12 +1002,40 @@ nav.bottomNavigation ul li a span {
 	width: 310px;
 }
 
-#upload-dialog div.buttonline {
-	margin-left: 35%;
+#upload-dialog div.buttonline{
+    text-align: center;
 }
 
 #upload-dialog ul {
 	list-style-type: none;
+}
+
+#invite-dialog {
+	background: #494949;
+	border: 1px solid #B2B2B2;
+	overflow: hidden;
+	color: #B2B2B2;
+}
+
+#invite-dialog div.buttonline{
+    text-align: center;
+}
+
+#address{
+    width: 350px;
+}
+
+.inviteUser  {
+	float: right;
+}
+
+a.inviteUser, a.inviteUser:hover, a.inviteUser:visited {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+#invite-dialog div.invite-dialog-mail{
+    margin-left: 5px;
 }
 
 .ui-dialog-titlebar {
@@ -1016,7 +1044,7 @@ nav.bottomNavigation ul li a span {
 	height: 20px;
 }
 
-#ui-dialog-title-upload-dialog {
+#ui-dialog-title-upload-dialog, #ui-dialog-title-invite-dialog {
 	background: #494949;
 	color: #B2B2B2;
 	border: 1px solid #B2B2B2;
