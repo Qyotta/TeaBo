@@ -29,10 +29,14 @@ audio
 
 
 
+
+
 :not
 
 
+
  
+
 
 
 (
@@ -41,7 +45,9 @@ controls
 ]
 
 
+
  
+
 
 
 )
@@ -51,13 +57,19 @@ display
 
 
 
+
+
 :
+
 
 
  
 
 
+
 none
+
+
 
 
 
@@ -265,17 +277,23 @@ svg
 
 
 
+
+
 :not
 
 
+
  
+
 
 
 (
 :root
 
 
+
  
+
 
 
 )
@@ -285,13 +303,19 @@ overflow
 
 
 
+
+
 :
+
 
 
  
 
 
+
 hidden
+
+
 
 
 
@@ -410,7 +434,6 @@ textarea {
 /* Colors for form validity */
 input:valid,textarea:valid {
 	width: 185px;
-	
 }
 
 input:invalid,textarea:invalid {
@@ -495,6 +518,8 @@ nav.topNavigation h1.logo {
 nav.topNavigation h1.whiteboard_name {
 	margin: 0px 0px 0px 139px;
 	color: #ffffff;
+	width: 1000px;
+	float: left;
 }
 
 nav.rightNavigation div div {
@@ -620,21 +645,22 @@ nav.topNavigation {
 	*/
 }
 
-.whiteboardInviteUser{
+.whiteboardInviteUser {
 	left: 145px;
-    position: absolute;
-    top: 15px;
+	position: absolute;
+	top: 15px;
 }
 
-.mainPanel{
+.mainPanel {
 	background: none repeat scroll 0 0 #494949;
-    color: #B2B2B2;
-    position: absolute;
-    top: 100px;
-    width: 220px;
+	color: #B2B2B2;
+	position: absolute;
+	top: 100px;
+	width: 220px;
 }
-.mainPanel ul a{
-    color: #B2B2B2;
+
+.mainPanel ul a {
+	color: #B2B2B2;
 }
 
 .rightNavigation {
@@ -647,7 +673,7 @@ nav.topNavigation {
 	height: auto !important;
 	height: 100%;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
-	filter: alpha(opacity =   65);
+	filter: alpha(opacity =     65);
 	-moz-opacity: 0.65;
 	-khtml-opacity: 0.65;
 	opacity: 0.65;
@@ -656,75 +682,93 @@ nav.topNavigation {
 	color: #FFFFFF;
 }
 
-.rightNavigation h3{	
-    margin: 0px;
-    font-style: normal;
+.rightNavigation h3 {
+	margin: 0px;
+	font-style: normal;
 }
-.rightNavigation textarea.description{
+
+.rightNavigation textarea.description {
 	background: #B2B2B2;
 	height: 173px;
 	border-color: #000000;
 }
 
 .registrationSuccess {
-  background: none repeat scroll 0 0 #494949;
-    box-shadow: 0 0 5px #AAAAAA;
-    height: 200px;
-    left: 50%;
-    margin: -100px 0 0 -200px;
-    position: absolute;
-    top: 50%;
-    width: 450px;
+	background: none repeat scroll 0 0 #494949;
+	box-shadow: 0 0 5px #AAAAAA;
+	height: 200px;
+	left: 50%;
+	margin: -100px 0 0 -200px;
+	position: absolute;
+	top: 50%;
+	width: 450px;
 }
 
-.registrationSuccess h1{
+.registrationSuccess h1 {
 	color: #FFFFFF;
-    padding-left: 110px;
-    padding-top: 25px;
-    width: 400px;
+	padding-left: 110px;
+	padding-top: 25px;
+	width: 400px;
 }
 
-.registrationSuccess h2{
-    color: #FFFFFF;
-    padding-left: 30px;
-    padding-top: 30px;
+.registrationSuccess h2 {
+	color: #FFFFFF;
+	padding-left: 30px;
+	padding-top: 30px;
 }
 
-.registrationSuccess h2 a{
-    color: #4B99CE;    
+.registrationSuccess h2 a {
+	color: #4B99CE;
 }
 
-.registerCancelButtons{
+.registerCancelButtons {
 	bottom: 20px;
-    display: block;
-    left: 125px;
-    position: absolute;
-    font-style: 	
+	display: block;
+	left: 125px;
+	position: absolute;
+	font-style: 
 }
 
-.registerCancelButtons a{
-    text-decoration: none;
+.registerCancelButtons a {
+	text-decoration: none;
 }
 
-.exclamation{
-	
+.exclamation {
+	position: absolute;
+	left: 190px;
+	top: 3px;
 }
 
-.hide{
+.errors {
+	position: absolute;
+	top: 25px;
+	left: 30px;
+	background: white;
+	border: 3px solid #cc3300;
+	width: 170px;
+	padding: 7px 0 7px 0;
+	color: black;
+	text-align: center;
+	display:none;
+}
+
+.wrongfield{
+	border-color:#cc3300;	
+}
+
+.hide {
 	display: none;
 }
 
-
 .registerContainer {
 	background: none repeat scroll 0 0 #494949;
-    box-shadow: 0 0 5px #AAAAAA;
-    height: 264px;
-    left: 50%;
-    margin: -132px 0 0 -228px;
-    position: absolute;
-    top: 50%;
-    width: 456px;
-
+	box-shadow: 0 0 5px #AAAAAA;
+	height: 264px;
+	left: 50%;
+	margin: -132px 0 0 -228px;
+	position: absolute;
+	top: 50%;
+	width: 456px;
 	-webkit-box-shadow: 0px 0px 5px #AAA;
 	-moz-box-shadow: 0px 0px 5px #AAA;
 	-o-box-shadow: 0px 0px 5px #AAA;
@@ -733,47 +777,46 @@ nav.topNavigation {
 
 .registerContainer dl dt {
 	color: #B2B2B2;
-    display: block;
-    float: left;
-    font-size: 14px;
-    margin: 0;
-    padding: 2px 9px 2px 2px;
-    position: relative;
-    text-align: right;
-    top: -14px;
-    width: 200px;
+	display: block;
+	float: left;
+	font-size: 14px;
+	margin: 0;
+	padding: 2px 9px 2px 2px;
+	position: relative;
+	text-align: right;
+	top: -14px;
+	width: 200px;
 }
 
 .registerContainer dl dd {
-	 color: #B2B2B2;
-    display: block;
-    float: left;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-top: 0;
-    padding: 2px;
-    position: relative;
-    top: -20px;
+	color: #B2B2B2;
+	display: block;
+	float: left;
+	margin-bottom: 0;
+	margin-left: 0;
+	margin-top: 0;
+	padding: 2px;
+	position: relative;
+	top: -20px;
 }
 
-
-.registerContainer h1{
-     display: block;
-    float: left;
-    margin-left: 7px;
-    margin-right: 0;
-    margin-top: -3px;
-    width: 126px;
+.registerContainer h1 {
+	display: block;
+	float: left;
+	margin-left: 7px;
+	margin-right: 0;
+	margin-top: -3px;
+	width: 126px;
 }
 
 .registerContainer h2 {
-  color: #B2B2B2;
-    display: block;
-    font-size: 18px;
-    margin: 0;
-    padding-left: 143px;
-    padding-top: 5px;
-    width: 200px;
+	color: #B2B2B2;
+	display: block;
+	font-size: 18px;
+	margin: 0;
+	padding-left: 143px;
+	padding-top: 5px;
+	width: 200px;
 }
 
 .registerContainer h3 {
@@ -785,15 +828,15 @@ nav.topNavigation {
 
 .registerContainer dt h4 {
 	float: right;
-    font-size: 11px;
-    margin: 0;
-    padding: 0;
+	font-size: 11px;
+	margin: 0;
+	padding: 0;
 }
 
 .registerContainer dl {
 	position: absolute;
-    right: 2px;
-    width: 445px;
+	right: 2px;
+	width: 445px;
 }
 
 .registerContainer dl dd a {
@@ -801,10 +844,8 @@ nav.topNavigation {
 	font-size: 14px;
 }
 
-
-
 .loginContainer {
-	position: absolute;	
+	position: absolute;
 	background: #494949;
 	width: 400px;
 	height: 200px;
@@ -874,17 +915,20 @@ nav.bottomNavigation ul li {
 	padding: 0 20px 0 0;
 	float: left;
 }
+
 nav.bottomNavigation ul li a {
-	text-decoration:none;
-	position:relative;
-    bottom:25px;
+	text-decoration: none;
+	position: relative;
+	bottom: 25px;
 }
+
 nav.bottomNavigation ul li a img {
 	
 }
+
 nav.bottomNavigation ul li a span {
-    display:none;
-    color: #C2C2C2;
+	display: none;
+	color: #C2C2C2;
 }
 
 .whiteboard {
@@ -949,32 +993,60 @@ nav.bottomNavigation ul li a span {
 	color: #B2B2B2;
 }
 
-#upload-dialog div.support_files{
+#upload-dialog div.support_files {
 	font-size: 70%;
 }
 
-#upload-dialog div.fileinput{
-    margin-left: 55px;
+#upload-dialog div.fileinput {
+	margin-left: 55px;
 }
 
-#upload-dialog div.fileinput input{
-    background: #FFFFFF;
+#upload-dialog div.fileinput input {
+	background: #FFFFFF;
 }
 
-#upload-dialog div.description{
-    margin-left: 5px;
+#upload-dialog div.description {
+	margin-left: 5px;
 }
 
-#upload-dialog div.description textarea{
-    width: 310px;
+#upload-dialog div.description textarea {
+	width: 310px;
 }
 
 #upload-dialog div.buttonline{
-    margin-left: 35%;
+    text-align: center;
 }
 
 #upload-dialog ul {
 	list-style-type: none;
+}
+
+#invite-dialog {
+	background: #494949;
+	border: 1px solid #B2B2B2;
+	overflow: hidden;
+	color: #B2B2B2;
+}
+
+#invite-dialog div.buttonline{
+    text-align: center;
+}
+
+#address{
+    width: 350px;
+}
+
+.inviteUser  {
+	float: right;
+}
+
+a.inviteUser, a.inviteUser:hover, a.inviteUser:visited {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+#invite-dialog div.invite-dialog-mail{
+    margin-left: 5px;
 }
 
 .ui-dialog-titlebar {
@@ -983,7 +1055,7 @@ nav.bottomNavigation ul li a span {
 	height: 20px;
 }
 
-#ui-dialog-title-upload-dialog {
+#ui-dialog-title-upload-dialog, #ui-dialog-title-invite-dialog {
 	background: #494949;
 	color: #B2B2B2;
 	border: 1px solid #B2B2B2;
@@ -1009,7 +1081,7 @@ nav.bottomNavigation ul li a span {
 	background: #ffffff;
 	overflow: hidden;
 	font-weight: bold;
-	padding: 2px 4px:
+	padding: 2px 4px :
 }
 
 #startscreen div.lightbox {
@@ -1024,7 +1096,7 @@ nav.bottomNavigation ul li a span {
 	/*transparency*/
 	opacity: .95;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=95)";
-	filter: alpha(opacity =       95);
+	filter: alpha(opacity =         95);
 	/*box shadow*/
 	-webkit-box-shadow: 0px 0px 30px #AAA;
 	-moz-box-shadow: 0px 0px 30px #AAA;
@@ -1040,7 +1112,7 @@ nav.bottomNavigation ul li a span {
 	/*transparency*/
 	opacity: .75;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
-	filter: alpha(opacity =       75);
+	filter: alpha(opacity =         75);
 	/*box shadow*/
 	-webkit-box-shadow: 0px 0px 30px #AAA;
 	-moz-box-shadow: 0px 0px 30px #AAA;
@@ -1129,24 +1201,23 @@ nav.bottomNavigation ul li a span {
 	color: red;
 }
 
-.draggable{
+.draggable {
 	position: absolute;
 }
 
-.whiteboard .attachment{
+.whiteboard .attachment {
 	cursor: move;
 	width: 120px;
 }
-.whiteboard .attachment .image{
-    text-align: center;
-}
 
-.whiteboard .attachment .filename{
+.whiteboard .attachment .image {
 	text-align: center;
-    font-weight: bold;
 }
 
-
+.whiteboard .attachment .filename {
+	text-align: center;
+	font-weight: bold;
+}
 
 /* ==|== non-semantic helper classes ========================================
    Please define your styles before this section.

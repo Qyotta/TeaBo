@@ -492,6 +492,31 @@ var activeUpload=null;
 			}
 		});
 		
+		$('#invite-dialog').dialog({
+			autoOpen : false,
+			closeOnEscape: false,
+			open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
+			modal : true,
+			width : 420,
+			draggable: false
+		});
+		
+		$('a.inviteUser').live(
+				'click',
+				function(e) {
+					e.preventDefault();
+					
+					$('#invite-dialog').dialog('open');
+					$('#invite-dialog').css('min-height', '142px');
+					$('#invite-dialog').css('height', 'auto');
+				}
+			);
+		
+		$('#invite-dialog button.cancel').click(function(){
+			$('#invite-dialog input[type=text]').val("");
+			$('#invite-dialog').dialog('close');
+		});
+		
 		$('.attachment').live('click', function(){
 			var attachment = $(this);
 			var rightNavigation = $('.rightNavigation');

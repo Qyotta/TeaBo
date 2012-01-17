@@ -35,6 +35,7 @@
 	src="${pageContext.request.contextPath}/js/libs/jquery/jquery.cometd.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/errordisplay.js"></script>
 
 <script type="text/javascript">
 	var config = {
@@ -48,8 +49,7 @@
 	<nav class="topNavigation">
 		<h1>
 			<a href="${pageContext.request.contextPath}/user/login.htm"><img
-				src="../images/lao_logo.jpg" />
-			</a>
+				src="../images/lao_logo.jpg" /> </a>
 		</h1>
 	</nav>
 
@@ -65,59 +65,73 @@
 
 		<form:form name="registerFormData" method="POST"
 			commandName="registerFormData" action="register.htm">
-			<!--<form:errors path="errors" cssClass="registerError" />
-			<form:errors path="email" cssClass="registerError" />
-			<form:errors path="password" cssClass="registerError" />
-			<form:errors path="passwordvalidate" cssClass="registerError" />
-			-->
 
 			</br>
 
 			<dl>
 				<dt>E-Mail Address*</dt>
 				<dd>
-					<form:input path="email" />
+					
 					<c:set var="emailErrors">
-						<form:errors path="email" element="div"/>
+						<form:errors path="email" element="div" />
 					</c:set>
-					<c:if test="${not empty emailErrors}">
-						<img class="exclamation" src="../images/exclamation_mark.png">
-						<div class="errors hide">${emailErrors}</div>
-					</c:if>
+					<c:choose>
+						<c:when test="${not empty emailErrors}">
+						<form:input path="email"  cssClass="wrongfield"/>
+							<div class="exclamation">
+								<img src="../images/exclamation_mark.png">
+								<div class="errors">${emailErrors}</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<form:input path="email" />
+						</c:otherwise>
+					</c:choose>
+
 
 				</dd>
 				<dt>Choose Password*</dt>
 				<dd>
-					<form:password type="password" path="password" />
+					
 					<c:set var="passwordErrors">
-						<form:errors path="password" element="div"/>
+						<form:errors path="password" element="div" />
 					</c:set>
-					<c:if test="${not empty passwordErrors}">
-						<img class="exclamation" src="../images/exclamation_mark.png">
-						<div class="errors hide">${passwordErrors}</div>
-					</c:if>
-
+					<c:choose>
+						<c:when test="${not empty passwordErrors}">
+							<form:password path="password" cssClass="wrongfield"/>
+							<div class="exclamation">
+								<img src="../images/exclamation_mark.png">
+								<div class="errors">${passwordErrors}</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<form:password path="password"/>
+						</c:otherwise>
+					</c:choose>
 				</dd>
 				<dt>Confirm Password*</dt>
 				<dd>
-					<form:password type="password" path="password" />
 					<c:set var="passwordValidateErrors">
-						<form:errors path="password" element="div"/>
+						<form:errors path="passwordvalidate" element="div" />
 					</c:set>
-					<c:if test="${not empty passwordValidateErrors}">
-						<img class="exclamation" src="../images/exclamation_mark.png">
-						<div class="errors hide">${passwordErrors}</div>
-					</c:if>
+					<c:choose>
+						<c:when test="${not empty passwordValidateErrors}">
+							<form:password path="passwordvalidate"  cssClass="wrongfield"/>
+							<div class="exclamation">
+								<img src="../images/exclamation_mark.png">
+								<div class="errors">${passwordValidateErrors}</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<form:password path="passwordvalidate" />
+						</c:otherwise>
+					</c:choose>
 				</dd>
-				<dt>
-					First Name
-				</dt>
+				<dt>First Name</dt>
 				<dd>
 					<form:input path="firstname" />
 				</dd>
-				<dt>
-					Last Name
-				</dt>
+				<dt>Last Name</dt>
 				<dd>
 					<form:input path="lastname" />
 				</dd>

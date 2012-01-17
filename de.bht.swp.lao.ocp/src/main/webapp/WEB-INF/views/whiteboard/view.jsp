@@ -41,17 +41,22 @@ $(document).ready(function() {
             <a href="${pageContext.request.contextPath}/user/login.htm"><img src="../images/lao_logo.jpg" /></a>
         </h1>
         <h1 class="whiteboard_name">Whiteboard <c:out value='${whiteboard.name}'/>(logged in as <c:out value="${user.email}"/>)</h1>
+        <a class="inviteUser" href="invite">Invite a person</a>
     </nav>
     <div class="rightNavigation">
         <a class="slideLeftButton"> <img src="../images/slide_button.png"></a>
 
     </div>
 
-
+<div id="invite-dialog" title="Invite a person">
 <form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
-	Mail: <form:input path="address"/><br/>
-	<input type="submit" value="Submit">
+	<div class="invite-dialog-mail">Mail: <form:input path="address"/></div><br/>
+	<div class="buttonline" >
+		<button type="button" class="cancel">Cancel</button>
+		<input type="submit" value="Submit">
+	</div>
 </form:form>
+</div>
 
 <div id="upload-dialog" title="Upload a file">	
 <div class="support_files">Supported file types are PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, ODT, ODP, ODF</div>
