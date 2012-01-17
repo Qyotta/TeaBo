@@ -37,10 +37,15 @@ public class UserRegisterValidator implements Validator {
 
 	  private  boolean hasNameAndDomain(String email){
 	    String[] tokens = email.split("@");
-	    return 
-	     tokens.length == 2 &&
-	     !tokens[0].isEmpty() && 
-	     !tokens[1].isEmpty() ;
+	    if(tokens.length == 2){
+	    	if(!tokens[0].isEmpty() && !tokens[1].isEmpty()){
+	    		String[] dTokens = tokens[1].split("\\.");
+	    		if(dTokens.length > 1 && dTokens[dTokens.length-1].length() >= 2){
+	    			return true;
+	    		}
+	    	}
+	    }
+	    return false;
 	  }
 
 
