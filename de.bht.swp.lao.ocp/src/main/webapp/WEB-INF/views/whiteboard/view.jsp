@@ -1,52 +1,53 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
+<!--[if gt IE 8]> <html class="no-js" lang="en">           <![endif]-->
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>[lao] - Online Collaboration Platform</title>
-<meta name="description" content="">
-<meta name="author" content="">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/jquery/jquery-1.6.2.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/jquery/json2.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/org/cometd.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/jquery/jquery.cometd.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/application.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/jquery/jquery.ajaxfileupload.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/tooltip.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/jquery/jquery-1.6.2.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/jquery/json2.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/org/cometd.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/jquery/jquery.cometd.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/application.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/jquery/jquery.ajaxfileupload.js"></script>
+<script src="${pageContext.request.contextPath}/js/tooltip.js"></script>
+<script type="text/javascript">$(document).ready(function() {var basePath = "${pageContext.request.contextPath}"});</script>
 
-<script type="text/javascript">
-$(document).ready(function() {
-	var basePath = "${pageContext.request.contextPath}";
-});
-</script>
-
-</head>
-<body>
-    <nav class="topNavigation">
-        <h1 class="logo">
-            <a href="${pageContext.request.contextPath}/user/login.htm"><img src="../images/lao_logo.jpg" /></a>
-        </h1>
-        <h1 class="whiteboard_name">Whiteboard <c:out value='${whiteboard.name}'/>(logged in as <c:out value="${user.email}"/>)</h1>
-        <a class="inviteUser" href="invite">Invite a person</a>
-    </nav>
-    <div class="rightNavigation">
-        <a class="slideLeftButton"> <img src="../images/slide_button.png"></a>
-
+<nav class="topNavigation">
+    <h1 class="logo">
+        <a href="${pageContext.request.contextPath}/user/login.htm">
+            <span><c:out value='${whiteboard.name}'/><br/><b>lao (V 0.1a)</b></span>
+        </a>
+    </h1>
+    <div class="right">
+        <div>
+            <a href="invite">Invite a person</a>
+            <a href="../user/login.htm">Log out</a>
+            <a href="list.htm">Back to Main Panel</a>
+        </div>
+        <div>
+            <b>User:</b><c:out value="${user.email}"/>
+        </div>
     </div>
+</nav>
+
+<div class="rightNavigation">
+    <a class="slideLeftButton"><img src="../images/slide_button.png"></a>
+</div>
 
 <div id="invite-dialog" title="Invite a person">
 <form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
@@ -59,20 +60,18 @@ $(document).ready(function() {
 </div>
 
 <div id="upload-dialog" title="Upload a file">	
-<div class="support_files">Supported file types are PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, ODT, ODP, ODF</div>
-<iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
-<form:form method="post" enctype="multipart/form-data" id="fileupload" commandName="fileupload" action="${pageContext.request.contextPath}/attachment/uploadfile-${whiteboard.id}.htm" target="uploadFrame">
-	<!-- ul --> 
-		<!-- li -->
+	<div class="support_files">Supported file types are PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, ODT, ODP, ODF</div>
+	<iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
+	<form:form method="post" enctype="multipart/form-data" id="fileupload" commandName="fileupload" action="${pageContext.request.contextPath}/attachment/uploadfile-${whiteboard.id}.htm" target="uploadFrame">
 		<div class="fileinput">File <input type="file" name="data"> <input type="hidden" name="id" id="uploadId" /></div><br/>
-		<div class="description">Description <textarea name="shortDescription" maxlength="170"></textarea></div><!-- /li -->
-	<!-- </ul> <button type="button">+</button><br/> -->
-	<br/>
-	<div class="buttonline" >
-		<button type="button" class="cancel">Cancel</button>
-		<input type="submit" value="Submit">
-	</div> 
-</form:form>
+		<div class="description">Description <textarea name="shortDescription" maxlength="170"></textarea></div>
+		
+		<br/>
+		<div class="buttonline" >
+			<button type="button" class="cancel">Cancel</button>
+			<input type="submit" value="Submit">
+		</div> 
+	</form:form>
 </div>
 
 <div id="startscreen">
@@ -167,9 +166,7 @@ $(document).ready(function() {
 
 <nav class="bottomNavigation">
     <ul>
-        <li><a href="#" class="createNote"><img src="../images/new_note.png" alt="create_note" title="create new note" /><span>Note</span></a></li>
-        <li><a href="#" class="uploadFile"><img src="../images/new_file.png" alt="uploadFile" title="Load File" /><span>File</span></a></li>
+        <li><div><a href="#" class="createNote"><img src="../images/new_note.png" alt="create_note" title="create new note" /><span>Note</span></a></div></li>
+        <li><div><a href="#" class="uploadFile"><img src="../images/new_file.png" alt="uploadFile" title="Load File" /><span>File</span></a></div></li>
     </ul>
-</nav>
-</body>
-</html> 
+</nav> 

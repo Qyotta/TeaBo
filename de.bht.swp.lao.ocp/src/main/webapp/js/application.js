@@ -20,17 +20,10 @@ var activeUpload=null;
 			
 		}
 		
-		$(".rightNavigation").hover(function() { 
-	        $(".rightNavigation").stop(true, false).animate({ 
-	            right: "0px", 
-	        }, 200); 
-		}
-		,function() { 
-	        $(".rightNavigation").stop(true, false).animate({ 
-	            right: "-199px", 
-	        }, 200); 
-		}
-		);
+		$(".rightNavigation a.slideLeftButton").click(function() {
+			var dir = $(this).parent().css('right') === "0px";
+	        $(this).parent().animate({right: dir?"-199px":"0px"}, 200); 
+		});
 
 		// create a posted note
 		function _handlePostedNote(message) {
@@ -501,16 +494,12 @@ var activeUpload=null;
 			draggable: false
 		});
 		
-		$('a.inviteUser').live(
-				'click',
-				function(e) {
-					e.preventDefault();
-					
-					$('#invite-dialog').dialog('open');
-					$('#invite-dialog').css('min-height', '142px');
-					$('#invite-dialog').css('height', 'auto');
-				}
-			);
+		$('a.inviteUser').live('click',	function(e) {
+			e.preventDefault();
+			$('#invite-dialog').dialog('open');
+			$('#invite-dialog').css('min-height', '142px');
+			$('#invite-dialog').css('height', 'auto');
+		});
 		
 		$('#invite-dialog button.cancel').click(function(){
 			$('#invite-dialog input[type=text]').val("");
@@ -522,7 +511,7 @@ var activeUpload=null;
 			var rightNavigation = $('.rightNavigation');
 			var basePath = $('.whiteboard').attr('data-context-path');
 			
-			var full_name = $('<h3/>').attr('class','full_filename').html(attachment.find('.full_filename').val());
+			var full_name = $('<h2/>').attr('class','full_filename').html(attachment.find('.full_filename').val());
 			var creator = $('<div/>').attr('class','creator').html('uploded by '+attachment.find('.creator').val());
 			var description = $('<textarea/>').attr('class','description').html(attachment.find('.description').val());
 			var id = $(this).attr('id').split('-')[1];
@@ -551,11 +540,11 @@ var activeUpload=null;
 			window.location.href = basePath+'/attachment/'+id+'/'+attachment.find('.full_filename').val()+'/download.htm';
 		});
 		
-		$('.bottomNavigation ul li a').hover(function() {console.log("jss");
-			$(this).css('bottom','30px');
+		$('.bottomNavigation ul li div').hover(function() {console.log("jss");
+			$(this).find('a').css('bottom','30px');
 			$(this).find('span').css('display','block');
 		}, function() {
-			$(this).css('bottom','15px');
+			$(this).find('a').css('bottom','15px');
 			$(this).find('span').css('display','none');
 		});
 

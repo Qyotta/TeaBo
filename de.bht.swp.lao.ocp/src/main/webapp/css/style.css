@@ -505,21 +505,52 @@ nav.rightNavigation div {
 }
 
 nav.topNavigation h1.logo {
+	width:126px;
+    height:65px;
 	position: absolute;
 	left: 4px;
 	top: 3px;
 	margin: 0px;
+	font-size:12px;
+	font-weight:normal;
 	-webkit-box-shadow: 0px 0px 5px #000000;
 	-moz-box-shadow: 0px 0px 5px #000000;
 	-box-shadow: 0px 0px 5px #000000;
 	z-index: 100000;
 }
+nav.topNavigation h1 a {
+    width:126px;
+    height:65px;
+    display:block;
+    color:#000000;
+    text-decoration:none;
+    padding: 25px 3px 10px;
+    background: url('../images/lao_logo.jpg') no-repeat;
+	
+}
 
-nav.topNavigation h1.whiteboard_name {
-	margin: 0px 0px 0px 139px;
-	color: #ffffff;
-	width: 1000px;
-	float: left;
+nav.topNavigation div.right {
+	color: #FFFFFF;
+    float: right;
+    padding: 5px 0 0 0;
+    width:500px;
+    text-align:right;
+}
+nav.topNavigation div.right div {
+	float:right;
+	border-left:1px solid #c2c2c2;
+	padding:0 10px;
+}
+nav.topNavigation div.right div a {
+	text-decoration:none;
+	color:#c2c2c2;
+    padding: 0 10px 0 0;
+}
+nav.topNavigation div.right div:last-Child {
+	border-left:0px;
+}
+nav.topNavigation div.right b {
+	margin-right:5px;
 }
 
 nav.rightNavigation div div {
@@ -664,73 +695,69 @@ nav.topNavigation {
 }
 
 .rightNavigation {
+    width: 186px;
+    height: auto !important;
+    min-height: 100%;
+    background: #626262;
+    border-left: 1px solid #3E3E3E;
+    color: #FFFFFF;
+    padding: 10px 7px;
 	position: absolute;
-	background: #626262;
-	width: 200px;
 	right: -199px;
 	top: 25px;
-	min-height: 100%;
-	height: auto !important;
-	height: 100%;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
 	filter: alpha(opacity =     65);
 	-moz-opacity: 0.65;
 	-khtml-opacity: 0.65;
 	opacity: 0.65;
 	-o-opacity: 0.65;
-	border-left: 1px solid #3E3E3E;
-	color: #FFFFFF;
 }
 
-.rightNavigation h3 {
-	margin: 0px;
-	font-style: normal;
+.rightNavigation h2{	
+    font-size: 16px;
+    font-weight: normal !important;
+    margin: 0;
+}
+.rightNavigation a{    
+    color: #FFFFFF;
+}
+.rightNavigation .creator {
+	font-size: 10px;
 }
 
 .rightNavigation textarea.description {
 	background: #B2B2B2;
-	height: 173px;
-	border-color: #000000;
+	height: 153px;
+	width:165px;
+	border: 1px solid #000000;
+	padding:10px;
 }
 
 .registrationSuccess {
-	background: none repeat scroll 0 0 #494949;
-	box-shadow: 0 0 5px #AAAAAA;
-	height: 200px;
-	left: 50%;
-	margin: -100px 0 0 -200px;
-	position: absolute;
-	top: 50%;
-	width: 450px;
+    background:#494949;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 450px;
+    -webkit-box-shadow: 0px 0px 5px #AAAAAA;
+    -moz-box-shadow: 0px 0px 5px #AAAAAA;
+    -o-box-shadow: 0px 0px 5px #AAAAAA;
+    box-shadow: 0 0 5px #AAAAAA;
+    -moz-transform:translate(-50%, -50%);
+    -webkit-transform:translate(-50%, -50%);
+    transform:translate(-50%, -50%);
 }
-
-.registrationSuccess h1 {
-	color: #FFFFFF;
-	padding-left: 110px;
-	padding-top: 25px;
-	width: 400px;
-}
-
-.registrationSuccess h2 {
-	color: #FFFFFF;
-	padding-left: 30px;
-	padding-top: 30px;
+.registrationSuccess h2{
+    color: #FFFFFF;
+    text-align: center;
 }
 
 .registrationSuccess h2 a {
 	color: #4B99CE;
 }
 
-.registerCancelButtons {
-	bottom: 20px;
-	display: block;
-	left: 125px;
-	position: absolute;
-	font-style: 
-}
-
-.registerCancelButtons a {
-	text-decoration: none;
+.registerCancelButtons a{
+    text-decoration: none;
 }
 
 .exclamation {
@@ -761,98 +788,56 @@ nav.topNavigation {
 }
 
 .registerContainer {
-	background: none repeat scroll 0 0 #494949;
-	box-shadow: 0 0 5px #AAAAAA;
-	height: 264px;
-	left: 50%;
-	margin: -132px 0 0 -228px;
-	position: absolute;
-	top: 50%;
-	width: 456px;
+	background: #494949;
+    width: 434px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -moz-transform:translate(-50%, -50%);
+    -webkit-transform:translate(-50%, -50%);
+    transform:translate(-50%, -50%);
 	-webkit-box-shadow: 0px 0px 5px #AAA;
 	-moz-box-shadow: 0px 0px 5px #AAA;
 	-o-box-shadow: 0px 0px 5px #AAA;
-	-box-shadow: 0px 0px 5px #AAA;
+    box-shadow: 0 0 5px #AAAAAA;
 }
-
-.registerContainer dl dt {
-	color: #B2B2B2;
-	display: block;
-	float: left;
-	font-size: 14px;
-	margin: 0;
-	padding: 2px 9px 2px 2px;
-	position: relative;
-	text-align: right;
-	top: -14px;
-	width: 200px;
-}
-
-.registerContainer dl dd {
-	color: #B2B2B2;
-	display: block;
-	float: left;
-	margin-bottom: 0;
-	margin-left: 0;
-	margin-top: 0;
-	padding: 2px;
-	position: relative;
-	top: -20px;
-}
-
 .registerContainer h1 {
-	display: block;
-	float: left;
-	margin-left: 7px;
-	margin-right: 0;
-	margin-top: -3px;
-	width: 126px;
+    background: url("../images/lao_register.png") no-repeat scroll 0 0 transparent;
+    bottom: 3px;
+    color: #B2B2B2;
+    font-size: 16px;
+    height: 45px;
+    margin: 0 0 0 7px;
+    padding: 13px 0 0 135px;
+    position: relative;
+    width: 100%;
 }
-
-.registerContainer h2 {
-	color: #B2B2B2;
-	display: block;
-	font-size: 18px;
-	margin: 0;
-	padding-left: 143px;
-	padding-top: 5px;
-	width: 200px;
-}
-
-.registerContainer h3 {
-	margin: 0px;
-	color: #B2B2B2;
-	padding-left: 145px;
-	font-size: 11px;
-}
-
-.registerContainer dt h4 {
-	float: right;
-	font-size: 11px;
-	margin: 0;
-	padding: 0;
-}
-
 .registerContainer dl {
-	position: absolute;
-	right: 2px;
-	width: 445px;
+	margin:0px;
+}
+.registerContainer dl dt {
+	width:191px!important;
+	font-weight:normal;
+}
+.registerContainer div {
+	margin: 30px 0 10px 102px;  
 }
 
-.registerContainer dl dd a {
-	color: #B2B2B2;
-	font-size: 14px;
+.registerContainer dl dt span {
+	display: inline;
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
 }
-
 .loginContainer {
 	position: absolute;
 	background: #494949;
 	width: 400px;
-	height: 200px;
 	left: 50%;
 	top: 50%;
-	margin: -100px 0 0 -200px;
-	padding-top: 10px;
+	-moz-transform:translate(-50%, -50%);
+    -webkit-transform:translate(-50%, -50%);
+    transform:translate(-50%, -50%);
 	-webkit-box-shadow: 0px 0px 5px #AAA;
 	-moz-box-shadow: 0px 0px 5px #AAA;
 	-o-box-shadow: 0px 0px 5px #AAA;
@@ -860,40 +845,43 @@ nav.topNavigation {
 }
 
 .loginContainer h1 {
-	color: #B2B2B2;
-	font-size: 24px;
-	left: 20px;
-	margin: 0;
-	padding-bottom: 30px;
-	position: relative;
-	top: 10px;
+    background: url("../images/lao_login.jpg") no-repeat scroll 0 0 transparent;
+    bottom: 3px;
+    color: #B2B2B2;
+    font-size: 16px;
+    height: 45px;
+    margin: 0 0 0 7px;
+    padding: 13px 0 0 135px;
+    position: relative;
+    width: 100%;
 }
-
-.loginContainer dl dt {
-	color: #B2B2B2;
-	display: block;
-	float: left;
-	margin-left: 50px;
-	width: 100px;
-	padding: 5px;
+.loginContainer h1 span, .registerContainer h1 span {
+    display: block;
+    font-size: 11px;
 }
-
-.loginContainer dl dt a {
-	color: #B2B2B2
+.loginContainer dl dt, .registerContainer dl dt {
+    color: #B2B2B2;
+    float: left;
+    height: 18px;
+    margin-right: 10px;
+    padding-top: 4px;
+    text-align: right;
+    width: 133px;
+    margin-bottom:10px;
 }
-
-.loginContainer dl {
-	padding-left: 10px;
+.loginContainer dl dt a, .registerContainer dl dt a {
+    color: #B2B2B2
 }
-
-.loginContainer dl dd {
-	display: block;
-	margin: 0;
-	overflow: hidden;
-	right: -150px;
-	top: 150px;
-	width: 50%;
-	padding: 5px;
+.loginContainer dl dd, .registerContainer dl dd {
+	margin-bottom:10px;
+}
+.loginContainer dl input.button, .registerContainer dl input.button {
+    margin:3px 0 0 0;
+}
+.loginContainer form span {
+	color:#FF0000;
+	display:block;
+	margin:0 0 0 3px;
 }
 
 .rightNavigation a.slideLeftButton {
@@ -912,7 +900,7 @@ nav.bottomNavigation ul {
 }
 
 nav.bottomNavigation ul li {
-	padding: 0 20px 0 0;
+	padding: 0 10px 0 0;
 	float: left;
 }
 
@@ -991,6 +979,7 @@ nav.bottomNavigation ul li a span {
 	border: 1px solid #B2B2B2;
 	overflow: hidden;
 	color: #B2B2B2;
+	display:none;
 }
 
 #upload-dialog div.support_files {
