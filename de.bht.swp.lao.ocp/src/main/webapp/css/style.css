@@ -1013,13 +1013,8 @@ nav.bottomNavigation ul li a span {
 	width: 310px;
 }
 
-<<<<<<< HEAD
 #upload-dialog div.buttonline{
     text-align: center;
-=======
-#upload-dialog div.buttonline {
-	margin-left: 35%;
->>>>>>> dbb3a50584d30e55b9699ae48fb661389650b4f7
 }
 
 #upload-dialog ul {
