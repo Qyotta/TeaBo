@@ -25,11 +25,11 @@ var activeUpload=null;
 	            right: "0px", 
 	        }, 200); 
 		}
-//		,function() { 
-//	        $(".rightNavigation").stop(true, false).animate({ 
-//	            right: "-199px", 
-//	        }, 200); 
-//		}
+		,function() { 
+	        $(".rightNavigation").stop(true, false).animate({ 
+	            right: "-199px", 
+	        }, 200); 
+		}
 		);
 
 		// create a posted note
@@ -516,6 +516,14 @@ var activeUpload=null;
 			
 			rightNavigation.find('.fileinfo').remove();
 			rightNavigation.append(fileinfo);
+			$(".rightNavigation").stop(true, false).animate({ 
+	            right: "0px", 
+	        }, 200);
+		}).live('dblclick',function() {
+			var attachment = $(this);
+			var id = $(this).attr('id').split('-')[1];
+			var basePath = $('.whiteboard').attr('data-context-path');
+			window.location.href = basePath+'/attachment/'+id+'/'+attachment.find('.full_filename').val()+'/download.htm';
 		});
 		
 		$('.bottomNavigation ul li a').hover(function() {console.log("jss");
