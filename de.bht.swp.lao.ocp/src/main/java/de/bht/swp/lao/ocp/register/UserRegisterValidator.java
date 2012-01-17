@@ -48,27 +48,27 @@ public class UserRegisterValidator implements Validator {
 	public void validate(Object obj, Errors registerError) {
 		RegisterFormData registerFormData = (RegisterFormData) obj;
 
-		ValidationUtils.rejectIfEmpty(registerError, "email", "email.field.required",
-				"Register Email is required!");
-		ValidationUtils.rejectIfEmpty(registerError, "password", "password.field.required",
-				"Register Password is required!");
-		ValidationUtils.rejectIfEmpty(registerError, "password", "password.field.required",
-				"Register Password is required!");
-		
-
-		if (!registerError.hasErrors()) {
-			if(registerFormData.getEmail()==null || !isValidEmailAddress(registerFormData.getEmail())){
+		if(registerFormData.getEmail()==null || registerFormData.getEmail().equals("")){
+			registerError.rejectValue("email", "email.field.required", "Email is required!");
+		}else{
+			if(!isValidEmailAddress(registerFormData.getEmail())){
 				registerError.rejectValue("email", "email.invalid", "Email isn't valid!");
-			}
-			if(registerFormData.getPassword()==null || registerFormData.getPassword().equals("")){
-				registerError.rejectValue("password", "password.required", "field.required");
-			}
-			if(!(registerFormData.getPassword().equals(registerFormData.getPasswordvalidate()))){
-				registerError.rejectValue("password", "passwords.not.matching", "Password and Confirm Password do not match!");
-			}
-			if(userDao.findByEmail(registerFormData.getEmail()) != null){
-				registerError.rejectValue("email", "email.already.used", "Email is already in use");
+			}else{
+				if(userDao.findByEmail(registerFormData.getEmail()) != null){
+					registerError.rejectValue("email", "email.already.used", "Email is already in use");
+				}
 			}
 		}
+		
+		if(registerFormData.getPassword()==null || registerFormData.getPassword().equals("")){
+			registerError.rejectValue("password", "password.field.required",
+					"Password is required!");
+		}
+		else{
+			if(!(registerFormData.getPassword().equals(registerFormData.getPasswordvalidate()))){
+				registerError.rejectValue("passwordvalidate", "passwords.not.matching", "Passwords do not match!");
+			}
+		}
+		
 	}
 }
