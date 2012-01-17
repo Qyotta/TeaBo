@@ -272,7 +272,7 @@ var activeUpload=null;
 		function _postAttachment(form){
 			_creator = $('creator',form).val();
 			_x = 0;
-			_y = 30;
+			_y = 80;
 			_text = $('textarea[name=shortDescription]',form).val();
 			_filename = $('input[type="file"]',form).val();
 			
