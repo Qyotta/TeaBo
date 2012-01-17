@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
@@ -36,22 +37,37 @@ $(document).ready(function() {
 
 </head>
 <body>
-<h1>Whiteboard <c:out value='${whiteboard.name}'/>(logged in as <c:out value="${user.email}"/>)</h1>
+    <nav class="topNavigation">
+        <h1 class="logo">
+            <a href="${pageContext.request.contextPath}/user/login.htm"><img src="../images/lao_logo.jpg" /></a>
+        </h1>
+        <h1 class="whiteboard_name">Whiteboard <c:out value='${whiteboard.name}'/>(logged in as <c:out value="${user.email}"/>)</h1>
+    </nav>
+    <div class="rightNavigation">
+        <a class="slideLeftButton"> <img src="../images/slide_button.png"></a>
+
+    </div>
+
 
 <form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
 	Mail: <form:input path="address"/><br/>
 	<input type="submit" value="Submit">
 </form:form>
 
-<div id="upload-dialog" >	
+<div id="upload-dialog" title="Upload a file">	
+<div class="support_files">Supported file types are PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, ODT, ODP, ODF</div>
 <iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
 <form:form method="post" enctype="multipart/form-data" id="fileupload" commandName="fileupload" action="${pageContext.request.contextPath}/attachment/uploadfile-${whiteboard.id}.htm" target="uploadFrame">
-	<ul> 
-		<li>File: <input type="file" name="data"> <input type="hidden" name="id" id="uploadId" />
-		Description<br />
-		<textarea name="shortDescription"></textarea></li>
-	</ul> <!-- <button type="button">+</button><br/> -->
-	<input type="submit" value="Submit"> 
+	<!-- ul --> 
+		<!-- li -->
+		<div class="fileinput">File <input type="file" name="data"> <input type="hidden" name="id" id="uploadId" /></div><br/>
+		<div class="description">Description <textarea name="shortDescription" maxlength="170"></textarea></div><!-- /li -->
+	<!-- </ul> <button type="button">+</button><br/> -->
+	<br/>
+	<div class="buttonline" >
+		<button type="button" class="cancel">Cancel</button>
+		<input type="submit" value="Submit">
+	</div> 
 </form:form>
 </div>
 
@@ -127,19 +143,20 @@ $(document).ready(function() {
 
 <div class="whiteboard" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">
 	<c:forEach var="note" items="${notes}">
-		<div class="note" id="note-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
+		<div class="note draggable" id="note-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
 			<textarea name="text"><c:out value='${note.text}'/></textarea>
 			<span class="creator"><c:out value='${note.creator.email}'/></span>
 		</div>
 	</c:forEach>
 	<c:forEach var="attachment" items="${attachments}">
-		<div class="note" id="attachment-<c:out value="${attachment.id}"/>" style="left:<c:out value="${attachment.x}"/>px; top:<c:out value="${attachment.y}"/>px;">
-			<p><img src="${pageContext.request.contextPath}/images/teambox-free-file-icons/32px/${attachment.fileExtension}.png"></p>
-			<p>${attachment.filename}
-				<a href="${pageContext.request.contextPath}/attachment/${attachment.id}/${attachment.filename}/download.htm">download</a>
+		<div class="attachment draggable" id="attachment-<c:out value="${attachment.id}"/>" style="left:<c:out value="${attachment.x}"/>px; top:<c:out value="${attachment.y}"/>px;">
+			<p class="image"><img src="${pageContext.request.contextPath}/images/teambox-free-file-icons/32px/${attachment.fileExtension}.png"></p>
+			<p class="filename">
+	       	    <c:out value="${fn:substring(attachment.filename,0, attachment.fileNameLenght)}"/>
 			</p>
-			<textarea name="text"><c:out value='${attachment.shortDescription}'/></textarea>
-			<span class="creator"><c:out value='${attachment.creator.email}'/></span>
+			<input type="hidden" name="filename" class="full_filename" value="${attachment.filename}">
+			<input type="hidden" name="creator" class="creator" value="${attachment.creator.email}">
+			<input type="hidden" name="description" class="description" value="${attachment.shortDescription}">
 		</div>
 	</c:forEach>
 </div>

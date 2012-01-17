@@ -54,7 +54,7 @@ public class UserRegisterValidator implements Validator {
 				"Register Password is required!");
 		ValidationUtils.rejectIfEmpty(registerError, "passwordvalidate", "field.required",
 				"Register Password is required!");
-	
+		
 
 		if (!registerError.hasErrors()) {
 			if(registerFormData==null || registerFormData.getEmail()==null || !isValidEmailAddress(registerFormData.getEmail()) || registerFormData.getPassword()==null){

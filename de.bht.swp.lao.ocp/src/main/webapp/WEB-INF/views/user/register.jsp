@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
@@ -38,66 +40,116 @@
         var config = {
             contextPath: '${pageContext.request.contextPath}'
         };
-    
 </script>
-    
+
 </head>
 
 <body>
-	<h2>Registration</h2>
+	<nav class="topNavigation">
+		<h1>
+			<a href="${pageContext.request.contextPath}/user/login.htm"><img
+				src="../images/lao_logo.jpg" /></a>
+		</h1>
+	</nav>
 
-	<form:form name="registerFormData" method="POST"
-		commandName="registerFormData" action="register.htm">
-		<form:errors path="errors" cssClass="registerError" /></br>
-	
-		*Email: <form:errors path="email" cssClass="registerError" />
-		<br />
-		<form:input type="email" path="email" />
-		<br />
-		<br />
-		
-		*Password: <form:errors  path="password" cssClass="registerError" />
-		<br />
-		<form:password type="password" path="password" />
-		<br />
-		<br />
-		
-		*Confirm Password: <FONT color="red"><form:errors path="passwordvalidate"
-			cssClass="registerError" /></FONT>
-		<br />
-		<form:password type="password" path="passwordvalidate" />
-		<br />
-		<br />
-		
-		Firstname: <form:errors path="firstname" cssClass="registerError" />
-		<br />
-		<form:input path="firstname" />
-		<br />
-		<br />
- 
-		Lastname: <form:errors path="lastname" cssClass="registerError" />
-		<br />
-		<form:input path="lastname" />
-		<br />
-		<br />
-		
-		Position: <form:errors path="position" cssClass="registerError" />
-		<br />
-		<form:input path="position" />
-		<br />
-		<br />
 
-		<p>
-			<b>* is required</b>
-		</p>
+	<div class="registerContainer">
 
-		<input type="submit" value="Create Account">
+		<h1>
+			<img src="../images/lao_register.png" />
+		</h1>
 
-		<p>
-			<a href="${pageContext.request.contextPath}/user/login.htm">Go Back</a>
-		</p>
+		<h2>Registration</h2>
+		<h3>Fields with * are required.</h3>
+
+		<form:form name="registerFormData" method="POST"
+			commandName="registerFormData" action="register.htm">
+			<!--<form:errors path="errors" cssClass="registerError" />
+			<form:errors path="email" cssClass="registerError" />
+			<form:errors path="password" cssClass="registerError" />
+			<form:errors path="passwordvalidate" cssClass="registerError" />
+			-->
+
+			</br>
+
+			<c:forEach items="${errors.allErrors}" var="error">
+
+				<c:if test="${error.code=='not.valid'}">
+				<c:out value="asldfjlasdfjlöasdjfklöasdjflöaksdfj"></c:out>
+				
+				</c:if>
+
+			</c:forEach>
+
+
+			<dl>
+				<dt>E-Mail Address*</dt>
+				<dd>
+					<form:input path="email" />
+
+					<spring:hasBindErrors name="registerFormData">
+						<img class="exclamation" src="../images/exclamation_mark.png">
+						<font color="red"><c:out value="${status.defaultMessage}"></c:out></font>
+					</spring:hasBindErrors>
+
+				</dd>
+				<dt>Choose Password*</dt>
+				<dd>
+					<form:password type="password" path="password" />
+					<spring:hasBindErrors name="registerFormData">
+						<img class="exclamation" src="../images/exclamation_mark.png">
+						<c:out value="${status.defaultMessage}"></c:out>
+					</spring:hasBindErrors>
+
+				</dd>
+				<dt>Confirm Password*</dt>
+				<dd>
+					<form:password type="password" path="passwordvalidate" />
+					<spring:hasBindErrors name="registerFormData">
+						<img class="exclamation" src="../images/exclamation_mark.png">
+						<c:out value="${status.defaultMessage}"></c:out>
+					</spring:hasBindErrors>
+				</dd>
+				<dt>
+					First Name
+					<form:errors path="firstname" cssClass="registerError" />
+				</dt>
+				<dd>
+					<form:input path="firstname" />
+				</dd>
+				<dt>
+					Last Name
+					<form:errors path="lastname" cssClass="registerError" />
+				</dt>
+				<dd>
+					<form:input path="lastname" />
+				</dd>
+				<dt>
+					Position
+					<h4>(e.g. Project Manager)</h4>
+					<form:errors path="position" cssClass="registerError" />
+				</dt>
+				<dd>
+					<form:input path="position" />
+				</dd>
+			</dl>
+
+			<div class="registerCancelButtons">
+
+				<input type="submit" value="Register Now" class="submitButton">
+
+				<a href="${pageContext.request.contextPath}/user/login.htm"> <input
+					type="button" value="Cancel" class="submitButton">
+				</a>
+
+			</div>
+
+			<!--  <div class="exclamation_mark">
+				
+			</div>-->
+	</div>
 
 	</form:form>
-	
+	<nav class="bottomNavigation"></nav>
 </body>
 </html>

@@ -6,5 +6,6 @@ public interface IWhiteboardItemDao<T extends WhiteboardItem> {
 	public T findById(Long id);
 	public List<T> findAll();
 	public void save(T whiteboardItem);
+	public void delete(T whiteboardItem);
 	public List<T> findAllbyWhiteboardId(Long id);
 }

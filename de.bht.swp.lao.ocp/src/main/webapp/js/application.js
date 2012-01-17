@@ -17,7 +17,20 @@ var activeUpload=null;
 				whiteboardid : parseInt($('.whiteboard').attr(
 						'data-whiteboard-id'))
 			});
+			
 		}
+		
+		$(".rightNavigation").hover(function() { 
+	        $(".rightNavigation").stop(true, false).animate({ 
+	            right: "0px", 
+	        }, 200); 
+		}
+//		,function() { 
+//	        $(".rightNavigation").stop(true, false).animate({ 
+//	            right: "-199px", 
+//	        }, 200); 
+//		}
+		);
 
 		// create a posted note
 		function _handlePostedNote(message) {
@@ -187,15 +200,22 @@ var activeUpload=null;
 			var basePath = $('.whiteboard').attr('data-context-path');
 			var imgPath = basePath+"/images/teambox-free-file-icons/32px/"+ext+".png";
 			console.log(imgPath);
-			var template = '<div class="note"><p><img src="'+basePath+'/images/stop.gif"/></p><p id="filename"></p><textarea name="text"/><span class="creator"></span></div>';
+			var image;
+			if (activeUpload != null && _uid === activeUpload[1]){
+				image = basePath + "/images/loading.gif";
+			} else {
+				image = basePath +"/images/stop.gif";
+			}
+			var template = '<div class="attachment draggable"><p class="image"><img src="'+ image + '"/></p><p class="filename"></p></div>';
 			var view = $(template);
-
-			var filename = $('#filename',view);
-			//filename.prepend(_filename);
+			view.css('left',_x+'px');
+			view.css('top',_y+'px');
 			
+			//var filename = $('#filename',view);
+			//filename.prepend(_filename);
 
-			var shortDescription = $('textarea',view);
-			shortDescription.html(_shortDescription);
+			// var shortDescription = $('textarea',view);
+			// shortDescription.html(_shortDescription);
 
 			var creator = $('.creator',view);
 			creator.html(_creator);
@@ -218,12 +238,22 @@ var activeUpload=null;
 			$('#fileupload #uploadId').val(id);
 			
 			$('#fileupload').submit();
+			$('#fileupload input[type=file], #fileupload textarea').val("");
 			$('#uploadFrame').load(function(){
 				var attachment = eval("(" +$(this).contents().find("pre").text()+ ")");
-				cometd.publish('/service/attachment/complete', {
-					id : attachment['id'],
-					whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
-				});
+				if(attachment['error'] != undefined){
+					alert("Your File was not valid.");
+					cometd.publish('/service/attachment/remove', {
+						id : parseInt(attachment['id']),
+						whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
+					});
+				}
+				else {
+					cometd.publish('/service/attachment/complete', {
+						id : parseInt(attachment['id']),
+						whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
+					});
+				}
 			});
 			
 			activeUpload = null;
@@ -231,20 +261,25 @@ var activeUpload=null;
 		
 		function _handleUploadCompleteAttachment(message){
 			var ext = message.data.filename.split('.').pop();
+			var filename = message.data.filename.substr(0, message.data.filename.length - (ext.length + 1));
 			var basePath = $('.whiteboard').attr('data-context-path');
 			var imgPath = basePath+"/images/teambox-free-file-icons/32px/"+ext+".png";
 			$('#attachment-'+message.data.id+ ' img').attr('src', imgPath);
 			var attachment = $('#attachment-'+message.data.id);
-			attachment.append('<a/>');
-			var link = $('a',attachment);
-			link.attr('href',basePath+"/attachment/"+message.data.id+"/"+message.data.filename+"/download.htm");
-			link.html('download');
+			attachment.find(".filename").text(filename.substr(0,11));
+			attachment.append("<input type=\"hidden\" name=\"filename\" class=\"full_filename\" value=\""+message.data.filename+"\">"+
+							  "<input type=\"hidden\" name=\"creator\" class=\"creator\" value=\""+message.data.creatoremail+"\">"+
+							  "<input type=\"hidden\" name=\"description\" class=\"description\" value=\""+message.data.description+"\">");
+		}
+		
+		function _handleUploadFailedAttachment(message){
+			$('#attachment-'+message.data.id).remove();
 		}
 
 		function _postAttachment(form){
 			_creator = $('creator',form).val();
-			_x = 100;
-			_y = 125;
+			_x = 0;
+			_y = 30;
 			_text = $('textarea[name=shortDescription]',form).val();
 			_filename = $('input[type="file"]',form).val();
 			
@@ -281,6 +316,7 @@ var activeUpload=null;
 					cometd.subscribe('/whiteboardItem/progress/'+$('.whiteboard').attr('data-whiteboard-id'),_handleProgressedWhiteboardItem);
 					cometd.subscribe('/attachment/posted/'+$('.whiteboard').attr('data-whiteboard-id'),_handlePostedAttachment);
 					cometd.subscribe('/attachment/upload/complete/'+$('.whiteboard').attr('data-whiteboard-id'),_handleUploadCompleteAttachment);
+					cometd.subscribe('/attachment/upload/remove/'+$('.whiteboard').attr('data-whiteboard-id'),_handleUploadFailedAttachment);
 				});
 			}
 		}
@@ -363,7 +399,7 @@ var activeUpload=null;
 					});
 		};
 
-		$(".whiteboard .note").draggable({
+		$(".whiteboard .draggable").draggable({
 			stop : function(e, ui) {
 				var id = $(this).attr('id').split('-')[1];
 				_moveWhiteboardItem(this, id);
@@ -382,9 +418,11 @@ var activeUpload=null;
 
 		$('#upload-dialog').dialog({
 			autoOpen : false,
+			closeOnEscape: false,
+			open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
 			modal : true,
-			width : 400,
-			title : "File Upload"
+			width : 420,
+			draggable: false
 		});
 
 		$('a.uploadFile').live(
@@ -403,28 +441,84 @@ var activeUpload=null;
 			}
 		);
 
-		$('#upload-dialog > form > button').live(
-			'click',
-			function(e) {
-				toClone = $(
-						'#upload-dialog > form > ul > li:first-child')
-						.clone();
-				toClone.find('input[type="file"]')
-						.val("");
-				toClone
-						.appendTo('#upload-dialog > form > ul');
-			}
-		);
+//		$('#upload-dialog > form > button').live(
+//			'click',
+//			function(e) {
+//				toClone = $(
+//						'#upload-dialog > form > ul > li:first-child')
+//						.clone();
+//				toClone.find('input[type="file"]').val("");
+//				toClone.find('textarea').html("");
+//				toClone.appendTo('#upload-dialog > form > ul');
+//			}
+//		);
+		
+		$('#fileupload button.cancel').click(function(){
+			$('#fileupload input[type=file], #fileupload textarea').val("");
+			$('#upload-dialog').dialog('close');
+		});
 
 		$('#fileupload input[type=submit]').click(function(event) {
 			$('#upload-dialog').dialog('close');
 			event.preventDefault();
 			
-			activeUpload = [$('#fileupload'),new Date().getTime()];
+			activeUpload = [$('#fileupload'), new Date().getTime()];
 			console.log(activeUpload);
 			_postAttachment($('#fileupload'));
 		});
+		
+
+		$('#fileupload input[type="file"]').live('change',function(){
+        	input = $(this).val();
+        	fileExtension = [".pdf",".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odt", ".odp", ".odf"];
+        	found = false;
+        	for( var index in fileExtension ){
+        		var ext = fileExtension[index];
+	        	if( (input.toLowerCase().indexOf(ext, input.length - ext.length)) !== -1){
+	        		found = true;
+	        	}
+        	}
+        	if ( !found ){
+	        	alert("not allowed");
+	    		$(this).val("");
+        	}
+        });
+		
+		$('#fileupload textarea').live('keyup', function(){
+			var maxchar = 170;
+			if($(this).val().length >= maxchar){
+				$(this).val($(this).val().substring(0, maxchar));
+				alert("The maximum amount of chars is "+maxchar);
+			}
+		});
+		
+		$('.attachment').live('click', function(){
+			var attachment = $(this);
+			var rightNavigation = $('.rightNavigation');
+			var basePath = $('.whiteboard').attr('data-context-path');
+			
+			var full_name = $('<h3/>').attr('class','full_filename').html(attachment.find('.full_filename').val());
+			var creator = $('<div/>').attr('class','creator').html('uploded by '+attachment.find('.creator').val());
+			var description = $('<textarea/>').attr('class','description').html(attachment.find('.description').val());
+			var id = $(this).attr('id').split('-')[1];
+			var download = $('<a/>').attr('href',basePath+"/attachment/"+id+"/"+attachment.find('.full_filename').val()+"/download.htm").html('[DownloadButton]');
+			
+			var fileinfo = $('<div/>')
+								.attr('class','fileinfo')
+								.append(full_name)
+								.append(creator)
+								.append($('<br/>'))
+								.append(download)
+								.append($('<br/>'))
+								.append($('<br/>'))
+								.append($('<div/>').html('Description:'))
+								.append(description);
+			
+			rightNavigation.find('.fileinfo').remove();
+			rightNavigation.append(fileinfo);
+		});
 
 	});
+	
 
 })(jQuery);

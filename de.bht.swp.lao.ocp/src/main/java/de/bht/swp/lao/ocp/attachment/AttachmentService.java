@@ -43,8 +43,8 @@ public class AttachmentService {
 	public void completeUpload(ServerSession remote, ServerMessage.Mutable message){
 		System.out.println("upload completed.");
 		Map<String,Object> data = message.getDataAsMap();
-		
-		Long id = (Long) data.get("id");
+
+		Long id = (Long) data.get("id"); 
 		Long whiteboardid = (Long)data.get("whiteboardid");
 		
 		Attachment attachment = attachmentDao.findById(id);
@@ -56,13 +56,14 @@ public class AttachmentService {
 		Map<String,Object> output = new HashMap<String,Object>();
 		output.put("id", id);
 		output.put("filename", attachment.getFilename());
+		output.put("creatoremail", attachment.getCreator().getEmail());
+		output.put("description", attachment.getShortDescription());
 		output.put("uploaded", true);
 		
 		String channel = "/attachment/upload/complete/"+whiteboardid;
 		for(ServerSession session:bayeux.getChannel(channel).getSubscribers()){
 			session.deliver(serverSession, channel, output, null);
 		}
-		
 	}
 	
 	@Listener(value = {"/service/attachment/post/"})
@@ -107,6 +108,22 @@ public class AttachmentService {
 		output.put("uid", uid);
 		
 		String channel = "/attachment/posted/"+whiteboardid;
+		for(ServerSession session:bayeux.getChannel(channel).getSubscribers()){
+			session.deliver(serverSession, channel, output, null);
+		}
+	}
+	
+	@Listener(value = {"/service/attachment/remove"})
+	public void failedUpload(ServerSession remote, ServerMessage.Mutable message){Map<String,Object> data = message.getDataAsMap();
+
+		Long id = (Long) data.get("id"); 
+		Long whiteboardid = (Long)data.get("whiteboardid");
+		
+		Map<String,Object> output = new HashMap<String,Object>();
+		output.put("id", id);
+		output.put("uploaded", false);
+		
+		String channel = "/attachment/upload/remove/"+whiteboardid;
 		for(ServerSession session:bayeux.getChannel(channel).getSubscribers()){
 			session.deliver(serverSession, channel, output, null);
 		}
