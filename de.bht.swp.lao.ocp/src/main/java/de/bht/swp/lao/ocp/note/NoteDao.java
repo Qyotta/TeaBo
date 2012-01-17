@@ -40,5 +40,12 @@ public class NoteDao implements IWhiteboardItemDao<Note> {
 	public List<Note> findAllbyWhiteboardId(Long id) {
 		return (List<Note>)em.createQuery("from Note n where n.whiteboard.id=?1").setParameter(1, id).getResultList();
 	}
+	
+	
+	@Override
+	public void delete(Note whiteboardItem) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -38,5 +38,11 @@ public class WhiteboardItemDao implements IWhiteboardItemDao<WhiteboardItem> {
 	public List<WhiteboardItem> findAllbyWhiteboardId(Long id) {
 		return (List<WhiteboardItem>)em.createQuery("from WhiteboardItem w where w.whiteboard.id=?1").setParameter(1, id).getResultList();
 	}
+
+	@Override
+	public void delete(WhiteboardItem whiteboardItem) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

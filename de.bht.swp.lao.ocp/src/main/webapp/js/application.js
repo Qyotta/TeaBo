@@ -240,10 +240,19 @@ var activeUpload=null;
 			$('#fileupload').submit();
 			$('#uploadFrame').load(function(){
 				var attachment = eval("(" +$(this).contents().find("pre").text()+ ")");
-				cometd.publish('/service/attachment/complete', {
-					id : parseInt(attachment['id']),
-					whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
-				});
+				if(attachment['error'] != undefined){
+					alert("Your File was not valid.");
+					cometd.publish('/service/attachment/remove', {
+						id : parseInt(attachment['id']),
+						whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
+					});
+				}
+				else {
+					cometd.publish('/service/attachment/complete', {
+						id : parseInt(attachment['id']),
+						whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
+					});
+				}
 			});
 			
 			activeUpload = null;
@@ -260,6 +269,10 @@ var activeUpload=null;
 			attachment.append("<input type=\"hidden\" name=\"filename\" class=\"full_filename\" value=\""+message.data.filename+"\">"+
 							  "<input type=\"hidden\" name=\"creator\" class=\"creator\" value=\""+message.data.creatoremail+"\">"+
 							  "<input type=\"hidden\" name=\"description\" class=\"description\" value=\""+message.data.description+"\">");
+		}
+		
+		function _handleUploadFailedAttachment(message){
+			$('#attachment-'+message.data.id).remove();
 		}
 
 		function _postAttachment(form){
@@ -302,6 +315,7 @@ var activeUpload=null;
 					cometd.subscribe('/whiteboardItem/progress/'+$('.whiteboard').attr('data-whiteboard-id'),_handleProgressedWhiteboardItem);
 					cometd.subscribe('/attachment/posted/'+$('.whiteboard').attr('data-whiteboard-id'),_handlePostedAttachment);
 					cometd.subscribe('/attachment/upload/complete/'+$('.whiteboard').attr('data-whiteboard-id'),_handleUploadCompleteAttachment);
+					cometd.subscribe('/attachment/upload/remove/'+$('.whiteboard').attr('data-whiteboard-id'),_handleUploadFailedAttachment);
 				});
 			}
 		}

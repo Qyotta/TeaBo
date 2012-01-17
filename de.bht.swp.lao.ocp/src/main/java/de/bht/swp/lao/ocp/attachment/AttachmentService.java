@@ -112,4 +112,20 @@ public class AttachmentService {
 			session.deliver(serverSession, channel, output, null);
 		}
 	}
+	
+	@Listener(value = {"/service/attachment/remove"})
+	public void failedUpload(ServerSession remote, ServerMessage.Mutable message){Map<String,Object> data = message.getDataAsMap();
+
+		Long id = (Long) data.get("id"); 
+		Long whiteboardid = (Long)data.get("whiteboardid");
+		
+		Map<String,Object> output = new HashMap<String,Object>();
+		output.put("id", id);
+		output.put("uploaded", false);
+		
+		String channel = "/attachment/upload/remove/"+whiteboardid;
+		for(ServerSession session:bayeux.getChannel(channel).getSubscribers()){
+			session.deliver(serverSession, channel, output, null);
+		}
+	}
 }
