@@ -370,7 +370,7 @@ var activeUpload=null;
 				});
 
 		// new note
-		$('.bottomNavigation .right .createNote').click(
+		$('a.createNote').click(
 				function() {
 					posx = Math.floor(Math.random() * 700);
 					posy = Math.floor(Math.random() * 400);
@@ -517,8 +517,15 @@ var activeUpload=null;
 			rightNavigation.find('.fileinfo').remove();
 			rightNavigation.append(fileinfo);
 		});
+		
+		$('.bottomNavigation ul li a').hover(function() {console.log("jss");
+			$(this).css('bottom','30px');
+			$(this).find('span').css('display','block');
+		}, function() {
+			$(this).css('bottom','15px');
+			$(this).find('span').css('display','none');
+		});
 
 	});
-	
 
 })(jQuery);

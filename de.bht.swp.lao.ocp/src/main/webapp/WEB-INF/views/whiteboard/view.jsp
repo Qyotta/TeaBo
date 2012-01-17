@@ -163,15 +163,9 @@ $(document).ready(function() {
 
 <nav class="bottomNavigation">
     <ul>
-        <li><a href="#"><img src="../images/icons/pin_map.png" alt="Get URL" title="Get URL" /></a></li>
-        <li><a href="#"><img src="../images/icons/zoom.png" alt="Search" title="Search" /></a></li>
-        <li><a href="#" class="showToolTips"><img src="../images/icons/info.png" alt="Show Tooltips" title="Show Tooltips" /></a></li>
+        <li><a href="#" class="createNote"><img src="../images/new_note.png" alt="create_note" title="create new note" /><span>Note</span></a></li>
+        <li><a href="#" class="uploadFile"><img src="../images/new_file.png" alt="uploadFile" title="Load File" /><span>File</span></a></li>
     </ul>
-
-    <ul class="right">
-        <li><a href="#" class="uploadFile"><img src="../images/icons/doc_empty.png" alt="uploadFile" title="Load File" /></a></li>
-        <li><a href="#" class="createNote"><img src="../images/icons/notepad.png" alt="create_note" title="create new note" /></a></li>
-	</ul>
 </nav>
 </body>
 </html> 
