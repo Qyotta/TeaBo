@@ -80,7 +80,7 @@
 						<form:input path="email"  cssClass="wrongfield"/>
 							<div class="exclamation">
 								<img src="../images/exclamation_mark.png">
-								<div class="errors hide">${emailErrors}</div>
+								<div class="errors">${emailErrors}</div>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -119,7 +119,7 @@
 							<form:password path="passwordvalidate"  cssClass="wrongfield"/>
 							<div class="exclamation">
 								<img src="../images/exclamation_mark.png">
-								<div class="errors hide">${passwordValidateErrors}</div>
+								<div class="errors">${passwordValidateErrors}</div>
 							</div>
 						</c:when>
 						<c:otherwise>
