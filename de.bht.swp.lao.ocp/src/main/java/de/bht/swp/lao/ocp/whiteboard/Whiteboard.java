@@ -8,11 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 @Entity
+@Table(name="lao_whiteboard")
 public class Whiteboard {
 	@Id
 	@GeneratedValue

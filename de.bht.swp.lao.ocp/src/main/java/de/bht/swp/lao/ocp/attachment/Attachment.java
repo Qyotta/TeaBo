@@ -3,10 +3,12 @@ package de.bht.swp.lao.ocp.attachment;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 @Entity
+@Table(name="lao_attachment")
 public class Attachment extends WhiteboardItem {
 	
 	@Lob
