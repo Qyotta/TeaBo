@@ -37,9 +37,9 @@
 	src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
 
 <script type="text/javascript">
-        var config = {
-            contextPath: '${pageContext.request.contextPath}'
-        };
+	var config = {
+		contextPath : '${pageContext.request.contextPath}'
+	};
 </script>
 
 </head>
@@ -48,7 +48,8 @@
 	<nav class="topNavigation">
 		<h1>
 			<a href="${pageContext.request.contextPath}/user/login.htm"><img
-				src="../images/lao_logo.jpg" /></a>
+				src="../images/lao_logo.jpg" />
+			</a>
 		</h1>
 	</nav>
 
@@ -72,54 +73,50 @@
 
 			</br>
 
-			<c:forEach items="${errors.allErrors}" var="error">
-
-				<c:if test="${error.code=='not.valid'}">
-				<c:out value="asldfjlasdfjlöasdjfklöasdjflöaksdfj"></c:out>
-				
-				</c:if>
-
-			</c:forEach>
-
-
 			<dl>
 				<dt>E-Mail Address*</dt>
 				<dd>
 					<form:input path="email" />
-
-					<spring:hasBindErrors name="registerFormData">
+					<c:set var="emailErrors">
+						<form:errors path="email" element="div"/>
+					</c:set>
+					<c:if test="${not empty emailErrors}">
 						<img class="exclamation" src="../images/exclamation_mark.png">
-						<font color="red"><c:out value="${status.defaultMessage}"></c:out></font>
-					</spring:hasBindErrors>
+						<div class="errors hide">${emailErrors}</div>
+					</c:if>
 
 				</dd>
 				<dt>Choose Password*</dt>
 				<dd>
 					<form:password type="password" path="password" />
-					<spring:hasBindErrors name="registerFormData">
+					<c:set var="passwordErrors">
+						<form:errors path="password" element="div"/>
+					</c:set>
+					<c:if test="${not empty passwordErrors}">
 						<img class="exclamation" src="../images/exclamation_mark.png">
-						<c:out value="${status.defaultMessage}"></c:out>
-					</spring:hasBindErrors>
+						<div class="errors hide">${passwordErrors}</div>
+					</c:if>
 
 				</dd>
 				<dt>Confirm Password*</dt>
 				<dd>
-					<form:password type="password" path="passwordvalidate" />
-					<spring:hasBindErrors name="registerFormData">
+					<form:password type="password" path="password" />
+					<c:set var="passwordValidateErrors">
+						<form:errors path="password" element="div"/>
+					</c:set>
+					<c:if test="${not empty passwordValidateErrors}">
 						<img class="exclamation" src="../images/exclamation_mark.png">
-						<c:out value="${status.defaultMessage}"></c:out>
-					</spring:hasBindErrors>
+						<div class="errors hide">${passwordErrors}</div>
+					</c:if>
 				</dd>
 				<dt>
 					First Name
-					<form:errors path="firstname" cssClass="registerError" />
 				</dt>
 				<dd>
 					<form:input path="firstname" />
 				</dd>
 				<dt>
 					Last Name
-					<form:errors path="lastname" cssClass="registerError" />
 				</dt>
 				<dd>
 					<form:input path="lastname" />
@@ -127,7 +124,6 @@
 				<dt>
 					Position
 					<h4>(e.g. Project Manager)</h4>
-					<form:errors path="position" cssClass="registerError" />
 				</dt>
 				<dd>
 					<form:input path="position" />
@@ -139,8 +135,7 @@
 				<input type="submit" value="Register Now" class="submitButton">
 
 				<a href="${pageContext.request.contextPath}/user/login.htm"> <input
-					type="button" value="Cancel" class="submitButton">
-				</a>
+					type="button" value="Cancel" class="submitButton"> </a>
 
 			</div>
 
