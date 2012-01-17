@@ -22,6 +22,7 @@
 <script src="${pageContext.request.contextPath}/js/libs/org/cometd.js"></script>
 <script src="${pageContext.request.contextPath}/js/libs/jquery/jquery.cometd.js"></script>
 <script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/errordisplay.js"></script>
 <script type="text/javascript">var config = {contextPath: '${pageContext.request.contextPath}'}</script>
 
 <nav class="topNavigation">
@@ -44,27 +45,57 @@
 	<dl>
         <dt>E-Mail Address*</dt>
 		<dd>
-            <form:input path="email" />
-			<spring:hasBindErrors name="registerFormData">
-				<img class="exclamation" src="../images/exclamation_mark.png">
-				<font color="red"><c:out value="${status.defaultMessage}"></c:out></font>
-			</spring:hasBindErrors>
+		    <c:set var="emailErrors">
+                <form:errors path="email" element="div" />
+	        </c:set>
+	        <c:choose>
+	            <c:when test="${not empty emailErrors}">
+	            <form:input path="email"  cssClass="wrongfield"/>
+	                <div class="exclamation">
+	                    <img src="../images/exclamation_mark.png">
+	                    <div class="errors">${emailErrors}</div>
+	                </div>
+	            </c:when>
+	            <c:otherwise>
+	                <form:input path="email" />
+	            </c:otherwise>
+	        </c:choose>
 		</dd>
 		<dt>Choose Password*</dt>
 		<dd>
-			<form:password type="password" path="password" />
-			<spring:hasBindErrors name="registerFormData">
-				<img class="exclamation" src="../images/exclamation_mark.png">
-				<c:out value="${status.defaultMessage}"></c:out>
-			</spring:hasBindErrors>
+			<c:set var="passwordErrors">
+                <form:errors path="password" element="div" />
+            </c:set>
+            <c:choose>
+                <c:when test="${not empty passwordErrors}">
+                    <form:password path="password" cssClass="wrongfield"/>
+                    <div class="exclamation">
+                        <img src="../images/exclamation_mark.png">
+                        <div class="errors">${passwordErrors}</div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <form:password path="password"/>
+                </c:otherwise>
+            </c:choose>
 		</dd>
 		<dt>Confirm Password*</dt>
 		<dd>
-			<form:password type="password" path="passwordvalidate" />
-			<spring:hasBindErrors name="registerFormData">
-				<img class="exclamation" src="../images/exclamation_mark.png">
-				<c:out value="${status.defaultMessage}"></c:out>
-			</spring:hasBindErrors>
+			<c:set var="passwordValidateErrors">
+                <form:errors path="passwordvalidate" element="div" />
+            </c:set>
+            <c:choose>
+                <c:when test="${not empty passwordValidateErrors}">
+                    <form:password path="passwordvalidate"  cssClass="wrongfield"/>
+                    <div class="exclamation">
+                        <img src="../images/exclamation_mark.png">
+                        <div class="errors">${passwordValidateErrors}</div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <form:password path="passwordvalidate" />
+                </c:otherwise>
+            </c:choose>
 		</dd>
 		<dt>First Name<form:errors path="firstname" cssClass="registerError" /></dt>
 		<dd><form:input path="firstname" /></dd>

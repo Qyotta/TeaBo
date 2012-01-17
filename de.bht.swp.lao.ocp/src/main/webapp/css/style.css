@@ -29,10 +29,14 @@ audio
 
 
 
+
+
 :not
 
 
+
  
+
 
 
 (
@@ -41,7 +45,9 @@ controls
 ]
 
 
+
  
+
 
 
 )
@@ -51,13 +57,19 @@ display
 
 
 
+
+
 :
+
 
 
  
 
 
+
 none
+
+
 
 
 
@@ -265,17 +277,23 @@ svg
 
 
 
+
+
 :not
 
 
+
  
+
 
 
 (
 :root
 
 
+
  
+
 
 
 )
@@ -285,13 +303,19 @@ overflow
 
 
 
+
+
 :
+
 
 
  
 
 
+
 hidden
+
+
 
 
 
@@ -410,7 +434,6 @@ textarea {
 /* Colors for form validity */
 input:valid,textarea:valid {
 	width: 185px;
-	
 }
 
 input:invalid,textarea:invalid {
@@ -653,21 +676,22 @@ nav.topNavigation {
 	*/
 }
 
-.whiteboardInviteUser{
+.whiteboardInviteUser {
 	left: 145px;
-    position: absolute;
-    top: 15px;
+	position: absolute;
+	top: 15px;
 }
 
-.mainPanel{
+.mainPanel {
 	background: none repeat scroll 0 0 #494949;
-    color: #B2B2B2;
-    position: absolute;
-    top: 100px;
-    width: 220px;
+	color: #B2B2B2;
+	position: absolute;
+	top: 100px;
+	width: 220px;
 }
-.mainPanel ul a{
-    color: #B2B2B2;
+
+.mainPanel ul a {
+	color: #B2B2B2;
 }
 
 .rightNavigation {
@@ -682,7 +706,7 @@ nav.topNavigation {
 	right: -199px;
 	top: 25px;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
-	filter: alpha(opacity =   65);
+	filter: alpha(opacity =     65);
 	-moz-opacity: 0.65;
 	-khtml-opacity: 0.65;
 	opacity: 0.65;
@@ -700,7 +724,8 @@ nav.topNavigation {
 .rightNavigation .creator {
 	font-size: 10px;
 }
-.rightNavigation textarea.description{
+
+.rightNavigation textarea.description {
 	background: #B2B2B2;
 	height: 153px;
 	width:165px;
@@ -727,22 +752,40 @@ nav.topNavigation {
     text-align: center;
 }
 
-.registrationSuccess h2 a{
-    color: #4B99CE;    
+.registrationSuccess h2 a {
+	color: #4B99CE;
 }
 
 .registerCancelButtons a{
     text-decoration: none;
 }
 
-.exclamation{
-	
+.exclamation {
+	position: absolute;
+	left: 190px;
+	top: 3px;
 }
 
-.hide{
+.errors {
+	position: absolute;
+	top: 25px;
+	left: 30px;
+	background: white;
+	border: 3px solid #cc3300;
+	width: 170px;
+	padding: 7px 0 7px 0;
+	color: black;
+	text-align: center;
+	display:none;
+}
+
+.wrongfield{
+	border-color:#cc3300;	
+}
+
+.hide {
 	display: none;
 }
-
 
 .registerContainer {
 	background: #494949;
@@ -779,15 +822,15 @@ nav.topNavigation {
 .registerContainer div {
 	margin: 30px 0 10px 102px;  
 }
+
 .registerContainer dl dt span {
 	display: inline;
     font-size: 10px;
     margin: 0;
     padding: 0;
 }
-
 .loginContainer {
-	position: absolute;	
+	position: absolute;
 	background: #494949;
 	width: 400px;
 	left: 50%;
@@ -860,17 +903,20 @@ nav.bottomNavigation ul li {
 	padding: 0 10px 0 0;
 	float: left;
 }
+
 nav.bottomNavigation ul li a {
-	text-decoration:none;
-	position:relative;
-    bottom:25px;
+	text-decoration: none;
+	position: relative;
+	bottom: 25px;
 }
+
 nav.bottomNavigation ul li a img {
 	
 }
+
 nav.bottomNavigation ul li a span {
-    display:none;
-    color: #C2C2C2;
+	display: none;
+	color: #C2C2C2;
 }
 
 .whiteboard {
@@ -936,28 +982,28 @@ nav.bottomNavigation ul li a span {
 	display:none;
 }
 
-#upload-dialog div.support_files{
+#upload-dialog div.support_files {
 	font-size: 70%;
 }
 
-#upload-dialog div.fileinput{
-    margin-left: 55px;
+#upload-dialog div.fileinput {
+	margin-left: 55px;
 }
 
-#upload-dialog div.fileinput input{
-    background: #FFFFFF;
+#upload-dialog div.fileinput input {
+	background: #FFFFFF;
 }
 
-#upload-dialog div.description{
-    margin-left: 5px;
+#upload-dialog div.description {
+	margin-left: 5px;
 }
 
-#upload-dialog div.description textarea{
-    width: 310px;
+#upload-dialog div.description textarea {
+	width: 310px;
 }
 
-#upload-dialog div.buttonline{
-    margin-left: 35%;
+#upload-dialog div.buttonline {
+	margin-left: 35%;
 }
 
 #upload-dialog ul {
@@ -996,7 +1042,7 @@ nav.bottomNavigation ul li a span {
 	background: #ffffff;
 	overflow: hidden;
 	font-weight: bold;
-	padding: 2px 4px:
+	padding: 2px 4px :
 }
 
 #startscreen div.lightbox {
@@ -1011,7 +1057,7 @@ nav.bottomNavigation ul li a span {
 	/*transparency*/
 	opacity: .95;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=95)";
-	filter: alpha(opacity =       95);
+	filter: alpha(opacity =         95);
 	/*box shadow*/
 	-webkit-box-shadow: 0px 0px 30px #AAA;
 	-moz-box-shadow: 0px 0px 30px #AAA;
@@ -1027,7 +1073,7 @@ nav.bottomNavigation ul li a span {
 	/*transparency*/
 	opacity: .75;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
-	filter: alpha(opacity =       75);
+	filter: alpha(opacity =         75);
 	/*box shadow*/
 	-webkit-box-shadow: 0px 0px 30px #AAA;
 	-moz-box-shadow: 0px 0px 30px #AAA;
@@ -1116,24 +1162,23 @@ nav.bottomNavigation ul li a span {
 	color: red;
 }
 
-.draggable{
+.draggable {
 	position: absolute;
 }
 
-.whiteboard .attachment{
+.whiteboard .attachment {
 	cursor: move;
 	width: 120px;
 }
-.whiteboard .attachment .image{
-    text-align: center;
-}
 
-.whiteboard .attachment .filename{
+.whiteboard .attachment .image {
 	text-align: center;
-    font-weight: bold;
 }
 
-
+.whiteboard .attachment .filename {
+	text-align: center;
+	font-weight: bold;
+}
 
 /* ==|== non-semantic helper classes ========================================
    Please define your styles before this section.
