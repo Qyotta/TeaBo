@@ -238,6 +238,7 @@ var activeUpload=null;
 			$('#fileupload #uploadId').val(id);
 			
 			$('#fileupload').submit();
+			$('#fileupload input[type=file], #fileupload textarea').val("");
 			$('#uploadFrame').load(function(){
 				var attachment = eval("(" +$(this).contents().find("pre").text()+ ")");
 				if(attachment['error'] != undefined){
@@ -453,6 +454,7 @@ var activeUpload=null;
 //		);
 		
 		$('#fileupload button.cancel').click(function(){
+			$('#fileupload input[type=file], #fileupload textarea').val("");
 			$('#upload-dialog').dialog('close');
 		});
 
