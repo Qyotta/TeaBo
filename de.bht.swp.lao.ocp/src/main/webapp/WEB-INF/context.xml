@@ -69,7 +69,7 @@
 				<property name="showSql" value="true" />
 				<property name="generateDdl" value="true" />
 				<property name="databasePlatform" value="org.hibernate.dialect.DerbyDialect" />
-				<property name="logging.level" value="WARNING" />
+				<!-- <property name="logging.level" value="WARNING" />-->
 			</bean>
 		</property>
 	</bean>

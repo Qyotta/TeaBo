@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import javax.persistence.Column;
 
@@ -16,6 +17,7 @@ import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 @Entity
+@Table(name="lao_user")
 public class User {
 	@Id
 	@GeneratedValue
