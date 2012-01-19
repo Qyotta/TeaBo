@@ -733,7 +733,7 @@ nav.topNavigation {
 	padding:10px;
 }
 
-.registrationSuccess {
+.registrationSuccess, .logoutQuestion {
     background:#494949;
     position: absolute;
     left: 50%;
@@ -747,12 +747,14 @@ nav.topNavigation {
     -webkit-transform:translate(-50%, -50%);
     transform:translate(-50%, -50%);
 }
-.registrationSuccess h2{
+
+
+.registrationSuccess h2, .logoutQuestion h2{
     color: #FFFFFF;
     text-align: center;
 }
 
-.registrationSuccess h2 a {
+.registrationSuccess h2 a, .logoutQuestion h2 a {
 	color: #4B99CE;
 }
 

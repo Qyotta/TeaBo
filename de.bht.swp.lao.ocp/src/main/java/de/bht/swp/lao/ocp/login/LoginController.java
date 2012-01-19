@@ -31,14 +31,17 @@ public class LoginController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String onSubmit(@ModelAttribute("loginFormData") LoginFormData loginFormData , BindingResult result, HttpServletRequest request) {
+	public ModelAndView onSubmit(@ModelAttribute("loginFormData") LoginFormData loginFormData , BindingResult result, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
 		userLoginValidator.validate(loginFormData, result);
 		
 		if (result.hasErrors()) {
-			return "user/login";
+			mav.setViewName("user/login");
+			mav.addObject("errors", result);
 		} else {
 			request.getSession().setAttribute("user", userDao.findByEmail( loginFormData.getEmail()));
-			return "redirect:/whiteboard/list.htm";
+			mav.setViewName("redirect:/whiteboard/list.htm");
 		}
+		return mav;
 	}
 }

@@ -1,0 +1,10 @@
+----------------------------------------------------------------
+Thu Jan 19 16:47:48 CET 2012:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): instance a816c00e-0134-f6a7-0465-0000008ed470 
+on database directory C:\xampp\htdocs\lao\lao-Online-Collaboration-Platform\de.bht.swp.lao.ocp\lao  with class loader WebAppClassLoader=OnlineCollaborationPlatform@1f6d2e3 
+Loaded from file:/C:/Users/Christoph/.m2/repository/org/apache/derby/derby/10.8.2.2/derby-10.8.2.2.jar
+java.vendor=Sun Microsystems Inc.
+java.runtime.version=1.6.0-b105
+user.dir=c:\xampp\htdocs\lao\lao-Online-Collaboration-Platform\de.bht.swp.lao.ocp
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
