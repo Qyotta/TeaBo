@@ -24,14 +24,14 @@ public class LoginController {
 	IUserDao userDao;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView login() {
+	public ModelAndView view() {
 		ModelAndView mav = new ModelAndView("user/login");
 		mav.addObject("loginFormData", new LoginFormData());
 		return mav;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView onSubmit(@ModelAttribute("loginFormData") LoginFormData loginFormData , BindingResult result, HttpServletRequest request) {
+	public ModelAndView login(@ModelAttribute("loginFormData") LoginFormData loginFormData , BindingResult result, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		userLoginValidator.validate(loginFormData, result);
 		

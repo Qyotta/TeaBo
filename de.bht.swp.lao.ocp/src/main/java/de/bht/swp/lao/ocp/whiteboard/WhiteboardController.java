@@ -2,6 +2,7 @@ package de.bht.swp.lao.ocp.whiteboard;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.ws.http.HTTPException;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,6 +21,9 @@ import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.user.IUserDao;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
+/**
+ * A Class for handling whiteboard specific requests.
+ */
 @Controller
 @RequestMapping(value="/whiteboard/*")
 public class WhiteboardController {
@@ -36,34 +40,82 @@ public class WhiteboardController {
 	@Inject
 	private IUserDao userDao;
 	
+	/**
+	 * Handles a request for displaying a whiteboard.
+	 * 
+	 * @param model The model.
+	 * @param request The request.
+	 * @param whiteboardId The Id of the requested whiteboard.
+	 * @return The name of the view to display
+	 */
 	@RequestMapping(value="/view-{whiteboardId}.htm", method=RequestMethod.GET)
 	public String view(ModelMap model,HttpServletRequest request,@PathVariable("whiteboardId")Long whiteboardId){
+		User user = (User)request.getSession().getAttribute("user");
+		if(user==null){
+			return "redirect:/user/login.htm";
+		}
+		
+		Whiteboard whiteboard = whiteboardDao.findById(whiteboardId);
+		
+		if(whiteboard==null){
+			//TODO detailed error/errormessage
+			throw new HTTPException(404);
+		}
+		
+		model.addAttribute("whiteboard",whiteboard);
 		model.addAttribute("notes", noteDao.findAllbyWhiteboardId(whiteboardId));
 		model.addAttribute("attachments", attachmentDao.findAllbyWhiteboardId(whiteboardId));
-		model.addAttribute("whiteboard",whiteboardDao.findById(whiteboardId));
-		model.addAttribute("user", request.getSession().getAttribute("user"));
+		model.addAttribute("user", user);
 		model.addAttribute("mailaddress", new MailData());
 		return "whiteboard/view";
 	}
 	
+	/**
+	 * @param model
+	 * @param request
+	 * @param whiteboardId
+	 * @return
+	 */
 	@RequestMapping(value="/delete-{whiteboardId}.htm", method=RequestMethod.GET)
 	public String delete(ModelMap model,HttpServletRequest request,@PathVariable("whiteboardId")Long whiteboardId){
-		whiteboardDao.delete(whiteboardDao.findById(whiteboardId));
 		User user = (User)request.getSession().getAttribute("user");
-		model.addAttribute("user", userDao.findById(user.getId()));
+		if(user==null){
+			return "redirect:/user/login.htm";
+		}
+		
+		Whiteboard whiteboard = whiteboardDao.findById(whiteboardId);
+		
+		if(!user.equals(whiteboard.getCreator())){
+			throw new HTTPException(401);
+		}
+		
+		whiteboardDao.delete(whiteboard);
 		return "redirect:/whiteboard/list.htm";
 	}
 	
+	/**
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/list.htm",method=RequestMethod.GET)
 	public String list(ModelMap model,HttpServletRequest request){
 		User user = (User)request.getSession().getAttribute("user");
-		user = userDao.findById(user.getId());
+		
+		if(user==null){
+			return "redirect:/user/login.htm";
+		}
 		
 		model.addAttribute("whiteboards", user.getWhiteboards());
 		model.addAttribute("assignedWhiteboards", user.getAssignedWhiteboards());
 		return "whiteboard/list";
 	}
 	
+	/**
+	 * @param name
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/list.htm", method = RequestMethod.POST)
 	public String onSubmit(@RequestParam("name") String name,HttpServletRequest request) {
 		User user = (User)request.getSession().getAttribute("user");
@@ -82,6 +134,13 @@ public class WhiteboardController {
 		return "redirect:/whiteboard/view-"+w.getId()+".htm";
 	}
 	
+	/**
+	 * @param mailData
+	 * @param result
+	 * @param request
+	 * @param whiteboardId
+	 * @return
+	 */
 	@RequestMapping(value="/inviteuser-{whiteboardId}.htm", method = RequestMethod.POST)
 	public String sendMail(@ModelAttribute("mailaddress") MailData mailData, BindingResult result, HttpServletRequest request,@PathVariable("whiteboardId")Long whiteboardId){
 		String emailAddress = mailData.getAddress();
