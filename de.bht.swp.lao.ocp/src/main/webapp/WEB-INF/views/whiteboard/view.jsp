@@ -36,7 +36,7 @@
         <div>
             <a href="invite">Invite a person</a>
             <a href="list.htm">Back to Main Panel</a>
-            <a href="../user/login.htm">Log out</a>
+            <a href="logout">Log out</a>
         </div>
         <div>
             <b>User:</b><c:out value="${user.email}"/>
@@ -47,6 +47,17 @@
 <div class="rightNavigation">
     <a class="slideLeftButton"><img src="../images/slide_button.png"></a>
 </div>
+
+<div id="logout-dialog"> 
+    <div class="logout-dialog-text">You want to Logout?</div>
+    <div class="logout-button"> 
+        <form:form method="post" action="${pageContext.request.contextPath}/user/logout.htm">
+        <button type="button" class="cancel">NO</button>
+        <input type="submit" value="YES">
+        </form:form>
+    </div>
+</div>
+
 
 <div id="invite-dialog" title="Invite a person">
 <form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">

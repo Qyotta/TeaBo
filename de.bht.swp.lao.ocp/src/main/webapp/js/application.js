@@ -501,9 +501,35 @@ var activeUpload=null;
 			return false;
 		});
 		
+		
+		$('#logout-dialog').dialog({
+			modal : true,
+			autoOpen : false,
+			closeOnEscape: false,
+			open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
+			open: function(event, ui) { $(".ui-dialog-titlebar").hide(); },
+			width : 420,
+			resizable: false,
+			draggable: false
+			
+		});
+		
+		$('a[href="logout"]').live('click',	function(e) {
+			$('#logout-dialog').dialog('open');
+			$('#logout-dialog').css('min-height', '40px');
+			$('#logout-dialog').css('height', 'auto');
+			return false;
+		});	
+			
+		
 		$('#invite-dialog button.cancel').click(function(){
 			$('#invite-dialog input[type=text]').val("");
 			$('#invite-dialog').dialog('close');
+		});
+		
+		$('#logout-dialog button.cancel').click(function(){
+			$('#logout-dialog input[type=text]').val("");
+			$('#logout-dialog').dialog('close');
 		});
 		
 		$('.attachment').live('click', function(){

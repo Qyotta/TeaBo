@@ -733,7 +733,7 @@ nav.topNavigation {
 	padding:10px;
 }
 
-.registrationSuccess, .logoutQuestion {
+.registrationSuccess{
     background:#494949;
     position: absolute;
     left: 50%;
@@ -749,12 +749,12 @@ nav.topNavigation {
 }
 
 
-.registrationSuccess h2, .logoutQuestion h2{
+.registrationSuccess h2{
     color: #FFFFFF;
     text-align: center;
 }
 
-.registrationSuccess h2 a, .logoutQuestion h2 a {
+.registrationSuccess h2 a{
 	color: #4B99CE;
 }
 
@@ -1018,6 +1018,27 @@ nav.bottomNavigation ul li a span {
 	overflow: hidden;
 	color: #B2B2B2;
 }
+
+#logout-dialog{
+    background: none repeat scroll 0 0 #494949;
+    color: #B2B2B2;
+    padding-bottom: 15px;
+    padding-top: 17px;
+    text-align: center;
+}
+
+.logout-dialog-text{
+    font-size: 20px;
+    overflow: hidden;
+    display: block;
+}
+
+.logout-button{
+    display: block;	
+    font-size: 15px;
+    margin-top: 5px;
+}
+
 
 #invite-dialog div.buttonline{
     text-align: center;

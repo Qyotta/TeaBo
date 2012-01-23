@@ -13,19 +13,15 @@ import de.bht.swp.lao.ocp.login.LoginFormData;
 
 
 @Controller
-@RequestMapping(value = "/user/logoutRequest.htm")
+@RequestMapping(value = "/user/logout.htm")
 public class LogoutController {
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView login() {
-		ModelAndView mav = new ModelAndView("user/logoutRequest");
-		return mav;
-	}
-	
+	//Set set current Session invalid and redirect to login.jsp
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView onSubmit(BindingResult result, HttpServletRequest request) {
+	public ModelAndView onSubmit(@ModelAttribute("loginFormData") LoginFormData loginFormData, BindingResult result, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		
+		request.getSession().invalidate();
+		mav.setViewName("user/login");		
 		return mav;
 	}
 
