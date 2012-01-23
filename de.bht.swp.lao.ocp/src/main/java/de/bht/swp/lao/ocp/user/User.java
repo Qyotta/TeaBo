@@ -16,9 +16,13 @@ import javax.persistence.Column;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
+/**
+ * This class represents a user.
+ *
+ */
 @Entity
 @Table(name="lao_user")
-public class User {
+public class User { 
 	@Id
 	@GeneratedValue
 	private Integer id;

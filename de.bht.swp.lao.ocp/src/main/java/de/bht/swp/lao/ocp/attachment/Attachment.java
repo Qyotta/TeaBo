@@ -7,6 +7,10 @@ import javax.persistence.Table;
 
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
+/**
+ * This class represents an attachment.
+ * 
+ */
 @Entity
 @Table(name="lao_attachment")
 public class Attachment extends WhiteboardItem {

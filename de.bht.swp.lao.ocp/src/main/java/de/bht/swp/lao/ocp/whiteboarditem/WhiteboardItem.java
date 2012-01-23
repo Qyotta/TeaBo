@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 
+/**
+ * This class represents a whiteboard item.
+ *
+ */
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="type", discriminatorType=DiscriminatorType.STRING)
