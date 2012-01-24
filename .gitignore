@@ -4,5 +4,5 @@ eclipse-workspace
 .project
 */.settings/*
 derby.log
-*/lao/*
+de.bht.swp.lao.ocp/lao/*
 de.bht.swp.lao.ocp/WebContent/*
