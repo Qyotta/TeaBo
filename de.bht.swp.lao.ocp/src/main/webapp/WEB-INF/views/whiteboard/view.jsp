@@ -66,7 +66,7 @@
     </div>
 </div>
 
-<div id="invite-dialog" title="Invite a person">
+<div id="invite-dialog" >Invite a Person
 <form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
     <div class="invite-dialog-mail">Mail: <form:input path="address"/></div><br/>
     <div class="buttonline" >
@@ -76,8 +76,8 @@
 </form:form>
 </div>
 
-<div id="upload-dialog" title="Upload a file">  
-    <div class="support_files">Supported file types are PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, ODT, ODP, ODF</div>
+<div id="upload-dialog"><b>Upload a File</b>
+    <div class="support_files">Supported file types are PDF, ...</div>
     <iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
     <form:form method="post" enctype="multipart/form-data" id="fileupload" commandName="fileupload" action="${pageContext.request.contextPath}/attachment/uploadfile-${whiteboard.id}.htm" target="uploadFrame">
         <div class="fileinput">File <input type="file" name="data"> <input type="hidden" name="id" id="uploadId" /></div><br/>
