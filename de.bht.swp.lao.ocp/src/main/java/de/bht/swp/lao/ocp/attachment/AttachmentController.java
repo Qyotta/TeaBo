@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.xml.sax.ContentHandler;
@@ -45,9 +46,9 @@ public class AttachmentController {
 		String allowedMimeTypes[] = {
 				"application/pdf",
 				"application/msword",
-				"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+				"application/x-tika-ooxml",
 				"application/vnd.ms-excel",
-				"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+				"application/x-tika-ooxml",
 				"application/vnd.ms-powerpoint",
 				"application/vnd.openxmlformats-officedocument.presentationml.presentation",
 				"application/vnd.oasis.opendocument.text",
@@ -63,7 +64,8 @@ public class AttachmentController {
 			ContentHandler contenthandler = new BodyContentHandler();
 			Metadata metadata = new Metadata();
 			Parser parser = new AutoDetectParser();
-			parser.parse(bStream, contenthandler, metadata);
+			ParseContext context = new ParseContext();
+			parser.parse(bStream, contenthandler, metadata, context);
 
 			// getting MimeType
 			if (!mimeTypes.contains(metadata.get(Metadata.CONTENT_TYPE))) {
