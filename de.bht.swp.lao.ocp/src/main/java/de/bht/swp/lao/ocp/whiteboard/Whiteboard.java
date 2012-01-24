@@ -13,6 +13,10 @@ import javax.persistence.Table;
 import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
+/**
+ * This class represents a whiteboard.
+ *
+ */
 @Entity
 @Table(name="lao_whiteboard")
 public class Whiteboard {

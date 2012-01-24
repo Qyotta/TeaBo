@@ -5,6 +5,10 @@ import javax.persistence.Table;
 
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
+/**
+ * This class represents a note.
+ *
+ */
 @Entity
 @Table(name="lao_note")
 public class Note extends WhiteboardItem{
