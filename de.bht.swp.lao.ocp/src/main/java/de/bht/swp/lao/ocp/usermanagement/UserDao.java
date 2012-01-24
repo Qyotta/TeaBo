@@ -10,42 +10,42 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class UserDao implements IUserDao {
 
-	@PersistenceContext
-	private EntityManager em;
-	
-	@Override
-	public User findById(Integer id) {
-		return em.find(User.class, id);
-	}
+    @PersistenceContext
+    private EntityManager em;
+    
+    @Override
+    public User findById(Integer id) {
+        return em.find(User.class, id);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<User> findAll() {
-		return (List<User>)em.createQuery("from User u").getResultList();
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<User> findAll() {
+        return (List<User>)em.createQuery("from User u").getResultList();
+    }
 
-	@Override
-	public User findByEmail(String email) {
-		User user = null;
-		try
-		{
-			user =  (User)em.createQuery("from User u where u.email = ?1").setParameter(1, email).getSingleResult();
-		}
-		catch(NoResultException e){}
-		
-		return user;
-	}
+    @Override
+    public User findByEmail(String email) {
+        User user = null;
+        try
+        {
+            user =  (User)em.createQuery("from User u where u.email = ?1").setParameter(1, email).getSingleResult();
+        }
+        catch(NoResultException e){}
+        
+        return user;
+    }
 
-	@Override
-	@Transactional
-	public void save(User user) {
-		if(user!=null){
-			em.merge(user);
-		}
-		else
-		{
-			em.persist(user);
-		}
-	}
+    @Override
+    @Transactional
+    public void save(User user) {
+        if(user!=null){
+            em.merge(user);
+        }
+        else
+        {
+            em.persist(user);
+        }
+    }
 
 }

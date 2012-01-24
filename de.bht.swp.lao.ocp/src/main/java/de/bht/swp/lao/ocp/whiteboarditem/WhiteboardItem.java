@@ -21,66 +21,66 @@ import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="type", discriminatorType=DiscriminatorType.STRING)
 public class WhiteboardItem {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	
-	private Long x;
-	private Long y;
-	
-	@ManyToOne
-	private User creator;
-	
-	@ManyToOne
-	private Whiteboard whiteboard;
-	
-	private Boolean inProgress;
-	
-	public Long getId() {
-		return id;
-	}
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+    
+    private Long x;
+    private Long y;
+    
+    @ManyToOne
+    private User creator;
+    
+    @ManyToOne
+    private Whiteboard whiteboard;
+    
+    private Boolean inProgress;
+    
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Long getX() {
-		return x;
-	}
+    public Long getX() {
+        return x;
+    }
 
-	public void setX(Long x) {
-		this.x = x;
-	}
+    public void setX(Long x) {
+        this.x = x;
+    }
 
-	public Long getY() {
-		return y;
-	}
+    public Long getY() {
+        return y;
+    }
 
-	public void setY(Long y) {
-		this.y = y;
-	}
+    public void setY(Long y) {
+        this.y = y;
+    }
 
-	public User getCreator() {
-		return creator;
-	}
+    public User getCreator() {
+        return creator;
+    }
 
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
 
-	public Whiteboard getWhiteboard() {
-		return whiteboard;
-	}
+    public Whiteboard getWhiteboard() {
+        return whiteboard;
+    }
 
-	public void setWhiteboard(Whiteboard whiteboard) {
-		this.whiteboard = whiteboard;
-	}
-	
-	public void setInProgress(Boolean inProgress){
-		this.inProgress = inProgress;
-	}
-	
-	public Boolean isInProgress(){
-		return this.inProgress;
-	}
+    public void setWhiteboard(Whiteboard whiteboard) {
+        this.whiteboard = whiteboard;
+    }
+    
+    public void setInProgress(Boolean inProgress){
+        this.inProgress = inProgress;
+    }
+    
+    public Boolean isInProgress(){
+        return this.inProgress;
+    }
 }

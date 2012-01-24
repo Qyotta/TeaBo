@@ -32,17 +32,17 @@ private JavaMailSenderImpl sender;
     public void sendMessage(final User invitedUser,final Whiteboard whiteboard) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws MessagingException {
-            	MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            	message.setTo(new InternetAddress(invitedUser.getEmail()));
-            	message.setFrom(new InternetAddress("swplao@googlemail.com"));
-            	message.setSubject("[lao] Invitation to Whiteboard");
-            	message.setText("Hello,<br />"+
-                		"you were invited to "+whiteboard.getName()+" Whiteboard <br />"+
-						"You may login at <a href='http://localhost:8080/de.bht.swp.lao.ocp/user/login.htm'>Online Collaboration Platform</a>...<br />"+ 
-						"User: "+invitedUser.getEmail()+"<br />"+
-						"Password: "+invitedUser.getPassword()+"<br /><br />"+
-						"With Regards,<br /><br />"+
-						"[l]ook [a]head [o]nline", true);
+                MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+                message.setTo(new InternetAddress(invitedUser.getEmail()));
+                message.setFrom(new InternetAddress("swplao@googlemail.com"));
+                message.setSubject("[lao] Invitation to Whiteboard");
+                message.setText("Hello,<br />"+
+                        "you were invited to "+whiteboard.getName()+" Whiteboard <br />"+
+                        "You may login at <a href='http://localhost:8080/de.bht.swp.lao.ocp/user/login.htm'>Online Collaboration Platform</a>...<br />"+ 
+                        "User: "+invitedUser.getEmail()+"<br />"+
+                        "Password: "+invitedUser.getPassword()+"<br /><br />"+
+                        "With Regards,<br /><br />"+
+                        "[l]ook [a]head [o]nline", true);
             }
         };
         try{
