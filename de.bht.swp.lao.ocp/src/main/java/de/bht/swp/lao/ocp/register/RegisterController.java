@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import de.bht.swp.lao.ocp.user.User;
-import de.bht.swp.lao.ocp.user.IUserDao;
+import de.bht.swp.lao.ocp.usermanagement.IUserDao;
+import de.bht.swp.lao.ocp.usermanagement.User;
 
 
 @Controller

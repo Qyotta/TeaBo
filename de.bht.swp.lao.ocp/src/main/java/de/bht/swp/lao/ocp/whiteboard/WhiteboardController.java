@@ -17,8 +17,8 @@ import de.bht.swp.lao.ocp.attachment.Attachment;
 import de.bht.swp.lao.ocp.mailer.MailData;
 import de.bht.swp.lao.ocp.mailer.Mailer;
 import de.bht.swp.lao.ocp.note.Note;
-import de.bht.swp.lao.ocp.user.User;
-import de.bht.swp.lao.ocp.user.IUserDao;
+import de.bht.swp.lao.ocp.usermanagement.IUserDao;
+import de.bht.swp.lao.ocp.usermanagement.User;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 /**

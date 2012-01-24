@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import de.bht.swp.lao.ocp.user.User;
+import de.bht.swp.lao.ocp.usermanagement.User;
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 public class WhiteboardDao implements IWhiteboardDao{

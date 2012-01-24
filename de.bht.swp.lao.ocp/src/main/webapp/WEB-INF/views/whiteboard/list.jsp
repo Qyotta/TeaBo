@@ -41,11 +41,11 @@
 </nav>
 
 <div id="logout-dialog"> 
-    <div class="logout-dialog-text">You want to Logout?</div>
+    <div class="logout-dialog-text">Are you sure you want to logout?</div>
     <div class="logout-button"> 
         <form:form method="post" action="${pageContext.request.contextPath}/user/logout.htm">
-        <button type="button" class="cancel">NO</button>
         <input type="submit" value="YES">
+        <button type="button" class="cancel">NO</button>
         </form:form>
     </div>
 </div>

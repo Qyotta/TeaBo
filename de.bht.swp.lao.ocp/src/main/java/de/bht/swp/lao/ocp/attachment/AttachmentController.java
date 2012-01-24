@@ -24,7 +24,7 @@ import org.apache.tika.parser.Parser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.xml.sax.ContentHandler;
 
-import de.bht.swp.lao.ocp.user.User;
+import de.bht.swp.lao.ocp.usermanagement.User;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 @Controller

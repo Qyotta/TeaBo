@@ -1,4 +1,4 @@
-package de.bht.swp.lao.ocp.login;
+package de.bht.swp.lao.ocp.usermanagement;
 
 public class LoginFormData {
 

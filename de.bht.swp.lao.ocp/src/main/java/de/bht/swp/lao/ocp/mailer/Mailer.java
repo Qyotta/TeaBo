@@ -11,7 +11,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
-import de.bht.swp.lao.ocp.user.User;
+import de.bht.swp.lao.ocp.usermanagement.User;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 
 public class Mailer {

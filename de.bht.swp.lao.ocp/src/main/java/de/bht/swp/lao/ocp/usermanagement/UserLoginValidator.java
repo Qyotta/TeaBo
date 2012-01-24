@@ -1,15 +1,12 @@
-package de.bht.swp.lao.ocp.login;
+package de.bht.swp.lao.ocp.usermanagement;
 
 import javax.inject.Inject;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import de.bht.swp.lao.ocp.user.User;
-import de.bht.swp.lao.ocp.user.IUserDao;
 
 public class UserLoginValidator implements Validator {
 

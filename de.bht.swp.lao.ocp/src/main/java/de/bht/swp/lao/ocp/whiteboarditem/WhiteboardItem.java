@@ -10,7 +10,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
-import de.bht.swp.lao.ocp.user.User;
+import de.bht.swp.lao.ocp.usermanagement.User;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 
 /**

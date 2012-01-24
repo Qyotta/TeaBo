@@ -1,4 +1,4 @@
-package de.bht.swp.lao.ocp.user;
+package de.bht.swp.lao.ocp.usermanagement;
 
 import java.util.List;
 

@@ -1025,6 +1025,7 @@ nav.bottomNavigation ul li a span {
     padding-bottom: 15px;
     padding-top: 17px;
     text-align: center;
+    border: 3px solid;
 }
 
 .logout-dialog-text{

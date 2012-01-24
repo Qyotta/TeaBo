@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import de.bht.swp.lao.ocp.user.User;
+import de.bht.swp.lao.ocp.usermanagement.User;
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 /**
