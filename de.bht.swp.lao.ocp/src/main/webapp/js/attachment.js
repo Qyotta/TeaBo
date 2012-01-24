@@ -121,7 +121,7 @@ $(function() {
         $('#upload-dialog > form > ul > li').not(":first-child").remove();
         $('#upload-dialog > form > ul > li:first-child > input[type="file"]').val("");
         $('#upload-dialog').dialog('open');
-        $('#upload-dialog').css('min-height', '142px');
+        $('#invite-dialog').css('min-height', '80px');
         $('#upload-dialog').css('height', 'auto');
     });
 
