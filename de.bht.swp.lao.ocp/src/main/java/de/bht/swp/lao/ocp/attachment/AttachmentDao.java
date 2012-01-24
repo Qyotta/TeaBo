@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
+import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 public class AttachmentDao implements IWhiteboardItemDao<Attachment> {
 
@@ -50,5 +51,11 @@ public class AttachmentDao implements IWhiteboardItemDao<Attachment> {
         return em.createQuery("from Attachment n where n.whiteboard.id=?1")
                 .setParameter(1, id).getResultList();
     }
+    
+    @SuppressWarnings("unchecked")
+	@Override
+	public Attachment findByAttribute(String key, String value) {
+		return (Attachment)em.createQuery("from Attachment w where w.?1=?2").setParameter(1, key).setParameter(2, value).getSingleResult();
+	}
 
 }

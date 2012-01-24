@@ -1,5 +1,6 @@
 package de.bht.swp.lao.ocp.whiteboarditem;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import de.bht.swp.lao.ocp.usermanagement.User;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
@@ -27,6 +29,12 @@ public class WhiteboardItem {
     
     private Long x;
     private Long y;
+
+    @OneToOne
+    private WhiteboardItem prev;
+    
+    @OneToOne
+    private WhiteboardItem next;
     
     @ManyToOne
     private User creator;
@@ -60,7 +68,23 @@ public class WhiteboardItem {
         this.y = y;
     }
 
-    public User getCreator() {
+    public WhiteboardItem getPrev() {
+		return prev;
+	}
+
+	public void setPrev(WhiteboardItem prev) {
+		this.prev = prev;
+	}
+
+	public WhiteboardItem getNext() {
+		return next;
+	}
+
+	public void setNext(WhiteboardItem next) {
+		this.next = next;
+	}
+
+	public User getCreator() {
         return creator;
     }
 

@@ -4,6 +4,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
+
+import de.bht.swp.lao.ocp.attachment.Attachment;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 public class NoteDao implements IWhiteboardItemDao<Note> {
@@ -44,5 +46,11 @@ public class NoteDao implements IWhiteboardItemDao<Note> {
         // TODO Auto-generated method stub
         
     }
+    
+    @SuppressWarnings("unchecked")
+   	@Override
+   	public Note findByAttribute(String key, String value) {
+   		return (Note)em.createQuery("from Note w where w.?1=?2").setParameter(1, key).setParameter(2, value).getSingleResult();
+   	}
 
 }

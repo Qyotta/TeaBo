@@ -45,4 +45,10 @@ public class WhiteboardItemDao implements IWhiteboardItemDao<WhiteboardItem> {
         
     }
     
+    @SuppressWarnings("unchecked")
+	@Override
+	public WhiteboardItem findByAttribute(String key, String value) {
+		return (WhiteboardItem)em.createQuery("from WhiteboardItem w where w.?1=?2").setParameter(1, key).setParameter(2, value).getSingleResult();
+	}
+    
 }

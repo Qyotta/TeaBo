@@ -39,6 +39,20 @@ function _handleMovedWhiteboardItem(message){
 }
 
 
+function _reportElementOrder(_id){
+	console.log('reportedNewOrder');
+	cometd.publish('/service/whiteboardItem/order', {
+        id : parseInt(_id),
+        whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
+    });
+}
+
+//handles cometd notification about changed order at z-axis
+function _handleForegroundWhiteboardItem(message){
+	alert(message);
+}
+
+
 // all actions
 $(function() {
     // upload dialog initialization
@@ -99,7 +113,15 @@ $(function() {
         $(this).find('span').css('display','none');
     });
     
-    
+    $('.whiteboard .draggable').live('click', function(e){
+    	var clickedElement = $(this).parent();
+    	var divId = clickedElement.attr("id");
+
+        if (divId != undefined) {
+            id = divId.split('-')[1];
+            _reportElementOrder(id);
+        }
+    });
 
     $(".whiteboard .draggable").draggable({
         stop : function(e, ui) {

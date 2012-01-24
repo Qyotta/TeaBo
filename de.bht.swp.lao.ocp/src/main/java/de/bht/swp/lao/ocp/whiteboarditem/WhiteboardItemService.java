@@ -74,4 +74,38 @@ public class WhiteboardItemService {
             session.deliver(serverSession, channel, output, null);
         }
     }
+    
+    @Listener(value = {"/service/whiteboardItem/order"})
+    public void processOrder(ServerSession remote, ServerMessage.Mutable message){
+        Map<String,Object> data = message.getDataAsMap();
+        
+        Long id = (Long)data.get("id"); 
+        Long whiteboardid = (Long)data.get("whiteboardid");
+        
+        WhiteboardItem item = (WhiteboardItem) whiteboardItemDao.findById(id);
+        
+        WhiteboardItem prev = item.getPrev();
+        WhiteboardItem next = item.getNext();
+        prev.setNext(next);
+        next.setPrev(prev);
+        
+        WhiteboardItem last = whiteboardItemDao.findByAttribute("next", null);
+        last.setNext(item);
+        item.setPrev(last);
+        
+        whiteboardItemDao.save(prev);
+        whiteboardItemDao.save(next);
+        whiteboardItemDao.save(item);
+        whiteboardItemDao.save(last);
+        
+        WhiteboardItem[] listOfUpdatedElements = {prev, next, item, last};
+        
+        Map<String,Object> output = new HashMap<String,Object>();
+        output.put("updated", listOfUpdatedElements);
+        
+        String channel = "/whiteboardItem/order/"+whiteboardid;
+        for(ServerSession session:bayeux.getChannel(channel).getSubscribers()){
+            session.deliver(serverSession, channel, output, null);
+        }
+    }
 }

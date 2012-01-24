@@ -8,4 +8,5 @@ public interface IWhiteboardItemDao<T extends WhiteboardItem> {
     public void save(T whiteboardItem);
     public void delete(T whiteboardItem);
     public List<T> findAllbyWhiteboardId(Long id);
+    public T findByAttribute(String key, String value);
 }
