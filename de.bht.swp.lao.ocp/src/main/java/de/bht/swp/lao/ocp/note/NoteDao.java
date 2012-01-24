@@ -36,6 +36,7 @@ public class NoteDao implements IWhiteboardItemDao<Note> {
     } else {
       em.persist(whiteboardItem);
     }
+  }
 
   @SuppressWarnings("unchecked")
   @Override
@@ -47,11 +48,12 @@ public class NoteDao implements IWhiteboardItemDao<Note> {
   public void delete(Note whiteboardItem) {
     LOGGER.error("delete(Note whiteboardItem) not implementeed");
   }
-  
+
   @SuppressWarnings("unchecked")
- 	@Override
- 	public Note findByAttribute(String key, String value) {
- 		return (Note)em.createQuery("from Note w where w.?1=?2").setParameter(1, key).setParameter(2, value).getSingleResult();
- 	}
+  @Override
+  public Note findByAttribute(String key, String value) {
+    return (Note) em.createQuery("from Note w where w.?1=?2").setParameter(1, key).setParameter(2, value)
+        .getSingleResult();
+  }
 
 }
