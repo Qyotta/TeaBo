@@ -17,6 +17,7 @@
 
 <script src="${pageContext.request.contextPath}/js/libs/jquery/jquery-1.6.2.js"></script>
 <script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/js/application.js"></script>
 <script src="${pageContext.request.contextPath}/js/utils.js"></script>
@@ -36,8 +37,7 @@
         <span>Please Login</span>
     </h1>
     <form:form name="loginFormData" modelAttribute="loginFormData" method="POST" commandName="loginFormData" action="login.htm">
-        
-        <<dl>
+        <dl>
             <dt>Email:</dt>
             <dd>
                 <c:set var="emailInputErrors">

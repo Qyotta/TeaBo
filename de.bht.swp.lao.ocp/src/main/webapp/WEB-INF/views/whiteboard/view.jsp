@@ -43,7 +43,7 @@
         <div>
             <a href="invite">Invite a person</a>
             <a href="list.htm">Back to Main Panel</a>
-            <a href="../user/login.htm">Log out</a>
+            <a href="logout">Log out</a>
         </div>
         <div>
             <b>User:</b><c:out value="${user.email}"/>

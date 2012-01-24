@@ -16,9 +16,10 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/jquery/jquery-1.6.2.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/application.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/jquery/jquery-1.6.2.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/application.js"></script>
 <script type="text/javascript">var config = {contextPath : '${pageContext.request.contextPath}'}</script>
 
 <nav class="topNavigation">
@@ -29,7 +30,7 @@
     </h1>
     <div class="right">
         <div>
-            <a href="../user/login.htm">Log out</a>
+            <a href="logout">Log out</a>
         </div>
         <div>
             <b>User:</b><c:out value="${user.email}"/>
