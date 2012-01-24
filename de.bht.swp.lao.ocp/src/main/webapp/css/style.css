@@ -873,15 +873,27 @@ nav.bottomNavigation ul li a span {
     overflow: hidden;
     color: #B2B2B2;
     display:none;
-    width:430px!important;
+    width:410px!important;
+    border: 3px solid #B2B2B2;
+    -webkit-box-shadow: 0px 0px 5px #AAA;
+    -moz-box-shadow: 0px 0px 5px #AAA;
+    -o-box-shadow: 0px 0px 5px #AAA;
+    -box-shadow: 0px 0px 5px #AAA;
+    padding: 10px;
 }
 
 #upload-dialog div.support_files {
     font-size: 70%;
 }
 
+#upload-dialog b{	
+    font-size: 15px;
+}
+
 #upload-dialog div.fileinput {
-    margin-left: 55px;
+    margin-bottom: -10px;
+    padding-left: 48px;
+    padding-top: 7px;
 }
 
 #upload-dialog div.fileinput input {
@@ -937,7 +949,11 @@ nav.bottomNavigation ul li a span {
     padding-bottom: 15px;
     padding-top: 17px;
     text-align: center;
-    border: 3px solid;
+    border: 3px solid #B2B2B2;
+    -webkit-box-shadow: 0px 0px 5px #AAA;
+    -moz-box-shadow: 0px 0px 5px #AAA;
+    -o-box-shadow: 0px 0px 5px #AAA;
+    -box-shadow: 0px 0px 5px #AAA;
 }
 
 .logout-dialog-text{
@@ -948,7 +964,6 @@ nav.bottomNavigation ul li a span {
 
 .logout-button{
     display: block; 
-    font-size: 15px;
     margin-top: 5px;
 }
 
@@ -976,7 +991,7 @@ a.inviteUser, a.inviteUser:hover, a.inviteUser:visited {
 .ui-dialog-titlebar {
     overflow: hidden;
     margin: 0 0 -1px;
-    height: 20px;
+    height: 0px;
 }
 
 #ui-dialog-title-upload-dialog, #ui-dialog-title-invite-dialog {

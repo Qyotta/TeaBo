@@ -67,8 +67,9 @@ public class UserController {
 
     // if user session already valid, redirect to list.html
     if (user != null) {
-      return "redirect:/user/list.htm";
+      return "redirect:/whiteboard/list.htm";
     }
+
     model.addAttribute("loginFormData", new LoginFormData());
 
     return "user/login";
