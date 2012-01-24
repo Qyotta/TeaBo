@@ -66,14 +66,18 @@
     </div>
 </div>
 
-<div id="invite-dialog" title="Invite a person">
-<form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
-    <div class="invite-dialog-mail">Mail: <form:input path="address"/></div><br/>
-    <div class="buttonline" >
-        <button type="button" class="cancel">Cancel</button>
-        <input type="submit" value="Submit">
-    </div>
-</form:form>
+<div id="inviteContainer" title="Invite a person">
+    <h1>
+        Invite a Person
+        <span>Enter a Email adress</span>
+    </h1>
+	<form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
+	    <div class="invite-dialog-mail">Mail: <form:input path="address"/></div><br/>
+	    <div class="buttonline" >
+	        <button type="button" class="cancel">Cancel</button>
+	        <input type="submit" value="Submit">
+	    </div>
+	</form:form>
 </div>
 
 <div id="upload-dialog" title="Upload a file">  

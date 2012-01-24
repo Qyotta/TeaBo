@@ -5,50 +5,52 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 public class WhiteboardItemDao implements IWhiteboardItemDao<WhiteboardItem> {
-    
-    @PersistenceContext
-    private EntityManager em;
-    
-    @Override
-    public WhiteboardItem findById(Long id) {
-        return em.find(WhiteboardItem.class, id);
-    }
+  private static final Logger LOGGER = LoggerFactory.getLogger(WhiteboardItemDao.class);
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<WhiteboardItem> findAll() {
-        return (List<WhiteboardItem>)em.createQuery("from WhiteboardItem w").getResultList();
-    }
+  @PersistenceContext
+  private EntityManager em;
 
-    @Override
-    @Transactional
-    public void save(WhiteboardItem whiteboardItem) {
-        if(whiteboardItem.getId()!=null){
-            em.merge(whiteboardItem);
-        }else{
-            em.persist(whiteboardItem);
-        }
-    }
+  @Override
+  public WhiteboardItem findById(Long id) {
+    return em.find(WhiteboardItem.class, id);
+  }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<WhiteboardItem> findAllbyWhiteboardId(Long id) {
-        return (List<WhiteboardItem>)em.createQuery("from WhiteboardItem w where w.whiteboard.id=?1").setParameter(1, id).getResultList();
-    }
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<WhiteboardItem> findAll() {
+    return em.createQuery("from WhiteboardItem w").getResultList();
+  }
 
-    @Override
-    public void delete(WhiteboardItem whiteboardItem) {
-        // TODO Auto-generated method stub
-        
+  @Override
+  @Transactional
+  public void save(WhiteboardItem whiteboardItem) {
+    if (whiteboardItem.getId() != null) {
+      em.merge(whiteboardItem);
+    } else {
+      em.persist(whiteboardItem);
     }
-    
-    @SuppressWarnings("unchecked")
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<WhiteboardItem> findAllbyWhiteboardId(Long id) {
+    return em.createQuery("from WhiteboardItem w where w.whiteboard.id=?1").setParameter(1, id).getResultList();
+  }
+
+  @Override
+  public void delete(WhiteboardItem whiteboardItem) {
+    LOGGER.error("delete(WhiteboardItem whiteboardItem) not implementeed");
+  }
+  
+  @SuppressWarnings("unchecked")
 	@Override
 	public WhiteboardItem findByAttribute(String key, String value) {
 		return (WhiteboardItem)em.createQuery("from WhiteboardItem w where w.?1=?2").setParameter(1, key).setParameter(2, value).getSingleResult();
 	}
-    
+  
 }
