@@ -71,9 +71,8 @@ $(function() {
         return false;
     });
 
-    $('#invite-dialog button.cancel').click(function(){
-        $('#invite-dialog input[type=text]').val("");
-        $('#invite-dialog').dialog('close');
+    $('#inviteContainer button.cancel').click(function(){
+        $('#inviteContainer').fadeOut();
     });
 
     

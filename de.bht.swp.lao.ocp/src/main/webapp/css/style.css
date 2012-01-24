@@ -335,11 +335,6 @@ textarea {
     resize: vertical;
 }
 
-/* Colors for form validity */
-input:valid,textarea:valid {
-    width: 185px;
-}
-
 input:invalid,textarea:invalid {
     background-color: #f0dddd;
 }

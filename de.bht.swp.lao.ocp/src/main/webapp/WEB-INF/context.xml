@@ -28,6 +28,7 @@
 	<bean id="attachmentDao" class="de.bht.swp.lao.ocp.attachment.AttachmentDao" />
 	<bean id="whiteboardItemDao" class="de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItemDao"/>
 	<bean id="whiteboardDao" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardDao" />
+	<bean id="emailValidator" class="de.bht.swp.lao.ocp.usermanagement.EmailValidator" />
 	
 	<!-- 
 	<bean id="dataSource"

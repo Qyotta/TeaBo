@@ -7,23 +7,23 @@ import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 /**
  * This class represents a note.
- *
+ * 
  */
 @Entity
-@Table(name="lao_note")
-public class Note extends WhiteboardItem{
+@Table(name = "lao_note")
+public class Note extends WhiteboardItem {
 
-    private String text;
-    
-    public Note(){}
-    
-    
-    public String getText() {
-        return text;
-    }
-    
-    public void setText(String text) {
-        this.text = text;
-    }
-    
+  private String text;
+
+  public Note() {
+  }
+
+  public String getText() {
+    return text;
+  }
+
+  public void setText(String text) {
+    this.text = text;
+  }
+
 }
