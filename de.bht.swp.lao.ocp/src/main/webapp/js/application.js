@@ -4,11 +4,11 @@ var saveInterval,
 
 $(function() {
     // validate email input on login page
-    $('#loginFormData #email').keypress(function() {
-        if(validateEmail($(this).val())) {
+    $('#loginFormData #email').keyup(function() {
+        if(!validateEmail($(this).val())) {
             $(this).css('border','1px solid #FF0000');
         } else {
-            $(this).css('border','inherit');
+            $(this).css('border','1px solid #000000');
         }
     });
 
