@@ -15,72 +15,72 @@ import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 
 /**
  * This class represents a whiteboard item.
- *
+ * 
  */
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorColumn(name="type", discriminatorType=DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public class WhiteboardItem {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
-    
-    private Long x;
-    private Long y;
-    
-    @ManyToOne
-    private User creator;
-    
-    @ManyToOne
-    private Whiteboard whiteboard;
-    
-    private Boolean inProgress;
-    
-    public Long getId() {
-        return id;
-    }
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  private Long x;
+  private Long y;
 
-    public Long getX() {
-        return x;
-    }
+  @ManyToOne
+  private User creator;
 
-    public void setX(Long x) {
-        this.x = x;
-    }
+  @ManyToOne
+  private Whiteboard whiteboard;
 
-    public Long getY() {
-        return y;
-    }
+  private Boolean inProgress;
 
-    public void setY(Long y) {
-        this.y = y;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public User getCreator() {
-        return creator;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
+  public Long getX() {
+    return x;
+  }
 
-    public Whiteboard getWhiteboard() {
-        return whiteboard;
-    }
+  public void setX(Long x) {
+    this.x = x;
+  }
 
-    public void setWhiteboard(Whiteboard whiteboard) {
-        this.whiteboard = whiteboard;
-    }
-    
-    public void setInProgress(Boolean inProgress){
-        this.inProgress = inProgress;
-    }
-    
-    public Boolean isInProgress(){
-        return this.inProgress;
-    }
+  public Long getY() {
+    return y;
+  }
+
+  public void setY(Long y) {
+    this.y = y;
+  }
+
+  public User getCreator() {
+    return creator;
+  }
+
+  public void setCreator(User creator) {
+    this.creator = creator;
+  }
+
+  public Whiteboard getWhiteboard() {
+    return whiteboard;
+  }
+
+  public void setWhiteboard(Whiteboard whiteboard) {
+    this.whiteboard = whiteboard;
+  }
+
+  public void setInProgress(Boolean inProgress) {
+    this.inProgress = inProgress;
+  }
+
+  public Boolean isInProgress() {
+    return this.inProgress;
+  }
 }
