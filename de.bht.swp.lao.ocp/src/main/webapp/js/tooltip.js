@@ -1,43 +1,43 @@
+
 var toolTipCnt = 0,
-	toolTips = null;
+    toolTips = null;
 
 function closeToolTip() {
-	$.ajax({
+    $.ajax({
         url: "/de.bht.swp.lao.ocp/user/setToolTipFlag.htm",
         type: 'POST',
         data: 'value='+$('#showAgain').is(':checked')
     });
-	$(toolTips[toolTipCnt-1]).fadeOut(500);
+    $(toolTips[toolTipCnt-1]).fadeOut(500);
 }
 
 function nextToolTip() {
-	if(toolTipCnt===0) {
-		$(toolTips[0]).fadeIn(500);
-		toolTipCnt++;
-	} else {
-		$(toolTips[toolTipCnt-1]).fadeOut(500,function() {
-			$(toolTips[toolTipCnt]).fadeIn(500);
-			toolTipCnt++;
-		});
-	}	
+    if(toolTipCnt===0) {
+        $(toolTips[0]).fadeIn(500);
+        toolTipCnt++;
+    } else {
+        $(toolTips[toolTipCnt-1]).fadeOut(500,function() {
+            $(toolTips[toolTipCnt]).fadeIn(500);
+            toolTipCnt++;
+        });
+    }   
 }
 
-function prevToolTip() {	
-	if(!toolTipCnt)
-		return;
-	if(toolTipCnt===toolTips.length)
-		closeToolTip();
-	
-	$(toolTips[toolTipCnt-1]).fadeOut(500,function() {
-		$(toolTips[toolTipCnt-2]).fadeIn(500);
-		toolTipCnt--;
-	});
+function prevToolTip() {    
+    if(!toolTipCnt)
+        return;
+    if(toolTipCnt===toolTips.length)
+        closeToolTip();
+    
+    $(toolTips[toolTipCnt-1]).fadeOut(500,function() {
+        $(toolTips[toolTipCnt-2]).fadeIn(500);
+        toolTipCnt--;
+    });
 }
 
-$(document).ready(function() {
-	
-	toolTips = $('#startscreen div[data-type="tooltip"]');
-	$.ajax({
+$(function($) {
+    toolTips = $('#startscreen div[data-type="tooltip"]');
+    $.ajax({
         url: "/de.bht.swp.lao.ocp/user/showAgain.htm",
         type: 'POST',
         success: function(jsonData) {
@@ -45,27 +45,15 @@ $(document).ready(function() {
         },
         error: function(jsonData) {
             if(jsonData.responseText.substr(10,4) == "true")
-            	nextToolTip();
+                nextToolTip();
         }
     });
-	
-	
-	$('#startscreen .closeToolTip').click(function(){
-		closeToolTip();
-	});
-	
-	$('#startscreen .nextToolTip').click(function() {
-		nextToolTip();
-	});
-	
-	$('#startscreen .prevToolTip').click(function() {
-		prevToolTip();
-	});
-	
-	$('.bottomNavigation a.showToolTips').click(function() {
-		toolTipCnt = 0;
-		nextToolTip();
-	});
-	
-	
+    
+    $('#startscreen .closeToolTip').click(function(){ closeToolTip(); });
+    $('#startscreen .nextToolTip').click(function() { nextToolTip(); });
+    $('#startscreen .prevToolTip').click(function() { prevToolTip(); });
+    $('.bottomNavigation a.showToolTips').click(function() {
+        toolTipCnt = 0;
+        nextToolTip();
+    });
 });

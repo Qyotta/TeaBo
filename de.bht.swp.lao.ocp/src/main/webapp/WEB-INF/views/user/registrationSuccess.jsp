@@ -16,14 +16,6 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
 
-<script src="${pageContext.request.contextPath}/js/libs/jquery/jquery-1.6.2.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/jquery/json2.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/org/cometd.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/jquery/jquery.cometd.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
-<script type="text/javascript">var config = { contextPath: '${pageContext.request.contextPath}' }</script>
-
 <nav class="topNavigation">
     <h1 class="logo">
         <a href="${pageContext.request.contextPath}/user/login.htm">

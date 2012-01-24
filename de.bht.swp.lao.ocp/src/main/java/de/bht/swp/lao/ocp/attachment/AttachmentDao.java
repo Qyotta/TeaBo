@@ -4,10 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import org.springframework.transaction.annotation.Transactional;
-
-import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 public class AttachmentDao implements IWhiteboardItemDao<Attachment> {
