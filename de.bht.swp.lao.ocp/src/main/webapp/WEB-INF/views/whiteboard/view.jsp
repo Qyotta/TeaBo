@@ -28,6 +28,7 @@
 <script src="${pageContext.request.contextPath}/js/tooltip.js"></script>
 <script src="${pageContext.request.contextPath}/js/whiteboard.js"></script>
 <script src="${pageContext.request.contextPath}/js/note.js"></script>
+<script src="${pageContext.request.contextPath}/js/attachment.js"></script>
 <script src="${pageContext.request.contextPath}/js/application.js"></script>
 <script src="${pageContext.request.contextPath}/js/cometd.js"></script>
 
