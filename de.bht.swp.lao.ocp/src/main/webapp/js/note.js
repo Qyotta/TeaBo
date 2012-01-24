@@ -1,75 +1,84 @@
-$(document).ready(function() {
+// posts a new note
+function _postNote(_x, _y) {
+    cometd.publish('/service/note/post/', {
+        // set x and y positions
+        x : parseInt(_x),
+        y : parseInt(_y),
+        // set creator
+        creator : $('.whiteboard').attr('data-user-mail'),
+        // set whiteboard id
+        whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
+    });
+}
 
-    // posts a new note
-    function _postNote(_x, _y) {
-        cometd.publish('/service/note/post/', {
-            // set x and y positions
-            x : parseInt(_x),
-            y : parseInt(_y),
-            // set creator
-            creator : $('.whiteboard').attr('data-user-mail'),
-            // set whiteboard id
-            whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
-        });
+// create a posted note
+function _handlePostedNote(message) {
+    var text = $('<textarea/>')
+               .attr('name', 'text')
+               .attr('placeholder', 'your note text')
+               .elasticArea().hover(
+               function() {
+                   $(this).parent().find('span.creator').css('display', 'block');
+               },
+               function() {
+                   $(this).parent().find('span.creator').css('display', 'none');
+               });
+
+    var creator = $('<span/>').addClass('creator').html(message.data.creator);
+
+    $('.whiteboard').append(
+        $('<div/>').addClass('note')
+                   .attr('id','note-'+ message.data.id)
+                   .css('left', message.data.x)
+                   .css('top', message.data.y)
+                   .append(text)
+                   .append(creator)
+                   .draggable({
+                        stop : function(e, ui) {
+                            var id = $(this).attr('id').split('-')[1];
+                            _moveWhiteboardItem(this,id);
+                        }
+                    }));
+
+    // resize all new textarea notes
+    text.css('height', text[0].scrollHeight / 2 + 'px');
+    text.css('height', text[0].scrollHeight + 'px');
+    text.css('height', parseInt(text[0].css('height')) === 0 ? '17px': this.style.height);
+}
+
+// edit a note on whiteboard
+function _editNote(_note, _id) {
+    _text = $(_note).find('textarea[name=text]').val();
+    cometd.publish('/service/note/edit/', {id:parseInt(_id),text:_text,
+        whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))}
+    );
+}
+
+// updates a note
+function _handleUpdatedNote(message) {
+    if (activeNoteId == message.data.id) {
+        return null;
     }
-    
-    // create a posted note
-    function _handlePostedNote(message) {
-        var text = $('<textarea/>')
-                   .attr('name', 'text')
-                   .attr('placeholder', 'your note text')
-                   .elasticArea().hover(
-                   function() {
-                       $(this).parent().find('span.creator').css('display', 'block');
-                   },
-                   function() {
-                       $(this).parent().find('span.creator').css('display', 'none');
-                   });
+    note = $('#note-' + message.data.id);
+    if (note.length == 0) {
 
-        var creator = $('<span/>').addClass('creator').html(message.data.creator);
-
-        $('.whiteboard').append(
-            $('<div/>').addClass('note')
-                       .attr('id','note-'+ message.data.id)
-                       .css('left', message.data.x)
-                       .css('top', message.data.y)
-                       .append(text)
-                       .append(creator)
-                       .draggable({
-                            stop : function(e, ui) {
-                                var id = $(this).attr('id').split('-')[1];
-                                _moveWhiteboardItem(this,id);
-                            }
-                        }));
-
-        // resize all new textarea notes
-        text.css('height', text[0].scrollHeight / 2 + 'px');
-        text.css('height', text[0].scrollHeight + 'px');
-        text.css('height', parseInt(text[0].css('height')) === 0 ? '17px': this.style.height);
+    } else {
+        note.find('textarea[name=text]').val(message.data.text);
+        note.find('textarea[name=text]').elasticArea();
     }
+}
 
-    // edit a note on whiteboard
-    function _editNote(_note, _id) {
-        _text = $(_note).find('textarea[name=text]').val();
-        cometd.publish('/service/note/edit/', {id:parseInt(_id),text:_text,
-            whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))}
-        );
-    }
-    
-    // updates a note
-    function _handleUpdatedNote(message) {
-        if (activeNoteId == message.data.id) {
-            return null;
-        }
-        note = $('#note-' + message.data.id);
-        if (note.length == 0) {
+// show progress state of uploaded whiteboarditem
+function _reportProgressStateWhiteboardItem(_id, _inProgress) {
+    cometd.publish('/service/whiteboardItem/progress', {
+        id : parseInt(_id),
+        inProgress : Boolean(_inProgress),
+        whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
+    });
+}
 
-        } else {
-            note.find('textarea[name=text]').val(message.data.text);
-            note.find('textarea[name=text]').elasticArea();
-        }
-    }
-    
+// all actions
+$(function() {
     // mark note as in progress
     $('.note input[type=text], .note textarea').live('focus', function() {
         var clickedNote = $(this).parent(),

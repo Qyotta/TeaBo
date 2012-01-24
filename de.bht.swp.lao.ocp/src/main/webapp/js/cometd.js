@@ -1,5 +1,6 @@
 var cometd = $.cometd;
-(function() {
+
+$(function() {
     // Function that manages the connection status with the
     // Bayeux server
     // TODO do we need this _connected var?
@@ -41,4 +42,4 @@ var cometd = $.cometd;
     cometd.addListener('/meta/handshake', _metaHandshake);
     cometd.addListener('/meta/connect', _metaConnect);
     cometd.handshake();
-})();
+});

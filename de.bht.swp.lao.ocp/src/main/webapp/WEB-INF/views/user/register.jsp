@@ -16,10 +16,12 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
 
-<script src="${pageContext.request.contextPath}/js/application.js"></script>
 <script src="${pageContext.request.contextPath}/js/libs/jquery/jquery-1.6.2.js"></script>
 <script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/errordisplay.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/application.js"></script>
+<script src="${pageContext.request.contextPath}/js/utils.js"></script>
+
 <script type="text/javascript">var config = {contextPath: '${pageContext.request.contextPath}'}</script>
 
 <nav class="topNavigation">
