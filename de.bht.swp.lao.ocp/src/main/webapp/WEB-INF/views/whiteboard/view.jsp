@@ -17,13 +17,19 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
 
 <script src="${pageContext.request.contextPath}/js/libs/jquery/jquery-1.6.2.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/jquery/json2.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/cometd.js"></script>
 <script src="${pageContext.request.contextPath}/js/libs/org/cometd.js"></script>
 <script src="${pageContext.request.contextPath}/js/libs/jquery/jquery.cometd.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/jquery/json2.js"></script>
+
 <script src="${pageContext.request.contextPath}/js/application.js"></script>
 <script src="${pageContext.request.contextPath}/js/tooltip.js"></script>
+<script src="${pageContext.request.contextPath}/js/whiteboard.js"></script>
+<script src="${pageContext.request.contextPath}/js/note.js"></script>
+
 <script type="text/javascript">$(document).ready(function() {var basePath = "${pageContext.request.contextPath}"});</script>
 
 <nav class="topNavigation">
@@ -50,34 +56,34 @@
 
 <div id="invite-dialog" title="Invite a person">
 <form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
-	<div class="invite-dialog-mail">Mail: <form:input path="address"/></div><br/>
-	<div class="buttonline" >
-		<button type="button" class="cancel">Cancel</button>
-		<input type="submit" value="Submit">
-	</div>
+    <div class="invite-dialog-mail">Mail: <form:input path="address"/></div><br/>
+    <div class="buttonline" >
+        <button type="button" class="cancel">Cancel</button>
+        <input type="submit" value="Submit">
+    </div>
 </form:form>
 </div>
 
-<div id="upload-dialog" title="Upload a file">	
-	<div class="support_files">Supported file types are PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, ODT, ODP, ODF</div>
-	<iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
-	<form:form method="post" enctype="multipart/form-data" id="fileupload" commandName="fileupload" action="${pageContext.request.contextPath}/attachment/uploadfile-${whiteboard.id}.htm" target="uploadFrame">
-		<div class="fileinput">File <input type="file" name="data"> <input type="hidden" name="id" id="uploadId" /></div><br/>
-		<div class="description">Description <textarea name="shortDescription" maxlength="170"></textarea></div>
-		
-		<br/>
-		<div class="buttonline" >
-			<button type="button" class="cancel">Cancel</button>
-			<input type="submit" value="Submit">
-		</div> 
-	</form:form>
+<div id="upload-dialog" title="Upload a file">  
+    <div class="support_files">Supported file types are PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, ODT, ODP, ODF</div>
+    <iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
+    <form:form method="post" enctype="multipart/form-data" id="fileupload" commandName="fileupload" action="${pageContext.request.contextPath}/attachment/uploadfile-${whiteboard.id}.htm" target="uploadFrame">
+        <div class="fileinput">File <input type="file" name="data"> <input type="hidden" name="id" id="uploadId" /></div><br/>
+        <div class="description">Description <textarea name="shortDescription" maxlength="170"></textarea></div>
+        
+        <br/>
+        <div class="buttonline" >
+            <button type="button" class="cancel">Cancel</button>
+            <input type="submit" value="Submit">
+        </div> 
+    </form:form>
 </div>
 
 <div id="startscreen">
-	<div class="lightbox" data-type="tooltip">
-	    <h1>Hallo und Willkommen zu [lao]</h1>
-	    [lao] (look ahead online) ist ein Online-Collaboration-Tool mit dem Sie die Möglichkeit haben mit
-	    Ihren Freunden oder Kollegen interaktiv eine Idee oder ein Projekt in Echtzeit zu entwickeln.<br/>
+    <div class="lightbox" data-type="tooltip">
+        <h1>Hallo und Willkommen zu [lao]</h1>
+        [lao] (look ahead online) ist ein Online-Collaboration-Tool mit dem Sie die Möglichkeit haben mit
+        Ihren Freunden oder Kollegen interaktiv eine Idee oder ein Projekt in Echtzeit zu entwickeln.<br/>
         <br/>
         Es stehen Ihnen dabei eine Vielzahl von Möglichkeiten zur Verfügung ihre Idee zu präsentieren,
         ob über eine Note oder einem Bild. Ihr interaktives Whiteboard, auf dem Sie arbeiten, verhält
@@ -92,14 +98,14 @@
         <input type="button" class="closeToolTip" value="Fenster schließen" />
         <input type="button" class="nextToolTip" value="Tour starten" />
         
-	    <div class="showAgain">
-	        <input type="checkbox" name="showAgain" id="showAgain" value="1" checked="checked"/> Don't show this again!
-	    </div>       
-	</div>
-	<div class="bubble" id="createNote" data-type="tooltip">
-	    <img src="${pageContext.request.contextPath}/images/tooltips/bottom-right.png" class="bottom" style="left:260px" />
-	    <button class="closeToolTip" />X</button>
-	    <h2>Note erstellen</h2>
+        <div class="showAgain">
+            <input type="checkbox" name="showAgain" id="showAgain" value="1" checked="checked"/> Don't show this again!
+        </div>       
+    </div>
+    <div class="bubble" id="createNote" data-type="tooltip">
+        <img src="${pageContext.request.contextPath}/images/tooltips/bottom-right.png" class="bottom" style="left:260px" />
+        <button class="closeToolTip" />X</button>
+        <h2>Note erstellen</h2>
         Beim Klicken auf dieses Symbol (Bild) wird Ihnen eine Note auf dem Whiteboard erzeugt. Sie
         können danach diese Note beliebig mit Inhalt füllen, verschieben, vergrößern oder gar löschen.
         Alle Notes auf dem Whiteboard können von jedem Benutzer verändert werden. Jeder hat die gleichen
@@ -108,11 +114,11 @@
         <br/>
         <input type="button" class="nextToolTip" value="Weiter" />
         <input type="button" class="prevToolTip" value="Zurück" />
-	</div>
-	<div class="bubble" id="uploadFile" data-type="tooltip">
-	    <img src="${pageContext.request.contextPath}/images/tooltips/bottom-right.png" class="bottom" style="left:260px" />
-	    <button class="closeToolTip" />X</button>
-	    <h2>Datei hochladen</h2>
+    </div>
+    <div class="bubble" id="uploadFile" data-type="tooltip">
+        <img src="${pageContext.request.contextPath}/images/tooltips/bottom-right.png" class="bottom" style="left:260px" />
+        <button class="closeToolTip" />X</button>
+        <h2>Datei hochladen</h2>
         Sie haben auch die Möglichkeit auf dem Whiteboard Dateien zu platzieren. Klicken sie dafür auf
         folgendes Symbol (Bild). Ein kleines Fenster öffnet sich, wo Sie die Datei angeben können, die
         hochgeladen werden soll (Bild vom Fenster). Folgende Dateitypen sind erlaubt: PDF, DOC, DOCx,
@@ -121,46 +127,46 @@
         <br/>
         <input type="button" class="nextToolTip" value="Weiter" />
         <input type="button" class="prevToolTip" value="Zurück" />
-	</div>
-	<div class="bubble" id="inviteUser" data-type="tooltip">
-	    <img src="${pageContext.request.contextPath}/images/tooltips/top-right.png" class="top" style="left:20px" />
+    </div>
+    <div class="bubble" id="inviteUser" data-type="tooltip">
+        <img src="${pageContext.request.contextPath}/images/tooltips/top-right.png" class="top" style="left:20px" />
         <button class="closeToolTip" />X</button>
         <h2>User zum Whiteboard einladen</h2>
-	    Um auch wirklich collaborativ arbeiten zu können, brauchen wir nur noch mehrere Benutzer, die
-	    auf das Whiteboard Zugriff haben. Laden Sie doch dazu einfach Ihren Freund oder Kollegen ein!
-	    Mit dem "Benutzer hinzufügen" Formular (Bild) geht das ganz einfach. Geben Sie dazu die
-	    Emailadresse an, mit der die Person bei [lao] angemeldet ist. Ist er dies noch nicht, wird er
-	    automatisch vom System hinzugefügt und kann das Tool sofort nutzen.
+        Um auch wirklich collaborativ arbeiten zu können, brauchen wir nur noch mehrere Benutzer, die
+        auf das Whiteboard Zugriff haben. Laden Sie doch dazu einfach Ihren Freund oder Kollegen ein!
+        Mit dem "Benutzer hinzufügen" Formular (Bild) geht das ganz einfach. Geben Sie dazu die
+        Emailadresse an, mit der die Person bei [lao] angemeldet ist. Ist er dies noch nicht, wird er
+        automatisch vom System hinzugefügt und kann das Tool sofort nutzen.
         <br/>
         <input type="button" class="nextToolTip" value="Weiter" />
         <input type="button" class="prevToolTip" value="Zurück" />
-	</div>
-	<div class="lightbox" data-type="tooltip">
-	    <h1>Tour beendet!</h1>
-	    Unsere interaktive Tour ist nun zuende. Viel Spaß mit Ihrem Whiteboard
-	    <br/>
-	    <input type="button" class="closeToolTip" value="Fenster schließen" />
-	</div>
+    </div>
+    <div class="lightbox" data-type="tooltip">
+        <h1>Tour beendet!</h1>
+        Unsere interaktive Tour ist nun zuende. Viel Spaß mit Ihrem Whiteboard
+        <br/>
+        <input type="button" class="closeToolTip" value="Fenster schließen" />
+    </div>
 </div>
 
 <div class="whiteboard" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">
-	<c:forEach var="note" items="${notes}">
-		<div class="note draggable" id="note-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
-			<textarea name="text"><c:out value='${note.text}'/></textarea>
-			<span class="creator"><c:out value='${note.creator.email}'/></span>
-		</div>
-	</c:forEach>
-	<c:forEach var="attachment" items="${attachments}">
-		<div class="attachment draggable" id="attachment-<c:out value="${attachment.id}"/>" style="left:<c:out value="${attachment.x}"/>px; top:<c:out value="${attachment.y}"/>px;">
-			<p class="image"><img src="${pageContext.request.contextPath}/images/teambox-free-file-icons/32px/${attachment.fileExtension}.png"></p>
-			<p class="filename">
-	       	    <c:out value="${fn:substring(attachment.filename,0, attachment.fileNameLenght)}"/>
-			</p>
-			<input type="hidden" name="filename" class="full_filename" value="${attachment.filename}">
-			<input type="hidden" name="creator" class="creator" value="${attachment.creator.email}">
-			<input type="hidden" name="description" class="description" value="${attachment.shortDescription}">
-		</div>
-	</c:forEach>
+    <c:forEach var="note" items="${notes}">
+        <div class="note draggable" id="note-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
+            <textarea name="text"><c:out value='${note.text}'/></textarea>
+            <span class="creator"><c:out value='${note.creator.email}'/></span>
+        </div>
+    </c:forEach>
+    <c:forEach var="attachment" items="${attachments}">
+        <div class="attachment draggable" id="attachment-<c:out value="${attachment.id}"/>" style="left:<c:out value="${attachment.x}"/>px; top:<c:out value="${attachment.y}"/>px;">
+            <p class="image"><img src="${pageContext.request.contextPath}/images/teambox-free-file-icons/32px/${attachment.fileExtension}.png"></p>
+            <p class="filename">
+                <c:out value="${fn:substring(attachment.filename,0, attachment.fileNameLenght)}"/>
+            </p>
+            <input type="hidden" name="filename" class="full_filename" value="${attachment.filename}">
+            <input type="hidden" name="creator" class="creator" value="${attachment.creator.email}">
+            <input type="hidden" name="description" class="description" value="${attachment.shortDescription}">
+        </div>
+    </c:forEach>
 </div>
 
 <nav class="bottomNavigation">

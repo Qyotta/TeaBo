@@ -15,16 +15,13 @@
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
 
-<script src="${pageContext.request.contextPath}/js/libs/jquery/jquery-1.6.2.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/jquery/json2.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/org/cometd.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/jquery/jquery.cometd.js"></script>
+<script src="${pageContext.request.contextPath}/js/application.js"></script>
+<script src="${pageContext.request.contextPath}/js/utils.js"></script>
 <script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
 <script type="text/javascript">var config = { contextPath: '${pageContext.request.contextPath}' }</script>
 
 <nav class="topNavigation">
-	<h1 class="logo">
+    <h1 class="logo">
         <a href="${pageContext.request.contextPath}/user/login.htm">
             <b>lao (V 0.1a)</span>
         </a>
@@ -36,18 +33,18 @@
         Welcome to [lao]
         <span>Please Login</span>
     </h1>
-	<form:form name="loginFormData" modelAttribute="loginFormData" method="POST" commandName="loginFormData" action="login.htm">
-		
-		<dl>
-			<dt>Email:</dt>
-			<dd><form:input type="email" path="email" /><form:errors path="email" cssClass="error" /></dd>
-			<dt>Password:</dt>
-			<dd><form:password path="password" /><form:errors path="password" cssClass="error" /></dd>
-			<dt><br/><a href="${pageContext.request.contextPath}/user/register.htm">Create Account</a></dt>
-			<dd><br/><input type="submit" value="Login" class="button"></dd>
-		</dl>
+    <form:form name="loginFormData" modelAttribute="loginFormData" method="POST" commandName="loginFormData" action="login.htm">
+        
+        <dl>
+            <dt>Email:</dt>
+            <dd><form:input type="input" path="email" /><form:errors path="email" cssClass="error" /></dd>
+            <dt>Password:</dt>
+            <dd><form:password path="password" /><form:errors path="password" cssClass="error" /></dd>
+            <dt><br/><a href="${pageContext.request.contextPath}/user/register.htm">Create Account</a></dt>
+            <dd><br/><input type="submit" value="Login" class="button"></dd>
+        </dl>
 
-	</form:form>
+    </form:form>
 </div>
 
 <nav class="bottomNavigation"></nav>
