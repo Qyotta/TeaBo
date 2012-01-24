@@ -67,20 +67,8 @@ $(function() {
         $('#upload-dialog').dialog('close');
     });
 
-    // invite dialog
-    $('#invite-dialog').dialog({
-        autoOpen : false,
-        closeOnEscape: false,
-        open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
-        modal : true,
-        width : 420,
-        draggable: false
-    });
-
     $('a[href="invite"]').live('click', function(e) {
-        $('#invite-dialog').dialog('open');
-        $('#invite-dialog').css('min-height', '142px');
-        $('#invite-dialog').css('height', 'auto');
+        $('#inviteContainer').fadeIn();
         return false;
     });
 
