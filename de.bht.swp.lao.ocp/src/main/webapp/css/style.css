@@ -335,11 +335,6 @@ textarea {
     resize: vertical;
 }
 
-/* Colors for form validity */
-input:valid,textarea:valid {
-    width: 185px;
-}
-
 input:invalid,textarea:invalid {
     background-color: #f0dddd;
 }
@@ -437,7 +432,7 @@ nav.topNavigation div.right {
     color: #FFFFFF;
     float: right;
     padding: 5px 0 0 0;
-    width:500px;
+    width:900px;
     text-align:right;
 }
 nav.topNavigation div.right div {
@@ -711,6 +706,7 @@ nav.topNavigation {
     position: relative;
     width: 100%;
 }
+
 .registerContainer dl {
     margin:0px;
 }
@@ -752,7 +748,7 @@ nav.topNavigation {
     position: relative;
     width: 100%;
 }
-.loginContainer h1 span, .registerContainer h1 span {
+.loginContainer h1 span, .registerContainer h1 span, #inviteContainer h1 span {
     display: block;
     font-size: 11px;
 }
@@ -908,11 +904,31 @@ nav.bottomNavigation ul li a span {
     list-style-type: none;
 }
 
-#invite-dialog {
+#inviteContainer {
     background: #494949;
     border: 1px solid #B2B2B2;
-    overflow: hidden;
     color: #B2B2B2;
+    width:400px;
+    height:125px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin:-75px 0 0 -225px;
+    display:none;
+}
+#inviteContainer h1 {
+    background: url("../images/lao_invite.jpg") no-repeat scroll 0 0 transparent;
+    bottom: 3px;
+    color: #B2B2B2;
+    font-size: 16px;
+    height: 45px;
+    margin: 0 0 0 7px;
+    padding: 13px 0 0 135px;
+    position: relative;
+    width: 100%;
+}
+#inviteContainer form {
+    padding:0 5px;
 }
 
 #logout-dialog{
