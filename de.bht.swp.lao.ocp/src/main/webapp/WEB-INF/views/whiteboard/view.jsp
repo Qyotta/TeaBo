@@ -169,8 +169,15 @@
 <div class="whiteboard draggable" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">
     <c:forEach var="note" items="${notes}">
         <div class="note draggable" id="note-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
-            <textarea name="text"><c:out value='${note.text}'/></textarea>
-            <span class="creator"><c:out value='${note.creator.email}'/></span>
+            <div class="noteItems">
+                <textarea name="text"><c:out value='${note.text}'/></textarea>
+                <span class="creator"><c:out value='${note.creator.email}'/></span>
+            </div>
+            <div class="noteMenu">
+                <a class="file_mouseOverMenu_top"><img src="${pageContext.request.contextPath}/images/file_mouseOverMenu_top.png"></a>
+                <a class="file_mouseOverMenu_middle"><img src="${pageContext.request.contextPath}/images/file_mouseOverMenu_middle.png"></a>
+                <a class="file_mouseOverMenu_bottom"><img src="${pageContext.request.contextPath}/images/file_mouseOverMenu_bottom.png"></a>
+            </div>
         </div>
     </c:forEach>
     <c:forEach var="attachment" items="${attachments}">

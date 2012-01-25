@@ -819,17 +819,10 @@ nav.bottomNavigation ul li a span {
 }
 
 .whiteboard .note {
-    background: none repeat scroll 0 0 #F8F7B6;
     position: absolute;
-    padding: 5px;
-    width: 200px;
     float: left;
-    margin: 10px;
     cursor: move;
-    -webkit-box-shadow: 0px 0px 5px #AAA;
-    -moz-box-shadow: 0px 0px 5px #AAA;
-    -o-box-shadow: 0px 0px 5px #AAA;
-    box-shadow: 0px 0px 5px #AAA;
+
 }
 
 .whiteboard .note textarea {
@@ -861,6 +854,7 @@ nav.bottomNavigation ul li a span {
 
 .note .creator {
     display: none;
+    width:199px;
     float: left;
     font-size: 10px;
     position: relative;
@@ -1165,6 +1159,32 @@ a.inviteUser, a.inviteUser:hover, a.inviteUser:visited {
     height: 19px;
     width: 190px;
 }
+
+.noteItems{
+    float:left;
+    width:200px;
+        -webkit-box-shadow: 0px 0px 5px #AAA;
+    -moz-box-shadow: 0px 0px 5px #AAA;
+    -o-box-shadow: 0px 0px 5px #AAA;
+    box-shadow: 0px 0px 5px #AAA;
+    margin: 10px;
+    padding:5px;
+    background: none repeat scroll 0 0 #F8F7B6;
+}
+
+.noteMenu{
+    float:right;
+    width:13px;
+    display:none;
+}
+
+.noteMenu a{
+display:inline;
+margin:-2 px;
+}
+
+
+
 /* ==|== non-semantic helper classes ========================================
    Please define your styles before this section.
    ========================================================================== */

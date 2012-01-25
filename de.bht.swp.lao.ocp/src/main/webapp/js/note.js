@@ -122,4 +122,21 @@ $(function() {
     },function() {
         $(this).parent().find('span.creator').css('display', 'none');
     });
+    
+     $('.note').live("mouseover", function() {        
+         $('.noteMenu',$(this)).css("display", "block");
+    });
+    $('.note').live("mouseleave", function() {
+        console.log("mouseleave");
+        
+         $('.noteMenu',$(this)).css("display", "none");
+    });
+     $('.noteMenu a').live("click", function() {
+        
+        
+    });
+    
+    
+    
+    
 });
