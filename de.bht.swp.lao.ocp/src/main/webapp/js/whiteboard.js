@@ -107,11 +107,9 @@ $(function() {
     });
     
     $('.whiteboard .draggable').live('click', function(e){
-    	var clickedElement = $(this).parent();
-    	var divId = clickedElement.attr("id");
-
+    	var divId = $(this).attr("id");
         if (divId != undefined) {
-            id = divId.split('-')[1];
+            var id = divId.split('-')[1];
             _reportElementOrder(id);
         }
     });

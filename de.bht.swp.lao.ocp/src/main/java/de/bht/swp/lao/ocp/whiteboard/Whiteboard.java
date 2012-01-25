@@ -1,7 +1,9 @@
 package de.bht.swp.lao.ocp.whiteboard;
 
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,7 +20,7 @@ import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
  * 
  */
 @Entity
-@Table(name = "lao_whiteboard")
+@Table(name = "LAO_WHITEBOARD")
 public class Whiteboard {
     @Id
     @GeneratedValue
@@ -26,8 +28,12 @@ public class Whiteboard {
 
     private String name;
 
-    @OneToMany(mappedBy = "whiteboard", targetEntity = WhiteboardItem.class)
-    private Set<WhiteboardItem> whiteboardItems;
+    // @OneToMany(mappedBy = "whiteboard", cascade = CascadeType.ALL)
+    // @JoinColumn(name = "whiteboard", insertable = true, updatable = true,
+    // nullable = true)
+    // @OrderColumn
+    @OneToMany(mappedBy = "whiteboard", cascade = CascadeType.ALL)
+    private List<WhiteboardItem> whiteboardItems;
 
     @ManyToMany(mappedBy = "assignedWhiteboards")
     private Set<User> assignedUsers;
@@ -43,11 +49,11 @@ public class Whiteboard {
     @ManyToOne
     private User creator;
 
-    public Set<WhiteboardItem> getWhiteboardObjects() {
+    public List<WhiteboardItem> getWhiteboardObjects() {
         return whiteboardItems;
     }
 
-    public void setWhiteboardObjects(Set<WhiteboardItem> notes) {
+    public void setWhiteboardObjects(List<WhiteboardItem> notes) {
         this.whiteboardItems = notes;
     }
 

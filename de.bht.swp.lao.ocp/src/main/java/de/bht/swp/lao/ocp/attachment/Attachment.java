@@ -12,7 +12,7 @@ import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
  * 
  */
 @Entity
-@Table(name = "lao_attachment")
+@Table(name = "LAO_ATTACHMENT")
 public class Attachment extends WhiteboardItem {
 
     private static final int MYSQL_MEDIUMBLOB_CHAR_SIZE = 16777215;

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import de.bht.swp.lao.ocp.usermanagement.User;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
@@ -21,6 +21,7 @@ import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "LAO_WHITEBOARDITEM")
 public class WhiteboardItem {
 
     @Id
@@ -30,17 +31,13 @@ public class WhiteboardItem {
     private Long x;
     private Long y;
 
-    @OneToOne
-    private WhiteboardItem prev;
-
-    @OneToOne
-    private WhiteboardItem next;
-
     @ManyToOne
     private User creator;
 
     @ManyToOne
     private Whiteboard whiteboard;
+
+    private int orderIndex;
 
     private Boolean inProgress;
 
@@ -68,22 +65,6 @@ public class WhiteboardItem {
         this.y = y;
     }
 
-    public WhiteboardItem getPrev() {
-        return prev;
-    }
-
-    public void setPrev(WhiteboardItem prev) {
-        this.prev = prev;
-    }
-
-    public WhiteboardItem getNext() {
-        return next;
-    }
-
-    public void setNext(WhiteboardItem next) {
-        this.next = next;
-    }
-
     public User getCreator() {
         return creator;
     }
@@ -98,6 +79,14 @@ public class WhiteboardItem {
 
     public void setWhiteboard(Whiteboard whiteboard) {
         this.whiteboard = whiteboard;
+    }
+
+    public int getOrderIndex() {
+        return orderIndex;
+    }
+
+    public void setOrderIndex(int orderIndex) {
+        this.orderIndex = orderIndex;
     }
 
     public void setInProgress(Boolean inProgress) {

@@ -152,7 +152,7 @@ public class WhiteboardController {
         Whiteboard w = new Whiteboard();
         w.setName(name);
         w.setCreator(user);
-        whiteboardDao.save(w);
+        whiteboardDao.saveOrUpdate(w);
 
         return "redirect:/whiteboard/view-" + w.getId() + ".htm";
     }
