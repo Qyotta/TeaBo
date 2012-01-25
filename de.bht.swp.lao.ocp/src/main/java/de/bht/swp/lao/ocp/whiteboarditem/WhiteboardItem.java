@@ -22,89 +22,89 @@ import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public class WhiteboardItem {
-	
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
 
-  private Long x;
-  private Long y;
-  
-  @OneToOne
-  private WhiteboardItem prev;
-  
-  @OneToOne
-  private WhiteboardItem next;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @ManyToOne
-  private User creator;
+    private Long x;
+    private Long y;
 
-  @ManyToOne
-  private Whiteboard whiteboard;
+    @OneToOne
+    private WhiteboardItem prev;
 
-  private Boolean inProgress;
+    @OneToOne
+    private WhiteboardItem next;
 
-  public Long getId() {
-    return id;
-  }
+    @ManyToOne
+    private User creator;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    @ManyToOne
+    private Whiteboard whiteboard;
 
-  public Long getX() {
-    return x;
-  }
+    private Boolean inProgress;
 
-  public void setX(Long x) {
-    this.x = x;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public Long getY() {
-    return y;
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  public void setY(Long y) {
-    this.y = y;
-  }
-  
-  public WhiteboardItem getPrev() {
-		return prev;
-	}
+    public Long getX() {
+        return x;
+    }
 
-	public void setPrev(WhiteboardItem prev) {
-		this.prev = prev;
-	}
+    public void setX(Long x) {
+        this.x = x;
+    }
 
-	public WhiteboardItem getNext() {
-		return next;
-	}
+    public Long getY() {
+        return y;
+    }
 
-	public void setNext(WhiteboardItem next) {
-		this.next = next;
-	}
+    public void setY(Long y) {
+        this.y = y;
+    }
 
-  public User getCreator() {
-    return creator;
-  }
+    public WhiteboardItem getPrev() {
+        return prev;
+    }
 
-  public void setCreator(User creator) {
-    this.creator = creator;
-  }
+    public void setPrev(WhiteboardItem prev) {
+        this.prev = prev;
+    }
 
-  public Whiteboard getWhiteboard() {
-    return whiteboard;
-  }
+    public WhiteboardItem getNext() {
+        return next;
+    }
 
-  public void setWhiteboard(Whiteboard whiteboard) {
-    this.whiteboard = whiteboard;
-  }
+    public void setNext(WhiteboardItem next) {
+        this.next = next;
+    }
 
-  public void setInProgress(Boolean inProgress) {
-    this.inProgress = inProgress;
-  }
+    public User getCreator() {
+        return creator;
+    }
 
-  public Boolean isInProgress() {
-    return this.inProgress;
-  }
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public Whiteboard getWhiteboard() {
+        return whiteboard;
+    }
+
+    public void setWhiteboard(Whiteboard whiteboard) {
+        this.whiteboard = whiteboard;
+    }
+
+    public void setInProgress(Boolean inProgress) {
+        this.inProgress = inProgress;
+    }
+
+    public Boolean isInProgress() {
+        return this.inProgress;
+    }
 }

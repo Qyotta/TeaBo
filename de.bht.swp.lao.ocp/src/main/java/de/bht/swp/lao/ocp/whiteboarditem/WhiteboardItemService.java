@@ -18,94 +18,94 @@ import org.cometd.java.annotation.Session;
 @Singleton
 @Service("attachmentService")
 public class WhiteboardItemService {
-  @Inject
-  private BayeuxServer bayeux;
+    @Inject
+    private BayeuxServer bayeux;
 
-  @Session
-  private ServerSession serverSession;
+    @Session
+    private ServerSession serverSession;
 
-  @Inject
-  private IWhiteboardItemDao<WhiteboardItem> whiteboardItemDao;
+    @Inject
+    private IWhiteboardItemDao<WhiteboardItem> whiteboardItemDao;
 
-  @Listener(value = { "/service/whiteboardItem/move" })
-  public void processMove(ServerSession remote, ServerMessage.Mutable message) {
-    Map<String, Object> data = message.getDataAsMap();
+    @Listener(value = { "/service/whiteboardItem/move" })
+    public void processMove(ServerSession remote, ServerMessage.Mutable message) {
+        Map<String, Object> data = message.getDataAsMap();
 
-    Long id = (Long) data.get("id");
-    Long x = (Long) data.get("x");
-    Long y = (Long) data.get("y");
-    Long whiteboardid = (Long) data.get("whiteboardid");
+        Long id = (Long) data.get("id");
+        Long x = (Long) data.get("x");
+        Long y = (Long) data.get("y");
+        Long whiteboardid = (Long) data.get("whiteboardid");
 
-    WhiteboardItem wi = whiteboardItemDao.findById(id);
-    wi.setX(x);
-    wi.setY(y);
+        WhiteboardItem wi = whiteboardItemDao.findById(id);
+        wi.setX(x);
+        wi.setY(y);
 
-    whiteboardItemDao.save(wi);
+        whiteboardItemDao.save(wi);
 
-    Map<String, Object> output = new HashMap<String, Object>();
-    output.put("id", id);
-    output.put("x", x);
-    output.put("y", y);
+        Map<String, Object> output = new HashMap<String, Object>();
+        output.put("id", id);
+        output.put("x", x);
+        output.put("y", y);
 
-    String channel = "/whiteboardItem/move/" + whiteboardid;
-    for (ServerSession session : bayeux.getChannel(channel).getSubscribers()) {
-      session.deliver(serverSession, channel, output, null);
+        String channel = "/whiteboardItem/move/" + whiteboardid;
+        for (ServerSession session : bayeux.getChannel(channel).getSubscribers()) {
+            session.deliver(serverSession, channel, output, null);
+        }
     }
-  }
 
-  @Listener(value = { "/service/whiteboardItem/progress" })
-  public void processProgress(ServerSession remote, ServerMessage.Mutable message) {
-    Map<String, Object> data = message.getDataAsMap();
+    @Listener(value = { "/service/whiteboardItem/progress" })
+    public void processProgress(ServerSession remote, ServerMessage.Mutable message) {
+        Map<String, Object> data = message.getDataAsMap();
 
-    Long id = (Long) data.get("id");
-    Boolean inProgress = (Boolean) data.get("inProgress");
-    Long whiteboardid = (Long) data.get("whiteboardid");
+        Long id = (Long) data.get("id");
+        Boolean inProgress = (Boolean) data.get("inProgress");
+        Long whiteboardid = (Long) data.get("whiteboardid");
 
-    WhiteboardItem item = whiteboardItemDao.findById(id);
-    item.setInProgress(inProgress);
-    whiteboardItemDao.save(item);
+        WhiteboardItem item = whiteboardItemDao.findById(id);
+        item.setInProgress(inProgress);
+        whiteboardItemDao.save(item);
 
-    Map<String, Object> output = new HashMap<String, Object>();
-    output.put("id", id);
-    output.put("inProgress", inProgress);
+        Map<String, Object> output = new HashMap<String, Object>();
+        output.put("id", id);
+        output.put("inProgress", inProgress);
 
-    String channel = "/whiteboardItem/progress/" + whiteboardid;
-    for (ServerSession session : bayeux.getChannel(channel).getSubscribers()) {
-      session.deliver(serverSession, channel, output, null);
+        String channel = "/whiteboardItem/progress/" + whiteboardid;
+        for (ServerSession session : bayeux.getChannel(channel).getSubscribers()) {
+            session.deliver(serverSession, channel, output, null);
+        }
     }
-  }
-  
-  @Listener(value = {"/service/whiteboardItem/order"})
-  public void processOrder(ServerSession remote, ServerMessage.Mutable message){
-      Map<String,Object> data = message.getDataAsMap();
-      
-      Long id = (Long)data.get("id"); 
-      Long whiteboardid = (Long)data.get("whiteboardid");
-      
-      WhiteboardItem item = (WhiteboardItem) whiteboardItemDao.findById(id);
-      
-      WhiteboardItem prev = item.getPrev();
-      WhiteboardItem next = item.getNext();
-      prev.setNext(next);
-      next.setPrev(prev);
-      
-      WhiteboardItem last = whiteboardItemDao.findByAttribute("next", null);
-      last.setNext(item);
-      item.setPrev(last);
-      
-      whiteboardItemDao.save(prev);
-      whiteboardItemDao.save(next);
-      whiteboardItemDao.save(item);
-      whiteboardItemDao.save(last);
-      
-      WhiteboardItem[] listOfUpdatedElements = {prev, next, item, last};
-      
-      Map<String,Object> output = new HashMap<String,Object>();
-      output.put("updated", listOfUpdatedElements);
-      
-      String channel = "/whiteboardItem/order/"+whiteboardid;
-      for(ServerSession session:bayeux.getChannel(channel).getSubscribers()){
-          session.deliver(serverSession, channel, output, null);
-      }
-  }
+
+    @Listener(value = { "/service/whiteboardItem/order" })
+    public void processOrder(ServerSession remote, ServerMessage.Mutable message) {
+        Map<String, Object> data = message.getDataAsMap();
+
+        Long id = (Long) data.get("id");
+        Long whiteboardid = (Long) data.get("whiteboardid");
+
+        WhiteboardItem item = whiteboardItemDao.findById(id);
+
+        WhiteboardItem prev = item.getPrev();
+        WhiteboardItem next = item.getNext();
+        prev.setNext(next);
+        next.setPrev(prev);
+
+        WhiteboardItem last = whiteboardItemDao.findByAttribute("next", null);
+        last.setNext(item);
+        item.setPrev(last);
+
+        whiteboardItemDao.save(prev);
+        whiteboardItemDao.save(next);
+        whiteboardItemDao.save(item);
+        whiteboardItemDao.save(last);
+
+        WhiteboardItem[] listOfUpdatedElements = { prev, next, item, last };
+
+        Map<String, Object> output = new HashMap<String, Object>();
+        output.put("updated", listOfUpdatedElements);
+
+        String channel = "/whiteboardItem/order/" + whiteboardid;
+        for (ServerSession session : bayeux.getChannel(channel).getSubscribers()) {
+            session.deliver(serverSession, channel, output, null);
+        }
+    }
 }

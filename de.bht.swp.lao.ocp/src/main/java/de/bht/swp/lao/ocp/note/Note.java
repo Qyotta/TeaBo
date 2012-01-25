@@ -13,17 +13,17 @@ import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 @Table(name = "lao_note")
 public class Note extends WhiteboardItem {
 
-  private String text;
+    private String text;
 
-  public Note() {
-  }
+    public Note() {
+    }
 
-  public String getText() {
-    return text;
-  }
+    public String getText() {
+        return text;
+    }
 
-  public void setText(String text) {
-    this.text = text;
-  }
+    public void setText(String text) {
+        this.text = text;
+    }
 
 }

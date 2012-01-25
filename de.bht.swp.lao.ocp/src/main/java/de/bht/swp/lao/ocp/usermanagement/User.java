@@ -22,119 +22,119 @@ import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 @Entity
 @Table(name = "lao_user")
 public class User {
-  @Id
-  @GeneratedValue
-  private Integer id;
+    @Id
+    @GeneratedValue
+    private Integer id;
 
-  private String firstname;
-  private String lastname;
-  private String email;
+    private String firstname;
+    private String lastname;
+    private String email;
 
-  @Column(nullable = false)
-  private String password;
+    @Column(nullable = false)
+    private String password;
 
-  private String position;
-  private boolean showToolTips;
+    private String position;
+    private boolean showToolTips;
 
-  @OneToMany(mappedBy = "creator", targetEntity = WhiteboardItem.class)
-  private Set<WhiteboardItem> whiteboardItems;
+    @OneToMany(mappedBy = "creator", targetEntity = WhiteboardItem.class)
+    private Set<WhiteboardItem> whiteboardItems;
 
-  @OneToMany(mappedBy = "creator", targetEntity = Whiteboard.class, fetch = FetchType.EAGER)
-  private Set<Whiteboard> whiteboards;
+    @OneToMany(mappedBy = "creator", targetEntity = Whiteboard.class, fetch = FetchType.EAGER)
+    private Set<Whiteboard> whiteboards;
 
-  @ManyToMany(fetch = FetchType.EAGER)
-  private Set<Whiteboard> assignedWhiteboards;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Whiteboard> assignedWhiteboards;
 
-  public Set<Whiteboard> getAssignedWhiteboards() {
-    return assignedWhiteboards;
-  }
-
-  public void setAssignedWhiteboards(Set<Whiteboard> assignedWhiteboards) {
-    this.assignedWhiteboards = assignedWhiteboards;
-  }
-
-  public Set<WhiteboardItem> getWhiteboardObjects() {
-    return whiteboardItems;
-  }
-
-  public void setWhiteboardObjects(Set<WhiteboardItem> notes) {
-    this.whiteboardItems = notes;
-  }
-
-  public Set<Whiteboard> getWhiteboards() {
-    return whiteboards;
-  }
-
-  public void setWhiteboards(Set<Whiteboard> whiteboards) {
-    this.whiteboards = whiteboards;
-  }
-
-  public void addAssignedWhiteboard(Whiteboard w) {
-    if (assignedWhiteboards == null) {
-      assignedWhiteboards = new HashSet<Whiteboard>();
+    public Set<Whiteboard> getAssignedWhiteboards() {
+        return assignedWhiteboards;
     }
 
-    this.assignedWhiteboards.add(w);
-  }
+    public void setAssignedWhiteboards(Set<Whiteboard> assignedWhiteboards) {
+        this.assignedWhiteboards = assignedWhiteboards;
+    }
 
-  public void removeAssignedWhiteboard(Whiteboard w) {
-    this.assignedWhiteboards.remove(w);
-  }
+    public Set<WhiteboardItem> getWhiteboardObjects() {
+        return whiteboardItems;
+    }
 
-  public Integer getId() {
-    return id;
-  }
+    public void setWhiteboardObjects(Set<WhiteboardItem> notes) {
+        this.whiteboardItems = notes;
+    }
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+    public Set<Whiteboard> getWhiteboards() {
+        return whiteboards;
+    }
 
-  public String getFirstname() {
-    return firstname;
-  }
+    public void setWhiteboards(Set<Whiteboard> whiteboards) {
+        this.whiteboards = whiteboards;
+    }
 
-  public void setFirstname(String firstname) {
-    this.firstname = firstname;
-  }
+    public void addAssignedWhiteboard(Whiteboard w) {
+        if (assignedWhiteboards == null) {
+            assignedWhiteboards = new HashSet<Whiteboard>();
+        }
 
-  public String getLastname() {
-    return lastname;
-  }
+        this.assignedWhiteboards.add(w);
+    }
 
-  public void setLastname(String lastname) {
-    this.lastname = lastname;
-  }
+    public void removeAssignedWhiteboard(Whiteboard w) {
+        this.assignedWhiteboards.remove(w);
+    }
 
-  public String getEmail() {
-    return email;
-  }
+    public Integer getId() {
+        return id;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-  public String getPassword() {
-    return password;
-  }
+    public String getFirstname() {
+        return firstname;
+    }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
 
-  public String getPosition() {
-    return position;
-  }
+    public String getLastname() {
+        return lastname;
+    }
 
-  public void setPosition(String position) {
-    this.position = position;
-  }
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 
-  public boolean isShowToolTips() {
-    return showToolTips;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public void setShowToolTips(boolean showToolTips) {
-    this.showToolTips = showToolTips;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public boolean isShowToolTips() {
+        return showToolTips;
+    }
+
+    public void setShowToolTips(boolean showToolTips) {
+        this.showToolTips = showToolTips;
+    }
 
 }

@@ -4,15 +4,15 @@ import java.util.List;
 
 public interface IWhiteboardItemDao<T extends WhiteboardItem> {
 
-  T findById(Long id);
+    T findById(Long id);
 
-  List<T> findAll();
+    List<T> findAll();
 
-  void save(T whiteboardItem);
+    void save(T whiteboardItem);
 
-  void delete(T whiteboardItem);
+    void delete(T whiteboardItem);
 
-  List<T> findAllbyWhiteboardId(Long id);
+    List<T> findAllbyWhiteboardId(Long id);
 
-  T findByAttribute(String key, String value);
+    T findByAttribute(String key, String value);
 }

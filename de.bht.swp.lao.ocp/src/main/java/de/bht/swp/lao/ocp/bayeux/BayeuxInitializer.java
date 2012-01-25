@@ -31,53 +31,53 @@ import org.springframework.web.context.ServletContextAware;
 
 @Component
 public class BayeuxInitializer implements DestructionAwareBeanPostProcessor, ServletContextAware {
-  private BayeuxServer bayeuxServer;
-  private ServerAnnotationProcessor processor;
+    private BayeuxServer bayeuxServer;
+    private ServerAnnotationProcessor processor;
 
-  @SuppressWarnings("unused")
-  @Inject
-  private void setBayeuxServer(BayeuxServer bayeuxServer) {
-    this.bayeuxServer = bayeuxServer;
-  }
+    @SuppressWarnings("unused")
+    @Inject
+    private void setBayeuxServer(BayeuxServer bayeuxServer) {
+        this.bayeuxServer = bayeuxServer;
+    }
 
-  @SuppressWarnings("unused")
-  @PostConstruct
-  private void init() {
-    this.processor = new ServerAnnotationProcessor(bayeuxServer);
-  }
+    @SuppressWarnings("unused")
+    @PostConstruct
+    private void init() {
+        this.processor = new ServerAnnotationProcessor(bayeuxServer);
+    }
 
-  @SuppressWarnings("unused")
-  @PreDestroy
-  private void destroy() {
-  }
+    @SuppressWarnings("unused")
+    @PreDestroy
+    private void destroy() {
+    }
 
-  @Override
-  public Object postProcessBeforeInitialization(Object bean, String name) {
-    processor.processDependencies(bean);
-    processor.processConfigurations(bean);
-    processor.processCallbacks(bean);
-    return bean;
-  }
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String name) {
+        processor.processDependencies(bean);
+        processor.processConfigurations(bean);
+        processor.processCallbacks(bean);
+        return bean;
+    }
 
-  @Override
-  public Object postProcessAfterInitialization(Object bean, String name) {
-    return bean;
-  }
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String name) {
+        return bean;
+    }
 
-  @Override
-  public void postProcessBeforeDestruction(Object bean, String name) {
-    processor.deprocessCallbacks(bean);
-  }
+    @Override
+    public void postProcessBeforeDestruction(Object bean, String name) {
+        processor.deprocessCallbacks(bean);
+    }
 
-  @Bean(initMethod = "start", destroyMethod = "stop")
-  public BayeuxServer bayeuxServer() {
-    BayeuxServerImpl bean = new BayeuxServerImpl();
-    bean.setOption(BayeuxServerImpl.LOG_LEVEL, "3");
-    return bean;
-  }
+    @Bean(initMethod = "start", destroyMethod = "stop")
+    public BayeuxServer bayeuxServer() {
+        BayeuxServerImpl bean = new BayeuxServerImpl();
+        bean.setOption(BayeuxServerImpl.LOG_LEVEL, "3");
+        return bean;
+    }
 
-  @Override
-  public void setServletContext(ServletContext servletContext) {
-    servletContext.setAttribute(BayeuxServer.ATTRIBUTE, bayeuxServer);
-  }
+    @Override
+    public void setServletContext(ServletContext servletContext) {
+        servletContext.setAttribute(BayeuxServer.ATTRIBUTE, bayeuxServer);
+    }
 }
