@@ -1,5 +1,5 @@
 /* 
- * HTML5 ✰ Boilerplate
+ * HTML5 âœ° Boilerplate
  *
  * What follows is the result of much research on cross-browser styling. 
  * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
@@ -814,6 +814,8 @@ nav.bottomNavigation ul li a span {
 
 .whiteboard {
     position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 .whiteboard .note {
