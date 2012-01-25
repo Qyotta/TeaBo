@@ -115,4 +115,14 @@ $(function() {
             _moveWhiteboardItem(this, id);
         }
     });
+    $(".whiteboard").mousedown(function(){
+    	$(this).css('cursor','pointer');
+    });
+	
+    $(".whiteboard").draggable({
+        stop : function(e, ui) {
+            console.log('viewport changed');
+            $(this).css('cursor','auto');
+        }
+    });
 });

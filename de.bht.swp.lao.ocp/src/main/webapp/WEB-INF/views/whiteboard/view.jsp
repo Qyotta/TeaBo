@@ -66,15 +66,6 @@
     </div>
 </div>
 
-<div id="invite-dialog" >Invite a Person
-<form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
-    <div class="invite-dialog-mail">Mail: <form:input path="address"/></div><br/>
-    <div class="buttonline" >
-        <button type="button" class="cancel">Cancel</button>
-        <input type="submit" value="Submit">
-    </div>
-</form:form>
-
 <div id="inviteContainer" title="Invite a person">
     <h1>
         Invite a Person
@@ -175,7 +166,7 @@
     </div>
 </div>
 
-<div class="whiteboard" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">
+<div class="whiteboard draggable" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">
     <c:forEach var="note" items="${notes}">
         <div class="note draggable" id="note-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
             <textarea name="text"><c:out value='${note.text}'/></textarea>
