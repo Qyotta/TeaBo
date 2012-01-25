@@ -748,7 +748,7 @@ nav.topNavigation {
     position: relative;
     width: 100%;
 }
-.loginContainer h1 span, .registerContainer h1 span, #inviteContainer h1 span {
+.loginContainer h1 span, .registerContainer h1 span, #inviteContainer h1 span, #uploadContainer h1 span {
     display: block;
     font-size: 11px;
 }
@@ -836,8 +836,7 @@ nav.bottomNavigation ul li a span {
     height: 17px;
     line-height: 17px;
     width: 199px;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FDFDCC),
-        to(#F8F7B6) );
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FDFDCC), to(#F8F7B6) );
     background: -moz-linear-gradient(100% 100% 90deg, #F8F7B6, #FDFDCC);
 }
 
@@ -867,99 +866,85 @@ nav.bottomNavigation ul li a span {
     margin: 3px 0 2px 0;
 }
 
-#upload-dialog {
+#inviteContainer, #uploadContainer {
     background: #494949;
-    border: 1px solid #B2B2B2;
-    overflow: hidden;
+    border: 1px solid #c2c2c2;
     color: #B2B2B2;
-    display:none;
-    width:410px!important;
-    border: 3px solid #B2B2B2;
-    -webkit-box-shadow: 0px 0px 5px #AAA;
-    -moz-box-shadow: 0px 0px 5px #AAA;
-    -o-box-shadow: 0px 0px 5px #AAA;
-    -box-shadow: 0px 0px 5px #AAA;
-    padding: 10px;
-}
-
-#upload-dialog div.support_files {
-    font-size: 70%;
-}
-
-#upload-dialog b{	
-    font-size: 15px;
-}
-
-#upload-dialog div.fileinput {
-    margin-bottom: -10px;
-    padding-left: 48px;
-    padding-top: 7px;
-}
-
-#upload-dialog div.fileinput input {
-    background: #FFFFFF;
-}
-
-#upload-dialog div.description {
-    margin-left: 5px;
-}
-
-#upload-dialog div.description textarea {
-    width: 310px;
-}
-
-#upload-dialog div.buttonline{
-    text-align: center;
-}
-
-#upload-dialog ul {
-    list-style-type: none;
-}
-
-#inviteContainer {
-    background: #494949;
-    border: 1px solid #B2B2B2;
-    color: #B2B2B2;
-    width:400px;
+    width:302px;
     height:125px;
     position:absolute;
     left:50%;
     top:50%;
-    margin:-75px 0 0 -225px;
+    z-index:100;
+    margin:-62px 0 0 -151px;
     display:none;
+    -webkit-box-shadow: 4px 4px 8px #222;
+    -moz-box-shadow: 4px 4px 8px #222;
+    -o-box-shadow: 4px 4px 8px #222;
+    box-shadow: 4px 4px 8px #222;
 }
-#inviteContainer h1 {
-    background: url("../images/lao_invite.jpg") no-repeat scroll 0 0 transparent;
+
+#uploadContainer {
+    width: 400px;
+    height: 200px;
+    margin:-100px 0 0 -200px;
+}
+#uploadContainer form {
+    padding: 0 12px;
+}
+#uploadContainer form div {
+    text-align:center;
+    padding:20px 0 0 0;
+}
+#uploadContainer form span {
+    float:left;
+    display:block;
+    width:75px;
+}
+#uploadContainer form textarea {
+    width:293px;
+}
+
+#inviteContainer h1, #uploadContainer h1 {
     bottom: 3px;
     color: #B2B2B2;
     font-size: 16px;
     height: 45px;
     margin: 0 0 0 7px;
-    padding: 13px 0 0 135px;
+    padding: 13px 0 0 5px;
     position: relative;
     width: 100%;
 }
+#inviteContainer input#address {
+	width:230px;
+}
 #inviteContainer form {
-    padding:0 5px;
+    padding:0 12px;
+}
+#inviteContainer form div {
+	text-align:center;
+	padding: 15px 0 0 0;
 }
 
-#logout-dialog{
+#logoutContainer{
+    width:320px;
+    height:50px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin: -25px 0 0 -160px;
     background: none repeat scroll 0 0 #494949;
     color: #B2B2B2;
-    padding-bottom: 15px;
-    padding-top: 17px;
+    padding:10px 0 5px 0;
     text-align: center;
-    border: 3px solid #B2B2B2;
-    -webkit-box-shadow: 0px 0px 5px #AAA;
-    -moz-box-shadow: 0px 0px 5px #AAA;
-    -o-box-shadow: 0px 0px 5px #AAA;
-    -box-shadow: 0px 0px 5px #AAA;
-}
-
-.logout-dialog-text{
-    font-size: 20px;
-    overflow: hidden;
-    display: block;
+    border: 1px solid #B2B2B2;
+    font-size: 16px;
+    -webkit-box-shadow: 4px 4px 8px #222;
+    -moz-box-shadow: 4px 4px 8px #222;
+    -o-box-shadow: 4px 4px 8px #222;
+    box-shadow: 4px 4px 8px #222;
+    display:none;
+    z-index:101;
 }
 
 .logout-button{
@@ -971,10 +956,6 @@ nav.bottomNavigation ul li a span {
     text-align: center;
 }
 
-#address{
-    width: 350px;
-}
-
 .inviteUser  {
     float: right;
 }
@@ -982,27 +963,6 @@ nav.bottomNavigation ul li a span {
 a.inviteUser, a.inviteUser:hover, a.inviteUser:visited {
     color: #ffffff;
     text-decoration: none;
-}
-
-#invite-dialog div.invite-dialog-mail{
-    margin-left: 5px;
-}
-
-.ui-dialog-titlebar {
-    overflow: hidden;
-    margin: 0 0 -1px;
-    height: 0px;
-}
-
-#ui-dialog-title-upload-dialog, #ui-dialog-title-invite-dialog {
-    background: #494949;
-    color: #B2B2B2;
-    border: 1px solid #B2B2B2;
-    overflow: hidden;
-    font-weight: bold;
-    padding: 2px 4px;
-    width: 420px;
-    float: left;
 }
 
 .ui-dialog-titlebar-close {
@@ -1162,6 +1122,21 @@ a.inviteUser, a.inviteUser:hover, a.inviteUser:visited {
     border: 1px solid #000000;
     height: 19px;
     width: 190px;
+}
+.blurBox {
+    box-shadow:0 0 10px #F8F7B6!important;
+    background-color:rgba(248, 247, 187, 0.5)!important;
+    cursor:default!important;
+}
+.blurText {
+    text-shadow:0 0 5px rgba(50, 50, 50, 0.7);
+    color:rgba(94, 94, 94, 0);
+}
+.blurTextarea {
+	background:transparent!important;
+}
+.blurBox .creator {
+	display:none!important;
 }
 /* ==|== non-semantic helper classes ========================================
    Please define your styles before this section.
