@@ -115,7 +115,7 @@ $(function() {
             _moveWhiteboardItem(this, id);
         }
     });
-    $(".whiteboard").mousedown(function(){
+    $(".whiteboard").mousedown (function(){
     	$(this).css('cursor','pointer');
     });
 	
