@@ -147,7 +147,7 @@ $(function() {
         $(this).parent().find('span.creator').css('display', 'none');
     });
     
-     $('.note').live("mouseover", function() {        
+    $('.note').live("mouseover", function() {        
          $('.noteMenu',$(this)).css("display", "block");
     });
     $('.note').live("mouseleave", function() {
@@ -155,12 +155,5 @@ $(function() {
         
          $('.noteMenu',$(this)).css("display", "none");
     });
-     $('.noteMenu a').live("click", function() {
-        
-        
-    });
-    
-    
-    
     
 });
