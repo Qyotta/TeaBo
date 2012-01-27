@@ -51,6 +51,7 @@ public class NoteService {
 
         // Create a new Note
         Note note = new Note();
+
         note.setX(x);
         note.setY(y);
 
@@ -60,8 +61,18 @@ public class NoteService {
         Whiteboard w = whiteboardDao.findById(whiteboardid);
         note.setWhiteboard(w);
 
-        // Persist the created Note
         noteDao.save(note);
+
+        // WhiteboardItem last = findTail(item)
+        // if (last != null) {
+        // note.setPrev(last);
+        // }
+
+        // w.getWhiteboardObjects().add(note);
+        // whiteboardDao.saveOrUpdate(w);
+
+        // Persist the created Note
+        // noteDao.save(note);
 
         Map<String, Object> output = new HashMap<String, Object>();
 

@@ -9,7 +9,7 @@ public interface IWhiteboardDao {
 
     List<Whiteboard> findAll();
 
-    void save(Whiteboard whiteboard);
+    void saveOrUpdate(Whiteboard whiteboard);
 
     void delete(Whiteboard whiteboard);
 

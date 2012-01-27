@@ -20,7 +20,7 @@ import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
  * 
  */
 @Entity
-@Table(name = "lao_user")
+@Table(name = "LAO_USER")
 public class User {
     @Id
     @GeneratedValue

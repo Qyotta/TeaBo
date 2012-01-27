@@ -16,7 +16,7 @@ import org.cometd.java.annotation.Session;
 
 @Named
 @Singleton
-@Service("attachmentService")
+@Service("whiteboardItemService")
 public class WhiteboardItemService {
     @Inject
     private BayeuxServer bayeux;
@@ -77,6 +77,7 @@ public class WhiteboardItemService {
 
     @Listener(value = { "/service/whiteboardItem/order" })
     public void processOrder(ServerSession remote, ServerMessage.Mutable message) {
+
         Map<String, Object> data = message.getDataAsMap();
 
         Long id = (Long) data.get("id");
@@ -84,28 +85,17 @@ public class WhiteboardItemService {
 
         WhiteboardItem item = whiteboardItemDao.findById(id);
 
-        WhiteboardItem prev = item.getPrev();
-        WhiteboardItem next = item.getNext();
-        prev.setNext(next);
-        next.setPrev(prev);
-
-        WhiteboardItem last = whiteboardItemDao.findByAttribute("next", null);
-        last.setNext(item);
-        item.setPrev(last);
-
-        whiteboardItemDao.save(prev);
-        whiteboardItemDao.save(next);
+        item.setOrderIndex(whiteboardItemDao.getHighestOrderIndexByWhiteboardId(whiteboardid) + 1);
         whiteboardItemDao.save(item);
-        whiteboardItemDao.save(last);
-
-        WhiteboardItem[] listOfUpdatedElements = { prev, next, item, last };
 
         Map<String, Object> output = new HashMap<String, Object>();
-        output.put("updated", listOfUpdatedElements);
+        output.put("id", id);
+        output.put("newIndex", item.getOrderIndex());
 
         String channel = "/whiteboardItem/order/" + whiteboardid;
         for (ServerSession session : bayeux.getChannel(channel).getSubscribers()) {
             session.deliver(serverSession, channel, output, null);
         }
     }
+
 }

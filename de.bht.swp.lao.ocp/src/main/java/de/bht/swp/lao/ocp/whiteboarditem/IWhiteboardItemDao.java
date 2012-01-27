@@ -14,5 +14,7 @@ public interface IWhiteboardItemDao<T extends WhiteboardItem> {
 
     List<T> findAllbyWhiteboardId(Long id);
 
-    T findByAttribute(String key, String value);
+    T findByAttribute(String key, Object value);
+
+    Integer getHighestOrderIndexByWhiteboardId(Long id);
 }

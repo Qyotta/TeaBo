@@ -10,7 +10,7 @@ import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
  * 
  */
 @Entity
-@Table(name = "lao_note")
+@Table(name = "LAO_NOTE")
 public class Note extends WhiteboardItem {
 
     private String text;
