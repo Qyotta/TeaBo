@@ -171,7 +171,7 @@
 
 <div class="whiteboard draggable" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">
     <c:forEach var="note" items="${notes}">
-        <div class="note draggable" id="note-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px;">
+        <div class="note draggable" id="note-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px; z-index:<c:out value="${note.orderIndex}"/>;">
             <div class="noteItems">
                 <textarea name="text"><c:out value='${note.text}'/></textarea>
                 <span class="creator"><c:out value='${note.creator.email}'/></span>
@@ -184,7 +184,7 @@
         </div>
     </c:forEach>
     <c:forEach var="attachment" items="${attachments}">
-        <div class="attachment draggable" id="attachment-<c:out value="${attachment.id}"/>" style="left:<c:out value="${attachment.x}"/>px; top:<c:out value="${attachment.y}"/>px;">
+        <div class="attachment draggable" id="attachment-<c:out value="${attachment.id}"/>" style="left:<c:out value="${attachment.x}"/>px; top:<c:out value="${attachment.y}"/>px; z-index:<c:out value="${attachment.orderIndex}"/>;">
             <div class="attachmentItems">
             	<p class="image"><img src="${pageContext.request.contextPath}/images/teambox-free-file-icons/32px/${attachment.fileExtension}.png"></p>
             	<p class="filename">
