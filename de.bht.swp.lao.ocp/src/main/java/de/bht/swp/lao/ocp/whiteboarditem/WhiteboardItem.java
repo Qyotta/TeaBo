@@ -37,7 +37,7 @@ public class WhiteboardItem {
     @ManyToOne
     private Whiteboard whiteboard;
 
-    private int orderIndex;
+    private Integer orderIndex;
 
     private Boolean inProgress;
 
@@ -85,7 +85,7 @@ public class WhiteboardItem {
         return orderIndex;
     }
 
-    public void setOrderIndex(int orderIndex) {
+    public void setOrderIndex(Integer orderIndex) {
         this.orderIndex = orderIndex;
     }
 

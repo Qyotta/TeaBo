@@ -819,17 +819,8 @@ nav.bottomNavigation ul li a span {
 }
 
 .whiteboard .note {
-    background: none repeat scroll 0 0 #F8F7B6;
-    position: absolute;
-    padding: 5px;
-    width: 200px;
-    float: left;
-    margin: 10px;
-    cursor: move;
-    -webkit-box-shadow: 0px 0px 5px #AAA;
-    -moz-box-shadow: 0px 0px 5px #AAA;
-    -o-box-shadow: 0px 0px 5px #AAA;
-    box-shadow: 0px 0px 5px #AAA;
+    min-width: 235px;
+    position:absolute;
 }
 
 .whiteboard .note textarea {
@@ -850,14 +841,6 @@ nav.bottomNavigation ul li a span {
     width: 199px;
 }
 
-.locked {
-    position: relative;
-    left: 5px;
-    margin: 5px 0 0;
-    width: 10px;
-    padding: 0 0 5px;
-}
-
 .note .creator {
     display: none;
     float: left;
@@ -866,6 +849,53 @@ nav.bottomNavigation ul li a span {
     top: 7px;
     padding: 0 0 4px 0;
     margin: 3px 0 2px 0;
+}
+
+.whiteboard .noteItems{
+    background: none repeat scroll 0 0 #F8F7B6;
+    position: absolute;
+    padding: 5px;
+    float: left;
+    margin: 10px;
+    cursor: move;
+    -webkit-box-shadow: 0px 0px 5px #AAA;
+    -moz-box-shadow: 0px 0px 5px #AAA;
+    -o-box-shadow: 0px 0px 5px #AAA;
+    box-shadow: 0px 0px 5px #AAA;
+    width:200px;
+}
+
+.noteMenu{
+    float:right;
+    width:13px;
+    display:none;
+}
+
+.noteMenu a{
+display:inline;
+margin:-2 px;
+}
+
+.whiteboard .attachment {
+    cursor: move;
+    width: 120px;
+}
+
+.whiteboard .attachment .image {
+    text-align: center;
+}
+
+.whiteboard .attachment .filename {
+    text-align: center;
+    font-weight: bold;
+}
+
+.locked {
+    position: relative;
+    left: 5px;
+    margin: 5px 0 0;
+    width: 10px;
+    padding: 0 0 5px;
 }
 
 #inviteContainer, #uploadContainer {
@@ -1106,42 +1136,7 @@ a.inviteUser, a.inviteUser:hover, a.inviteUser:visited {
     position: absolute;
 }
 
-.whiteboard .attachment {
-    cursor: move;
-    width: 120px;
-}
 
-.whiteboard .attachment .image {
-    text-align: center;
-}
-
-.whiteboard .attachment .filename {
-    text-align: center;
-    font-weight: bold;
-}
-
-.noteItems{
-    float:left;
-    width:200px;
-        -webkit-box-shadow: 0px 0px 5px #AAA;
-    -moz-box-shadow: 0px 0px 5px #AAA;
-    -o-box-shadow: 0px 0px 5px #AAA;
-    box-shadow: 0px 0px 5px #AAA;
-    margin: 10px;
-    padding:5px;
-    background: none repeat scroll 0 0 #F8F7B6;
-}
-
-.noteMenu{
-    float:right;
-    width:13px;
-    display:none;
-}
-
-.noteMenu a{
-display:inline;
-margin:-2 px;
-}
 
 .loginContainer input#email, .loginContainer input#password {
     border: 1px solid #000000;

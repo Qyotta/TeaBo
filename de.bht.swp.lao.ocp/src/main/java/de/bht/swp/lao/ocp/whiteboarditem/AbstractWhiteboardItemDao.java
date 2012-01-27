@@ -51,8 +51,9 @@ public abstract class AbstractWhiteboardItemDao<T extends WhiteboardItem> implem
             if (whiteboardItem.getId() != null) {
                 em.merge(whiteboardItem);
             } else {
-                whiteboardItem
-                        .setOrderIndex(getHighestOrderIndexByWhiteboardId(whiteboardItem.getWhiteboard().getId()) + 1);
+                Long wid = whiteboardItem.getWhiteboard().getId();
+                int orderIndex = getHighestOrderIndexByWhiteboardId(wid) + 1;
+                whiteboardItem.setOrderIndex(orderIndex);
                 em.persist(whiteboardItem);
             }
         } catch (Exception e) {
@@ -104,6 +105,7 @@ public abstract class AbstractWhiteboardItemDao<T extends WhiteboardItem> implem
         try {
             index = (Integer) em.createQuery("SELECT MAX(w.orderIndex) from WhiteboardItem w WHERE w.whiteboard.id=?1")
                     .setParameter(1, id).getSingleResult();
+            getLogger().debug("" + index);
             System.out.println(index);
         } catch (Exception e) {
             throw new OCPDBException("getHighestOrderIndexByWhiteboardId failed", e);
