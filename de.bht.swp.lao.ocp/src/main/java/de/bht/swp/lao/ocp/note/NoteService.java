@@ -63,17 +63,6 @@ public class NoteService {
 
         noteDao.save(note);
 
-        // WhiteboardItem last = findTail(item)
-        // if (last != null) {
-        // note.setPrev(last);
-        // }
-
-        // w.getWhiteboardObjects().add(note);
-        // whiteboardDao.saveOrUpdate(w);
-
-        // Persist the created Note
-        // noteDao.save(note);
-
         Map<String, Object> output = new HashMap<String, Object>();
 
         output.put("id", note.getId());
