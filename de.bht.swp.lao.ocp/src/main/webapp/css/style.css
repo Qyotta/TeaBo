@@ -820,6 +820,7 @@ nav.bottomNavigation ul li a span {
 
 .whiteboard .note {
     min-width: 235px;
+    position:absolute;
 }
 
 .whiteboard .note textarea {

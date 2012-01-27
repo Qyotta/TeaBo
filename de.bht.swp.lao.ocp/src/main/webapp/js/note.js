@@ -13,8 +13,38 @@ function _postNote(_x, _y) {
 
 // create a posted note
 function _handlePostedNote(message) {
-    var text = $('<textarea/>')
-               .attr('name', 'text')
+    var _id       = message.data.id,
+    	_creator  = message.data.creator,
+    	_x        = message.data.x,
+    	_y        = message.data.y;
+    var basePath = $('.whiteboard').attr('data-context-path');
+	var template = 	'<div class="note draggable">'+
+						'<div class="noteItems">'+
+							'<textarea name="text"></textarea>'+
+							'<span class="creator"></span>'+
+						'</div>'+
+						'<div class="noteMenu">'+
+							'<a class="file_mouseOverMenu_top">'+
+								'<img src="'+basePath+'/images/file_mouseOverMenu_top.png">'+
+							'</a>'+
+							'<a class="file_mouseOverMenu_middle">'+
+								'<img src="'+basePath+'/images/file_mouseOverMenu_middle.png">'+
+							'</a>'+
+							'<a class="file_mouseOverMenu_bottom">'+
+								'<img src="'+basePath+'/images/file_mouseOverMenu_bottom.png">'+
+							'</a>'+
+						'</div>'+
+					'</div>';
+	
+	var view = $(template);
+	view.attr('id','note-'+ message.data.id);
+	view.css('left',_x+'px');
+    view.css('top',_y+'px');
+	
+	var creator = $('.noteItems .creator',view);
+	creator.html(_creator);
+	
+    var text = $('textarea[name="text"]',view)
                .attr('placeholder', 'your note text')
                .elasticArea().hover(
                function() {
@@ -23,23 +53,17 @@ function _handlePostedNote(message) {
                function() {
                    $(this).parent().find('span.creator').css('display', 'none');
                });
-
-    var creator = $('<span/>').addClass('creator').html(message.data.creator);
-
-    $('.whiteboard').append(
-        $('<div/>').addClass('note')
-                   .attr('id','note-'+ message.data.id)
-                   .css('left', message.data.x)
-                   .css('top', message.data.y)
-                   .append(text)
-                   .append(creator)
-                   .draggable({
-                        stop : function(e, ui) {
-                            var id = $(this).attr('id').split('-')[1];
-                            _moveWhiteboardItem(this,id);
-                        }
-                    }));
-
+    
+    view.draggable({
+    	handle:$('.file_mouseOverMenu_top',view),
+        stop : function(e, ui) {
+            var id = $(this).attr('id').split('-')[1];
+            _moveWhiteboardItem(this,id);
+        }
+    });
+    view.css("position","absolute");
+    $('.whiteboard').append(view);
+                   
     // resize all new textarea notes
     text.css('height', text[0].scrollHeight / 2 + 'px');
     text.css('height', text[0].scrollHeight + 'px');

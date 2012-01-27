@@ -159,6 +159,7 @@ $(function() {
 	});
 
 	$(".whiteboard .draggable").draggable({
+		handle:$('.file_mouseOverMenu_top',$(this)),
 		stop : function(e, ui) {
 			var id = $(this).attr('id').split('-')[1];
 			_moveWhiteboardItem(this, id);
