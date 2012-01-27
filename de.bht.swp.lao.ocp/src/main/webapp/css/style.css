@@ -868,12 +868,9 @@ nav.bottomNavigation ul li a span {
     float:right;
     width:13px;
     display:none;
+    font-size:0px; /* to avoid whitespace underneath each picture*/
 }
 
-.noteMenu a, .attachmentMenu a{
-display:inline;
-margin:-2 px;
-}
 
 .whiteboard .attachment {
     min-width: 130px;
