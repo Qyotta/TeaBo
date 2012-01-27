@@ -89,7 +89,7 @@ public class WhiteboardItemService {
         whiteboardItemDao.save(item);
 
         Map<String, Object> output = new HashMap<String, Object>();
-        output.put("id", id);
+        output.put("id", item.getClass().getSimpleName().toLowerCase() + "-" + id);
         output.put("newIndex", item.getOrderIndex());
 
         String channel = "/whiteboardItem/order/" + whiteboardid;
