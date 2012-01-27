@@ -187,7 +187,8 @@ public class WhiteboardController {
         Whiteboard w = whiteboardDao.findById(whiteboardId);
         invitedUser.addAssignedWhiteboard(w);
         userDao.save(invitedUser);
-        new Mailer().sendMessage(invitedUser, w);
+        String hostname = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        new Mailer(hostname, request.getContextPath()).sendMessage(invitedUser, w);
 
         return "redirect:/whiteboard/list.htm";
     }

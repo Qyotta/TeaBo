@@ -16,8 +16,9 @@ import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 
 public class Mailer {
     private static final String PRODUCT_NAME = "Online Collaboration Platform";
-    private static final String CONTEXT_PATH = "/de.bht.swp.lao.ocp";
-    private static final String SERVER_HOST = "http://localhost:8080";
+    private String contextPath = "/de.bht.swp.lao.ocp";
+    private String serverHost = "http://localhost:8080";
+
     private static final String TRUE = "true";
     private static final String SMTP_PROTOCOL = "smtp";
     private static final String SMTP_PASSWORD = "qwertz123";
@@ -30,6 +31,23 @@ public class Mailer {
 
     public Mailer() {
         this.sender = new JavaMailSenderImpl();
+        this.setProperties();
+    }
+
+    public Mailer(String serverHost, String contextPath) {
+        this.sender = new JavaMailSenderImpl();
+        this.setProperties();
+
+        if (serverHost != null) {
+            this.serverHost = serverHost;
+        }
+        if (contextPath != null) {
+            this.contextPath = contextPath;
+        }
+
+    }
+
+    private void setProperties() {
         Properties props = this.sender.getJavaMailProperties();
         props.put(MAIL_SMTP_STARTTLS_ENABLE, TRUE);
         props.put(MAIL_SMTP_AUTH, TRUE);
@@ -38,6 +56,7 @@ public class Mailer {
         this.sender.setUsername(SMTP_USERNAME);
         this.sender.setPassword(SMTP_PASSWORD);
         this.sender.setProtocol(SMTP_PROTOCOL);
+
     }
 
     public void sendMessage(final User invitedUser, final Whiteboard whiteboard) {
@@ -55,8 +74,8 @@ public class Mailer {
                 s.append(whiteboard.getName());
                 s.append(" Whiteboard <br />");
                 s.append("You may login at <a href='");
-                s.append(SERVER_HOST);
-                s.append(CONTEXT_PATH + "'>" + PRODUCT_NAME + "</a>...<br />");
+                s.append(serverHost);
+                s.append(contextPath + "'>" + PRODUCT_NAME + "</a>...<br />");
                 s.append("User: " + invitedUser.getEmail() + "<br />" + "Password: " + invitedUser.getPassword());
                 s.append("<br /><br />" + "With Regards,<br /><br />" + "[l]ook [a]head [o]nline");
 
