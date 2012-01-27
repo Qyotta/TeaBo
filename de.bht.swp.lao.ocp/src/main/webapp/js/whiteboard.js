@@ -62,7 +62,7 @@ function _handleMovedWhiteboardItem(message) {
 
 //handles cometd notification about changed order at z-axis
 function _handleForegroundWhiteboardItem(message) {
-	alert(message);
+	$('#'+message.data.id).css('z-index', message.data.newIndex);
 }
 
 
