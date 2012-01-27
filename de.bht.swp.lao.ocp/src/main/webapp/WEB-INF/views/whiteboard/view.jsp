@@ -185,13 +185,20 @@
     </c:forEach>
     <c:forEach var="attachment" items="${attachments}">
         <div class="attachment draggable" id="attachment-<c:out value="${attachment.id}"/>" style="left:<c:out value="${attachment.x}"/>px; top:<c:out value="${attachment.y}"/>px;">
-            <p class="image"><img src="${pageContext.request.contextPath}/images/teambox-free-file-icons/32px/${attachment.fileExtension}.png"></p>
-            <p class="filename">
-                <c:out value="${fn:substring(attachment.filename,0, attachment.fileNameLenght)}"/>
-            </p>
-            <input type="hidden" name="filename" class="full_filename" value="${attachment.filename}">
-            <input type="hidden" name="creator" class="creator" value="${attachment.creator.email}">
-            <input type="hidden" name="description" class="description" value="${attachment.shortDescription}">
+            <div class="attachmentItems">
+            	<p class="image"><img src="${pageContext.request.contextPath}/images/teambox-free-file-icons/32px/${attachment.fileExtension}.png"></p>
+            	<p class="filename">
+               		<c:out value="${fn:substring(attachment.filename,0, attachment.fileNameLenght)}"/>
+            	</p>
+            	<input type="hidden" name="filename" class="full_filename" value="${attachment.filename}">
+            	<input type="hidden" name="creator" class="creator" value="${attachment.creator.email}">
+            	<input type="hidden" name="description" class="description" value="${attachment.shortDescription}">
+            </div>
+            <div class="attachmentMenu">
+                <a class="file_mouseOverMenu_top"><img src="${pageContext.request.contextPath}/images/file_mouseOverMenu_top.png"></a>
+                <a class="file_mouseOverMenu_middle"><img src="${pageContext.request.contextPath}/images/file_mouseOverMenu_middle.png"></a>
+                <a class="file_mouseOverMenu_bottom"><img src="${pageContext.request.contextPath}/images/file_mouseOverMenu_bottom.png"></a>
+            </div>
         </div>
     </c:forEach>
 </div>

@@ -16,7 +16,25 @@ function _handlePostedAttachment(message){
         image = basePath +"/images/stop.gif";
     }
     
-    var template = '<div class="attachment draggable"><p class="image"><img src="'+ image + '"/></p><p class="filename"></p></div>';
+    var template = '<div class="attachment draggable">'+
+    					'<div class="attachmentItems">'+
+	    					'<p class="image">'+
+								'<img src="'+ image + '"/>'+
+							'</p>'+
+							'<p class="filename"></p>'+
+						'</div>'+
+						'<div class="attachmentMenu">'+
+							'<a class="file_mouseOverMenu_top">'+
+								'<img src="'+basePath+'/images/file_mouseOverMenu_top.png">'+
+							'</a>'+
+							'<a class="file_mouseOverMenu_middle">'+
+								'<img src="'+basePath+'/images/file_mouseOverMenu_middle.png">'+
+							'</a>'+
+							'<a class="file_mouseOverMenu_bottom">'+
+								'<img src="'+basePath+'/images/file_mouseOverMenu_bottom.png">'+
+							'</a>'+
+						'</div>'+
+					'</div>';
     var view = $(template);
     
     view.css('left',_x+'px');
@@ -25,12 +43,15 @@ function _handlePostedAttachment(message){
     var creator = $('.creator',view);
     creator.html(_creator);
     view.attr('id','attachment-'+_id);
+    
     view.draggable({
+    	handle:$('.file_mouseOverMenu_top',view),
         stop : function(e, ui) {
             var id = $(this).attr('id').split('-')[1];
             _moveWhiteboardItem(this,id);
         }
     });
+    view.css("position","absolute");
     
     $('.whiteboard').append(view);
     
@@ -72,7 +93,7 @@ function _handleUploadCompleteAttachment(message){
         imgPath = basePath+"/images/teambox-free-file-icons/32px/"+ext+".png",
         attachment = $('#attachment-'+message.data.id);
 
-    $('#attachment-'+message.data.id+ ' img').attr('src', imgPath);
+    $('#attachment-'+message.data.id+ ' .image img').attr('src', imgPath);
     attachment.find(".filename").text(filename.substr(0,11));
     attachment.append("<input type=\"hidden\" name=\"filename\" class=\"full_filename\" value=\""+message.data.filename+"\">"+
                       "<input type=\"hidden\" name=\"creator\" class=\"creator\" value=\""+message.data.creatoremail+"\">"+
@@ -196,4 +217,14 @@ $(function() {
         activeUpload = [$('#fileupload'), new Date().getTime()];
         _postAttachment($('#fileupload'));
     });
+    
+    $('.attachment').live("mouseover", function() {        
+        $('.attachmentMenu',$(this)).css("display", "block");
+   });
+   $('.attachment').live("mouseleave", function() {
+       console.log("mouseleave");
+       
+        $('.attachmentMenu',$(this)).css("display", "none");
+   });
+    
 });
