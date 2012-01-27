@@ -52,44 +52,51 @@ function _handleForegroundWhiteboardItem(message){
 	alert(message);
 }
 
+function containerFadeIn(elem) {
+    $(elem).fadeIn();
+    $('.whiteboard .note').addClass('blurBox').draggable('disable');
+    $('.whiteboard textarea').addClass('blurTextarea').attr('readonly','readonly').css('cursor','default');
+    $('.whiteboard textarea, .whiteboard .creator').addClass('blurText');
+    $('body').css('background','url("../images/whiteboard-background-blured.gif")');
+}
+function containerFadeOut(elem) {
+    $(elem).fadeOut();
+    $('.whiteboard .note').removeClass('blurBox').draggable('enable');
+    $('.whiteboard textarea').removeClass('blurTextarea').removeAttr('readonly').css('cursor','inherit');
+    $('.whiteboard textarea, .whiteboard .creator').removeClass('blurText');
+    $('body').css('background','url("../images/whiteboard-background.gif")');
+}
 
 // all actions
 $(function() {
-    // upload dialog initialization
-    $('#upload-dialog').dialog({
-        autoOpen : false,
-        closeOnEscape: false,
-        open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
-        modal : true,
-        width : 420,
-        draggable: false
-    });
-
     // open upload dialog
     $('a.uploadFile').live('click', function(e) {
-        e.preventDefault();
-        $('#upload-dialog > form > ul > li').not(":first-child").remove();
-        $('#upload-dialog > form > ul > li:first-child > input[type="file"]').val("");
-        $('#upload-dialog').dialog('open');
-        $('#upload-dialog').css('height', 'auto');
+        containerFadeIn('#uploadContainer');
+        return false;
     });
 
     // close upload dialog
     $('#fileupload button.cancel').click(function(){
-        $('#fileupload input[type=file], #fileupload textarea').val("");
-        $('#upload-dialog').dialog('close');
+        containerFadeOut('#uploadContainer');
     });
 
     $('a[href="invite"]').live('click', function(e) {
-        $('#inviteContainer').fadeIn();
+        containerFadeIn('#inviteContainer');
         return false;
     });
 
     $('#inviteContainer button.cancel').click(function(){
-        $('#inviteContainer').fadeOut();
+        containerFadeOut('#inviteContainer');
     });
 
-    
+    $('a[href="logout"]').live('click', function(e) {
+        containerFadeIn('#logoutContainer');
+        return false;
+    });
+
+    $('#logoutContainer button.cancel').click(function(){
+        containerFadeOut('#logoutContainer');
+    });
 
     $('.bottomNavigation ul li div').hover(function() {
         $(this).find('a').css('bottom','30px');

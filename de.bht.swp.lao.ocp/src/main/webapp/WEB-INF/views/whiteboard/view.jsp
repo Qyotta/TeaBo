@@ -56,12 +56,12 @@
     <a class="slideLeftButton"><img src="../images/slide_button.png"></a>
 </div>
 
-<div id="logout-dialog"> 
-    <div class="logout-dialog-text">Are you sure you want to logout?</div>
+<div id="logoutContainer"> 
+    Are you sure you want to logout?
     <div class="logout-button"> 
         <form:form method="post" action="${pageContext.request.contextPath}/user/logout.htm">
-        <input type="submit" value="YES">
-        <button type="button" class="cancel">NO</button>
+        <input type="submit" value="Yes">
+        <button type="button" class="cancel">No</button>
         </form:form>
     </div>
 </div>
@@ -71,25 +71,28 @@
         Invite a Person
         <span>Enter a Email adress</span>
     </h1>
-	<form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
-	    <div class="invite-dialog-mail">Mail: <form:input path="address"/></div><br/>
-	    <div class="buttonline" >
-	        <button type="button" class="cancel">Cancel</button>
-	        <input type="submit" value="Submit">
-	    </div>
-	</form:form>
+    <form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
+    Mail: <form:input path="address"/><br/>
+    <div class="buttonline" >
+        <input type="submit" value="Submit">
+        <button type="button" class="cancel">Cancel</button>
+    </div>
+</form:form>
 
 </div>
 
-<div id="upload-dialog"><b>Upload a File</b>
-    <div class="support_files">Supported file types are PDF, ...</div>
+<div id="uploadContainer">
+    <h1>
+        Upload a File
+        <span>Supported file types are PDF, DOC, DOCx, XLS, PPT, PPTx, ODP, ODF</span>
+    </h1>
     <iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
     <form:form method="post" enctype="multipart/form-data" id="fileupload" commandName="fileupload" action="${pageContext.request.contextPath}/attachment/uploadfile-${whiteboard.id}.htm" target="uploadFrame">
-        <div class="fileinput">File <input type="file" name="data"> <input type="hidden" name="id" id="uploadId" /></div><br/>
-        <div class="description">Description <textarea name="shortDescription" maxlength="170"></textarea></div>
-        
+        <span>File</span><input type="file" name="data"> <input type="hidden" name="id" id="uploadId" /><br/>
         <br/>
-        <div class="buttonline" >
+        <span>Description</span><textarea name="shortDescription" maxlength="170"></textarea>
+        <br/>
+        <div>
             <button type="button" class="cancel">Cancel</button>
             <input type="submit" value="Submit">
         </div> 

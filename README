@@ -1,4 +1,0 @@
-Die Ordner 'OnlineCollaborationPlatform' und 'yii' dem wwwroot-Verzeichnis des 
-Webservers verfügbar machen(symlink). Server starten. 
-Im Browser bspw. 'http://localhost/OnlineCollaborationPlatform/' eingeben.
-Nun erscheint eine Willkommen-Seite, wenn nicht ist etwas schief gelaufen.
