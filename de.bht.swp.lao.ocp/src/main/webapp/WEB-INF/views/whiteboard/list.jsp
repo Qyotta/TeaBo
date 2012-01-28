@@ -38,13 +38,15 @@
     </div>
 </nav>
 
-<div id="logout-dialog"> 
-    <div class="logout-dialog-text">Are you sure you want to logout?</div>
-    <div class="logout-button"> 
-        <form:form method="post" action="${pageContext.request.contextPath}/user/logout.htm">
-        <input type="submit" value="Yes">
-        <button type="button" class="cancel">No</button>
-        </form:form>
+<div class="dialogs">
+    <div id="logoutContainer"> 
+        Are you sure you want to logout?
+        <div class="logout-button"> 
+            <form:form method="post" action="${pageContext.request.contextPath}/user/logout.htm">
+            <input type="submit" value="Yes">
+            <button type="button" class="cancel">No</button>
+            </form:form>
+        </div>
     </div>
 </div>
 

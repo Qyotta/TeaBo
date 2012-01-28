@@ -130,11 +130,6 @@ $(function() {
         containerFadeOut('#inviteContainer');
     });
 
-    $('a[href="logout"]').live('click', function(e) {
-        containerFadeIn('#logoutContainer');
-        return false;
-    });
-
     $('#logoutContainer button.cancel').click(function() {
         containerFadeOut('#logoutContainer');
     });
