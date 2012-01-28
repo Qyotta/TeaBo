@@ -868,6 +868,7 @@ nav.bottomNavigation ul li a span {
     float:right;
     width:13px;
     display:none;
+    padding: 9px 0 0;
     font-size:0px; /* to avoid whitespace underneath each picture*/
 }
 
