@@ -149,7 +149,7 @@ $(function() {
     // close upload dialog
     $('#fileupload button.cancel').click(function(){
         $('#fileupload input[type=file], #fileupload textarea').val("");
-        $('#upload-dialog').dialog('close');
+        containerFadeOut('#uploadContainer');
     });
     
     $('.attachment').live('click', function(){
@@ -212,7 +212,7 @@ $(function() {
 
     // submit a file in upload dialog
     $('#fileupload input[type=submit]').click(function(event) {
-        $('#upload-dialog').dialog('close');
+        containerFadeOut('#uploadContainer');
         event.preventDefault();
         activeUpload = [$('#fileupload'), new Date().getTime()];
         _postAttachment($('#fileupload'));
