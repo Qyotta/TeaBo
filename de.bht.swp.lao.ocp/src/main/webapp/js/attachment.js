@@ -17,24 +17,24 @@ function _handlePostedAttachment(message){
     }
     
     var template = '<div class="attachment draggable">'+
-    					'<div class="attachmentItems">'+
-	    					'<p class="image">'+
-								'<img src="'+ image + '"/>'+
-							'</p>'+
-							'<p class="filename"></p>'+
-						'</div>'+
-						'<div class="attachmentMenu">'+
-							'<a class="file_mouseOverMenu_top">'+
-								'<img src="'+basePath+'/images/file_mouseOverMenu_top.png">'+
-							'</a>'+
-							'<a class="file_mouseOverMenu_middle">'+
-								'<img src="'+basePath+'/images/file_mouseOverMenu_middle.png">'+
-							'</a>'+
-							'<a class="file_mouseOverMenu_bottom">'+
-								'<img src="'+basePath+'/images/file_mouseOverMenu_bottom.png">'+
-							'</a>'+
-						'</div>'+
-					'</div>';
+                        '<div class="attachmentItems">'+
+                            '<p class="image">'+
+                                '<img src="'+ image + '"/>'+
+                            '</p>'+
+                            '<p class="filename"></p>'+
+                        '</div>'+
+                        '<div class="attachmentMenu">'+
+                            '<a class="file_mouseOverMenu_top">'+
+                                '<img src="'+basePath+'/images/file_mouseOverMenu_top.png">'+
+                            '</a>'+
+                            '<a class="file_mouseOverMenu_middle">'+
+                                '<img src="'+basePath+'/images/file_mouseOverMenu_middle.png">'+
+                            '</a>'+
+                            '<a class="file_mouseOverMenu_bottom">'+
+                                '<img src="'+basePath+'/images/file_mouseOverMenu_bottom.png">'+
+                            '</a>'+
+                        '</div>'+
+                    '</div>';
     var view = $(template);
     
     view.css('left',_x+'px');
@@ -45,7 +45,7 @@ function _handlePostedAttachment(message){
     view.attr('id','attachment-'+_id);
     
     view.draggable({
-    	handle:$('.file_mouseOverMenu_top',view),
+        handle:$('.file_mouseOverMenu_top',view),
         stop : function(e, ui) {
             var id = $(this).attr('id').split('-')[1];
             _moveWhiteboardItem(this,id);

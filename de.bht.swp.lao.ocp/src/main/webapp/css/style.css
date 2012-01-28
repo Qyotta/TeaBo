@@ -1,5 +1,5 @@
 /* 
- * HTML5 âœ° Boilerplate
+ * HTML5 Boilerplate
  *
  * What follows is the result of much research on cross-browser styling. 
  * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
@@ -878,8 +878,8 @@ nav.bottomNavigation ul li a span {
 }
 
 .whiteboard .attachment .attachmentItems{
-	width:120px;
-	float: left;
+    width:120px;
+    float: left;
 }
 
 .whiteboard .attachment .image {
@@ -949,14 +949,14 @@ nav.bottomNavigation ul li a span {
     width: 100%;
 }
 #inviteContainer input#address {
-	width:230px;
+    width:230px;
 }
 #inviteContainer form {
     padding:0 12px;
 }
 #inviteContainer form div {
-	text-align:center;
-	padding: 15px 0 0 0;
+    text-align:center;
+    padding: 15px 0 0 0;
 }
 
 #logoutContainer{
@@ -1154,10 +1154,10 @@ a.inviteUser, a.inviteUser:hover, a.inviteUser:visited {
     color:rgba(94, 94, 94, 0);
 }
 .blurTextarea {
-	background:transparent!important;
+    background:transparent!important;
 }
 .blurBox .creator {
-	display:none!important;
+    display:none!important;
 }
 /* ==|== non-semantic helper classes ========================================
    Please define your styles before this section.
