@@ -13,37 +13,36 @@ function _postNote(_x, _y) {
 
 // create a posted note
 function _handlePostedNote(message) {
-    var _id       = message.data.id,
-    	_creator  = message.data.creator,
-    	_x        = message.data.x,
-    	_y        = message.data.y;
+    var _creator  = message.data.creator,
+        _x        = message.data.x,
+        _y        = message.data.y;
     var basePath = $('.whiteboard').attr('data-context-path');
-	var template = 	'<div class="note draggable">'+
-						'<div class="noteItems">'+
-							'<textarea name="text"></textarea>'+
-							'<span class="creator"></span>'+
-						'</div>'+
-						'<div class="noteMenu">'+
-							'<a class="file_mouseOverMenu_top">'+
-								'<img src="'+basePath+'/images/file_mouseOverMenu_top.png">'+
-							'</a>'+
-							'<a class="file_mouseOverMenu_middle">'+
-								'<img src="'+basePath+'/images/file_mouseOverMenu_middle.png">'+
-							'</a>'+
-							'<a class="file_mouseOverMenu_bottom">'+
-								'<img src="'+basePath+'/images/file_mouseOverMenu_bottom.png">'+
-							'</a>'+
-						'</div>'+
-					'</div>';
-	
-	var view = $(template);
-	view.attr('id','note-'+ message.data.id);
-	view.css('left',_x+'px');
+    var template =  '<div class="note draggable">'+
+                        '<div class="noteItems">'+
+                            '<textarea name="text"></textarea>'+
+                            '<span class="creator"></span>'+
+                        '</div>'+
+                        '<div class="noteMenu">'+
+                            '<a class="file_mouseOverMenu_top">'+
+                                '<img src="'+basePath+'/images/file_mouseOverMenu_top.png">'+
+                            '</a>'+
+                            '<a class="file_mouseOverMenu_middle">'+
+                                '<img src="'+basePath+'/images/file_mouseOverMenu_middle.png">'+
+                            '</a>'+
+                            '<a class="file_mouseOverMenu_bottom">'+
+                                '<img src="'+basePath+'/images/file_mouseOverMenu_bottom.png">'+
+                            '</a>'+
+                        '</div>'+
+                    '</div>';
+    
+    var view = $(template);
+    view.attr('id','note-'+ message.data.id);
+    view.css('left',_x+'px');
     view.css('top',_y+'px');
-	
-	var creator = $('.noteItems .creator',view);
-	creator.html(_creator);
-	
+    
+    var creator = $('.noteItems .creator',view);
+    creator.html(_creator);
+    
     var text = $('textarea[name="text"]',view)
                .attr('placeholder', 'your note text')
                .elasticArea().hover(
@@ -55,7 +54,7 @@ function _handlePostedNote(message) {
                });
     
     view.draggable({
-    	handle:$('.file_mouseOverMenu_top',view),
+        handle:$('.file_mouseOverMenu_top',view),
         stop : function(e, ui) {
             var id = $(this).attr('id').split('-')[1];
             _moveWhiteboardItem(this,id);
@@ -111,12 +110,12 @@ $(function() {
         if (divId != undefined) {
             id = divId.split('-')[1];
             _reportProgressStateWhiteboardItem(id, true);
+            
+            activeNoteId = id;
+            saveInterval = window.setInterval( function() {
+                _editNote(clickedNote, id);
+            }, 500);
         }
-
-        activeNoteId = id;
-        saveInterval = window.setInterval( function() {
-            _editNote(clickedNote, id);
-        }, 500);
     });
 
     // unmark note after typing
@@ -151,8 +150,6 @@ $(function() {
          $('.noteMenu',$(this)).css("display", "block");
     });
     $('.note').live("mouseleave", function() {
-        console.log("mouseleave");
-        
          $('.noteMenu',$(this)).css("display", "none");
     });
     
