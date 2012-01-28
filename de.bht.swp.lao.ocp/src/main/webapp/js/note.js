@@ -110,12 +110,12 @@ $(function() {
         if (divId != undefined) {
             id = divId.split('-')[1];
             _reportProgressStateWhiteboardItem(id, true);
+            
+            activeNoteId = id;
+            saveInterval = window.setInterval( function() {
+                _editNote(clickedNote, id);
+            }, 500);
         }
-
-        activeNoteId = id;
-        saveInterval = window.setInterval( function() {
-            _editNote(clickedNote, id);
-        }, 500);
     });
 
     // unmark note after typing
@@ -150,8 +150,6 @@ $(function() {
          $('.noteMenu',$(this)).css("display", "block");
     });
     $('.note').live("mouseleave", function() {
-        console.log("mouseleave");
-        
          $('.noteMenu',$(this)).css("display", "none");
     });
     

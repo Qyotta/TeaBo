@@ -94,20 +94,21 @@ function _reportElementOrder(_id) {
 
 
 function containerFadeIn(elem) {
-    $(elem).fadeIn();
-    $('.whiteboard .note').addClass('blurBox').draggable('disable');
-    $('.whiteboard textarea').addClass('blurTextarea').attr('readonly',
-            'readonly').css('cursor', 'default');
-    $('.whiteboard textarea, .whiteboard .creator').addClass('blurText');
-    $('body').css('background',
-            'url("../images/whiteboard-background-blured.gif")');
+    $('.dialogs div[id]').fadeOut(500,function() {
+        if($(this).attr('id')==$(elem).attr('id')) $(elem).fadeIn();
+    });
+    $('.whiteboard').draggable('disable').css('cursor', 'default!important');
+    $('.whiteboard .note, .whiteboard .attachment').draggable('disable').addClass('blurBox');
+    $('.whiteboard .noteItems textarea').addClass('blurTextarea').attr('readonly', 'readonly').css('cursor', 'default');
+    $('.whiteboard .noteItems textarea, .whiteboard .creator').addClass('blurText');
+    $('body').css('background', 'url("../images/whiteboard-background-blured.gif")');
 }
 function containerFadeOut(elem) {
     $(elem).fadeOut();
-    $('.whiteboard .note').removeClass('blurBox').draggable('enable');
-    $('.whiteboard textarea').removeClass('blurTextarea')
-            .removeAttr('readonly').css('cursor', 'inherit');
-    $('.whiteboard textarea, .whiteboard .creator').removeClass('blurText');
+    $('.whiteboard').draggable('enable').css('cursor', 'inherit');
+    $('.whiteboard .note, .whiteboard .attachment').draggable('enable').removeClass('blurBox');
+    $('.whiteboard .noteItems textarea').removeClass('blurTextarea').removeAttr('readonly').css('cursor', 'inherit');
+    $('.whiteboard .noteItems textarea, .whiteboard .creator').removeClass('blurText');
     $('body').css('background', 'url("../images/whiteboard-background.gif")');
 }
 
