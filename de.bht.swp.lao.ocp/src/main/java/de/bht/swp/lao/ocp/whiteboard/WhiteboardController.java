@@ -117,6 +117,9 @@ public class WhiteboardController {
     @RequestMapping(value = "/list.htm", method = RequestMethod.GET)
     public String list(ModelMap model, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
+        user = userDao.findById(user.getId()); // in session there is only a
+                                               // copy, u need the obj from the
+                                               // db instead
 
         if (user == null) {
             return "redirect:/user/login.htm";
