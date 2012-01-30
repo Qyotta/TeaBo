@@ -72,8 +72,8 @@
                 <c:forEach var="whiteboard" items="${whiteboards}">
                     <li><a
                         href="${pageContext.request.contextPath}/whiteboard/view-<c:out value="${whiteboard.id}"/>.htm"><c:out
-                                value="${whiteboard.name}" /> </a> <a
-                        href="${pageContext.request.contextPath}/whiteboard/delete-<c:out value="${whiteboard.id}"/>.htm">Delete</a>
+                                value="${whiteboard.name}" /></a> <a
+                        href="${pageContext.request.contextPath}/whiteboard/delete-<c:out value="${whiteboard.id}"/>.htm" class="delete"><img src="../images/cross.png" alt="delete"></a>
                     </li>
                 </c:forEach>
             </ul>

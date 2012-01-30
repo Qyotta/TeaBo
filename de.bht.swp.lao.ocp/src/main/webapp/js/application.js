@@ -51,4 +51,8 @@ $(function() {
         var dir = $(this).parent().css('right') === "0px";
         $(this).parent().animate({right: dir?"-199px":"0px"}, 200); 
     });
+    
+    $('.mainPanel ul a.delete').click(function(){
+        return confirm('Delete Whiteboard: '+$(this).prev().html()+' ?');
+    }); 
 });
