@@ -108,7 +108,7 @@ function _reportProgressStateWhiteboardItem(_id, _inProgress) {
 $(function() {
     // mark note as in progress
     $('.note input[type=text], .note textarea').live('focus', function() {
-        var clickedNote = $(this).parent(),
+        var clickedNote = $(this).parent().parent(),
             divId       = clickedNote.attr("id");
 
         if (divId != undefined) {
@@ -124,16 +124,17 @@ $(function() {
 
     // unmark note after typing
     $('.note input[type=text], .note textarea').live( 'blur', function() {
-        var clickedNote = $(this).parent(),
+        var clickedNote = $(this).parent().parent(),
             divId = clickedNote.attr("id");
 
         if (divId != undefined) {
             id = divId.split('-')[1];
             _reportProgressStateWhiteboardItem(id, false);
+            _editNote(clickedNote, id);
         }
         activeNoteId = null;
         window.clearInterval(saveInterval);
-        _editNote(clickedNote, id);
+        
     });
 
     // new note
