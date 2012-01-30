@@ -102,71 +102,69 @@
 
 <div id="startscreen">
     <div class="lightbox" data-type="tooltip">
-        <h1>Hallo und Willkommen zu [lao]</h1>
-        [lao] (look ahead online) ist ein Online-Collaboration-Tool mit dem Sie die Möglichkeit haben mit
-        Ihren Freunden oder Kollegen interaktiv eine Idee oder ein Projekt in Echtzeit zu entwickeln.<br/>
+        <h1>Hello and welcome to [lao]</h1>
+        [lao] (look ahead online) is an online collaboration tool for the development of ideas, 
+        brainstorming or just collecting information during a project. All this can be done interactive and 
+        in real-time with colleagues or friends.<br/>
         <br/>
-        Es stehen Ihnen dabei eine Vielzahl von Möglichkeiten zur Verfügung ihre Idee zu präsentieren,
-        ob über eine Note oder einem Bild. Ihr interaktives Whiteboard, auf dem Sie arbeiten, verhält
-        sich dabei wie ein echtes Whiteboard! Sobald Sie etwas darauf packen, werden es alle
-        eingeladenen User sofort sehen können!<br/>
+        You have a multitude of possibilities to present your information. For example place notes, upload files or 
+        add pictures to the [lao]-whiteboard. The whiteboard is your interactive platform for working collaboratively with 
+        a chosen group of colleagues or friends. <br>
         <br/>
-        Besuchen Sie unsere interaktive Tour, wo Sie alle wichtigen Optionen des Whiteboards
-        kennenlernen und sich so schnell einen Überblick über die Möglichkeiten des Tools machen können.<br/>
+        Take the interactive tour, where you will see all the important features and get a quick overview of the whiteboard.<br/>
         <br/>
-        Viel Spaß bei der Nutzung des Tools!<br/>
-        <br/>        
-        <input type="button" class="closeToolTip" value="Fenster schließen" />
-        <input type="button" class="nextToolTip" value="Tour starten" />
+        Enjoy using this tool!<br/>
+        <br/>
+        <input type="button" class="closeToolTip" value="Close window" />
+        <input type="button" class="nextToolTip" value="Start tour" />
         
         <div class="showAgain">
             <input type="checkbox" name="showAgain" id="showAgain" value="1" checked="checked"/> Don't show this again!
-        </div>       
+        </div>
     </div>
     <div class="bubble" id="createNote" data-type="tooltip">
         <img src="${pageContext.request.contextPath}/images/tooltips/bottom-right.png" class="bottom" style="left:260px" />
         <button class="closeToolTip" />X</button>
-        <h2>Note erstellen</h2>
-        Beim Klicken auf dieses Symbol (Bild) wird Ihnen eine Note auf dem Whiteboard erzeugt. Sie
-        können danach diese Note beliebig mit Inhalt füllen, verschieben, vergrößern oder gar löschen.
-        Alle Notes auf dem Whiteboard können von jedem Benutzer verändert werden. Jeder hat die gleichen
-        Rechte! Die einzige Ausnahme ist, wenn eine Note gerade von einem anderen Benutzer bearbeitet
-        wird, ist sie für andere User nicht änderbar.
+        <h2>Create a note</h2>
+        Create a note on the Whiteboard and add textual information. You can add some text, later edit it, move the note or delete it.<br/>
         <br/>
-        <input type="button" class="nextToolTip" value="Weiter" />
-        <input type="button" class="prevToolTip" value="Zurück" />
+        Every note can be edited by everyone else, who is assigned to the whiteboard. The only exception is, while somebody is editing a note, 
+        nobody else can edit it.<br/>
+        <br/>
+        <input type="button" class="nextToolTip" value="Next" />
+        <input type="button" class="prevToolTip" value="Back" />
     </div>
     <div class="bubble" id="uploadFile" data-type="tooltip">
         <img src="${pageContext.request.contextPath}/images/tooltips/bottom-right.png" class="bottom" style="left:260px" />
         <button class="closeToolTip" />X</button>
-        <h2>Datei hochladen</h2>
-        Sie haben auch die Möglichkeit auf dem Whiteboard Dateien zu platzieren. Klicken sie dafür auf
-        folgendes Symbol (Bild). Ein kleines Fenster öffnet sich, wo Sie die Datei angeben können, die
-        hochgeladen werden soll (Bild vom Fenster). Folgende Dateitypen sind erlaubt: PDF, DOC, DOCx,
-        XLS, PPT, PPTx, ODP, ODF. Nach dem Upload wird ein kleines Symbol sichtbar, welches genauso wie
-        eine Note verschoben und angeordnet werden kann.
+        <h2>Upload a file</h2>
+        Via clicking on this icon you can add files to the whiteboard. A small window will pop up, 
+        where you can choose the file, which you would like to upload.<br/>
         <br/>
-        <input type="button" class="nextToolTip" value="Weiter" />
-        <input type="button" class="prevToolTip" value="Zurück" />
+        The following file types are allowed: PDF, DOC, DOCx, XLS, PPT, PPTx, ODP, ODF.<br/>
+        <br/>
+        After the upload of the file, a small symbol will appear, which can be moved just like a note.<br/>
+        <br/>
+        <input type="button" class="nextToolTip" value="Next" />
+        <input type="button" class="prevToolTip" value="Back" />
     </div>
     <div class="bubble" id="inviteUser" data-type="tooltip">
         <img src="${pageContext.request.contextPath}/images/tooltips/top-right.png" class="top" style="left:20px" />
         <button class="closeToolTip" />X</button>
-        <h2>User zum Whiteboard einladen</h2>
-        Um auch wirklich collaborativ arbeiten zu können, brauchen wir nur noch mehrere Benutzer, die
-        auf das Whiteboard Zugriff haben. Laden Sie doch dazu einfach Ihren Freund oder Kollegen ein!
-        Mit dem "Benutzer hinzufügen" Formular (Bild) geht das ganz einfach. Geben Sie dazu die
-        Emailadresse an, mit der die Person bei [lao] angemeldet ist. Ist er dies noch nicht, wird er
-        automatisch vom System hinzugefügt und kann das Tool sofort nutzen.
+        <h2>Invite a user to a whiteboard</h2>
+        For working collaboratively with others, just invite a user. The only thing you need is the email address of the user.<br/>
         <br/>
-        <input type="button" class="nextToolTip" value="Weiter" />
-        <input type="button" class="prevToolTip" value="Zurück" />
+        If the person is already registered, the user can see the whiteboard in his personal overview. Otherwise the system will 
+        register and notify the user via email.<br/>
+        <br/>
+        <input type="button" class="nextToolTip" value="Next" />
+        <input type="button" class="prevToolTip" value="Back" />
     </div>
     <div class="lightbox" data-type="tooltip">
-        <h1>Tour beendet!</h1>
-        Unsere interaktive Tour ist nun zuende. Viel Spaß mit Ihrem Whiteboard
+        <h1>End of the tour!</h1>
+        Enjoy your whiteboard!<br/>
         <br/>
-        <input type="button" class="closeToolTip" value="Fenster schließen" />
+        <input type="button" class="closeToolTip" value="Close window" />
     </div>
 </div>
 
