@@ -142,7 +142,7 @@ public class WhiteboardController {
         User user = (User) request.getSession().getAttribute("user");
 
         if (name == null || name.equals("")) {
-            return "whiteboard/list";
+            return "redirect:/whiteboard/list.htm";
         }
 
         if (user == null) {
