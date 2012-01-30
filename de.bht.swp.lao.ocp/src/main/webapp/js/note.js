@@ -56,6 +56,9 @@ function _handlePostedNote(message) {
     view.draggable({
         handle:$('.file_mouseOverMenu_top',view),
         scroll: false,
+        drag: function(e,ui){
+			console.log(ui.helper.left+' '+ui.helper.top);
+		},
         stop : function(e, ui) {
             var id = $(this).attr('id').split('-')[1];
             _moveWhiteboardItem(this,id);

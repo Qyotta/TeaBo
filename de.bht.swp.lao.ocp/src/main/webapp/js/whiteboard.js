@@ -112,17 +112,43 @@ function containerFadeOut(elem) {
 
 function handleDragWhiteboard(e){
     var whiteboard = $('#whiteboard');
-    var xOld = whiteboard.css('left').substr(0,whiteboard.css('left').length - 2);
-    var yOld = whiteboard.css('top').substr(0,whiteboard.css('top').length - 2);
+    var xOld = getCssPixelInt(whiteboard,'left');
+    var yOld = getCssPixelInt(whiteboard,'top');
     
     var xMove = startX - parseInt(e.pageX);
     var yMove = startY - parseInt(e.pageY);
     
-    whiteboard.css('left',(parseInt(xOld)-xMove)+'px');
-    whiteboard.css('top',(parseInt(yOld)-yMove)+'px');
+    whiteboard.css('left',(xOld-xMove)+'px');
+    whiteboard.css('top',(yOld-yMove)+'px');
     
     startX = parseInt(e.pageX);
     startY = parseInt(e.pageY);
+}
+
+function _handleDragItem(e,ui){
+    var xMin=0,yMin=25,xMax=window.innerWidth-250,yMax=window.innerHeight-75;
+    var x = ui.offset.left, y=ui.offset.top;
+    var xMove = 0,yMove = 0;
+    
+    if(x<xMin) xMove = -1;
+    else if(x>xMax)xMove = 1;
+    
+    if(y<yMin) yMove = -1;
+    else if(y>yMax) yMove = 1;
+    
+    var wb = $('#whiteboard');
+    var xWb = getCssPixelInt(wb,'left')-xMove;
+    var yWb = getCssPixelInt(wb,'top')-yMove;
+    
+    $(this).css('left',getCssPixelInt($(this),'left')+xMove);
+    $(this).css('top',getCssPixelInt($(this),'top')+yMove);
+    
+    wb.css('left',xWb+'px');
+    wb.css('top',yWb+'px');
+}
+
+function getCssPixelInt(elem,attr){
+	return parseInt(elem.css(attr).substr(0,elem.css(attr).length - 2));
 }
 
 // all actions
@@ -170,7 +196,7 @@ $(function() {
     $(".whiteboard .draggable").draggable({
         handle : $('.file_mouseOverMenu_top', $(this)),
         scroll: false,
-        
+        drag: _handleDragItem,
         stop : function(e, ui) {
             var id = $(this).attr('id').split('-')[1];
             _moveWhiteboardItem(this, id);
@@ -178,7 +204,6 @@ $(function() {
     });
     
     $('body').mousedown(function(e){
-        console.log(currentModus);
         if(currentModus==MODUS.HAND){
             $(this).css('cursor', 'pointer');
             startX = parseInt(e.pageX);
