@@ -218,12 +218,12 @@ $(function() {
         _postAttachment($('#fileupload'));
     });
     
-    $('.attachment').live("mouseover", function() {        
+    $('.attachment').live("mouseover", function() {
+        currentModus=MODUS.SELECT;
         $('.attachmentMenu',$(this)).css("display", "block");
    });
    $('.attachment').live("mouseleave", function() {
-       console.log("mouseleave");
-       
+        currentModus=MODUS.HAND;
         $('.attachmentMenu',$(this)).css("display", "none");
    });
     

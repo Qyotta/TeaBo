@@ -799,6 +799,12 @@ nav.bottomNavigation ul li a span {
     color: #C2C2C2;
 }
 
+#whiteboard{
+    position:relative;
+    left:0px;
+    top:0px;
+}
+
 .whiteboard {
     position: relative;
     width: 100%;

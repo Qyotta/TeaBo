@@ -2,8 +2,13 @@ var saveInterval,
     activeNoteId,
     activeUpload=null;
 
+var MODUS = {
+    HAND: 'HAND',
+    SELECT: 'SELECT' };
+
+var currentModus = MODUS.HAND;
+
 $(function() {
-    
     function containerFadeIn(elem) {
         $('.dialogs div[id]').fadeOut(500,function() {
             if($(this).attr('id')==$(elem).attr('id')) $(elem).fadeIn();

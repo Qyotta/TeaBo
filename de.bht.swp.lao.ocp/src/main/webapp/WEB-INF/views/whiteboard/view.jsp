@@ -9,6 +9,7 @@
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
 <!--[if gt IE 8]> <html class="no-js" lang="en">           <![endif]-->
 
+<head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>[lao] - Online Collaboration Platform</title>
@@ -33,7 +34,8 @@
 <script src="${pageContext.request.contextPath}/js/cometd.js"></script>
 
 <script type="text/javascript">$(document).ready(function() {var basePath = "${pageContext.request.contextPath}"});</script>
-
+</head>
+<body>
 <nav class="topNavigation">
     <h1 class="logo">
         <a href="${pageContext.request.contextPath}/user/login.htm">
@@ -170,7 +172,7 @@
     </div>
 </div>
 
-<div class="whiteboard draggable" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">
+<div id="whiteboard" class="whiteboard draggable" data-context-path="${pageContext.request.contextPath}" data-user-mail="${user.email}" data-whiteboard-id="${whiteboard.id}">
     <c:forEach var="note" items="${notes}">
         <div class="note draggable" id="note-<c:out value="${note.id}"/>" style="left:<c:out value="${note.x}"/>px; top:<c:out value="${note.y}"/>px; z-index:<c:out value="${note.orderIndex}"/>;">
             <div class="noteItems">
@@ -210,3 +212,5 @@
         <li><div><a href="#" class="uploadFile"><img src="../images/new_file.png" alt="uploadFile" title="Load File" /><span>File</span></a></div></li>
     </ul>
 </nav> 
+</body>
+</html>

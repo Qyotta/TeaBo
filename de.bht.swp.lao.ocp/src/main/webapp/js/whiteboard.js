@@ -1,3 +1,5 @@
+var startX,startY;
+
 //handles
 
 function _handleProgressedWhiteboardItem(message) {
@@ -108,6 +110,21 @@ function containerFadeOut(elem) {
     $('body').css('background', 'url("../images/whiteboard-background.gif")');
 }
 
+function handleDragWhiteboard(e){
+    var whiteboard = $('#whiteboard');
+    var xOld = whiteboard.css('left').substr(0,whiteboard.css('left').length - 2);
+    var yOld = whiteboard.css('top').substr(0,whiteboard.css('top').length - 2);
+    
+    var xMove = startX - parseInt(e.pageX);
+    var yMove = startY - parseInt(e.pageY);
+    
+    whiteboard.css('left',(parseInt(xOld)-xMove)+'px');
+    whiteboard.css('top',(parseInt(yOld)-yMove)+'px');
+    
+    startX = parseInt(e.pageX);
+    startY = parseInt(e.pageY);
+}
+
 // all actions
 $(function() {
     // open upload dialog
@@ -152,19 +169,35 @@ $(function() {
 
     $(".whiteboard .draggable").draggable({
         handle : $('.file_mouseOverMenu_top', $(this)),
+        scroll: false,
+        
         stop : function(e, ui) {
             var id = $(this).attr('id').split('-')[1];
             _moveWhiteboardItem(this, id);
         }
     });
-    $(".whiteboard").mousedown(function() {
-        $(this).css('cursor', 'pointer');
-    });
-
-    $(".whiteboard").draggable({
-        stop : function(e, ui) {
-            console.log('viewport changed');
-            $(this).css('cursor', 'auto');
+    
+    $('body').mousedown(function(e){
+        console.log(currentModus);
+        if(currentModus==MODUS.HAND){
+            $(this).css('cursor', 'pointer');
+            startX = parseInt(e.pageX);
+            startY = parseInt(e.pageY);
+            $('body').mousemove(handleDragWhiteboard);
         }
     });
+       
+    $('body').mouseup(function(){
+        $('body').unbind('mousemove',handleDragWhiteboard);
+        $(this).css('cursor', 'auto');
+    });
 });
+          // We love tabs                
+        	            	             
+     			    		             
+    							         
+    							         
+        					             
+            			                 
+                	                     
+                                         

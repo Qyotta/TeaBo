@@ -55,6 +55,7 @@ function _handlePostedNote(message) {
     
     view.draggable({
         handle:$('.file_mouseOverMenu_top',view),
+        scroll: false,
         stop : function(e, ui) {
             var id = $(this).attr('id').split('-')[1];
             _moveWhiteboardItem(this,id);
@@ -146,10 +147,12 @@ $(function() {
         $(this).parent().find('span.creator').css('display', 'none');
     });
     
-    $('.note').live("mouseover", function() {        
+    $('.note').live("mouseover", function() {
+         currentModus=MODUS.SELECT;
          $('.noteMenu',$(this)).css("display", "block");
     });
     $('.note').live("mouseleave", function() {
+         currentModus=MODUS.HAND;
          $('.noteMenu',$(this)).css("display", "none");
     });
     
