@@ -22,7 +22,7 @@ function _handleEditingWhiteboardItem(message) {
         if (locked.length == 0) {
             locked = $('<img/>').attr('class', 'locked').attr('src',
                     '../images/locked.png');
-            whiteboardItem.append(locked);
+            whiteboardItem.find('.noteItems').append(locked);
         }
         if (message.data.editing == false) {
             locked.css('display', 'none');
@@ -184,6 +184,19 @@ $(function() {
         return false;
     });
 
+    $('#inviteContainer input[type="submit"]').click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: $(this).parent().parent().attr('action'),
+            type: 'POST',
+            data: "mailData="+$(this).parent().parent().find('.mailaddress').val(),
+            success: function(jsonData) {
+                alert(jsonData);
+            }
+        });
+        containerFadeOut('#inviteContainer');
+    });
+    
     $('#inviteContainer button.cancel').click(function() {
         containerFadeOut('#inviteContainer');
     });
@@ -196,7 +209,7 @@ $(function() {
         $(this).find('a').css('bottom', '30px');
         $(this).find('span').css('display', 'block');
     }, function() {
-        $(this).find('a').css('bottom', '15px');
+        $(this).find('a').css('bottom', '25px');
         $(this).find('span').css('display', 'none');
     });
 
@@ -220,7 +233,7 @@ $(function() {
     
     $('body').mousedown(function(e){
         if(currentModus==MODUS.HAND){
-            $(this).css('cursor', 'pointer');
+            $(this).css('cursor', 'move');
             startX = parseInt(e.pageX);
             startY = parseInt(e.pageY);
             $('body').mousemove(handleDragWhiteboard);

@@ -18,7 +18,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
 
 <script src="${pageContext.request.contextPath}/js/libs/jquery/jquery-1.6.2.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/libs/jquery/jquery-ui-1.8.17.js"></script>
 <script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/js/libs/org/cometd.js"></script>
@@ -72,10 +72,10 @@
     <div id="inviteContainer" title="Invite a person">
         <h1>
             Invite a Person
-            <span>Enter a Email adress</span>
+            <span>Enter an Email address</span>
         </h1>
         <form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
-        Mail: <form:input path="address"/><br/>
+        Mail: <form:input class="mailaddress" path="address"/><br/>
         <div class="buttonline" >
             <input type="submit" value="Submit">
             <button type="button" class="cancel">Cancel</button>
@@ -125,7 +125,7 @@
         </div>
     </div>
     <div class="bubble" id="createNote" data-type="tooltip">
-        <img src="${pageContext.request.contextPath}/images/tooltips/bottom-right.png" class="bottom" style="left:260px" />
+        <img src="${pageContext.request.contextPath}/images/tooltips/bottom.png" class="bottom" style="left:5px" />
         <button class="closeToolTip" />X</button>
         <h2>Create a note</h2>
         Create a note on the Whiteboard and add textual information. You can add some text, later edit it, move the note or delete it.<br/>
@@ -133,11 +133,11 @@
         Every note can be edited by everyone else, who is assigned to the whiteboard. The only exception is, while somebody is editing a note, 
         nobody else can edit it.<br/>
         <br/>
-        <input type="button" class="nextToolTip" value="Next" />
         <input type="button" class="prevToolTip" value="Back" />
+        <input type="button" class="nextToolTip" value="Next" />
     </div>
     <div class="bubble" id="uploadFile" data-type="tooltip">
-        <img src="${pageContext.request.contextPath}/images/tooltips/bottom-right.png" class="bottom" style="left:260px" />
+        <img src="${pageContext.request.contextPath}/images/tooltips/bottom.png" class="bottom" style="left:5px" />
         <button class="closeToolTip" />X</button>
         <h2>Upload a file</h2>
         Via clicking on this icon you can add files to the whiteboard. A small window will pop up, 
@@ -147,11 +147,11 @@
         <br/>
         After the upload of the file, a small symbol will appear, which can be moved just like a note.<br/>
         <br/>
-        <input type="button" class="nextToolTip" value="Next" />
         <input type="button" class="prevToolTip" value="Back" />
+        <input type="button" class="nextToolTip" value="Next" />
     </div>
     <div class="bubble" id="inviteUser" data-type="tooltip">
-        <img src="${pageContext.request.contextPath}/images/tooltips/top-right.png" class="top" style="left:20px" />
+        <img src="${pageContext.request.contextPath}/images/tooltips/top.png" class="top" style="right:120px" />
         <button class="closeToolTip" />X</button>
         <h2>Invite a user to a whiteboard</h2>
         For working collaboratively with others, just invite a user. The only thing you need is the email address of the user.<br/>
@@ -159,8 +159,22 @@
         If the person is already registered, the user can see the whiteboard in his personal overview. Otherwise the system will 
         register and notify the user via email.<br/>
         <br/>
-        <input type="button" class="nextToolTip" value="Next" />
         <input type="button" class="prevToolTip" value="Back" />
+        <input type="button" class="nextToolTip" value="Next" />
+    </div>
+    <div class="bubble" id="dragAndDrop" data-type="tooltip">
+        <button class="closeToolTip" />X</button>
+        <h2>Move Whiteboard and Notes</h2>
+        You can move your notes and your whiteboard via drag and drop. This allows you to order your notes as you want. You're able
+        to move the whiteboard and every note!<br/>
+        <br/>
+        <img src="${pageContext.request.contextPath}/images/tooltips/moveNotes.png" class="top" style="right:120px" />
+        <br />
+        To move the whiteboard, just click on it and move it to your desire position. For notes you'll find a handler to move each
+        one.<br/>
+        <br/>
+        <input type="button" class="prevToolTip" value="Back" />
+        <input type="button" class="nextToolTip" value="Next" />
     </div>
     <div class="lightbox" data-type="tooltip">
         <h1>End of the tour!</h1>
@@ -206,8 +220,11 @@
 
 <nav class="bottomNavigation">
     <ul>
-        <li><div><a href="#" class="createNote"><img src="../images/new_note.png" alt="create_note" title="create new note" /><span>Note</span></a></div></li>
-        <li><div><a href="#" class="uploadFile"><img src="../images/new_file.png" alt="uploadFile" title="Load File" /><span>File</span></a></div></li>
+        <li><div><a href="#" class="createNote"><img src="../images/new_note.png" alt="create new note" title="create new note" /><span>Note</span></a></div></li>
+        <li><div><a href="#" class="uploadFile"><img src="../images/new_file.png" alt="upload file" title="upload file" /><span>File</span></a></div></li>
+    </ul>
+    <ul>
+        <li><div><a href="showToolTips"><img src="../images/showTooltips.png" alt="show tooltips" /><span>Tooltip</span></a></div></li>
     </ul>
 </nav> 
 </body>

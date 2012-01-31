@@ -1,7 +1,10 @@
 package de.bht.swp.lao.ocp.whiteboard;
 
+import java.io.IOException;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -173,18 +176,18 @@ public class WhiteboardController {
      * @param whiteboardId
      *            The id of the whiteboard.
      * @return The name of the view to display.
+     * @throws IOException
      */
     @RequestMapping(value = "/inviteuser-{whiteboardId}.htm", method = RequestMethod.POST)
-    public String invite(@ModelAttribute("mailaddress") MailData mailData, BindingResult result,
-            HttpServletRequest request, @PathVariable("whiteboardId") Long whiteboardId) {
-        String emailAddress = mailData.getAddress();
+    public void invite(@RequestParam("mailData") String mailaddress, HttpServletRequest request,
+            @PathVariable("whiteboardId") Long whiteboardId, HttpServletResponse response) throws IOException {
 
-        User invitedUser = userDao.findByEmail(emailAddress);
+        User invitedUser = userDao.findByEmail(mailaddress);
 
         if (invitedUser == null) {
             invitedUser = new User();
-            invitedUser.setEmail(emailAddress);
-            invitedUser.setPassword("qwertz");
+            invitedUser.setEmail(mailaddress);
+            invitedUser.setPassword(Mailer.randomPassword());
         }
 
         Whiteboard w = whiteboardDao.findById(whiteboardId);
@@ -193,6 +196,10 @@ public class WhiteboardController {
         String hostname = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         new Mailer(hostname, request.getContextPath()).sendMessage(invitedUser, w);
 
-        return "redirect:/whiteboard/list.htm";
+        String s = "{'message':'successful'}";
+
+        response.setHeader("Content-type", " application/json");
+        response.getOutputStream().write(s.getBytes());
+        response.flushBuffer();
     }
 }

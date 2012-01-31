@@ -65,9 +65,8 @@ function _uploadFile(id){
     $('#fileupload #uploadId').val(id);
     $('#fileupload').submit();
     $('#fileupload input[type=file], #fileupload textarea').val("");
-    $('#uploadFrame').load(function(){
-        // TODO eval is EVIL!!
-        var attachment = eval("(" +$(this).contents().find("pre").text()+ ")");
+    $('#uploadFrame', top.document).load(function(){
+        var attachment = eval("("+$(this).contents().text()+")");
         if(attachment['error'] != undefined){
             alert("Your File was not valid.");
             cometd.publish('/service/attachment/remove', {
@@ -158,7 +157,7 @@ $(function() {
             basePath = $('.whiteboard').attr('data-context-path'),
             full_name = $('<h2/>').attr('class','full_filename').html(attachment.find('.full_filename').val()),
             creator = $('<div/>').attr('class','creator').html('uploded by '+attachment.find('.creator').val()),
-            description = $('<textarea/>').attr('class','description').html(attachment.find('.description').val()),
+            description = $('<textarea/>').attr('class','description').attr('readonly','readonly').html(attachment.find('.description').val()),
             id = $(this).attr('id').split('-')[1],
             download = $('<a/>').attr('href',basePath+"/attachment/"+id+"/"+attachment.find('.full_filename').val()+"/download.htm").html('[DownloadButton]'),
             fileinfo = $('<div/>')
@@ -174,7 +173,7 @@ $(function() {
         rightNavigation.find('.fileinfo').remove();
         rightNavigation.append(fileinfo);
         $(".rightNavigation").stop(true, false).animate({ 
-            right: "0px", 
+            right: "0px"
         }, 200);
     }).live('dblclick',function() {
         var attachment = $(this),

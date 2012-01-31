@@ -573,6 +573,8 @@ nav.topNavigation {
     position: absolute;
     top: 100px;
     width: 220px;
+    margin: 0 0 0 25px;
+    padding: 0 0 0 10px;
 }
 
 .mainPanel ul a {
@@ -779,8 +781,12 @@ nav.topNavigation {
 }
 
 nav.bottomNavigation ul {
-    padding: 0px 0 0 20px;
+    padding: 0 0 0 20px;
     float: left;
+}
+nav.bottomNavigation ul:last-Child {
+    padding: 0 20px 0 0;
+    float: right;
 }
 
 nav.bottomNavigation ul li {
@@ -893,7 +899,8 @@ nav.bottomNavigation ul li a span {
 .locked {
     position: relative;
     left: 5px;
-    margin: 5px 0 0;
+    top:4px;
+    margin: 3px 0 0;
     width: 10px;
     padding: 0 0 5px;
 }
@@ -1020,7 +1027,8 @@ a.inviteUser, a.inviteUser:hover, a.inviteUser:visited {
     width: 600px;
     position: absolute;
     left: 50%;
-    margin: 0 0 0 -300px;
+    top:50%;
+    margin: -180px 0 0 -300px;
     overflow: hidden;
     z-index: 9999999;
     padding: 20px;
@@ -1034,65 +1042,68 @@ a.inviteUser, a.inviteUser:hover, a.inviteUser:visited {
     -o-box-shadow: 0px 0px 30px #AAA;
     box-shadow: 0px 0px 30px #AAA;
 }
-
+#startscreen div.lightbox h1, #startscreen div.bubble h2 {
+    margin-top:0px;
+}
 #startscreen div.bubble {
     z-index: 9999999;
     position: absolute;
     background: #000;
     color: #fff;
     /*transparency*/
-    opacity: .75;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
-    filter: alpha(opacity =         75);
+    opacity: .85;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)";
+    filter: alpha(opacity = 85);
     /*box shadow*/
     -webkit-box-shadow: 0px 0px 30px #AAA;
     -moz-box-shadow: 0px 0px 30px #AAA;
     -o-box-shadow: 0px 0px 30px #AAA;
     box-shadow: 0px 0px 30px #AAA;
     /*border-radius*/
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -o-border-radius: 10px;
-    border-radius: 10px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
     width: 300px;
     padding: 10px;
 }
 
-#startscreen div.bubble img.bottom {
-    bottom: -50px;
-    position: absolute;
-}
-
-#startscreen div.bubble img.left {
-    left: -50px;
-    position: absolute;
-}
-
-#startscreen div.bubble img.top {
-    top: -50px;
-    position: absolute;
-}
-
-#startscreen div.bubble img.right {
-    right: -50px;
-    position: absolute;
-}
+#startscreen div.bubble img.bottom, 
+#startscreen div.bubble img.left, 
+#startscreen div.bubble img.top, 
+#startscreen div.bubble img.right { position: absolute; }
+#startscreen div.bubble img.bottom { bottom: -50px }
+#startscreen div.bubble img.left { left: -50px }
+#startscreen div.bubble img.top { top: -50px }
+#startscreen div.bubble img.right { right: -50px }
 
 #startscreen #createNote {
-    bottom: 95px;
-    right: 30px;
+    bottom: 105px;
+    left: 12px;
 }
 
 #startscreen #uploadFile {
-    bottom: 95px;
-    right: 70px;
+    bottom: 105px;
+    left: 67px;
 }
 
 #startscreen #inviteUser {
-    left: 100px;
-    top: 160px;
+    right: 100px;
+    top: 80px;
 }
-
+#startscreen #dragAndDrop {
+    left:50%;
+    top:50%;
+    width: 400px;
+    margin:-135px 0 0 -200px;
+}
+#startscreen #dragAndDrop img {
+    float: left;
+    padding: 0 21px 0 0;
+    position: relative;
+    right: 0!important;
+    top: -4px;
+}
 #startscreen #prev {
     position: absolute;
     left: 3px;
