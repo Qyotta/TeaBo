@@ -9,7 +9,6 @@
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
 <!--[if gt IE 8]> <html class="no-js" lang="en">           <![endif]-->
 
-<head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>[lao] - Online Collaboration Platform</title>
@@ -34,8 +33,7 @@
 <script src="${pageContext.request.contextPath}/js/cometd.js"></script>
 
 <script type="text/javascript">$(document).ready(function() {var basePath = "${pageContext.request.contextPath}"});</script>
-</head>
-<body>
+
 <nav class="topNavigation">
     <h1 class="logo">
         <a href="${pageContext.request.contextPath}/user/login.htm">
@@ -226,6 +224,4 @@
     <ul>
         <li><div><a href="showToolTips"><img src="../images/showTooltips.png" alt="show tooltips" /><span>Tooltip</span></a></div></li>
     </ul>
-</nav> 
-</body>
-</html>
+</nav>
