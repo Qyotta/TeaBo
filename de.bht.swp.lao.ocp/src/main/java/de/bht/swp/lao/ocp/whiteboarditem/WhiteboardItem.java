@@ -39,7 +39,7 @@ public class WhiteboardItem {
 
     private Integer orderIndex;
 
-    private Boolean inProgress;
+    private Boolean editing;
 
     public Long getId() {
         return id;
@@ -89,11 +89,11 @@ public class WhiteboardItem {
         this.orderIndex = orderIndex;
     }
 
-    public void setInProgress(Boolean inProgress) {
-        this.inProgress = inProgress;
+    public void setEditing(Boolean editing) {
+        this.editing = editing;
     }
 
-    public Boolean isInProgress() {
-        return this.inProgress;
+    public Boolean isEditing() {
+        return this.editing;
     }
 }

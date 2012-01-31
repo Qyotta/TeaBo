@@ -1,10 +1,8 @@
 var startX,startY;
 
 //handles
-
-function _handleProgressedWhiteboardItem(message) {
+function _handleEditingWhiteboardItem(message) {
     _id = message.data.id;
-
     whiteboardItem = null;
     note = $('#note-' + _id);
 
@@ -16,7 +14,7 @@ function _handleProgressedWhiteboardItem(message) {
             whiteboardItem = attachment;
         }
     }
-
+    
     if (whiteboardItem == null) {
         return null;
     } else {
@@ -26,12 +24,25 @@ function _handleProgressedWhiteboardItem(message) {
                     '../images/locked.png');
             whiteboardItem.append(locked);
         }
-        if (message.data.inProgress == false) {
+        if (message.data.editing == false) {
             locked.css('display', 'none');
         } else {
             locked.css('display', 'block');
         }
     }
+}
+
+/**
+* Reports the editing state of a whiteboard item via cometd.
+* 
+* @param {Number} _id    The id of a whiteboard item.
+*/
+function _reportEditingStateWhiteboardItem(_id, _editing) {
+    cometd.publish('/service/whiteboardItem/editing', {
+        id : parseInt(_id),
+        editing : Boolean(_editing),
+        whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
+    });
 }
 
 // updates a moved whiteboarditem
@@ -70,11 +81,8 @@ function _handleForegroundWhiteboardItem(message) {
 
 // store the new position of a whiteboardItem
 function _moveWhiteboardItem(_whiteboardItem, _id) {
-    _x = $(_whiteboardItem).css('left').substr(0,
-            $(_whiteboardItem).css('left').length - 2);
-    _y = $(_whiteboardItem).css('top').substr(0,
-            $(_whiteboardItem).css('top').length - 2);
-
+    _x = cssPxToInt($(_whiteboardItem),'left');
+    _y = cssPxToInt($(_whiteboardItem),'top');
     cometd.publish('/service/whiteboardItem/move', {
         id : parseInt(_id),
         x : parseInt(_x),
@@ -88,7 +96,6 @@ function _reportElementOrder(_id) {
         id : parseInt(_id),
         whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
     });
-    console.log('reportedNewOrder');
 }
 
 function containerFadeIn(elem) {
@@ -112,8 +119,8 @@ function containerFadeOut(elem) {
 
 function handleDragWhiteboard(e){
     var whiteboard = $('#whiteboard');
-    var xOld = getCssPixelInt(whiteboard,'left');
-    var yOld = getCssPixelInt(whiteboard,'top');
+    var xOld = cssPxToInt(whiteboard,'left');
+    var yOld = cssPxToInt(whiteboard,'top');
     
     var xMove = startX - parseInt(e.pageX);
     var yMove = startY - parseInt(e.pageY);
@@ -137,17 +144,25 @@ function _handleDragItem(e,ui){
     else if(y>yMax) yMove = 1;
     
     var wb = $('#whiteboard');
-    var xWb = getCssPixelInt(wb,'left')-xMove;
-    var yWb = getCssPixelInt(wb,'top')-yMove;
+    var xWb = cssPxToInt(wb,'left')-xMove;
+    var yWb = cssPxToInt(wb,'top')-yMove;
     
-    $(this).css('left',getCssPixelInt($(this),'left')+xMove);
-    $(this).css('top',getCssPixelInt($(this),'top')+yMove);
+    $(this).css('left',cssPxToInt($(this),'left')+xMove);
+    $(this).css('top',cssPxToInt($(this),'top')+yMove);
     
     wb.css('left',xWb+'px');
     wb.css('top',yWb+'px');
 }
 
-function getCssPixelInt(elem,attr){
+/**
+* Helper method to parse the integer from a css representation.
+* 
+* @param {jQueryObject} elem    A jquery object
+* @param {String} attr    A css position attribute like 'left','top','right' or 'bottom'. Shouldn't be null in objects css representation.
+* 
+* @return {String}   Returns the parsed integer value
+*/
+function cssPxToInt(elem,attr){
 	return parseInt(elem.css(attr).substr(0,elem.css(attr).length - 2));
 }
 

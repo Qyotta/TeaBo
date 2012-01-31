@@ -53,23 +53,23 @@ public class WhiteboardItemService {
         }
     }
 
-    @Listener(value = { "/service/whiteboardItem/progress" })
+    @Listener(value = { "/service/whiteboardItem/editing" })
     public void processProgress(ServerSession remote, ServerMessage.Mutable message) {
         Map<String, Object> data = message.getDataAsMap();
 
         Long id = (Long) data.get("id");
-        Boolean inProgress = (Boolean) data.get("inProgress");
+        Boolean editing = (Boolean) data.get("editing");
         Long whiteboardid = (Long) data.get("whiteboardid");
 
         WhiteboardItem item = whiteboardItemDao.findById(id);
-        item.setInProgress(inProgress);
+        item.setEditing(editing);
         whiteboardItemDao.save(item);
 
         Map<String, Object> output = new HashMap<String, Object>();
         output.put("id", id);
-        output.put("inProgress", inProgress);
+        output.put("editing", editing);
 
-        String channel = "/whiteboardItem/progress/" + whiteboardid;
+        String channel = "/whiteboardItem/editing/" + whiteboardid;
         for (ServerSession session : bayeux.getChannel(channel).getSubscribers()) {
             session.deliver(serverSession, channel, output, null);
         }

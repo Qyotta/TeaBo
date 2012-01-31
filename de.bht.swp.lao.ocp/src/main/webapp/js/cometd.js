@@ -20,7 +20,7 @@ $(function() {
                 cometd.subscribe('/note/posted/'+ $('.whiteboard').attr('data-whiteboard-id'),_handlePostedNote);
                 cometd.subscribe('/note/edited/'+$('.whiteboard').attr('data-whiteboard-id'),_handleUpdatedNote);
                 cometd.subscribe('/whiteboardItem/move/'+$('.whiteboard').attr('data-whiteboard-id'),_handleMovedWhiteboardItem);
-                cometd.subscribe('/whiteboardItem/progress/'+$('.whiteboard').attr('data-whiteboard-id'),_handleProgressedWhiteboardItem);
+                cometd.subscribe('/whiteboardItem/editing/'+$('.whiteboard').attr('data-whiteboard-id'),_handleEditingWhiteboardItem);
                 cometd.subscribe('/whiteboardItem/order/'+$('.whiteboard').attr('data-whiteboard-id'), _handleForegroundWhiteboardItem);
                 cometd.subscribe('/attachment/posted/'+$('.whiteboard').attr('data-whiteboard-id'),_handlePostedAttachment);
                 cometd.subscribe('/attachment/upload/complete/'+$('.whiteboard').attr('data-whiteboard-id'),_handleUploadCompleteAttachment);

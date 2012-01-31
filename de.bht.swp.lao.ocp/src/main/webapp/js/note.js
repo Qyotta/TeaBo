@@ -1,17 +1,23 @@
-// posts a new note
+/**
+* Posts a note via cometd.
+* 
+* @param {Number} _x    The x position.
+* @param {Number} _y    The y position.
+*/
 function _postNote(_x, _y) {
     cometd.publish('/service/note/post/', {
-        // set x and y positions
         x : parseInt(_x),
         y : parseInt(_y),
-        // set creator
         creator : $('.whiteboard').attr('data-user-mail'),
-        // set whiteboard id
         whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
     });
 }
 
-// create a posted note
+/**
+* Initialize a posted note and add it to DOM.
+* 
+* @param {CometdMessage} message    An cometd message object.
+*/
 function _handlePostedNote(message) {
     var _creator  = message.data.creator,
         _x        = message.data.x,
@@ -73,7 +79,12 @@ function _handlePostedNote(message) {
     text.css('height', parseInt(text[0].css('height')) === 0 ? '17px': this.style.height);
 }
 
-// edit a note on whiteboard
+/**
+* Posts an edited note via cometd.
+* 
+* @param {jQueryObject} _note    An edited note. Should contain a textarea named text.
+* @param {Number} _id    The id of the note.
+*/
 function _editNote(_note, _id) {
     _text = $(_note).find('textarea[name=text]').val();
     cometd.publish('/service/note/edit/', {id:parseInt(_id),text:_text,
@@ -81,7 +92,11 @@ function _editNote(_note, _id) {
     );
 }
 
-// updates a note
+/**
+* Updates an edited note.
+* 
+* @param {CometdMessage} message    An cometd message object. Should contain 'data.id'
+*/
 function _handleUpdatedNote(message) {
     if (activeNoteId == message.data.id) {
         return null;
@@ -95,15 +110,6 @@ function _handleUpdatedNote(message) {
     }
 }
 
-// show progress state of uploaded whiteboarditem
-function _reportProgressStateWhiteboardItem(_id, _inProgress) {
-    cometd.publish('/service/whiteboardItem/progress', {
-        id : parseInt(_id),
-        inProgress : Boolean(_inProgress),
-        whiteboardid : parseInt($('.whiteboard').attr('data-whiteboard-id'))
-    });
-}
-
 // all actions
 $(function() {
     // mark note as in progress
@@ -113,7 +119,7 @@ $(function() {
 
         if (divId != undefined) {
             id = divId.split('-')[1];
-            _reportProgressStateWhiteboardItem(id, true);
+            _reportEditingStateWhiteboardItem(id, true);
             
             activeNoteId = id;
             saveInterval = window.setInterval( function() {
@@ -129,7 +135,7 @@ $(function() {
 
         if (divId != undefined) {
             id = divId.split('-')[1];
-            _reportProgressStateWhiteboardItem(id, false);
+            _reportEditingStateWhiteboardItem(id, false);
             _editNote(clickedNote, id);
         }
         activeNoteId = null;
