@@ -140,7 +140,6 @@ $(function() {
         }
         activeNoteId = null;
         window.clearInterval(saveInterval);
-        
     });
 
     // new note
@@ -151,19 +150,11 @@ $(function() {
     });
     
     $('.note').find('textarea').elasticArea();
-    $('.note textarea').hover( function() {
-        $(this).parent().find('span.creator').css('display', 'block');
-    },function() {
-        $(this).parent().find('span.creator').css('display', 'none');
+    $('.note').live('mousedown', function() { 
+        $(this).find('.noteMenu').css('display','block');
+        $(this).find('.creator').css('display','none');
     });
-    
-    $('.note').live("mouseover", function() {
-         currentModus=MODUS.SELECT;
-         $('.noteMenu',$(this)).css("display", "block");
-    });
-    $('.note').live("mouseleave", function() {
-         currentModus=MODUS.HAND;
-         $('.noteMenu',$(this)).css("display", "none");
-    });
+    $('.note').live("mouseover", function() { currentModus=MODUS.SELECT; });
+    $('.note').live("mouseleave", function() { currentModus=MODUS.HAND; });
     
 });

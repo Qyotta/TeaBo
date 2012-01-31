@@ -358,10 +358,6 @@ html {
     overflow: hidden;
 }
 
-body {
-    background: url('../images/whiteboard-background.gif');
-}
-
 nav.rightNavigation {
     width: 300px;
     position: absolute;
@@ -810,9 +806,12 @@ nav.bottomNavigation ul li a span {
 }
 
 #whiteboard{
+    background: url('../images/whiteboard-background.gif');
     position:relative;
     left:0px;
     top:0px;
+    width:100000px;
+    height:100000px;
 }
 
 .whiteboard {
@@ -825,6 +824,13 @@ nav.bottomNavigation ul li a span {
 .whiteboard .note {
     min-width: 235px;
     position:absolute;
+}
+
+.whiteboard .note:hover .noteMenu {
+    display:block;
+}
+.whiteboard .note .noteItems:hover .creator {
+    display:block;
 }
 
 .whiteboard .note textarea {

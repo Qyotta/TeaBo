@@ -133,25 +133,14 @@ function handleDragWhiteboard(e){
 }
 
 function _handleDragItem(e,ui){
-    var xMin=0,yMin=25,xMax=window.innerWidth-250,yMax=window.innerHeight-75;
-    var x = ui.offset.left, y=ui.offset.top;
-    var xMove = 0,yMove = 0;
-    
-    if(x<xMin) xMove = -1;
-    else if(x>xMax)xMove = 1;
-    
-    if(y<yMin) yMove = -1;
-    else if(y>yMax) yMove = 1;
-    
-    var wb = $('#whiteboard');
-    var xWb = cssPxToInt(wb,'left')-xMove;
-    var yWb = cssPxToInt(wb,'top')-yMove;
-    
-    $(this).css('left',cssPxToInt($(this),'left')+xMove);
-    $(this).css('top',cssPxToInt($(this),'top')+yMove);
-    
-    wb.css('left',xWb+'px');
-    wb.css('top',yWb+'px');
+    var left = parseInt($(this).css('left')) > 0 ? parseInt($(this).css('left')) : 0;
+    var top  = parseInt($(this).css('top'))  > 0 ? parseInt($(this).css('top'))  : 20;
+
+    if(parseInt($(this).css('left')) < 0 || parseInt($(this).css('top')) < 0) {
+        $(this).css('left',left+'px');
+        $(this).css('top',top+'px');
+        return false;
+    }
 }
 
 /**
@@ -163,7 +152,7 @@ function _handleDragItem(e,ui){
 * @return {String}   Returns the parsed integer value
 */
 function cssPxToInt(elem,attr){
-	return parseInt(elem.css(attr).substr(0,elem.css(attr).length - 2));
+    return parseInt(elem.css(attr).substr(0,elem.css(attr).length - 2));
 }
 
 // all actions
@@ -227,6 +216,8 @@ $(function() {
         drag: _handleDragItem,
         stop : function(e, ui) {
             var id = $(this).attr('id').split('-')[1];
+            $(this).find('.noteMenu').css('display','');
+            $(this).find('.creator').css('display','');
             _moveWhiteboardItem(this, id);
         }
     });
@@ -241,6 +232,14 @@ $(function() {
     });
        
     $('body').mouseup(function(){
+        if(parseInt($('#whiteboard').css('left')) > 0 || parseInt($('#whiteboard').css('top')) > 0) {
+            var left = parseInt($('#whiteboard').css('left')) < 0 ? parseInt($('#whiteboard').css('left')) : 0;
+            var top  = parseInt($('#whiteboard').css('top'))  < 0 ? parseInt($('#whiteboard').css('top'))  : 0;
+            $('#whiteboard').animate({
+                top:  top+'px',
+                left: left+'px'
+            },200);
+        }
         $('body').unbind('mousemove',handleDragWhiteboard);
         $(this).css('cursor', 'auto');
     });
