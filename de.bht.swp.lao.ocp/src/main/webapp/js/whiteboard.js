@@ -169,6 +169,19 @@ $(function() {
         return false;
     });
 
+    $('#inviteContainer input[type="submit"]').click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: $(this).parent().parent().attr('action'),
+            type: 'POST',
+            data: "mailData="+$(this).parent().parent().find('.mailaddress').val(),
+            success: function(jsonData) {
+                alert(jsonData);
+            },
+        });
+        containerFadeOut('#inviteContainer');
+    });
+    
     $('#inviteContainer button.cancel').click(function() {
         containerFadeOut('#inviteContainer');
     });
