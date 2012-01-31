@@ -175,8 +175,8 @@ $(function() {
             url: $(this).parent().parent().attr('action'),
             type: 'POST',
             data: "mailData="+$(this).parent().parent().find('.mailaddress').val(),
-            success: function(jsonData) {
-                alert(jsonData);
+            success: function(data) {
+                alert('User was invited');
             },
         });
         containerFadeOut('#inviteContainer');

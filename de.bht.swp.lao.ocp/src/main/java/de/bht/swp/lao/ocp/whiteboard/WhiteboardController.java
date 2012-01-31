@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -196,7 +194,7 @@ public class WhiteboardController {
         String hostname = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         new Mailer(hostname, request.getContextPath()).sendMessage(invitedUser, w);
 
-        String s = "{'message':'successful'}";
+        String s = "{\"success\":true}";
 
         response.setHeader("Content-type", " application/json");
         response.getOutputStream().write(s.getBytes());
