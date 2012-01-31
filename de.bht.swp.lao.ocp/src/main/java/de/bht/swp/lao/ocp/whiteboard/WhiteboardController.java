@@ -184,7 +184,7 @@ public class WhiteboardController {
         if (invitedUser == null) {
             invitedUser = new User();
             invitedUser.setEmail(emailAddress);
-            invitedUser.setPassword("qwertz");
+            invitedUser.setPassword(Mailer.randomPassword());
         }
 
         Whiteboard w = whiteboardDao.findById(whiteboardId);

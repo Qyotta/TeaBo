@@ -27,6 +27,7 @@ public class Mailer {
     private static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
     private static final String SMTP_URL = "smtp.googlemail.com";
     private static final int SMTP_PORT = 587;
+    private static final int PASS_LENGTH = 10;
     private final JavaMailSenderImpl sender;
 
     public Mailer() {
@@ -87,5 +88,15 @@ public class Mailer {
         } catch (MailException ex) {
             System.err.println(ex.getMessage());
         }
+    }
+
+    public static String randomPassword() {
+        String allchars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        char[] chars = allchars.toCharArray();
+        StringBuilder password = new StringBuilder();
+        for (int i = 0; i < PASS_LENGTH; i++) {
+            password.append(chars[(int) Math.round(Math.random() * (chars.length - 1))]);
+        }
+        return password.toString();
     }
 }
