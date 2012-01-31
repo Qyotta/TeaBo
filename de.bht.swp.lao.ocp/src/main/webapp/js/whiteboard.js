@@ -181,7 +181,7 @@ $(function() {
         $(this).find('a').css('bottom', '30px');
         $(this).find('span').css('display', 'block');
     }, function() {
-        $(this).find('a').css('bottom', '15px');
+        $(this).find('a').css('bottom', '25px');
         $(this).find('span').css('display', 'none');
     });
 
@@ -205,7 +205,7 @@ $(function() {
     
     $('body').mousedown(function(e){
         if(currentModus==MODUS.HAND){
-            $(this).css('cursor', 'pointer');
+            $(this).css('cursor', 'move');
             startX = parseInt(e.pageX);
             startY = parseInt(e.pageY);
             $('body').mousemove(handleDragWhiteboard);

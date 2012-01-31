@@ -52,8 +52,9 @@ $(function($) {
     $('#startscreen .closeToolTip').click(function(){ closeToolTip(); });
     $('#startscreen .nextToolTip').click(function() { nextToolTip(); });
     $('#startscreen .prevToolTip').click(function() { prevToolTip(); });
-    $('.bottomNavigation a.showToolTips').click(function() {
+    $('.bottomNavigation a[href=showToolTips]').click(function() {
         toolTipCnt = 0;
         nextToolTip();
+        return false;
     });
 });
