@@ -72,10 +72,10 @@
     <div id="inviteContainer" title="Invite a person">
         <h1>
             Invite a Person
-            <span>Enter a Email adress</span>
+            <span>Enter an Email address</span>
         </h1>
         <form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
-        Mail: <form:input path="address"/><br/>
+        Mail: <form:input class="mailaddress" path="address"/><br/>
         <div class="buttonline" >
             <input type="submit" value="Submit">
             <button type="button" class="cancel">Cancel</button>
