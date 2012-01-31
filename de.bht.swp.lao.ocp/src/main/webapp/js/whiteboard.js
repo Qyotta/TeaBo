@@ -24,7 +24,7 @@ function _handleProgressedWhiteboardItem(message) {
         if (locked.length == 0) {
             locked = $('<img/>').attr('class', 'locked').attr('src',
                     '../images/locked.png');
-            whiteboardItem.append(locked);
+            whiteboardItem.find('.noteItems').append(locked);
         }
         if (message.data.inProgress == false) {
             locked.css('display', 'none');

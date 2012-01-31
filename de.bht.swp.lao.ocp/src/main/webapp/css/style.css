@@ -893,7 +893,8 @@ nav.bottomNavigation ul li a span {
 .locked {
     position: relative;
     left: 5px;
-    margin: 5px 0 0;
+    top:4px;
+    margin: 3px 0 0;
     width: 10px;
     padding: 0 0 5px;
 }
