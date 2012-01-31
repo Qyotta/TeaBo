@@ -177,7 +177,7 @@ $(function() {
             data: "mailData="+$(this).parent().parent().find('.mailaddress').val(),
             success: function(jsonData) {
                 alert(jsonData);
-            },
+            }
         });
         containerFadeOut('#inviteContainer');
     });
