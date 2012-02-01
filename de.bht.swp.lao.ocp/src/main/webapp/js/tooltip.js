@@ -2,6 +2,10 @@
 var toolTipCnt = 0,
     toolTips = null;
 
+//TODO commenting
+/**
+* 
+*/
 function closeToolTip() {
     $.ajax({
         url: "/de.bht.swp.lao.ocp/user/setToolTipFlag.htm",
@@ -11,6 +15,10 @@ function closeToolTip() {
     $(toolTips[toolTipCnt-1]).fadeOut(500);
 }
 
+//TODO commenting
+/**
+* 
+*/
 function nextToolTip() {
     if(toolTipCnt===0) {
         $(toolTips[0]).fadeIn(500);
@@ -23,6 +31,10 @@ function nextToolTip() {
     }   
 }
 
+//TODO commenting
+/**
+* 
+*/
 function prevToolTip() {    
     if(!toolTipCnt)
         return;

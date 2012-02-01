@@ -1,6 +1,12 @@
 var startX,startY;
 
-//handles
+//TODO commenting
+/**
+* handles cometd notification about changed order at z-axis
+* 
+* @param {CometdMessage} message    ?
+* 
+*/
 function _handleEditingWhiteboardItem(message) {
     _id = message.data.id;
     whiteboardItem = null;
@@ -45,7 +51,13 @@ function _reportEditingStateWhiteboardItem(_id, _editing) {
     });
 }
 
-// updates a moved whiteboarditem
+//TODO commenting
+/**
+*
+* 
+* @param {CometdMessage} message    ?
+* 
+*/
 function _handleMovedWhiteboardItem(message) {
     _id = message.data.id;
     _x = message.data.x;
@@ -74,12 +86,24 @@ function _handleMovedWhiteboardItem(message) {
     }
 }
 
-// handles cometd notification about changed order at z-axis
+//TODO commenting
+/**
+* handles cometd notification about changed order at z-axis
+* 
+* @param {CometdMessage} message    ?
+* 
+*/
 function _handleForegroundWhiteboardItem(message) {
     $('#'+message.data.id).css('z-index', message.data.newIndex);
 }
 
-// store the new position of a whiteboardItem
+//TODO commenting
+/**
+* ?
+* 
+* @param {jQueryObject} elem    ?
+* 
+*/
 function _moveWhiteboardItem(_whiteboardItem, _id) {
     _x = cssPxToInt($(_whiteboardItem),'left');
     _y = cssPxToInt($(_whiteboardItem),'top');
@@ -91,6 +115,13 @@ function _moveWhiteboardItem(_whiteboardItem, _id) {
     });
 }
 
+//TODO commenting
+/**
+* ?
+* 
+* @param {jQueryObject} elem    ?
+* 
+*/
 function _reportElementOrder(_id) {
     cometd.publish('/service/whiteboardItem/order', {
         id : parseInt(_id),
@@ -98,6 +129,13 @@ function _reportElementOrder(_id) {
     });
 }
 
+//TODO commenting
+/**
+* ?
+* 
+* @param {jQueryObject} elem    ?
+* 
+*/
 function containerFadeIn(elem) {
     $('.dialogs div[id]').fadeOut(500,function() {
         if($(this).attr('id')==$(elem).attr('id')) $(elem).fadeIn();
@@ -108,6 +146,14 @@ function containerFadeIn(elem) {
     $('.whiteboard .noteItems textarea, .whiteboard .creator').addClass('blurText');
     $('body').css('background', 'url("../images/whiteboard-background-blured.gif")');
 }
+
+//TODO commenting
+/**
+* ?
+* 
+* @param {jQueryObject} elem    ?
+* 
+*/
 function containerFadeOut(elem) {
     $(elem).fadeOut();
     $('.whiteboard').draggable('enable').css('cursor', 'inherit');
@@ -117,6 +163,12 @@ function containerFadeOut(elem) {
     $('body').css('background', 'url("../images/whiteboard-background.gif")');
 }
 
+/**
+* Called when the whiteboard is dragged. Moves the whiteboard to change the actual viewport.
+* 
+* @param {event} e    A mouse move event.
+* 
+*/
 function handleDragWhiteboard(e){
     var whiteboard = $('#whiteboard');
     var xOld = cssPxToInt(whiteboard,'left');
@@ -132,6 +184,15 @@ function handleDragWhiteboard(e){
     startY = parseInt(e.pageY);
 }
 
+//TODO commenting
+/**
+* Called when an whiteboard item is dragged. Prevents a dragged object from moving out of the whiteboard area.
+* 
+* @param {event} e    The drag event
+* @param {?} ui    ?
+* 
+* @return {boolean}   Returns false if 
+*/
 function _handleDragItem(e,ui){
     var left = parseInt($(this).css('left')) > 0 ? parseInt($(this).css('left')) : 0;
     var top  = parseInt($(this).css('top'))  > 0 ? parseInt($(this).css('top'))  : 20;

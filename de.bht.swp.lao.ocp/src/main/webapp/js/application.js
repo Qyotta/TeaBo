@@ -6,8 +6,16 @@ var MODUS = {
     HAND: 'HAND',
     SELECT: 'SELECT' };
 
+// starting with the hand modus
 var currentModus = MODUS.HAND;
 
+//TODO commenting
+/**
+* ?
+* 
+* @param {jQueryObject} elem    ?
+* 
+*/
 function containerFadeIn(elem) {
     $('.dialogs div[id]').fadeOut(500,function() {
         if($(this).attr('id')==$(elem).attr('id')) $(elem).fadeIn();
@@ -18,6 +26,14 @@ function containerFadeIn(elem) {
     $('.whiteboard .noteItems textarea, .whiteboard .creator').addClass('blurText');
     $('body').css('background', 'url("../images/whiteboard-background-blured.gif")');
 }
+
+//TODO commenting
+/**
+* ?
+* 
+* @param {jQueryObject} elem    ?
+* 
+*/
 function containerFadeOut(elem) {
     $(elem).fadeOut();
     $('.whiteboard').draggable('enable').css('cursor', 'inherit');

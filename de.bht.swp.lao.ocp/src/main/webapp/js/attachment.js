@@ -1,5 +1,10 @@
-
-// show posted attachment
+//TODO commenting
+/**
+* 
+* 
+* @param {CometdMessage} message    ?
+* 
+*/
 function _handlePostedAttachment(message){
     var _id       = message.data.id,
         _creator  = message.data.creator,
@@ -60,7 +65,12 @@ function _handlePostedAttachment(message){
     }
 }
 
-// upload file
+//TODO commenting
+/**
+* 
+* @param {Integer} id    ?
+* 
+*/
 function _uploadFile(id){
     $('#fileupload #uploadId').val(id);
     $('#fileupload').submit();
@@ -84,7 +94,14 @@ function _uploadFile(id){
     activeUpload = null;
 }
 
-// handle action after attachment upload
+// 
+//TODO commenting
+/**
+* handle action after attachment upload
+* 
+* @param {CometdMessage} message    ?
+* 
+*/
 function _handleUploadCompleteAttachment(message){
     var ext = message.data.filename.split('.').pop(),
         filename = message.data.filename.substr(0, message.data.filename.length - (ext.length + 1)),
@@ -99,12 +116,24 @@ function _handleUploadCompleteAttachment(message){
                       "<input type=\"hidden\" name=\"description\" class=\"description\" value=\""+message.data.description+"\">");
 }
 
-// remove attachment after failed upload
+//TODO commenting
+/**
+* remove attachment after failed upload
+* 
+* @param {CometdMessage} message    ?
+* 
+*/
 function _handleUploadFailedAttachment(message){
     $('#attachment-'+message.data.id).remove();
 }
 
-// upload attachment
+
+/**
+* upload attachment
+* 
+* @param {CometdMessage} message    ?
+* 
+*/
 function _postAttachment(form){
     var _creator  = $('creator',form).val(),
         _x        = 0,
