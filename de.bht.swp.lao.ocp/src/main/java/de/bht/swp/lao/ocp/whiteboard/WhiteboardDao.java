@@ -82,9 +82,8 @@ public class WhiteboardDao implements IWhiteboardDao {
                 em.merge(u);
             }
 
-            w.setAssignedUsers(new HashSet<User>());
-            em.merge(w);
             em.remove(w);
+            
         } catch (Exception e) {
             LOGGER.error("delete failed:", e);
             throw new OCPDBException("delete failed:", e);
