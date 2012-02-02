@@ -27,12 +27,26 @@ import org.xml.sax.ContentHandler;
 import de.bht.swp.lao.ocp.usermanagement.User;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
+/**
+ * This class handles attachment specific requests.
+ * 
+ */
 @Controller
 @RequestMapping(value = "/attachment/*")
 public class AttachmentController {
     @Inject
     private IWhiteboardItemDao<Attachment> attachmentDao;
 
+    /**
+     * Handles a file upload. Responses via json.
+     * 
+     * @param data
+     * @param id
+     * @param request
+     * @param whiteboardId
+     * @param response
+     * @throws IOException
+     */
     @RequestMapping(value = "/uploadfile-{whiteboardId}.htm", method = RequestMethod.POST)
     // @formatter:off
   public void uploadFile(
@@ -45,7 +59,6 @@ public class AttachmentController {
         Attachment attachment = attachmentDao.findById(id);
         User user = (User) request.getSession().getAttribute("user");
 
-        // allowed file types:
         String[] allowedMimeTypes = { "application/pdf", "application/msword", "application/x-tika-ooxml",
                 "application/vnd.ms-excel", "application/x-tika-ooxml", "application/vnd.ms-powerpoint",
                 "application/vnd.openxmlformats-officedocument.presentationml.presentation",
@@ -98,11 +111,18 @@ public class AttachmentController {
         response.flushBuffer();
     }
 
+    /**
+     * Handles download requests. Returns the requested file via the output stream of response. 
+     * Throws an exception if requested file is not found.
+     * 
+     * @param id the id of the requested file
+     * @param response the http response object
+     * @throws IOException
+     */
     @RequestMapping(value = "/{attachmentid}/{filename}/download.htm", method = RequestMethod.GET)
     public void dowloadFile(@PathVariable("attachmentid") Long id, HttpServletResponse response) throws IOException {
         Attachment attachment = attachmentDao.findById(id);
         if (attachment == null) {
-            // File not found
             throw new FileNotFoundException();
         }
 

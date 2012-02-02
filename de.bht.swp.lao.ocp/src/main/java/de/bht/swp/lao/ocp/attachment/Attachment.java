@@ -8,8 +8,7 @@ import javax.persistence.Table;
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 /**
- * This class represents an attachment.
- * 
+ * This class represents a file uploaded by a user.
  */
 @Entity
 @Table(name = "LAO_ATTACHMENT")
@@ -19,14 +18,26 @@ public class Attachment extends WhiteboardItem {
 
     private static final int MAX_ATTACHMENT_NAME_LENGTH = 11;
 
+    /**
+     * Data of this uploaded file.
+     */
     @Lob
     @Column(length = MYSQL_MEDIUMBLOB_CHAR_SIZE)
     private byte[] data;
 
+    /**
+     * Filename of this uploaded file.
+     */
     private String filename;
 
+    /**
+     * ShortDescription for this file.
+     */
     private String shortDescription;
 
+    /**
+     * A flag, if the file upload is completed. 
+     */
     private Boolean uploaded;
 
     public byte[] getData() {
@@ -57,14 +68,14 @@ public class Attachment extends WhiteboardItem {
         return filename.substring(filename.lastIndexOf(".") + 1);
     }
 
-    public int getFileNameLenght() {
-        int back;
+    public int getFileNameLength() {
+        int length;
         if (this.filename.lastIndexOf(".") > MAX_ATTACHMENT_NAME_LENGTH) {
-            back = MAX_ATTACHMENT_NAME_LENGTH;
+            length = MAX_ATTACHMENT_NAME_LENGTH;
         } else {
-            back = this.filename.lastIndexOf(".");
+            length = this.filename.lastIndexOf(".");
         }
-        return back;
+        return length;
     }
 
     public Boolean getUploaded() {

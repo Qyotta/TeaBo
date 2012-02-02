@@ -20,6 +20,9 @@ import de.bht.swp.lao.ocp.whiteboard.IWhiteboardDao;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
+/**
+ *
+ */
 @Named
 @Singleton
 @Service("attachmentService")
@@ -39,6 +42,10 @@ public class AttachmentService {
     @Inject
     private IUserDao userDao;
 
+    /**
+     * @param remote
+     * @param message
+     */
     @Listener(value = { "/service/attachment/complete" })
     public void completeUpload(ServerSession remote, ServerMessage.Mutable message) {
         System.out.println("upload completed.");
@@ -66,6 +73,12 @@ public class AttachmentService {
         }
     }
 
+    /**
+     * Persists the posted attachment and delivers it via cometd channel('/attachment/posted/<whiteboardid>').
+     * 
+     * @param remote
+     * @param message
+     */
     @Listener(value = { "/service/attachment/post/" })
     public void processPost(ServerSession remote, ServerMessage.Mutable message) {
 
@@ -113,6 +126,12 @@ public class AttachmentService {
         }
     }
 
+    /**
+     * 
+     * 
+     * @param remote
+     * @param message
+     */
     @Listener(value = { "/service/attachment/remove" })
     public void failedUpload(ServerSession remote, ServerMessage.Mutable message) {
         Map<String, Object> data = message.getDataAsMap();

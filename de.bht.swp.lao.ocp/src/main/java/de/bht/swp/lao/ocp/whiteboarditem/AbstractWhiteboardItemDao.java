@@ -11,6 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.bht.swp.lao.ocp.exceptions.OCPDBException;
 
+/**
+ * This class is an abstract implementation for data access.
+ * 
+ * @param <T> 
+ *
+ */
 public abstract class AbstractWhiteboardItemDao<T extends WhiteboardItem> implements IWhiteboardItemDao<T> {
 
     @PersistenceContext
@@ -22,6 +28,9 @@ public abstract class AbstractWhiteboardItemDao<T extends WhiteboardItem> implem
         return LoggerFactory.getLogger(getType());
     }
 
+    /* (non-Javadoc)
+     * @see de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao#findById(java.lang.Long)
+     */
     @SuppressWarnings("unchecked")
     @Override
     public T findById(Long id) {
@@ -33,6 +42,9 @@ public abstract class AbstractWhiteboardItemDao<T extends WhiteboardItem> implem
         }
     }
 
+    /* (non-Javadoc)
+     * @see de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao#findAll()
+     */
     @SuppressWarnings("unchecked")
     @Override
     public List<T> findAll() {
@@ -44,6 +56,9 @@ public abstract class AbstractWhiteboardItemDao<T extends WhiteboardItem> implem
         }
     }
 
+    /* (non-Javadoc)
+     * @see de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao#save(de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem)
+     */
     @Override
     @Transactional
     public void save(T whiteboardItem) {
@@ -62,6 +77,9 @@ public abstract class AbstractWhiteboardItemDao<T extends WhiteboardItem> implem
         }
     }
 
+    /* (non-Javadoc)
+     * @see de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao#delete(de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem)
+     */
     @Override
     public void delete(T whiteboardItem) {
         try {
@@ -76,6 +94,9 @@ public abstract class AbstractWhiteboardItemDao<T extends WhiteboardItem> implem
         }
     }
 
+    /* (non-Javadoc)
+     * @see de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao#findAllbyWhiteboardId(java.lang.Long)
+     */
     @SuppressWarnings("unchecked")
     @Override
     public List<T> findAllbyWhiteboardId(Long id) {
@@ -88,10 +109,12 @@ public abstract class AbstractWhiteboardItemDao<T extends WhiteboardItem> implem
         }
     }
 
+    /* (non-Javadoc)
+     * @see de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao#findByAttribute(java.lang.String, java.lang.Object)
+     */
     @SuppressWarnings("unchecked")
     @Override
     public T findByAttribute(String key, Object value) {
-
         try {
             return (T) em.createQuery("from " + getTablename() + " w where w." + key + "='" + value + "'");
         } catch (Exception e) {
@@ -99,6 +122,9 @@ public abstract class AbstractWhiteboardItemDao<T extends WhiteboardItem> implem
         }
     }
 
+    /* (non-Javadoc)
+     * @see de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao#getHighestOrderIndexByWhiteboardId(java.lang.Long)
+     */
     @Override
     public Integer getHighestOrderIndexByWhiteboardId(Long id) {
         Integer index;
@@ -106,7 +132,6 @@ public abstract class AbstractWhiteboardItemDao<T extends WhiteboardItem> implem
             index = (Integer) em.createQuery("SELECT MAX(w.orderIndex) from WhiteboardItem w WHERE w.whiteboard.id=?1")
                     .setParameter(1, id).getSingleResult();
             getLogger().debug("" + index);
-            System.out.println(index);
         } catch (Exception e) {
             throw new OCPDBException("getHighestOrderIndexByWhiteboardId failed", e);
         }
@@ -118,6 +143,11 @@ public abstract class AbstractWhiteboardItemDao<T extends WhiteboardItem> implem
         return 0;
     }
 
+    /**
+     * Gets the table name for this class.
+     * 
+     * @return the table name
+     */
     private String getTablename() {
         return getType().getSimpleName();
     }
