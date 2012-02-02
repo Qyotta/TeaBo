@@ -201,7 +201,7 @@
             <div class="attachmentItems">
                 <p class="image"><img src="${pageContext.request.contextPath}/images/teambox-free-file-icons/32px/${attachment.fileExtension}.png"></p>
                 <p class="filename">
-                    <c:out value="${fn:substring(attachment.filename,0, attachment.fileNameLenght)}"/>
+                    <c:out value="${fn:substring(attachment.filename,0, attachment.fileNameLength)}"/>
                 </p>
                 <input type="hidden" name="filename" class="full_filename" value="${attachment.filename}">
                 <input type="hidden" name="creator" class="creator" value="${attachment.creator.email}">
