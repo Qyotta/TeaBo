@@ -81,13 +81,9 @@ public class AttachmentService {
      */
     @Listener(value = { "/service/attachment/post/" })
     public void processPost(ServerSession remote, ServerMessage.Mutable message) {
-
-        System.out.println("Attachment posted.");
-
         Map<String, Object> data = message.getDataAsMap();
-
+        
         String creator = (String) data.get("creator");
-
         String filename = (String) data.get("filename");
         String text = (String) data.get("text");
         Long x = (Long) data.get("x");
@@ -108,8 +104,6 @@ public class AttachmentService {
         attachment.setWhiteboard(w);
 
         attachmentDao.save(attachment);
-
-        System.out.println("Attachment saved.");
 
         Map<String, Object> output = new HashMap<String, Object>();
         output.put("id", attachment.getId());

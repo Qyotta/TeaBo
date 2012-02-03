@@ -15,6 +15,8 @@ import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
 import org.apache.tika.sax.BodyContentHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.xml.sax.ContentHandler;
 
 import de.bht.swp.lao.ocp.usermanagement.User;
+import de.bht.swp.lao.ocp.whiteboard.WhiteboardDao;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 /**
@@ -36,7 +39,9 @@ import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 public class AttachmentController {
     @Inject
     private IWhiteboardItemDao<Attachment> attachmentDao;
-
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(AttachmentController.class);
+    
     /**
      * Handles a file upload. Responses via json.
      * 
@@ -77,17 +82,7 @@ public class AttachmentController {
 
             // getting MimeType
             if (!mimeTypes.contains(metadata.get(HttpHeaders.CONTENT_TYPE))) {
-                System.out.println("");
-                System.out.println("");
-                System.out.println("");
-                System.out.println("");
-                System.out.println("");
-                System.out.println("Not allowed Mime-Type: " + metadata.get(HttpHeaders.CONTENT_TYPE));
-                System.out.println("");
-                System.out.println("");
-                System.out.println("");
-                System.out.println("");
-                System.out.println("");
+                LOGGER.info("Not allowed Mime-Type: " + metadata.get(HttpHeaders.CONTENT_TYPE));
                 validFileType = false;
 
             }

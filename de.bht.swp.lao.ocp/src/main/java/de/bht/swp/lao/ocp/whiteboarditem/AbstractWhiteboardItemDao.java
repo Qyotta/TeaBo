@@ -83,14 +83,13 @@ public abstract class AbstractWhiteboardItemDao<T extends WhiteboardItem> implem
     @Override
     public void delete(T whiteboardItem) {
         try {
-            T a = em.find(getType(), whiteboardItem.getId());
+            T a = em.getReference(getType(), whiteboardItem.getId());
             if (whiteboardItem.getId() != null) {
-                em.merge(a);
                 em.remove(a);
             }
         } catch (Exception e) {
-            getLogger().error("Save failed:", e);
-            throw new OCPDBException("Save failed:", e);
+            getLogger().error("Delete failed:", e);
+            throw new OCPDBException("Delete failed:", e);
         }
     }
 

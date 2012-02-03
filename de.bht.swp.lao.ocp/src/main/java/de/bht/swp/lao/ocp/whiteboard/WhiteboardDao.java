@@ -1,6 +1,5 @@
 package de.bht.swp.lao.ocp.whiteboard;
 
-import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;

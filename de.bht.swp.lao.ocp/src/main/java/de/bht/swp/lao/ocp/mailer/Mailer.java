@@ -6,10 +6,14 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+
+import sun.security.action.GetLongAction;
 
 import de.bht.swp.lao.ocp.usermanagement.User;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
@@ -30,6 +34,8 @@ public class Mailer {
     private static final int PASS_LENGTH = 10;
     private final JavaMailSenderImpl sender;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Mailer.class);
+    
     public Mailer() {
         this.sender = new JavaMailSenderImpl();
         this.setProperties();
@@ -86,7 +92,7 @@ public class Mailer {
         try {
             sender.send(preparator);
         } catch (MailException ex) {
-            System.err.println(ex.getMessage());
+            LOGGER.error(ex.getMessage());
         }
     }
 
