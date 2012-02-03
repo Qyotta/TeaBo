@@ -1,2 +1,8 @@
 derby.log
 classes
+.checkstyle
+.classpath
+.euml2
+.project
+.umlproject
+.settings
