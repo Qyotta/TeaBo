@@ -144,8 +144,14 @@ $(function() {
 
     // new note
     $('a.createNote').click( function() {
-        posx = Math.floor(Math.random() * 700);
-        posy = Math.floor(Math.random() * 400);
+        var wb = $('#whiteboard');
+        
+        var wb_x= parseInt(wb.css('left'));
+        var wb_y= parseInt(wb.css('top'));
+        
+        // subtract the whiteboard position to create a note inside viewport
+        posx = Math.floor(Math.random() * 700)-wb_x;
+        posy = Math.floor(Math.random() * 400)-wb_y;
         _postNote(posx, posy);
     });
     

@@ -127,7 +127,7 @@ function _handleUploadFailedAttachment(message){
     $('#attachment-'+message.data.id).remove();
 }
 
-
+// TODO commenting
 /**
 * upload attachment
 * 
@@ -135,9 +135,18 @@ function _handleUploadFailedAttachment(message){
 * 
 */
 function _postAttachment(form){
+
+		var wb = $('#whiteboard');
+        
+        var wb_x= parseInt(wb.css('left'));
+        var wb_y= parseInt(wb.css('top'));
+        
+        // subtract the whiteboard position to create an attachment inside viewport
+        posx = Math.floor(Math.random() * 700)-wb_x;
+        posy = Math.floor(Math.random() * 400)-wb_y;
     var _creator  = $('creator',form).val(),
-        _x        = 0,
-        _y        = 80,
+        _x        = posx,
+        _y        = posy,
         _text     = $('textarea[name=shortDescription]',form).val(),
         _filename = $('input[type="file"]',form).val();
     
