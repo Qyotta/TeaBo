@@ -107,9 +107,8 @@
 
     <div class="registerCancelButtons">
         <input type="submit" value="Register Now" class="submitButton">
-        <a href="${pageContext.request.contextPath}/user/login.htm">
-            <input type="button" value="Cancel" class="submitButton">
-        </a>
+        <button type="button" class="submitButton" onclick="window.location.href='${pageContext.request.contextPath}/user/login.htm'">Cancel</button>
+        
     </div>
 </div>
 
