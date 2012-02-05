@@ -1,10 +1,9 @@
 var startX,startY;
 
-//TODO commenting
 /**
-* handles cometd notification about changed order at z-axis
+* Handles a cometd notification about changed order at z-axis
 * 
-* @param {CometdMessage} message    ?
+* @param {CometdMessage} message    An cometd message object.
 * 
 */
 function _handleEditingWhiteboardItem(message) {
@@ -51,11 +50,10 @@ function _reportEditingStateWhiteboardItem(_id, _editing) {
     });
 }
 
-//TODO commenting
 /**
-*
+* Handles a cometd notification about changed position.
 * 
-* @param {CometdMessage} message    ?
+* @param {CometdMessage} message    An cometd message object.
 * 
 */
 function _handleMovedWhiteboardItem(message) {
@@ -86,25 +84,23 @@ function _handleMovedWhiteboardItem(message) {
     }
 }
 
-//TODO commenting
 /**
-* handles cometd notification about changed order at z-axis
+* Handles a cometd notification about changed order at z-axis
 * 
-* @param {CometdMessage} message    ?
+* @param {CometdMessage} message    An cometd message object.
 * 
 */
 function _handleForegroundWhiteboardItem(message) {
     $('#'+message.data.id).css('z-index', message.data.newIndex);
 }
 
-//TODO commenting
 /**
-* ?
+* Reports a moved whiteboard item via cometd.
 * 
-* @param {jQueryObject} elem    ?
+* @param {jQueryObject} _whiteboardItem    jQueryObject of wrapping whiteboard item container
 * 
 */
-function _moveWhiteboardItem(_whiteboardItem, _id) {
+function _reportMovedWhiteboardItem(_whiteboardItem, _id) {
     _x = cssPxToInt($(_whiteboardItem),'left');
     _y = cssPxToInt($(_whiteboardItem),'top');
     cometd.publish('/service/whiteboardItem/move', {
@@ -184,12 +180,11 @@ function handleDragWhiteboard(e){
     startY = parseInt(e.pageY);
 }
 
-//TODO commenting
 /**
 * Called when an whiteboard item is dragged. Prevents a dragged object from moving out of the whiteboard area.
 * 
 * @param {event} e    The drag event
-* @param {?} ui    ?
+* @param {uiObject} ui    A prepared ui object
 * 
 * @return {boolean}   Returns false if 
 */
@@ -279,7 +274,7 @@ $(function() {
             var id = $(this).attr('id').split('-')[1];
             $(this).find('.noteMenu').css('display','');
             $(this).find('.creator').css('display','');
-            _moveWhiteboardItem(this, id);
+            _reportMovedWhiteboardItem(this, id);
         }
     });
     
@@ -305,12 +300,3 @@ $(function() {
         $(this).css('cursor', 'auto');
     });
 });
-          // We love tabs                
-        	            	             
-     			    		             
-    							         
-    							         
-        					             
-            			                 
-                	                     
-                                         
