@@ -1,8 +1,7 @@
-//TODO commenting
 /**
+* Handles a cometd notification about a posted attachment.
 * 
-* 
-* @param {CometdMessage} message    ?
+* @param {CometdMessage} message    An cometd message object.
 * 
 */
 function _handlePostedAttachment(message){
@@ -67,6 +66,7 @@ function _handlePostedAttachment(message){
 
 //TODO commenting
 /**
+* Reports an uploaded file. If file was unvalid, it reports an deletion, if not it reports a completed file upload.
 * 
 * @param {Integer} id    ?
 * 
@@ -95,11 +95,10 @@ function _uploadFile(id){
 }
 
 // 
-//TODO commenting
 /**
-* handle action after attachment upload
+* Handles a completed file upload.
 * 
-* @param {CometdMessage} message    ?
+* @param {CometdMessage} message    A cometd message.
 * 
 */
 function _handleUploadCompleteAttachment(message){
@@ -116,27 +115,24 @@ function _handleUploadCompleteAttachment(message){
                       "<input type=\"hidden\" name=\"description\" class=\"description\" value=\""+message.data.description+"\">");
 }
 
-//TODO commenting
 /**
-* remove attachment after failed upload
+* Handles a failed file upload.
 * 
-* @param {CometdMessage} message    ?
+* @param {CometdMessage} message    A cometd message.
 * 
 */
 function _handleUploadFailedAttachment(message){
     $('#attachment-'+message.data.id).remove();
 }
 
-// TODO commenting
 /**
-* upload attachment
+* Reports a started file upload.
 * 
-* @param {CometdMessage} message    ?
+* @param {CometdMessage} message    A cometd message.
 * 
 */
 function _postAttachment(form){
-
-		var wb = $('#whiteboard');
+        var wb = $('#whiteboard');
         
         var wb_x= parseInt(wb.css('left'));
         var wb_y= parseInt(wb.css('top'));
@@ -144,7 +140,7 @@ function _postAttachment(form){
         // subtract the whiteboard position to create an attachment inside viewport
         posx = Math.floor(Math.random() * 700)-wb_x;
         posy = Math.floor(Math.random() * 400)-wb_y;
-    var _creator  = $('creator',form).val(),
+        var _creator  = $('creator',form).val(),
         _x        = posx,
         _y        = posy,
         _text     = $('textarea[name=shortDescription]',form).val(),
