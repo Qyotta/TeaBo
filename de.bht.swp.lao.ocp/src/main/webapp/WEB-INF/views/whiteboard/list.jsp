@@ -49,11 +49,11 @@
         </div>
     </div>
 </div>
-
+<!-- really needed here?? TODO!
 <div class="rightNavigation">
     <a class="slideLeftButton"><img src="../images/slide_button.png"></a>
 </div>
-    
+-->
 <div class="mainPanel">
     <h2>Create Whiteboard</h2>
     <form:form method="post">

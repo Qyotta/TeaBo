@@ -66,7 +66,7 @@ $(function() {
     // open/close sidebar
     $(".rightNavigation a.slideLeftButton").click(function() {
         var dir = $(this).parent().css('right') === "0px";
-        $(this).parent().animate({right: dir?"-199px":"0px"}, 200); 
+        $(this).parent().animate({right: dir?"-200px":"0px"}, 200); 
     });
     
     $('.mainPanel ul a.delete').click(function(){

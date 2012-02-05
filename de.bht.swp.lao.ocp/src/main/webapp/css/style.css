@@ -582,17 +582,25 @@ nav.topNavigation {
 }
 
 .rightNavigation {
+    width: 200px;
+    height: auto !important;
+    min-height: 100%;
+    border-left: 1px solid #3E3E3E;
+    color: #FFFFFF;
+    position: absolute;
+    right: -200px;
+    top: 25px;
+    z-index:9;
+    
+}
+
+.rightNavigation .wrapper{
+    background: #626262;
     width: 186px;
     height: auto !important;
     min-height: 100%;
-    background: #626262;
-    border-left: 1px solid #3E3E3E;
-    color: #FFFFFF;
+    position:absolute;
     padding: 10px 7px;
-    position: absolute;
-    right: -199px;
-    top: 25px;
-    z-index:9;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
     filter: alpha(opacity =     65);
     -moz-opacity: 0.65;
