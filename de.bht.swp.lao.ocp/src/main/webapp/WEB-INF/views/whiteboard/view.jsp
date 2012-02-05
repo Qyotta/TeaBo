@@ -73,13 +73,14 @@
             Invite a Person
             <span>Enter an Email address</span>
         </h1>
-        <form:form method="post" action="inviteuser-${whiteboard.id}.htm">
-        Mail: <form:input class="mailaddress" path="address"/><br/>
+
+        <form method="post" action="inviteuser-${whiteboard.id}.htm">
+        Mail: <input type="text" class="mailaddress" name="address"/><br/>
         <div class="buttonline" >
             <input type="submit" value="Submit">
             <button type="button" class="cancel">Cancel</button>
         </div>
-        </form:form>
+        </form>
     </div>
     
     <div id="uploadContainer">
