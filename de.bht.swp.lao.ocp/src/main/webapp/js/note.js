@@ -160,7 +160,13 @@ $(function() {
         $(this).find('.noteMenu').css('display','block');
         $(this).find('.creator').css('display','none');
     });
-    $('.note').live("mouseover", function() { currentModus=MODUS.SELECT; });
-    $('.note').live("mouseleave", function() { currentModus=MODUS.HAND; });
+    $('.note').live("mouseover", function() { 
+        currentModus=MODUS.SELECT; 
+        $('.noteMenu',$(this)).css("display", "block");
+    });
+    $('.note').live("mouseleave", function() { 
+        currentModus=MODUS.HAND; 
+        $('.noteMenu',$(this)).css("display", "none");
+    });
     
 });
