@@ -15,6 +15,10 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 
 import de.bht.swp.lao.ocp.usermanagement.User;
 
+/**
+ * This class provides mail functionality
+ * 
+ */
 public abstract class AbstractMailer {
   protected static final String PRODUCT_NAME = "Online Collaboration Platform";
   protected String contextPath = "/de.bht.swp.lao.ocp";
