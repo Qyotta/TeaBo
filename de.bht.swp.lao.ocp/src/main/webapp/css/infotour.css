@@ -1,0 +1,116 @@
+#startscreen div.lightbox {
+    background: #FFFFFF;
+    width: 600px;
+    position: absolute;
+    left: 50%;
+    top:50%;
+    margin: -180px 0 0 -300px;
+    overflow: hidden;
+    z-index: 9999999;
+    padding: 20px;
+    /*transparency*/
+    opacity: .95;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=95)";
+    filter: alpha(opacity =         95);
+    /*box shadow*/
+    -webkit-box-shadow: 0px 0px 30px #AAA;
+    -moz-box-shadow: 0px 0px 30px #AAA;
+    -o-box-shadow: 0px 0px 30px #AAA;
+    box-shadow: 0px 0px 30px #AAA;
+}
+#startscreen div.lightbox h1, #startscreen div.bubble h2 {
+    margin-top:0px;
+}
+#startscreen div.bubble {
+    z-index: 9999999;
+    position: absolute;
+    background: #000;
+    color: #fff;
+    /*transparency*/
+    opacity: .85;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)";
+    filter: alpha(opacity = 85);
+    /*box shadow*/
+    -webkit-box-shadow: 0px 0px 30px #AAA;
+    -moz-box-shadow: 0px 0px 30px #AAA;
+    -o-box-shadow: 0px 0px 30px #AAA;
+    box-shadow: 0px 0px 30px #AAA;
+    /*border-radius*/
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    width: 300px;
+    padding: 10px;
+}
+
+#startscreen div.bubble img.bottom, 
+#startscreen div.bubble img.left, 
+#startscreen div.bubble img.top, 
+#startscreen div.bubble img.right { position: absolute; }
+#startscreen div.bubble img.bottom { bottom: -50px }
+#startscreen div.bubble img.left { left: -50px }
+#startscreen div.bubble img.top { top: -50px }
+#startscreen div.bubble img.right { right: -50px }
+
+#startscreen #createNote {
+    bottom: 105px;
+    left: 12px;
+}
+
+#startscreen #uploadFile {
+    bottom: 105px;
+    left: 67px;
+}
+
+#startscreen #inviteUser {
+    right: 100px;
+    top: 80px;
+}
+#startscreen #dragAndDrop {
+    left:50%;
+    top:50%;
+    width: 400px;
+    margin:-135px 0 0 -200px;
+}
+#startscreen #dragAndDrop img {
+    float: left;
+    padding: 0 21px 0 0;
+    position: relative;
+    right: 0!important;
+    top: -4px;
+}
+#startscreen #prev {
+    position: absolute;
+    left: 3px;
+    top: 30px;
+    display: none;
+}
+
+#startscreen div {
+    display: none;
+}
+
+#startscreen div div {
+    display: block;
+}
+
+#startscreen .showAgain {
+    font-size: 10px;
+    margin-top: 30px;
+}
+
+#startscreen #next {
+    position: absolute;
+    right: 3px;
+    top: 30px;
+}
+
+#startscreen button.closeToolTip {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    color: #fff;
+    border: 0;
+}

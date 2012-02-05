@@ -1,0 +1,127 @@
+.whiteboardInviteUser {
+    left: 145px;
+    position: absolute;
+    top: 15px;
+}
+
+.mainPanel {
+    background: none repeat scroll 0 0 #494949;
+    color: #B2B2B2;
+    position: absolute;
+    top: 100px;
+    width: 220px;
+    margin: 0 0 0 25px;
+    padding: 0 0 0 10px;
+}
+
+.mainPanel ul a {
+    color: #B2B2B2;
+}
+
+.mainPanel ul a.delete{
+    margin: 0 0 0 10px;
+}
+#whiteboard{
+    background: url('../images/whiteboard-background.gif');
+    position:relative;
+    left:0px;
+    top:0px;
+    width:100000px;
+    height:100000px;
+}
+
+.whiteboard {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.whiteboard .note {
+    min-width: 235px;
+    position:absolute;
+}
+
+.whiteboard .note:hover .noteMenu {
+    display:block;
+}
+.whiteboard .note:hover .creator {
+    display:block;
+}
+
+.whiteboard .note textarea {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    height: 17px;
+    line-height: 17px;
+    width: 199px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FDFDCC), to(#F8F7B6) );
+    background: -moz-linear-gradient(100% 100% 90deg, #F8F7B6, #FDFDCC);
+}
+
+.whiteboard .note input {
+    background: #FDFDCC;
+    border: 0;
+    font-size: 20px;
+    height: 30px;
+    width: 199px;
+}
+
+.note .creator {
+    display: none;
+    float: left;
+    font-size: 10px;
+    position: relative;
+    top: 7px;
+    padding: 0 0 4px 0;
+    margin: 3px 0 2px 0;
+}
+
+.whiteboard .noteItems{
+    background: none repeat scroll 0 0 #F8F7B6;
+    position: absolute;
+    padding: 5px;
+    float: left;
+    margin: 10px;
+    -webkit-box-shadow: 0px 0px 5px #AAA;
+    -moz-box-shadow: 0px 0px 5px #AAA;
+    -o-box-shadow: 0px 0px 5px #AAA;
+    box-shadow: 0px 0px 5px #AAA;
+    width:200px;
+}
+.noteMenu, .attachmentMenu{
+    float:right;
+    width:13px;
+    display:none;
+    padding: 9px 0 0;
+    font-size:0px; /* to avoid whitespace underneath each picture*/
+}
+
+
+.whiteboard .attachment {
+    min-width: 130px;
+    position:absolute;
+}
+
+.whiteboard .attachment .attachmentItems{
+    width:120px;
+    float: left;
+}
+
+.whiteboard .attachment .image {
+    text-align: center;
+}
+
+.whiteboard .attachment .filename {
+    text-align: center;
+    font-weight: bold;
+}
+
+.locked {
+    position: relative;
+    left: 5px;
+    top:4px;
+    margin: 3px 0 0;
+    width: 10px;
+    padding: 0 0 5px;
+}

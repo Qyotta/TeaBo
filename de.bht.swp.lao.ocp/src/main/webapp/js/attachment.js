@@ -52,7 +52,7 @@ function _handlePostedAttachment(message){
         handle:$('.file_mouseOverMenu_top',view),
         stop : function(e, ui) {
             var id = $(this).attr('id').split('-')[1];
-            _moveWhiteboardItem(this,id);
+            _reportMovedWhiteboardItem(this,id);
         }
     });
     view.css("position","absolute");

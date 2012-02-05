@@ -1,0 +1,165 @@
+
+nav.rightNavigation {
+    width: 200px;
+    position: absolute;
+    right: -200px;
+    top: 25px;
+    height: auto !important;
+    min-height: 100%;
+    border-left: 1px solid #3E3E3E;
+    color: #FFFFFF;
+    z-index:9;
+}
+
+nav.rightNavigation .wrapper{
+    background: #626262;
+    width: 186px;
+    height: auto !important;
+    min-height: 100%;
+    position:absolute;
+    padding: 10px 7px;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
+    filter: alpha(opacity =     65);
+    -moz-opacity: 0.65;
+    -khtml-opacity: 0.65;
+    opacity: 0.65;
+    -o-opacity: 0.65;
+}
+
+nav.rightNavigation ul {
+    width: 40px;
+    float: left;
+    padding: 10px 0 0 0;
+    background: url('../images/t65.png');
+    border-radius: 10px 0 0 10px;
+    -moz-border-radius: 10px 0 0 10px;
+    -webkit-border-radius: 10px 0 0 10px;
+}
+
+nav.rightNavigation ul li {
+    padding: 0 0 10px 8px;
+}
+
+nav.rightNavigation ul li a {
+    display: block;
+    width: 25px;
+}
+
+nav.rightNavigation ul li a img {
+    width: 25px;
+}
+
+nav.rightNavigation div {
+    color: #FFFFFF;
+    float: left;
+    overflow: hidden;
+    background: url('../images/t65.png');
+    border-left: 1px solid #999999;
+    width: 239px;
+    min-height: 95px;
+    padding: 10px;
+}
+nav.rightNavigation div div {
+    display: none;
+    border-left: 0px;
+    background: 0px;
+    float: none;
+    overflow: auto;
+    top: 0px;
+    right: 0px;
+    display: none;
+    padding: 0px;
+    width: 239px;
+    min-height: 95px;
+}
+
+nav.rightNavigation div div.login {
+    display: block;
+}
+
+nav.rightNavigation div div input {
+    color: #555555;
+    height: 15px;
+    margin: 0 0 10px;
+    width: 230px;
+}
+
+nav.rightNavigation div div input:last-child {
+    float: right;
+    height: 25px;
+    width: 80px;
+    margin: 0px;
+    color: #000000;
+}
+
+nav.rightNavigation a.logout {
+    color: #91D1FF;
+    display: block;
+    float: left;
+    margin: 0 0 0 15px;
+}
+
+nav.rightNavigation div h2 {
+    float: left;
+    font-weight: normal;
+    margin: 0;
+    font-size: 16px;
+}
+
+nav.rightNavigation div h2 span {
+    font-weight: bold;
+    display: inline;
+}
+
+nav.rightNavigation div span {
+    clear: both;
+    display: block;
+    padding: 10px 0 20px;
+}
+
+nav.rightNavigation div ul {
+    background: none;
+    border-radius: 0px;
+    float: none;
+    clear: both;
+    padding: 10px 0;
+    width: auto;
+}
+
+nav.rightNavigation div div ul {
+    padding: 10px 0 20px;
+}
+
+nav.rightNavigation div ul li {
+    padding: 0px;
+    clear: both;
+    overflow: hidden;
+}
+
+nav.rightNavigation div ul li a {
+    float: left;
+    width: auto;
+    color: #91D1FF;
+}
+
+nav.rightNavigation div ul li a:last-child {
+    color: #FF0000;
+    display: block;
+    margin: 0 0 0 10px;
+}
+nav.rightNavigation .creator {
+    font-size: 10px;
+}
+nav.rightNavigation textarea.description {
+    background: #B2B2B2;
+    height: 153px;
+    width:165px;
+    border: 1px solid #000000;
+    padding:10px;
+}
+nav.rightNavigation a.slideLeftButton {
+    left: -19px;
+    position: absolute;
+    top: 25px;
+    cursor:pointer;
+}

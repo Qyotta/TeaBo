@@ -52,10 +52,10 @@
     </div>
 </nav>
 
-<div class="rightNavigation">
+<nav class="rightNavigation">
     <a class="slideLeftButton"><img src="../images/slide_button.png"></a>
     <div class="wrapper"></div>
-</div>
+</nav>
 
 <div class="dialogs">
     <div id="logoutContainer"> 

@@ -51,23 +51,17 @@ function _handlePostedNote(message) {
     
     var text = $('textarea[name="text"]',view)
                .attr('placeholder', 'your note text')
-               .elasticArea().hover(
-               function() {
-                   $(this).parent().find('span.creator').css('display', 'block');
-               },
-               function() {
-                   $(this).parent().find('span.creator').css('display', 'none');
-               });
+               .elasticArea();
     
     view.draggable({
         handle:$('.file_mouseOverMenu_top',view),
         scroll: false,
-        drag: function(e,ui){
-			console.log(ui.helper.left+' '+ui.helper.top);
-		},
+        drag: _handleDragItem,
         stop : function(e, ui) {
             var id = $(this).attr('id').split('-')[1];
-            _moveWhiteboardItem(this,id);
+            $(this).find('.noteMenu').css('display','');
+            $(this).find('.creator').css('display','');
+            _reportMovedWhiteboardItem(this,id);
         }
     });
     view.css("position","absolute");
@@ -156,17 +150,7 @@ $(function() {
     });
     
     $('.note').find('textarea').elasticArea();
-    $('.note').live('mousedown', function() { 
-        $(this).find('.noteMenu').css('display','block');
-        $(this).find('.creator').css('display','none');
-    });
-    $('.note').live("mouseover", function() { 
-        currentModus=MODUS.SELECT; 
-        $('.noteMenu',$(this)).css("display", "block");
-    });
-    $('.note').live("mouseleave", function() { 
-        currentModus=MODUS.HAND; 
-        $('.noteMenu',$(this)).css("display", "none");
-    });
+    $('.note').live("mouseover", function() { currentModus=MODUS.SELECT; });
+    $('.note').live("mouseup", function() { currentModus=MODUS.HAND; });
     
 });

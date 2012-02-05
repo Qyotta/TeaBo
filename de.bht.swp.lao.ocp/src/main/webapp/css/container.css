@@ -1,0 +1,203 @@
+.registerContainer {
+    background: #494949;
+    width: 434px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin:-130px 0 0 -217px;
+    -webkit-box-shadow: 0px 0px 5px #AAA;
+    -moz-box-shadow: 0px 0px 5px #AAA;
+    -o-box-shadow: 0px 0px 5px #AAA;
+    box-shadow: 0 0 5px #AAAAAA;
+}
+.registerContainer h1 {
+    background: url("../images/lao_register.png") no-repeat scroll 0 0 transparent;
+    bottom: 3px;
+    color: #B2B2B2;
+    font-size: 16px;
+    height: 45px;
+    margin: 0 0 0 7px;
+    padding: 13px 0 0 135px;
+    position: relative;
+    width: 100%;
+}
+
+.registerContainer dl {
+    margin:0px;
+}
+.registerContainer dl dt {
+    width:191px!important;
+    font-weight:normal;
+}
+.registerCancelButtons {
+    margin: 20px 0 10px 102px;  
+}
+
+.registerContainer dl dt span {
+    display: inline;
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+}
+.loginContainer {
+    position: absolute;
+    background: #494949;
+    width: 400px;
+    left: 50%;
+    top: 50%;
+    margin:-90px 0 0 -200px;
+    -webkit-box-shadow: 0px 0px 5px #AAA;
+    -moz-box-shadow: 0px 0px 5px #AAA;
+    -o-box-shadow: 0px 0px 5px #AAA;
+    -box-shadow: 0px 0px 5px #AAA;
+}
+
+.loginContainer h1 {
+    background: url("../images/lao_login.jpg") no-repeat scroll 0 0 transparent;
+    bottom: 3px;
+    color: #B2B2B2;
+    font-size: 16px;
+    height: 45px;
+    margin: 0 0 0 7px;
+    padding: 13px 0 0 135px;
+    position: relative;
+    width: 100%;
+}
+.loginContainer h1 span, .registerContainer h1 span, #inviteContainer h1 span, #uploadContainer h1 span {
+    display: block;
+    font-size: 11px;
+}
+.loginContainer dl dt, .registerContainer dl dt {
+    color: #B2B2B2;
+    float: left;
+    height: 18px;
+    margin-right: 10px;
+    padding-top: 4px;
+    text-align: right;
+    width: 133px;
+    clear:both;
+}
+.loginContainer dl dt a, .registerContainer dl dt a {
+    color: #B2B2B2
+}
+.loginContainer dl dd, .registerContainer dl dd {
+    margin-bottom:5px;
+}
+.loginContainer dl input.button, .registerContainer dl input.button {
+    margin:3px 0 0 0;
+}
+.loginContainer form span {
+    color:#FF0000;
+    display:block;
+    margin:0 0 0 3px;
+}
+#inviteContainer, #uploadContainer {
+    background: #494949;
+    border: 1px solid #c2c2c2;
+    color: #B2B2B2;
+    width:302px;
+    height:125px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    z-index:100;
+    margin:-62px 0 0 -151px;
+    display:none;
+    -webkit-box-shadow: 4px 4px 8px #222;
+    -moz-box-shadow: 4px 4px 8px #222;
+    -o-box-shadow: 4px 4px 8px #222;
+    box-shadow: 4px 4px 8px #222;
+}
+
+#uploadContainer {
+    width: 400px;
+    height: 200px;
+    margin:-100px 0 0 -200px;
+}
+#uploadContainer form {
+    padding: 0 12px;
+}
+#uploadContainer form div {
+    text-align:center;
+    padding:20px 0 0 0;
+}
+#uploadContainer form span {
+    float:left;
+    display:block;
+    width:75px;
+}
+#uploadContainer form textarea {
+    width:293px;
+}
+
+#inviteContainer h1, #uploadContainer h1 {
+    bottom: 3px;
+    color: #B2B2B2;
+    font-size: 16px;
+    height: 45px;
+    margin: 0 0 0 7px;
+    padding: 13px 0 0 5px;
+    position: relative;
+    width: 100%;
+}
+#inviteContainer input#address {
+    width:230px;
+}
+#inviteContainer form {
+    padding:0 12px;
+}
+#inviteContainer form div {
+    text-align:center;
+    padding: 15px 0 0 0;
+}
+
+#logoutContainer{
+    width:320px;
+    height:50px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin: -25px 0 0 -160px;
+    background: none repeat scroll 0 0 #494949;
+    color: #B2B2B2;
+    padding:10px 0 5px 0;
+    text-align: center;
+    border: 1px solid #B2B2B2;
+    font-size: 16px;
+    -webkit-box-shadow: 4px 4px 8px #222;
+    -moz-box-shadow: 4px 4px 8px #222;
+    -o-box-shadow: 4px 4px 8px #222;
+    box-shadow: 4px 4px 8px #222;
+    display:none;
+    z-index:101;
+}
+.blurBox .attachmentMenu, .blurBox .noteMenu {
+    display:none!important;
+}
+.blurBox .noteItems {
+    box-shadow:0 0 10px #F8F7B6!important;
+    background-color:rgba(248, 247, 187, 0.5)!important;
+}
+.blurText {
+    text-shadow:0 0 5px rgba(50, 50, 50, 0.7);
+    color:rgba(94, 94, 94, 0);
+}
+.blurTextarea {
+    background:transparent!important;
+}
+.blurBox .creator {
+    display:none!important;
+}
+.blurBox .attachmentItems p.image {
+    background: none repeat scroll 0 0 rgba(85, 85, 85, 0.5);
+    box-shadow: 0 0 10px #555555 !important;
+    margin: 12px 0 12px 44px;
+    width: 32px;
+}
+.blurBox .attachmentItems p.image img {
+    visibility:hidden;
+}
+.blurBox .attachmentItems p.filename {
+    text-shadow:0 0 5px rgba(50, 50, 50, 0.7);
+    color:rgba(94, 94, 94, 0);
+}

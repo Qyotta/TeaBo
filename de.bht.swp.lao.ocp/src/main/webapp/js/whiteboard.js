@@ -145,7 +145,6 @@ function containerFadeIn(elem) {
 
 //TODO commenting
 /**
-* ?
 * 
 * @param {jQueryObject} elem    ?
 * 
@@ -197,6 +196,9 @@ function _handleDragItem(e,ui){
         $(this).css('top',top+'px');
         return false;
     }
+    
+    $(this).find('.noteMenu').css('display','block');
+    $(this).find('.creator').css('display','block');
 }
 
 /**
