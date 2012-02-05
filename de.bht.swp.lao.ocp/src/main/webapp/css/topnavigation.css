@@ -1,0 +1,58 @@
+nav.topNavigation {
+    height: 25px;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index:10;
+    background: #494949;
+}
+
+nav.topNavigation h1.logo {
+    width:126px;
+    height:65px;
+    position: absolute;
+    left: 4px;
+    top: 3px;
+    margin: 0px;
+    font-size:12px;
+    font-weight:normal;
+    -webkit-box-shadow: 0px 0px 5px #000000;
+    -moz-box-shadow: 0px 0px 5px #000000;
+    -box-shadow: 0px 0px 5px #000000;
+    z-index: 100000;
+}
+nav.topNavigation h1 a {
+    width:126px;
+    height:65px;
+    display:block;
+    color:#000000;
+    text-decoration:none;
+    padding: 25px 3px 10px;
+    background: url('../images/lao_logo.jpg') no-repeat;
+    
+}
+
+nav.topNavigation div.right {
+    color: #FFFFFF;
+    float: right;
+    padding: 5px 0 0 0;
+    width:900px;
+    text-align:right;
+}
+nav.topNavigation div.right div {
+    float:right;
+    border-left:1px solid #c2c2c2;
+    padding:0 10px;
+}
+nav.topNavigation div.right div a {
+    text-decoration:none;
+    color:#c2c2c2;
+    padding: 0 10px 0 0;
+}
+nav.topNavigation div.right div:last-Child {
+    border-left:0px;
+}
+nav.topNavigation div.right b {
+    margin-right:5px;
+}

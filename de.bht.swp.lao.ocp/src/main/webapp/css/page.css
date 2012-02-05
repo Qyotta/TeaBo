@@ -1,0 +1,54 @@
+html {
+    overflow: hidden;
+}
+
+.registrationSuccess {
+    background:#494949;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 450px;
+    -webkit-box-shadow: 0px 0px 5px #AAAAAA;
+    -moz-box-shadow: 0px 0px 5px #AAAAAA;
+    -o-box-shadow: 0px 0px 5px #AAAAAA;
+    box-shadow: 0 0 5px #AAAAAA;
+    margin: -30px 0 0 -225px;
+}
+.registrationSuccess h2{
+    color: #FFFFFF;
+    text-align: center;
+}
+.registrationSuccess h2 a {
+    color: #4B99CE;
+}
+.exclamation {
+    display:inline!important;
+    position: relative;
+}
+
+.errors {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    background: white;
+    border: 3px solid #cc3300;
+    width: 170px;
+    padding: 7px 0 7px 0;
+    color: black;
+    text-align: center;
+    display:none;
+}
+
+.wrongfield{
+    border-color:#cc3300;   
+}
+#invite-dialog div.buttonline{
+    text-align: center;
+}
+
+.inviteUser  {
+    float: right;
+}
+.draggable {
+    position: absolute;
+}

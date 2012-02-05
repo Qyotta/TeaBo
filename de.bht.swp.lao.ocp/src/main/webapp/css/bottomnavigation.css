@@ -1,0 +1,33 @@
+nav.bottomNavigation {
+    height: 25px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index:13;
+    background: #494949;
+}
+nav.bottomNavigation ul {
+    padding: 0 0 0 20px;
+    float: left;
+}
+nav.bottomNavigation ul:last-Child {
+    padding: 0 20px 0 0;
+    float: right;
+}
+
+nav.bottomNavigation ul li {
+    padding: 0 10px 0 0;
+    float: left;
+}
+
+nav.bottomNavigation ul li a {
+    text-decoration: none;
+    position: relative;
+    bottom: 25px;
+}
+
+nav.bottomNavigation ul li a span {
+    display: none;
+    color: #C2C2C2;
+}

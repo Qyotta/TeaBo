@@ -1,0 +1,25 @@
+.registerCancelButtons a{
+    text-decoration: none;
+}
+.error {
+    color: #000000;
+}
+.logout-button{
+    display: block; 
+    margin-top: 5px;
+}
+a.inviteUser, a.inviteUser:hover, a.inviteUser:visited {
+    color: #ffffff;
+    text-decoration: none;
+}
+.registerError {
+    color: red;
+}
+.loginContainer input#email, .loginContainer input#password {
+    border: 1px solid #000000;
+    height: 19px;
+    width: 190px;
+}
+.blurBox {
+    cursor:default!important;
+}
