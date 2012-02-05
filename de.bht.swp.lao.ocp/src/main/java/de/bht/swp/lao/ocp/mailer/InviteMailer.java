@@ -3,10 +3,6 @@ package de.bht.swp.lao.ocp.mailer;
 import de.bht.swp.lao.ocp.usermanagement.User;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 
-/**
- * This class provides mail functionality
- * 
- */
 public class InviteMailer extends AbstractMailer {
 
   public InviteMailer(String serverHost, String contextPath, final User invitedUser, final Whiteboard whiteboard) {
