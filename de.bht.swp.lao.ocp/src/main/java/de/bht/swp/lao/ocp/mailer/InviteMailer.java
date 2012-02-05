@@ -5,6 +5,18 @@ import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 
 public class InviteMailer extends AbstractMailer {
 
+  /**
+   * Implements an AbstractMailer to send an invitation mail.
+   * 
+   * @param serverHost
+   *          host name of server e.g. http://localhost:8080 or www.lao.de
+   * @param contextPath
+   *          context path e.g. 'de.bht.swp.lao.ocp' or could be blank
+   * @param invitedUser
+   *          user, who is invited to the whiteboard
+   * @param whiteboard
+   *          whiteboard to whom the user is invited
+   */
   public InviteMailer(String serverHost, String contextPath, final User invitedUser, final Whiteboard whiteboard) {
     super(serverHost, contextPath);
 

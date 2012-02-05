@@ -73,7 +73,7 @@
             Invite a Person
             <span>Enter an Email address</span>
         </h1>
-        <form:form method="post" commandName="mailaddress" action="inviteuser-${whiteboard.id}.htm">
+        <form:form method="post" action="inviteuser-${whiteboard.id}.htm">
         Mail: <form:input class="mailaddress" path="address"/><br/>
         <div class="buttonline" >
             <input type="submit" value="Submit">

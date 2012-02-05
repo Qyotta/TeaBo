@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import de.bht.swp.lao.ocp.attachment.Attachment;
 import de.bht.swp.lao.ocp.exceptions.OCPHTTPException;
 import de.bht.swp.lao.ocp.mailer.InviteMailer;
-import de.bht.swp.lao.ocp.mailer.MailData;
 import de.bht.swp.lao.ocp.note.Note;
 import de.bht.swp.lao.ocp.usermanagement.IUserDao;
 import de.bht.swp.lao.ocp.usermanagement.User;
@@ -69,7 +68,6 @@ public class WhiteboardController {
     model.addAttribute("notes", noteDao.findAllbyWhiteboardId(whiteboardId));
     model.addAttribute("attachments", attachmentDao.findAllbyWhiteboardId(whiteboardId));
     model.addAttribute("user", user);
-    model.addAttribute("mailaddress", new MailData());
     return "whiteboard/view";
   }
 
