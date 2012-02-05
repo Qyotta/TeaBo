@@ -54,6 +54,7 @@
 
 <div class="rightNavigation">
     <a class="slideLeftButton"><img src="../images/slide_button.png"></a>
+    <div class="wrapper"></div>
 </div>
 
 <div class="dialogs">

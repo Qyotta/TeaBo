@@ -187,7 +187,7 @@ $(function() {
     
     $('.attachment').live('click', function(){
         var attachment = $(this),
-            rightNavigation = $('.rightNavigation'),
+            rightNavigation = $('.rightNavigation .wrapper'),
             basePath = $('.whiteboard').attr('data-context-path'),
             full_name = $('<h2/>').attr('class','full_filename').html(attachment.find('.full_filename').val()),
             creator = $('<div/>').attr('class','creator').html('uploded by '+attachment.find('.creator').val()),
