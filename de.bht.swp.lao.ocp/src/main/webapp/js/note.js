@@ -151,6 +151,6 @@ $(function() {
     
     $('.note').find('textarea').elasticArea();
     $('.note').live("mouseover", function() { currentModus=MODUS.SELECT; });
-    $('.note').live("mouseup", function() { currentModus=MODUS.HAND; });
+    $('.note').live("mouseleave", function() { currentModus=MODUS.HAND; });
     
 });
