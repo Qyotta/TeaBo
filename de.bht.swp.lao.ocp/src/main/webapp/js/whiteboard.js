@@ -125,39 +125,6 @@ function _reportElementOrder(_id) {
     });
 }
 
-//TODO commenting
-/**
-* ?
-* 
-* @param {jQueryObject} elem    ?
-* 
-*/
-function containerFadeIn(elem) {
-    $('.dialogs div[id]').fadeOut(500,function() {
-        if($(this).attr('id')==$(elem).attr('id')) $(elem).fadeIn();
-    });
-    $('.whiteboard').draggable('disable').css('cursor', 'default!important');
-    $('.whiteboard .note, .whiteboard .attachment').draggable('disable').addClass('blurBox');
-    $('.whiteboard .noteItems textarea').addClass('blurTextarea').attr('readonly', 'readonly').css('cursor', 'default');
-    $('.whiteboard .noteItems textarea, .whiteboard .creator').addClass('blurText');
-    $('body').css('background', 'url("../images/whiteboard-background-blured.gif")');
-}
-
-//TODO commenting
-/**
-* 
-* @param {jQueryObject} elem    ?
-* 
-*/
-function containerFadeOut(elem) {
-    $(elem).fadeOut();
-    $('.whiteboard').draggable('enable').css('cursor', 'inherit');
-    $('.whiteboard .note, .whiteboard .attachment').draggable('enable').removeClass('blurBox');
-    $('.whiteboard .noteItems textarea').removeClass('blurTextarea').removeAttr('readonly').css('cursor', 'inherit');
-    $('.whiteboard .noteItems textarea, .whiteboard .creator').removeClass('blurText');
-    $('body').css('background', 'url("../images/whiteboard-background.gif")');
-}
-
 /**
 * Called when the whiteboard is dragged. Moves the whiteboard to change the actual viewport.
 * 
