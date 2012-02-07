@@ -32,7 +32,7 @@
 <script src="${pageContext.request.contextPath}/js/application.js"></script>
 <script src="${pageContext.request.contextPath}/js/cometd.js"></script>
 
-<script type="text/javascript">$(document).ready(function() {var basePath = "${pageContext.request.contextPath}"});</script>
+<script type="text/javascript">var basePath = "${pageContext.request.contextPath}";</script>
 
 <nav class="topNavigation">
     <h1 class="logo">
