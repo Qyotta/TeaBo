@@ -10,7 +10,10 @@
     <bean id="viewResolver"
         class="org.springframework.web.servlet.view.InternalResourceViewResolver"
         p:prefix="/WEB-INF/views/" p:suffix=".jsp"/>
-        
+    
+    <!-- HandlerExceptionResolver -->
+    <bean class="de.bht.swp.lao.ocp.errorhandling.SimpleExceptionHandler" />
+    
     <context:component-scan base-package="de.bht.swp.lao.ocp"/>
     
 </beans>
