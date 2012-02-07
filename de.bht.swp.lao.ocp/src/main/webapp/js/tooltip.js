@@ -2,18 +2,7 @@
 var toolTipCnt = 0,
     toolTips = null;
 
-//TODO commenting
-/**
-* 
-*/
-function closeToolTip() {
-    $.ajax({
-        url: basePath+"/user/setToolTipFlag.htm",
-        type: 'POST',
-        data: 'value='+$('#showAgain').is(':checked')
-    });
-    $(toolTips[toolTipCnt-1]).fadeOut(500);
-}
+
 
 //TODO commenting
 /**
@@ -48,6 +37,19 @@ function prevToolTip() {
 }
 
 $(function($) {
+    //TODO commenting
+    /**
+    * 
+    */
+    function closeToolTip() {
+         $.ajax({
+            url: basePath+"/user/setToolTipFlag.htm",
+            type: 'POST',
+            data: 'value='+$('#showAgain').is(':checked')
+        });
+        $(toolTips[toolTipCnt-1]).fadeOut(500);
+    }
+
     toolTips = $('#startscreen div[data-type="tooltip"]');
     $.ajax({
         url: basePath+"/user/showAgain.htm",
