@@ -34,9 +34,39 @@
     </scm>
     <developers>
         <developer>
+            <id>cbromann</id>
+            <name>Christian Bromann</name>
+            <email>contact@christian-bromann.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <organization>Beuth Hochschule für Technik Berlin</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
             <id>mfroede</id>
             <name>Marcus Fröde</name>
             <email>marcus.froede@gmx.de</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <organization>Beuth Hochschule für Technik Berlin</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>bkuhn</id>
+            <name>Benjamin Kuhn</name>
+            <email>b.kuhn@hotmail.de</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <organization>Beuth Hochschule für Technik Berlin</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>cnuetzel</id>
+            <name>Christoph Nützel</name>
+            <email>christoph_nuetzel@web.de</email>
             <roles>
                 <role>Developer</role>
             </roles>
@@ -64,31 +94,21 @@
             <timezone>+1</timezone>
         </developer>
         <developer>
-            <id>bkuhn</id>
-            <name>Benjamin Kuhn</name>
-            <email>b.kuhn@hotmail.de</email>
+            <id>mschmidt</id>
+            <name>Martin Schmidt</name>
+            <email>mail@schmidthappens.de</email>
             <roles>
-                <role>Developer</role>
+                <role>Product Owner</role>
             </roles>
             <organization>Beuth Hochschule für Technik Berlin</organization>
             <timezone>+1</timezone>
         </developer>
         <developer>
-            <id>cbromann</id>
-            <name>Christian Bromann</name>
-            <email>contact@christian-bromann.com</email>
+            <id>shaschemi</id>
+            <name>Siamak Haschemi</name>
+            <email>siamak@haschemi.org</email>
             <roles>
-                <role>Developer</role>
-            </roles>
-            <organization>Beuth Hochschule für Technik Berlin</organization>
-            <timezone>+1</timezone>
-        </developer>
-        <developer>
-            <id>cnuetzel</id>
-            <name>Christoph Nützel</name>
-            <email>christoph_nuetzel@web.de</email>
-            <roles>
-                <role>Developer</role>
+                <role>Facilitator</role>
             </roles>
             <organization>Beuth Hochschule für Technik Berlin</organization>
             <timezone>+1</timezone>
