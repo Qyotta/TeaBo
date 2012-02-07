@@ -15,8 +15,8 @@ clone repository to TARGET_DIR using
 
 Prerequesits
 ------------
-install [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) v1.6 or higher
-install [Apache Maven](http://maven.apache.org/download.html) v3.0.3 or higher
+* install [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) v1.6 or higher
+* install [Apache Maven](http://maven.apache.org/download.html) v3.0.3 or higher
 
 Develop in Eclipse
 ------------------
