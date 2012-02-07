@@ -12,13 +12,15 @@
         <license>
             <name>Eclipse Public License v1.0</name>
             <comments>
-                http://www.eclipse.org/legal/epl-v10.htm
+                
+                http://www.eclipse.org/legal/epl-v10.html
             </comments>
         </license>
     </licenses>
     <url>toDo</url>
     <description>
-        ToDo
+        (Acronym for "look ahead online") is an online collaboration platform for collecting ideas and brainstorming. This is a project of 
+        students of the Beuth Hochschule für Technik Berlin, University of Applied Sciences and still under development.
     </description>
     <issueManagement>
         <system>Redmine</system>
@@ -228,6 +230,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
