@@ -7,6 +7,93 @@
     <artifactId>de.bht.swp.lao.ocp</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
+    <name>Look Ahead Online - Online Collaboration Platform</name>
+    <licenses>
+        <license>
+            <name>Eclipse Public License v1.0</name>
+            <comments>
+                http://www.eclipse.org/legal/epl-v10.htm
+            </comments>
+        </license>
+    </licenses>
+    <url>toDo</url>
+    <description>
+        ToDo
+    </description>
+    <issueManagement>
+        <system>Redmine</system>
+        <url>http://www.qcentral.org/redmine/projects/bht-lao/issues</url>
+    </issueManagement>
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>http://www.qcentral.org:8080/jenkins/job/LAO</url>
+    </ciManagement>
+    <scm>
+        <developerConnection>scm:git:git@github.com:Softwareprojekt-BHT-Berlin/lao-Online-Collaboration-Platform.git</developerConnection>
+        <url>https://github.com/Softwareprojekt-BHT-Berlin/lao-Online-Collaboration-Platform</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>mfroede</id>
+            <name>Marcus Fröde</name>
+            <email>marcus.froede@gmx.de</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <organization>Beuth Hochschule für Technik Berlin</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>mrabe</id>
+            <name>Marcus Rabe</name>
+            <email>marcus_berlin@gmx.net</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <organization>Beuth Hochschule für Technik Berlin</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>asattler</id>
+            <name>Andreas Sattler</name>
+            <email>info@royal-scripts.de</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <organization>Beuth Hochschule für Technik Berlin</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>bkuhn</id>
+            <name>Benjamin Kuhn</name>
+            <email>b.kuhn@hotmail.de</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <organization>Beuth Hochschule für Technik Berlin</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>cbromann</id>
+            <name>Christian Bromann</name>
+            <email>contact@christian-bromann.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <organization>Beuth Hochschule für Technik Berlin</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>cnuetzel</id>
+            <name>Christoph Nützel</name>
+            <email>christoph_nuetzel@web.de</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <organization>Beuth Hochschule für Technik Berlin</organization>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
 
     <build>
         <defaultGoal>install</defaultGoal>
@@ -99,6 +186,41 @@
             </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <!-- plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId> 
+                <reportSets> <reportSet> <id>uml</id> <configuration> <doclet>gr.spinellis.umlgraph.doclet.UmlGraph</doclet> 
+                <docletArtifact> <groupId>gr.spinellis</groupId> <artifactId>UmlGraph</artifactId> 
+                <version>4.4</version> </docletArtifact> <additionalparam>-views</additionalparam> 
+                <destDir>target/uml</destDir> <show>private</show> </configuration> <reports> 
+                <report>javadoc</report> </reports> </reportSet> <reportSet> <id>html</id> 
+                <configuration> <show>private</show> </configuration> <reports> <report>javadoc</report> 
+                </reports> </reportSet> </reportSets> </plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>taglist-maven-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.12</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <dependencies>
         <dependency>
