@@ -8,7 +8,7 @@ var toolTipCnt = 0,
 */
 function closeToolTip() {
     $.ajax({
-        url: "/de.bht.swp.lao.ocp/user/setToolTipFlag.htm",
+        url: basePath+"/user/setToolTipFlag.htm",
         type: 'POST',
         data: 'value='+$('#showAgain').is(':checked')
     });
