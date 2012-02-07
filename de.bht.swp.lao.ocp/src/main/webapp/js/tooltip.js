@@ -50,7 +50,7 @@ function prevToolTip() {
 $(function($) {
     toolTips = $('#startscreen div[data-type="tooltip"]');
     $.ajax({
-        url: "/de.bht.swp.lao.ocp/user/showAgain.htm",
+        url: basePath+"/user/showAgain.htm",
         type: 'POST',
         success: function(jsonData) {
             alert(jsonData);
