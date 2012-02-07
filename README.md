@@ -20,10 +20,12 @@ Prerequesits
 
 Develop in Eclipse
 ------------------
-add M2_REPO variable to your Eclipse workspace using 
+add M2_REPO variable to your Eclipse workspace using
+
     $ mvn -Declipse.workspace=PATH_TO_ECLIPSE_WORKSPACE eclipse:add-maven-repo
 
-create Eclipse project (.classpath and .project files) using 
+create Eclipse project (.classpath and .project files) using
+
     $ cd TARGET_DIR/lao-Online-Collaboration-Platform/de.bht.swp.lao.ocp
     $ mvn eclipse:clean && mvn eclipse:eclipse
 
@@ -31,7 +33,8 @@ now you can import the project in Eclipse
 
 Install
 -------
-In a console, type 
+In a console, type
+
     $ cd TARGET_DIR/lao-Online-Collaboration-Platform/de.bht.swp.lao.ocp/
     $ mvn install
 
@@ -42,11 +45,13 @@ Deployment
 
 ### In Jetty using Maven ###
 In a console, type
+
     $ cd TARGET_DIR/lao-Online-Collaboration-Platform/de.bht.swp.lao.ocp
     $ mvn clean jetty:run
 
 ### In Tomcat using Maven ###
 In a console, type
+
     $ cd TARGET_DIR/lao-Online-Collaboration-Platform/de.bht.swp.lao.ocp
     $ mvn clean tomcat:run
 
