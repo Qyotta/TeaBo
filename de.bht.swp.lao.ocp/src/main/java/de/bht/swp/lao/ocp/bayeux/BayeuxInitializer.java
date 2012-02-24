@@ -30,7 +30,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
 @Component
-public class BayeuxInitializer implements DestructionAwareBeanPostProcessor, ServletContextAware {
+public class BayeuxInitializer implements DestructionAwareBeanPostProcessor,
+        ServletContextAware {
     private BayeuxServer bayeuxServer;
     private ServerAnnotationProcessor processor;
 

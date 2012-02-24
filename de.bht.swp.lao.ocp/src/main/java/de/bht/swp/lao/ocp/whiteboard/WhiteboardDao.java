@@ -9,13 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.bht.swp.lao.ocp.auth.User;
 import de.bht.swp.lao.ocp.exceptions.OCPDBException;
-import de.bht.swp.lao.ocp.usermanagement.User;
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 public class WhiteboardDao implements IWhiteboardDao {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WhiteboardDao.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(WhiteboardDao.class);
 
     @PersistenceContext
     private EntityManager em;
@@ -60,8 +61,8 @@ public class WhiteboardDao implements IWhiteboardDao {
     @Override
     public List<Whiteboard> findByOwner(User user) {
         try {
-            return em.createQuery("from Whiteboard w where w.owner.id=?1").setParameter(1, user.getId())
-                    .getResultList();
+            return em.createQuery("from Whiteboard w where w.owner.id=?1")
+                    .setParameter(1, user.getId()).getResultList();
         } catch (Exception e) {
             LOGGER.error("findByOwner failed:", e);
             throw new OCPDBException("findByOwner failed:", e);
@@ -73,7 +74,7 @@ public class WhiteboardDao implements IWhiteboardDao {
     public void delete(Whiteboard whiteboard) {
         try {
             Whiteboard w = em.find(Whiteboard.class, whiteboard.getId());
-            for (WhiteboardItem n : w.getWhiteboardObjects()) {
+            for (WhiteboardItem n : w.getWhiteboardItems()) {
                 em.remove(n);
             }
             for (User u : w.getAssignedUsers()) {
@@ -82,7 +83,7 @@ public class WhiteboardDao implements IWhiteboardDao {
             }
 
             em.remove(w);
-            
+
         } catch (Exception e) {
             LOGGER.error("delete failed:", e);
             throw new OCPDBException("delete failed:", e);

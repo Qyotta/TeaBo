@@ -7,8 +7,11 @@ import de.bht.swp.lao.ocp.whiteboarditem.AbstractWhiteboardItemDao;
  */
 public class AttachmentDao extends AbstractWhiteboardItemDao<Attachment> {
 
-    /* (non-Javadoc)
-     * @see de.bht.swp.lao.ocp.whiteboarditem.AbstractWhiteboardItemDao#getType()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * de.bht.swp.lao.ocp.whiteboarditem.AbstractWhiteboardItemDao#getType()
      */
     @Override
     public Class<Attachment> getType() {

@@ -8,14 +8,15 @@ import de.bht.swp.lao.ocp.whiteboarditem.AbstractWhiteboardItemDao;
  */
 public class NoteDao extends AbstractWhiteboardItemDao<Note> {
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.bht.swp.lao.ocp.whiteboarditem.AbstractWhiteboardItemDao#getType()
-   */
-  @Override
-  public Class<Note> getType() {
-    return Note.class;
-  }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * de.bht.swp.lao.ocp.whiteboarditem.AbstractWhiteboardItemDao#getType()
+     */
+    @Override
+    public Class<Note> getType() {
+        return Note.class;
+    }
 
 }

@@ -5,18 +5,20 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
-import de.bht.swp.lao.ocp.usermanagement.IUserDao;
-import de.bht.swp.lao.ocp.usermanagement.User;
+import de.bht.swp.lao.ocp.auth.IUserDao;
+import de.bht.swp.lao.ocp.auth.User;
 
 @Controller
 @RequestMapping(value = "/user/register.htm")
 public class RegisterController {
+
+    private static final String REGISTER_VIEW = "user/register";
 
     @Autowired
     private UserRegisterValidator userRegisterValidator;
@@ -24,30 +26,25 @@ public class RegisterController {
     @Inject
     private IUserDao userDao;
 
-    @SuppressWarnings("unused")
-    private RegisterController() {
-    }
-
-    public RegisterController(UserRegisterValidator userRegisterValidator) {
-        this.userRegisterValidator = userRegisterValidator;
+    public RegisterController() {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView register() {
-        ModelAndView mav = new ModelAndView("user/register");
-        mav.addObject("registerFormData", new RegisterFormData());
-        return mav;
+    public String register(ModelMap map) {
+        map.addAttribute("registerFormData", new RegisterFormData());
+        return REGISTER_VIEW;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView registerSubmitted(@ModelAttribute("registerFormData") RegisterFormData registerFormData,
+    public String registerSubmitted(
+            ModelMap map,
+            @ModelAttribute("registerFormData") RegisterFormData registerFormData,
             BindingResult result, HttpServletRequest request) {
-        ModelAndView mav = new ModelAndView();
         userRegisterValidator.validate(registerFormData, result);
 
         if (result.hasErrors()) {
-            mav.setViewName("user/register");
-            mav.addObject("errors", result);
+            map.addAttribute("errors", result);
+            return REGISTER_VIEW;
         } else {
             User newUser = new User();
             newUser.setEmail(registerFormData.getEmail());
@@ -57,9 +54,9 @@ public class RegisterController {
             newUser.setPosition(registerFormData.getPosition());
             newUser.setShowToolTips(true);
             userDao.save(newUser);
-            request.getSession().setAttribute("user", userDao.findByEmail(registerFormData.getEmail()));
-            mav.setViewName("user/registrationSuccess");
+            request.getSession().setAttribute("user",
+                    userDao.findByEmail(registerFormData.getEmail()));
+            return "user/registrationSuccess";
         }
-        return mav;
     }
 }

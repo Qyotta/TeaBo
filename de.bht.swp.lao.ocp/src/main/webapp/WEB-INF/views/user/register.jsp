@@ -14,14 +14,14 @@
 <title>User register</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css" />
 
-<script src="${pageContext.request.contextPath}/js/libs/jquery/jquery-1.6.2.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/jquery/jquery-ui-1.8.17.js"></script>t>
+<script src="${pageContext.request.contextPath}/resources/js/libs/jquery/jquery-1.6.2.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/libs/modernizr-2.0.6.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/libs/jquery/jquery-ui-1.8.17.js"></script>t>
 
-<script src="${pageContext.request.contextPath}/js/application.js"></script>
-<script src="${pageContext.request.contextPath}/js/utils.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/application.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>
 
 <script type="text/javascript">var config = {contextPath: '${pageContext.request.contextPath}'}</script>
 

@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import de.bht.swp.lao.ocp.usermanagement.User;
+import de.bht.swp.lao.ocp.auth.User;
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 /**
@@ -27,6 +27,9 @@ public class Whiteboard {
     private Long id;
 
     private String name;
+
+    @ManyToOne
+    private User creator;
 
     // @OneToMany(mappedBy = "whiteboard", cascade = CascadeType.ALL)
     // @JoinColumn(name = "whiteboard", insertable = true, updatable = true,
@@ -46,15 +49,12 @@ public class Whiteboard {
         this.assignedUsers = assignedUsers;
     }
 
-    @ManyToOne
-    private User creator;
-
-    public List<WhiteboardItem> getWhiteboardObjects() {
+    public List<WhiteboardItem> getWhiteboardItems() {
         return whiteboardItems;
     }
 
-    public void setWhiteboardObjects(List<WhiteboardItem> notes) {
-        this.whiteboardItems = notes;
+    public void setWhiteboardItems(List<WhiteboardItem> whiteboardItems) {
+        this.whiteboardItems = whiteboardItems;
     }
 
     public User getCreator() {

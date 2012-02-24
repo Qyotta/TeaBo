@@ -11,7 +11,8 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
-        <url-pattern>*.htm</url-pattern>
+        <url-pattern>/</url-pattern>
+        <!-- <url-pattern>*.htm</url-pattern>  -->
     </servlet-mapping>
     <servlet>
         <servlet-name>cometd</servlet-name>
@@ -48,10 +49,11 @@
     <listener>
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>
-
+<!--
     <welcome-file-list>
         <welcome-file>redirect.jsp</welcome-file>
     </welcome-file-list>
+-->
     
     <error-page>
       <error-code>404</error-code>  

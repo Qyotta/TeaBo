@@ -48,13 +48,15 @@ public class WhiteboardItemService {
         output.put("y", y);
 
         String channel = "/whiteboardItem/move/" + whiteboardid;
-        for (ServerSession session : bayeux.getChannel(channel).getSubscribers()) {
+        for (ServerSession session : bayeux.getChannel(channel)
+                .getSubscribers()) {
             session.deliver(serverSession, channel, output, null);
         }
     }
 
     @Listener(value = { "/service/whiteboardItem/editing" })
-    public void processProgress(ServerSession remote, ServerMessage.Mutable message) {
+    public void processProgress(ServerSession remote,
+            ServerMessage.Mutable message) {
         Map<String, Object> data = message.getDataAsMap();
 
         Long id = (Long) data.get("id");
@@ -70,7 +72,8 @@ public class WhiteboardItemService {
         output.put("editing", editing);
 
         String channel = "/whiteboardItem/editing/" + whiteboardid;
-        for (ServerSession session : bayeux.getChannel(channel).getSubscribers()) {
+        for (ServerSession session : bayeux.getChannel(channel)
+                .getSubscribers()) {
             session.deliver(serverSession, channel, output, null);
         }
     }
@@ -85,15 +88,18 @@ public class WhiteboardItemService {
 
         WhiteboardItem item = whiteboardItemDao.findById(id);
 
-        item.setOrderIndex(whiteboardItemDao.getHighestOrderIndexByWhiteboardId(whiteboardid) + 1);
+        item.setOrderIndex(whiteboardItemDao
+                .getHighestOrderIndexByWhiteboardId(whiteboardid) + 1);
         whiteboardItemDao.save(item);
 
         Map<String, Object> output = new HashMap<String, Object>();
-        output.put("id", item.getClass().getSimpleName().toLowerCase() + "-" + id);
+        output.put("id", item.getClass().getSimpleName().toLowerCase() + "-"
+                + id);
         output.put("newIndex", item.getOrderIndex());
 
         String channel = "/whiteboardItem/order/" + whiteboardid;
-        for (ServerSession session : bayeux.getChannel(channel).getSubscribers()) {
+        for (ServerSession session : bayeux.getChannel(channel)
+                .getSubscribers()) {
             session.deliver(serverSession, channel, output, null);
         }
     }

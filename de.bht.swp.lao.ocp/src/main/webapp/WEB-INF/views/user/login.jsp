@@ -13,14 +13,14 @@
 <title>[lao] - User login</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css" />
 
-<script src="${pageContext.request.contextPath}/js/libs/jquery/jquery-1.6.2.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/modernizr-2.0.6.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/libs/jquery/jquery-ui-1.8.17.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/libs/jquery/jquery-1.6.2.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/libs/modernizr-2.0.6.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/libs/jquery/jquery-ui-1.8.17.js"></script>
 
-<script src="${pageContext.request.contextPath}/js/application.js"></script>
-<script src="${pageContext.request.contextPath}/js/utils.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/application.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>
 <script type="text/javascript">var config = { contextPath: '${pageContext.request.contextPath}' }</script>
 
 <nav class="topNavigation">
@@ -68,7 +68,7 @@
                     <c:when test="${not empty passwordEmailInputErrors}">
                         <form:password path="password" cssClass="wrongfield" />
                         <div class="exclamation">
-                            <img src="../images/exclamation_mark.png">
+                            <img src="/resources/images/exclamation_mark.png">
                             <div class="errors">${passwordEmailInputErrors}</div>
                         </div>
                     </c:when>

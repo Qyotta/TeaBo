@@ -11,18 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ErrorController {
 
-  /**
-   * Displays a custom error page for HTTP errors.
-   * 
-   * @param map
-   *          the ModelMap
-   * @param httpstatus
-   *          the http status error code to display
-   * @return
-   */
-  @RequestMapping(value = "/error/{httpstatus}.htm")
-  public String handleError(ModelMap map, @PathVariable(value = "httpstatus") Integer httpstatus) {
-    map.addAttribute("httpStatus", httpstatus);
-    return "error/error";
-  }
+    /**
+     * Displays a custom error page for HTTP errors.
+     * 
+     * @param map
+     *            the ModelMap
+     * @param httpstatus
+     *            the http status error code to display
+     * @return
+     */
+    @RequestMapping(value = "/error/{httpstatus}.htm")
+    public String handleError(ModelMap map,
+            @PathVariable(value = "httpstatus") Integer httpstatus) {
+        map.addAttribute("httpStatus", httpstatus);
+        return "error/error";
+    }
 }
