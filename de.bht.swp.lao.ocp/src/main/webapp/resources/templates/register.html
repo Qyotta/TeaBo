@@ -1,0 +1,35 @@
+<div class="registerContainer">
+
+    <h1>
+        Registration
+        <span>Fields with * are required.</span>
+    </h1>
+
+    <form name="register" method="POST" action="user/register" >
+        <dl>
+            <dt>E-Mail Address*</dt>
+            <dd>
+                <input type="email" name="email" />
+            </dd>
+            <dt>Choose Password*</dt>
+            <dd>
+                <input type="password" name="password"/>
+            </dd>
+            <dt>Confirm Password*</dt>
+            <dd>
+                <input type="password" name="passwordvalidate" />
+            </dd>
+            <dt>First Name</dt>
+            <dd><input type="text" name="firstname" /></dd>
+            <dt>Last Name</dt>
+            <dd><input type="text" name="lastname" /></dd>
+            <dt>Position <span>(e.g. Project Manager)</span></dt>
+            <dd><input type="text" name="position" /></dd>
+        </dl>
+
+        <div class="registerCancelButtons">
+            <input type="submit" value="Register Now" class="submitButton">
+            <button type="button" class="submitButton">Cancel</button>
+        </div>
+    </form>
+</div>

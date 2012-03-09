@@ -3,33 +3,37 @@ define([
     'underscore',
     'backbone',
 	'collections/whiteboard',
+	'views/register',
     'views/home/main',
-	'views/dialogs/login',
+	'views/login',
     'views/dialogs/logout',
-], function($, _, Backbone,WhiteboardCollection, MainHomeView,LoginDialogView,LogoutDialogView){
+], function($, _, Backbone,WhiteboardCollection,RegisterView,MainHomeView,LoginView,LogoutDialogView){
     var AppRouter = Backbone.Router.extend({
 		initialize: function(){
 			
 		},
 		routes: {
             // Define some URL routes
+			'register':'showRegister',
             'whiteboard/:id': 'showWhiteboard',
-			'login':'login',
+			'login':'showLogin',
 			'main':'showMainPanel',
             // Default
             '*actions': 'defaultAction'
         },
+		showRegister:function(){
+			new RegisterView();
+		},
         showWhiteboard: function(id){
             alert(id);
         },
-        login: function(){
+        showLogin: function(){
             if(!window.app.loggedIn()){
 				if(!window.app.loginView){
-					window.app.loginView = new LoginDialogView();
+					window.app.loginView = new LoginView();
 				}else{
 					window.app.loginView.render();
-				}
-				window.app.loginView.showDialog();		
+				}	
 			}
 			else{
 				this.navigate("main", {trigger: true});
@@ -38,6 +42,7 @@ define([
 		showMainPanel: function(){
 			if(!window.app.loggedIn()){
 				this.navigate("login", {trigger: true});
+				return;
 			}
 			
 			if(!window.app.logoutDialogView){
