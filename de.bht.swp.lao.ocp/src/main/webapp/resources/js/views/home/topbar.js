@@ -25,7 +25,6 @@ define([
 		},
 		logoutClicked:function(e){
 			e.preventDefault();
-			window.app.log('logoutClicked event trigger');
 			window.app.eventDispatcher.trigger("logoutClicked", null);
 		}
     });

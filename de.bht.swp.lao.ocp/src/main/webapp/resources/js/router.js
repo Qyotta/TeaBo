@@ -24,14 +24,12 @@ define([
         },
         login: function(){
             if(!window.app.loggedIn()){
-				
 				if(!window.app.loginView){
-					self = this;
 					window.app.loginView = new LoginDialogView();
+				}else{
+					window.app.loginView.render();
 				}
-				
-				window.app.loginView.showDialog();
-				
+				window.app.loginView.showDialog();		
 			}
 			else{
 				this.navigate("main", {trigger: true});
@@ -40,6 +38,10 @@ define([
 		showMainPanel: function(){
 			if(!window.app.loggedIn()){
 				this.navigate("login", {trigger: true});
+			}
+			
+			if(!window.app.logoutDialogView){
+				window.app.logoutDialogView = new LogoutDialogView();
 			}
 			
 			if(!window.app.createdWhiteboards){

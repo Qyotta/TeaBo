@@ -3,9 +3,10 @@ define([
     'jquery',
     'underscore',
     'backbone',
+	'models/user',
     'router',
 	'views/home/topbar'
-], function($, _, Backbone,AppRouter,TopbarView){		
+], function($, _, Backbone,User,AppRouter,TopbarView){		
 	var App = function(options) {
 		this.user = options.user;
 		this.options = options || {};
@@ -16,25 +17,35 @@ define([
 
 	App.prototype = {
 		init:function(){
-			this.topbarView = new TopbarView();
+			this.createGuestUser();
 			this.eventDispatcher = _.extend({}, Backbone.Events);
+			this.topbarView = new TopbarView();
 			this.router = new AppRouter();
-			Backbone.history.start();
 		},
 		log: function(str) {
 			if(this.options.debug) console.log(str);
 		},
-		
 		setPreviousState: function() {
 			this.previous_state = document.location.hash;
 		},
-		
 		gotoPreviousState: function() {
 			document.location.hash = this.previous_state;
 		},
-		
 		loggedIn: function() {
 			return !this.user.isNew();
+		},
+		createGuestUser: function(){
+			this.user = new User();
+		},
+		logout:function(){
+			this.reset();
+		},
+		reset:function(){
+			//clear all areas
+			$('#topNavigation').html('');
+			$('#page').html('');
+			$('#dialogs').html('');
+			this.init();
 		}
 	};
 	

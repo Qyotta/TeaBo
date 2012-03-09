@@ -23,10 +23,6 @@ import de.bht.swp.lao.ocp.exceptions.OCPHTTPException;
 @RequestMapping(value = "/user/*")
 public class UserController {
 
-    private static final String LOGIN_VIEW = "user/login";
-
-    private static final String REDIRECT_TO_ROOT = "redirect:/";
-
     @Autowired
     private UserLoginValidator userLoginValidator;
 
@@ -59,9 +55,11 @@ public class UserController {
         return out;
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public void logout(HttpServletRequest request) {
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public @ResponseBody
+    boolean logout(HttpServletRequest request) {
         request.getSession().invalidate();
+        return true;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
