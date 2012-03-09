@@ -15,10 +15,10 @@ public class AppController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String register(ModelMap model, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
-            return "redirect:/user/login.htm";
-        }
-        model.addAttribute("user", user);
+        // if (user == null) {
+        // return "redirect:/user/login.htm";
+        // }
+        // model.addAttribute("user", user);
         return "/app/view";
     }
 }

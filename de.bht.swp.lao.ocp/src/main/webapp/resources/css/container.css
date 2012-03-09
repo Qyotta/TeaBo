@@ -168,7 +168,6 @@
     -moz-box-shadow: 4px 4px 8px #222;
     -o-box-shadow: 4px 4px 8px #222;
     box-shadow: 4px 4px 8px #222;
-    display:none;
     z-index:101;
 }
 .blurBox .attachmentMenu, .blurBox .noteMenu {

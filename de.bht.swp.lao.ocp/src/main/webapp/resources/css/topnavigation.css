@@ -1,4 +1,4 @@
-nav.topNavigation {
+nav#topNavigation {
     height: 25px;
     width: 100%;
     position: absolute;
@@ -8,7 +8,7 @@ nav.topNavigation {
     background: #494949;
 }
 
-nav.topNavigation h1.logo {
+nav#topNavigation h1.logo {
     width:126px;
     height:65px;
     position: absolute;
@@ -22,7 +22,7 @@ nav.topNavigation h1.logo {
     -box-shadow: 0px 0px 5px #000000;
     z-index: 100000;
 }
-nav.topNavigation h1 a {
+nav#topNavigation h1 a {
     width:126px;
     height:65px;
     display:block;
@@ -33,26 +33,26 @@ nav.topNavigation h1 a {
     
 }
 
-nav.topNavigation div.right {
+nav#topNavigation div.right {
     color: #FFFFFF;
     float: right;
     padding: 5px 0 0 0;
     width:900px;
     text-align:right;
 }
-nav.topNavigation div.right div {
+nav#topNavigation div.right div {
     float:right;
     border-left:1px solid #c2c2c2;
     padding:0 10px;
 }
-nav.topNavigation div.right div a {
+nav#topNavigation div.right div a {
     text-decoration:none;
     color:#c2c2c2;
     padding: 0 10px 0 0;
 }
-nav.topNavigation div.right div:last-Child {
+nav#topNavigation div.right div:last-Child {
     border-left:0px;
 }
-nav.topNavigation div.right b {
+nav#topNavigation div.right b {
     margin-right:5px;
 }

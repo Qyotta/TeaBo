@@ -11,12 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import de.bht.swp.lao.ocp.exceptions.OCPHTTPException;
 
 @Controller
 @RequestMapping(value = "/user/*")
@@ -58,44 +59,25 @@ public class UserController {
         return out;
     }
 
-    @RequestMapping(value = "/logout.htm", method = RequestMethod.POST)
-    public String onSubmit(
-            @ModelAttribute("loginFormData") LoginFormData loginFormData,
-            BindingResult result, HttpServletRequest request) {
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public void logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return REDIRECT_TO_ROOT;
     }
 
-    @RequestMapping(value = "/login.htm", method = RequestMethod.GET)
-    public String view(ModelMap model, HttpServletRequest request) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public @ResponseBody
+    UserDTO login(ModelMap model, @RequestBody User user,
+            HttpServletRequest request) {
+        boolean valid = userLoginValidator.validate(user);
 
-        User user = (User) request.getSession().getAttribute("user");
-
-        // if user session already valid, redirect to list.html
-        if (user != null) {
-            return REDIRECT_TO_ROOT;
-        }
-
-        model.addAttribute("loginFormData", new LoginFormData());
-
-        return LOGIN_VIEW;
-    }
-
-    // if login button clicked - Post
-    @RequestMapping(value = "/login.htm", method = RequestMethod.POST)
-    public String login(ModelMap model,
-            @ModelAttribute("loginFormData") LoginFormData loginFormData,
-            BindingResult result, HttpServletRequest request) {
-        userLoginValidator.validate(loginFormData, result);
-
-        if (result.hasErrors()) {
-            model.addAttribute("errors", result);
-            return LOGIN_VIEW;
+        if (!valid) {
+            throw new OCPHTTPException(
+                    OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
+                    "Login error. Please check your credentials and try again.");
         } else {
-            request.getSession().setAttribute("user",
-                    userDao.findByEmail(loginFormData.getEmail()));
-            return REDIRECT_TO_ROOT;
+            User u = userDao.findByEmail(user.getEmail());
+            request.getSession().setAttribute("user", u);
+            return new UserDTO(u);
         }
     }
-
 }

@@ -2,6 +2,19 @@ html {
     overflow: hidden;
 }
 
+#notice {
+  position: fixed;
+  z-index: -2000;
+  top: 25px;
+  width: 100%;
+  background: #ffffcc;
+  color: #767979;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 8px 0 8px 0;
+}
+
 .registrationSuccess {
     background:#494949;
     position: absolute;

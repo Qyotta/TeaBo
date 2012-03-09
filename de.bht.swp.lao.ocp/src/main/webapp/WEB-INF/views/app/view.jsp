@@ -15,21 +15,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <script type="text/javascript">var config = {contextPath: '${pageContext.request.contextPath}'}</script>
 <script data-main="resources/js/main" src="${pageContext.request.contextPath}/resources/js/libs/require/require.js"></script>
-
-<nav class="topNavigation">
-    <h1 class="logo">
-        <a href="#main">
-            <b>lao (V 0.1a)</span>
-        </a>
-    </h1>
-    <div class="right">
-        <div>
-            <a href="logout">Log out</a>
-        </div>
-        <div>
-            <b>User:</b><c:out value="${user.email}"/>
-        </div>
-    </div>
+<nav id="topNavigation">
+    
 </nav>
 
 <div id="page">

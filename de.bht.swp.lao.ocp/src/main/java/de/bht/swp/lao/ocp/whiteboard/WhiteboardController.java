@@ -1,10 +1,10 @@
 package de.bht.swp.lao.ocp.whiteboard;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -46,23 +46,16 @@ public class WhiteboardController {
     @Inject
     private IUserDao userDao;
 
-    /**
-     * Displays a whiteboard.
-     * 
-     * @param model
-     *            The model.
-     * @param request
-     *            The request.
-     * @param whiteboardId
-     *            The id of the requested whiteboard.
-     * @return The name of the view to display
-     */
-    @RequestMapping(value = "/view-{whiteboardId}.htm", method = RequestMethod.GET)
-    public String view(ModelMap model, HttpServletRequest request,
+    @RequestMapping(value = "/{whiteboardId}", method = RequestMethod.GET)
+    public @ResponseBody
+    WhiteboardDTO view(HttpServletRequest request,
             @PathVariable("whiteboardId") Long whiteboardId) {
         User user = (User) request.getSession().getAttribute("user");
+
         if (user == null) {
-            return "redirect:/user/login.htm";
+            throw new OCPHTTPException(
+                    OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
+                    "You are not authorized, please login!");
         }
 
         Whiteboard whiteboard = whiteboardDao.findById(whiteboardId);
@@ -70,46 +63,12 @@ public class WhiteboardController {
         if (whiteboard == null) {
             throw new OCPHTTPException(
                     OCPHTTPException.HTTPCode.HTTP_404_NOT_FOUND,
-                    " no Whiteboard could be found.");
+                    "Whiteboard could be found.");
         }
 
-        model.addAttribute("whiteboard", whiteboard);
-        model.addAttribute("notes", noteDao.findAllbyWhiteboardId(whiteboardId));
-        model.addAttribute("attachments",
+        return new WhiteboardDTO(whiteboard,
+                noteDao.findAllbyWhiteboardId(whiteboardId),
                 attachmentDao.findAllbyWhiteboardId(whiteboardId));
-        model.addAttribute("user", user);
-        return "whiteboard/view";
-    }
-
-    /**
-     * Deletes the whiteboard by id.
-     * 
-     * @param model
-     *            The model.
-     * @param request
-     *            The request.
-     * @param whiteboardId
-     *            The id of the whiteboard to delete.
-     * @return The name of the view to display.
-     */
-    @RequestMapping(value = "/delete-{whiteboardId}.htm", method = RequestMethod.GET)
-    public String delete(ModelMap model, HttpServletRequest request,
-            @PathVariable("whiteboardId") Long whiteboardId) {
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
-            return "redirect:/user/login.htm";
-        }
-
-        Whiteboard whiteboard = whiteboardDao.findById(whiteboardId);
-
-        if (!isOwnedByUser(user, whiteboard)) {
-            throw new OCPHTTPException(
-                    OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
-                    " This Whiteboard is not owned by you.");
-        }
-
-        whiteboardDao.delete(whiteboard);
-        return "redirect:/whiteboard/list.htm";
     }
 
     private boolean isOwnedByUser(User user, Whiteboard whiteboard) {
@@ -118,7 +77,7 @@ public class WhiteboardController {
 
     @RequestMapping(value = "/created", method = RequestMethod.GET)
     public @ResponseBody
-    Set<Map<String, Object>> getCreatedWhiteboards(ModelMap model,
+    List<WhiteboardDTO> getCreatedWhiteboards(ModelMap model,
             HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
 
@@ -130,21 +89,16 @@ public class WhiteboardController {
 
         user = userDao.findById(user.getId());
 
-        model.addAttribute("whiteboards", user.getWhiteboards());
-        Set<Whiteboard> whiteboards = user.getWhiteboards();
-        Set<Map<String, Object>> out = new HashSet<Map<String, Object>>();
-        for (Whiteboard w : whiteboards) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("id", w.getId());
-            map.put("name", w.getName());
-            out.add(map);
+        List<WhiteboardDTO> out = new ArrayList<WhiteboardDTO>();
+        for (Whiteboard w : user.getWhiteboards()) {
+            out.add(new WhiteboardDTO(w, null, null));
         }
         return out;
     }
 
     @RequestMapping(value = "/created/{id}", method = RequestMethod.DELETE)
     public @ResponseBody
-    Map<String, Object> deleteCreatedWhiteboard(ModelMap model,
+    WhiteboardDTO deleteCreatedWhiteboard(ModelMap model,
             HttpServletRequest request, @PathVariable Long id) {
         User user = (User) request.getSession().getAttribute("user");
 
@@ -154,21 +108,22 @@ public class WhiteboardController {
                     "You are not authorized, please login!");
         }
 
-        // user = userDao.findById(user.getId());
+        Whiteboard whiteboard = whiteboardDao.findById(id);
 
-        Whiteboard w = whiteboardDao.findById(id);
-        whiteboardDao.delete(w);
-        Map<String, Object> out = new HashMap<String, Object>();
-        out.put("id", w.getId());
+        if (!isOwnedByUser(user, whiteboard)) {
+            throw new OCPHTTPException(
+                    OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
+                    " This Whiteboard is not owned by you.");
+        }
 
-        System.out.println("deleted whiteboard: " + w.getId());
-        return out;
+        whiteboardDao.delete(whiteboard);
+
+        return new WhiteboardDTO(whiteboard, null, null);
     }
 
     @RequestMapping(value = "/assigned", method = RequestMethod.GET)
     public @ResponseBody
-    Set<Map<String, Object>> assignedWhiteboard(ModelMap model,
-            HttpServletRequest request) {
+    List<WhiteboardDTO> assignedWhiteboards(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
 
         if (user == null) {
@@ -179,21 +134,16 @@ public class WhiteboardController {
 
         user = userDao.findById(user.getId());
 
-        model.addAttribute("whiteboards", user.getWhiteboards());
-        Set<Whiteboard> whiteboards = user.getAssignedWhiteboards();
-        Set<Map<String, Object>> out = new HashSet<Map<String, Object>>();
-        for (Whiteboard w : whiteboards) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("id", w.getId());
-            map.put("name", w.getName());
-            out.add(map);
+        List<WhiteboardDTO> out = new ArrayList<WhiteboardDTO>();
+        for (Whiteboard w : user.getAssignedWhiteboards()) {
+            out.add(new WhiteboardDTO(w, null, null));
         }
         return out;
     }
 
     @RequestMapping(value = "/created", method = RequestMethod.POST)
     public @ResponseBody
-    Map<String, ? extends Object> create(@RequestBody Whiteboard whiteboard,
+    WhiteboardDTO create(@RequestBody Whiteboard whiteboard,
             HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         String name = whiteboard.getName();
@@ -211,10 +161,8 @@ public class WhiteboardController {
 
         whiteboard.setCreator(user);
         whiteboardDao.saveOrUpdate(whiteboard);
-        Map<String, Object> out = new HashMap<String, Object>();
-        out.put("id", whiteboard.getId());
-        out.put("name", whiteboard.getName());
-        return out;
+
+        return new WhiteboardDTO(whiteboard, null, null);
     }
 
     /**

@@ -1,0 +1,18 @@
+<h1 class="logo">
+	<a href="#main">
+		<% if(title) { %>
+			<span class="logo-title"><%=title %></span>
+		<% } %>
+		<span><b>lao (V 0.1a)</b></span>
+	</a>
+</h1>
+<div class="right">
+	<% if(!user.isNew()) { %>
+		<div id="logout-container">
+			<a href="logout">Log out</a>
+		</div>
+		<div id="topbar-user-info">
+			<b>User:</b><span class="user-email"><%=user.get("email")%></span>
+		</div>
+	<% } %>
+</div>

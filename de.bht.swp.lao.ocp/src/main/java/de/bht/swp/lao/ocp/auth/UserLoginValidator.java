@@ -2,59 +2,31 @@ package de.bht.swp.lao.ocp.auth;
 
 import javax.inject.Inject;
 
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
+public class UserLoginValidator {
 
-public class UserLoginValidator implements Validator {
-
-    /**
-     * @uml.property name="userDao"
-     * @uml.associationEnd readOnly="true"
-     */
     @Inject
     private IUserDao userDao;
 
     @Inject
     private EmailValidator mailvalidator;
 
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return LoginFormData.class.equals(clazz);
-    }
-
     public boolean isValidEmailAddress(String email) {
         return mailvalidator.isValidEmailAddress(email);
     }
 
-    @Override
-    public void validate(Object obj, Errors errors) {
-        LoginFormData loginFormData = (LoginFormData) obj;
-
-        // Email
-        if (loginFormData.getEmail() == null
-                || loginFormData.getEmail().equals("")) {
-            errors.rejectValue("email", "email.field.required",
-                    "Email is required!");
-
-        } else {
-            if (!isValidEmailAddress(loginFormData.getEmail())) {
-                errors.rejectValue("email", "email.invalid",
-                        "Email/Password isn't valid");
-            }
+    public boolean validate(User user) {
+        if (user.getEmail() == null || user.getEmail().equals("")
+                || !isValidEmailAddress(user.getEmail())) {
+            return false;
         }
 
-        // Password
-        User user = userDao.findByEmail(loginFormData.getEmail());
+        User u = userDao.findByEmail(user.getEmail());
 
-        if (loginFormData.getPassword() == null
-                || loginFormData.getPassword().equals("")) {
-            errors.rejectValue("password", "password.field.required",
-                    "Password is required!");
-
-        } else if (user == null
-                || !user.getPassword().equals(loginFormData.getPassword())) {
-            errors.rejectValue("password", "passwords.not.matching",
-                    "Email/Password isn't valid");
+        if (user.getPassword() == null || user.getPassword().equals("")
+                || !u.getPassword().equals(user.getPassword())) {
+            return false;
         }
+
+        return true;
     }
 }
