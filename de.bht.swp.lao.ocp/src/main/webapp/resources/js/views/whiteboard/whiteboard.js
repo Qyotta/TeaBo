@@ -10,9 +10,9 @@ define([
             //'click .mainPanel input[type=submit]' : 'submitClicked',
         },
         initialize:function(){
-		
-		}
-	});
-	
-	return WhiteboardView;
+        
+        }
+    });
+    
+    return WhiteboardView;
 });

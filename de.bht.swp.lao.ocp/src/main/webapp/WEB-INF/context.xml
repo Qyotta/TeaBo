@@ -21,7 +21,6 @@
     </bean>
     
     <bean id="userLoginValidator" class="de.bht.swp.lao.ocp.auth.UserLoginValidator" />
-    <bean id="userRegisterValidator" class="de.bht.swp.lao.ocp.register.UserRegisterValidator" />
     <bean id="userDao" class="de.bht.swp.lao.ocp.auth.UserDao" />
     <bean id="noteDao" class="de.bht.swp.lao.ocp.note.NoteDao" />
     <bean id="attachmentDao" class="de.bht.swp.lao.ocp.attachment.AttachmentDao" />

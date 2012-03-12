@@ -9,22 +9,40 @@
         <dl>
             <dt>E-Mail Address*</dt>
             <dd>
-                <input type="email" name="email" />
+                <input type="email" name="email" value="<%=email%>" />
+                <% if(errors && errors.email){ %>
+                    <div class="exclamation">
+                        <img src="resources/images/exclamation_mark.png">
+                        <div class="errors"><%= errors.email%></div>
+                    </div>
+                <% } %>
             </dd>
             <dt>Choose Password*</dt>
             <dd>
                 <input type="password" name="password"/>
+                <% if(errors && errors.password){ %>
+                    <div class="exclamation">
+                        <img src="resources/images/exclamation_mark.png">
+                        <div class="errors"><%= errors.password %></div>
+                    </div>
+                <% } %>
             </dd>
             <dt>Confirm Password*</dt>
             <dd>
                 <input type="password" name="passwordvalidate" />
+                <% if(errors && errors.verify){ %>
+                    <div class="exclamation">
+                        <img src="resources/images/exclamation_mark.png">
+                        <div class="errors"><%= errors.verify%></div>
+                    </div>
+                <% } %>
             </dd>
             <dt>First Name</dt>
-            <dd><input type="text" name="firstname" /></dd>
+            <dd><input type="text" name="firstname" value="<%=firstname%>"/></dd>
             <dt>Last Name</dt>
-            <dd><input type="text" name="lastname" /></dd>
+            <dd><input type="text" name="lastname" value="<%=lastname%>"/></dd>
             <dt>Position <span>(e.g. Project Manager)</span></dt>
-            <dd><input type="text" name="position" /></dd>
+            <dd><input type="text" name="position" value="<%=position%>"/></dd>
         </dl>
 
         <div class="registerCancelButtons">

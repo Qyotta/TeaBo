@@ -13,7 +13,7 @@ define([
         },
         initialize:function(){
             _.bindAll(this,'removeWhiteboardView');
-			window.app.createdWhiteboards.bind("remove", this.removeWhiteboardView);
+            window.app.createdWhiteboards.bind("remove", this.removeWhiteboardView);
         },
         deleteWhiteboard: function(evt){
             evt.preventDefault();
@@ -42,7 +42,7 @@ define([
             }
         },
         render: function(){
-			var data = { createdWhiteboards: window.app.createdWhiteboards.models,assignedWhiteboards: window.app.assignedWhiteboards.models, _: _ };
+            var data = { createdWhiteboards: window.app.createdWhiteboards.models,assignedWhiteboards: window.app.assignedWhiteboards.models, _: _ };
             var compiledTemplate = _.template( mainHomeTemplate, data );
             this.el.html(compiledTemplate);
         }

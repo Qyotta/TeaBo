@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,8 +63,7 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public @ResponseBody
-    UserDTO login(ModelMap model, @RequestBody User user,
-            HttpServletRequest request) {
+    UserDTO login(@RequestBody User user, HttpServletRequest request) {
         boolean valid = userLoginValidator.validate(user);
 
         if (!valid) {
@@ -78,4 +76,25 @@ public class UserController {
             return new UserDTO(u);
         }
     }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public @ResponseBody
+    UserDTO register(@RequestBody User user) {
+        if (user == null) {
+            throw new OCPHTTPException(
+                    OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
+                    "Register data not valid.");
+        }
+
+        User userWithEmail = userDao.findByEmail(user.getEmail());
+        if (userWithEmail != null) {
+            throw new OCPHTTPException(
+                    OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
+                    "Email is already in use.");
+        }
+        userDao.save(user);
+
+        return new UserDTO(user);
+    }
+
 }

@@ -7,7 +7,7 @@ define([
 
     var WhiteboardCollection = Backbone.Collection.extend({
         model: Whiteboard,
-		url: '/whiteboard'
+        url: '/whiteboard'
     });
     
     return WhiteboardCollection;

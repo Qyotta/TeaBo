@@ -11,16 +11,16 @@ require.config({
 require([
     // Load our app module and pass it to our definition function
     'backbone',
-	'app',
+    'app',
 ], function(Backbone,App){
     // The "app" dependency is passed in as "App"
    $(function() {
-		window.app = new App({
-			debug: true, 
-		});
-		
-		app.init();
-		
-		Backbone.history.start();
-	});
+        window.app = new App({
+            debug: true, 
+        });
+        
+        app.init();
+        
+        Backbone.history.start();
+    });
 });
