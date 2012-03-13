@@ -20,7 +20,6 @@ define([
             this.el.html(compiledTemplate);
         },
         showLogoutDialog:function(){
-            window.app.log('showLogoutDialog');
             this.showDialog();
         },
         hideLogoutDialog:function(evt){

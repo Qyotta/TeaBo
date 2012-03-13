@@ -7,29 +7,20 @@
         <input type="submit" value="Submit"/>
     </form>
     
-    <h2>Created Whiteboards</h2>
-    <% if(_.isEmpty(createdWhiteboards)) { %>
-        <p>No whiteboard created yet.</p>
+    <h2>Whiteboards List</h2>
+    <% if(_.isEmpty(whiteboards)) { %>
+        <p>No whiteboard yet.</p>
     <% } else{%>
         <ul>
-            <% _.each(createdWhiteboards, function(whiteboard){ %>
+            <% _.each(whiteboards, function(whiteboard){ %>
                 <li id="<%= whiteboard.get("id") %>">
                     <a href="#whiteboard/<%= whiteboard.get("id") %>"><%= whiteboard.get("name") %></a> 
-                    <a class="delete">
-                        <img src="<%= config.contextPath %>/resources/images/cross.png" alt="delete" title="Delete Whiteboard"/>
-                    </a>
+                    <% if(user.email == whiteboard.creator){ %>
+						<a class="delete">
+							<img src="<%= config.contextPath %>/resources/images/cross.png" alt="delete" title="Delete Whiteboard"/>
+						</a>
+					<% } %>
                 </li> 
-            <% }); %>
-        </ul>
-    <% } %>
-    
-    <h2>Assigned whiteboards</h2>
-    <% if(_.isEmpty(assignedWhiteboards)) { %>
-        <p>No whiteboard assigned yet.</p>
-    <% } else{%>
-        <ul>
-            <% _.each(assignedWhiteboards, function(whiteboard){ %>
-                <li><a href="#whiteboard/<%= whiteboard.get("id") %>"><%= whiteboard.get("name") %></a></li> 
             <% }); %>
         </ul>
     <% } %>

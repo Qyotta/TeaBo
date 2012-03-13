@@ -8,17 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import de.bht.swp.lao.ocp.auth.User;
+import de.bht.swp.lao.ocp.auth.UserDTO;
 
 @Controller
 public class AppController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String register(ModelMap model, HttpServletRequest request) {
+    public String view(ModelMap model, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
-        // if (user == null) {
-        // return "redirect:/user/login.htm";
-        // }
-        // model.addAttribute("user", user);
+        model.addAttribute("user", user != null ? new UserDTO(user) : null);
         return "/app/view";
     }
 }

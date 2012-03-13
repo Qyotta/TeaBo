@@ -19,26 +19,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import de.bht.swp.lao.ocp.attachment.Attachment;
 import de.bht.swp.lao.ocp.auth.IUserDao;
 import de.bht.swp.lao.ocp.auth.User;
 import de.bht.swp.lao.ocp.exceptions.OCPHTTPException;
 import de.bht.swp.lao.ocp.mailer.InviteMailer;
-import de.bht.swp.lao.ocp.note.Note;
 import de.bht.swp.lao.ocp.utils.UserUtilities;
-import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 /**
  * This class handles whiteboard specific requests.
  */
 @Controller
-@RequestMapping(value = "/whiteboard/*")
 public class WhiteboardController {
-    @Inject
-    private IWhiteboardItemDao<Note> noteDao;
+    public static final String BASE_URL = "/whiteboard";
 
-    @Inject
-    private IWhiteboardItemDao<Attachment> attachmentDao;
+    public static final String WHITEBOARD_WHITEBOARD_ID = BASE_URL
+            + "/{whiteboardId}";
+
+    public static final String WHITEBOARD_WHITEBOARD_ID_INVITE = WHITEBOARD_WHITEBOARD_ID
+            + "/invite";
 
     @Inject
     private IWhiteboardDao whiteboardDao;
@@ -46,7 +44,7 @@ public class WhiteboardController {
     @Inject
     private IUserDao userDao;
 
-    @RequestMapping(value = "/{whiteboardId}", method = RequestMethod.GET)
+    @RequestMapping(value = WHITEBOARD_WHITEBOARD_ID, method = RequestMethod.GET)
     public @ResponseBody
     WhiteboardDTO view(HttpServletRequest request,
             @PathVariable("whiteboardId") Long whiteboardId) {
@@ -66,19 +64,16 @@ public class WhiteboardController {
                     "Whiteboard could be found.");
         }
 
-        return new WhiteboardDTO(whiteboard,
-                noteDao.findAllbyWhiteboardId(whiteboardId),
-                attachmentDao.findAllbyWhiteboardId(whiteboardId));
+        return new WhiteboardDTO(whiteboard);
     }
 
     private boolean isOwnedByUser(User user, Whiteboard whiteboard) {
         return user.equals(whiteboard.getCreator());
     }
 
-    @RequestMapping(value = "/created", method = RequestMethod.GET)
+    @RequestMapping(value = BASE_URL, method = RequestMethod.GET)
     public @ResponseBody
-    List<WhiteboardDTO> getCreatedWhiteboards(ModelMap model,
-            HttpServletRequest request) {
+    List<WhiteboardDTO> getWhiteboards(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
 
         if (user == null) {
@@ -91,12 +86,15 @@ public class WhiteboardController {
 
         List<WhiteboardDTO> out = new ArrayList<WhiteboardDTO>();
         for (Whiteboard w : user.getWhiteboards()) {
-            out.add(new WhiteboardDTO(w, null, null));
+            out.add(new WhiteboardDTO(w));
+        }
+        for (Whiteboard w : user.getAssignedWhiteboards()) {
+            out.add(new WhiteboardDTO(w));
         }
         return out;
     }
 
-    @RequestMapping(value = "/created/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = WHITEBOARD_WHITEBOARD_ID, method = RequestMethod.DELETE)
     public @ResponseBody
     WhiteboardDTO deleteCreatedWhiteboard(ModelMap model,
             HttpServletRequest request, @PathVariable Long id) {
@@ -118,30 +116,10 @@ public class WhiteboardController {
 
         whiteboardDao.delete(whiteboard);
 
-        return new WhiteboardDTO(whiteboard, null, null);
+        return new WhiteboardDTO(whiteboard);
     }
 
-    @RequestMapping(value = "/assigned", method = RequestMethod.GET)
-    public @ResponseBody
-    List<WhiteboardDTO> assignedWhiteboards(HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute("user");
-
-        if (user == null) {
-            throw new OCPHTTPException(
-                    OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
-                    "You are not authorized, please login!");
-        }
-
-        user = userDao.findById(user.getId());
-
-        List<WhiteboardDTO> out = new ArrayList<WhiteboardDTO>();
-        for (Whiteboard w : user.getAssignedWhiteboards()) {
-            out.add(new WhiteboardDTO(w, null, null));
-        }
-        return out;
-    }
-
-    @RequestMapping(value = "/created", method = RequestMethod.POST)
+    @RequestMapping(value = BASE_URL, method = RequestMethod.POST)
     public @ResponseBody
     WhiteboardDTO create(@RequestBody Whiteboard whiteboard,
             HttpServletRequest request) {
@@ -162,7 +140,7 @@ public class WhiteboardController {
         whiteboard.setCreator(user);
         whiteboardDao.saveOrUpdate(whiteboard);
 
-        return new WhiteboardDTO(whiteboard, null, null);
+        return new WhiteboardDTO(whiteboard);
     }
 
     /**
@@ -181,7 +159,7 @@ public class WhiteboardController {
      * @return The name of the view to display.
      * @throws IOException
      */
-    @RequestMapping(value = "/inviteuser-{whiteboardId}.htm", method = RequestMethod.POST)
+    @RequestMapping(value = WHITEBOARD_WHITEBOARD_ID_INVITE, method = RequestMethod.POST)
     public Map<String, Object> invite(
             @RequestParam("mailData") String mailaddress,
             HttpServletRequest request,

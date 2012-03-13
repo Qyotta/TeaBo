@@ -1,4 +1,4 @@
-nav.bottomNavigation {
+#bottomNavigation {
     height: 25px;
     width: 100%;
     position: absolute;
@@ -7,27 +7,28 @@ nav.bottomNavigation {
     z-index:13;
     background: #494949;
 }
-nav.bottomNavigation ul {
+#bottomNavigation ul {
     padding: 0 0 0 20px;
     float: left;
 }
-nav.bottomNavigation ul:last-Child {
+
+#bottomNavigation ul:last-Child {
     padding: 0 20px 0 0;
     float: right;
 }
 
-nav.bottomNavigation ul li {
+#bottomNavigation ul li {
     padding: 0 10px 0 0;
     float: left;
 }
 
-nav.bottomNavigation ul li a {
+#bottomNavigation ul li a {
     text-decoration: none;
     position: relative;
     bottom: 25px;
 }
 
-nav.bottomNavigation ul li a span {
+#bottomNavigation ul li a span {
     display: none;
     color: #C2C2C2;
 }

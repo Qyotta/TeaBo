@@ -4,7 +4,7 @@ define([
     'underscore',
     'backbone',
     'models/user',
-    'router',
+    'router/router',
     'views/home/topbar'
 ], function($, _, Backbone,User,AppRouter,TopbarView){        
     var App = function(options) {
@@ -17,7 +17,6 @@ define([
 
     App.prototype = {
         init:function(){
-            this.createGuestUser();
             this.eventDispatcher = _.extend({}, Backbone.Events);
             this.topbarView = new TopbarView();
             this.router = new AppRouter();
@@ -38,6 +37,7 @@ define([
             this.user = new User();
         },
         logout:function(){
+			this.createGuestUser();
             this.reset();
         },
         reset:function(){

@@ -13,20 +13,20 @@ define([
         },
         initialize:function(){
             _.bindAll(this,'removeWhiteboardView');
-            window.app.createdWhiteboards.bind("remove", this.removeWhiteboardView);
+            window.app.whiteboards.bind("remove", this.removeWhiteboardView);
         },
         deleteWhiteboard: function(evt){
             evt.preventDefault();
             var self = this;
             var id = this.$(evt.currentTarget.parentNode).attr('id');
-            var model = window.app.createdWhiteboards.get(id);
+            var model = window.app.whiteboards.get(id);
             model.destroy();
         },
         submitClicked: function(evt){
             evt.preventDefault();
             var self = this;
             var name = $('.mainPanel input[name=name]').val();
-            window.app.createdWhiteboards.create({name:name},
+            window.app.whiteboards.create({name:name},
             {success: function(model, resp) {
                     self.render();
                 },
@@ -37,12 +37,12 @@ define([
         },
         removeWhiteboardView: function(model){
             $('#' + model.id).remove();
-            if(window.app.createdWhiteboards.length===0){
+            if(window.app.whiteboards.length===0){
                 this.render();
             }
         },
         render: function(){
-            var data = { createdWhiteboards: window.app.createdWhiteboards.models,assignedWhiteboards: window.app.assignedWhiteboards.models, _: _ };
+            var data = { user:window.app.user, whiteboards: window.app.whiteboards.models, _: _ };
             var compiledTemplate = _.template( mainHomeTemplate, data );
             this.el.html(compiledTemplate);
         }
