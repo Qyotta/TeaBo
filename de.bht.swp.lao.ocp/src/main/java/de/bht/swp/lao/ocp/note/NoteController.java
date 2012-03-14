@@ -1,5 +1,6 @@
 package de.bht.swp.lao.ocp.note;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,9 +22,14 @@ public class NoteController {
 
     @RequestMapping(value = "/whiteboard/{id}/notes", method = RequestMethod.GET)
     public @ResponseBody
-    List<Note> getNotesByWhiteboard(HttpServletRequest request,
+    List<NoteDTO> getNotesByWhiteboard(HttpServletRequest request,
             @PathVariable Long id) {
-        List<Note> notes = noteDao.findAllbyWhiteboardId(id);
+        List<NoteDTO> notes = new ArrayList<NoteDTO>();
+        
+        for(Note note:noteDao.findAllbyWhiteboardId(id)){
+            notes.add(new NoteDTO(note));
+        }
+        
         return notes;
     }
 

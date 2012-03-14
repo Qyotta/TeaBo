@@ -3,16 +3,20 @@ define([
     'jquery',
     'underscore',
     'backbone',
+	'cometd',
+	'jquerycometd',
     'models/user',
     'router/router',
     'views/home/topbar'
-], function($, _, Backbone,User,AppRouter,TopbarView){        
+], function($, _, Backbone,cometd,jquerycometd,User,AppRouter,TopbarView){        
     var App = function(options) {
+		this.cometd = $.cometd;
         this.user = options.user;
         this.options = options || {};
         this.el = $('body');
         this.previous_state = '#';
         _.bindAll(this, 'log','loggedIn');
+		this._connected = false;
     };
 
     App.prototype = {
@@ -40,6 +44,41 @@ define([
 			this.createGuestUser();
             this.reset();
         },
+		startCometd:function(){
+			this.cometd.configure({
+				url : "cometd",
+				logLevel : 'info'
+			});
+			
+			this.cometd.addListener('/meta/handshake', this.onMetaHandshake);
+			this.cometd.addListener('/meta/connect', this.onMetaConnect);
+			this.cometd.handshake();
+		},
+		subscribeChannel:function(channel,callback){
+			this.cometd.subscribe(channel,callback);
+		},
+		publish:function(channel,msg){
+			this.cometd.publish(channel, msg);
+		},
+		onMetaHandshake:function(){
+			window.app.eventDispatcher.trigger('handshakeComplete',null);
+		},
+		onMetaConnect:function(){
+			if (cometd.isDisconnected()) {
+				this._connected = false;
+				return;
+			}
+			
+			this._connected = true;
+			
+			var self = this;
+			$(window).unload(function() {
+				self.stopCometd();
+			});
+		},
+		stopCometd:function(){
+			this.cometd.disconnect(true);
+		},
         reset:function(){
             //clear all areas
             $('#topNavigation').html('');

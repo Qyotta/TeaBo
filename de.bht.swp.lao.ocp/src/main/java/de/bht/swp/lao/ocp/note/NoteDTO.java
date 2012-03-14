@@ -5,6 +5,8 @@ public class NoteDTO {
     private String creator;
     private Long id;
     private String text;
+    private Long x;
+    private Long y;
     private Long whiteboardId;
 
     public NoteDTO(Note note) {
@@ -12,6 +14,8 @@ public class NoteDTO {
         this.setId(note.getId());
         this.setText(note.getText());
         this.setWhiteboardId(note.getWhiteboard().getId());
+        this.setX(note.getX());
+        this.setY(note.getY());
     }
 
     public String getCreator() {
@@ -44,6 +48,22 @@ public class NoteDTO {
 
     public void setWhiteboardId(Long whiteboardId) {
         this.whiteboardId = whiteboardId;
+    }
+
+    public Long getX() {
+        return x;
+    }
+
+    public void setX(Long x) {
+        this.x = x;
+    }
+
+    public Long getY() {
+        return y;
+    }
+
+    public void setY(Long y) {
+        this.y = y;
     }
 
 }

@@ -30,9 +30,10 @@ define([
         },
         showWhiteboard: function(id){
 			var whiteboard = window.app.whiteboards.get(id);
-			new WhiteboardView();
-			new NotesView();
+			window.app.whiteboardView = new WhiteboardView();
 			new ToolbarView();
+			new NotesView();
+			window.app.startCometd();
 			window.app.eventDispatcher.trigger("whiteboard:view", whiteboard);
         },
         showLogin: function(){

@@ -39,7 +39,6 @@ define([
                         self.hideDialog();
                         window.app.router.navigate("login", {trigger: true});
                     }
-
                 },
                 error: function(err){
                     window.app.log(err.statusText);

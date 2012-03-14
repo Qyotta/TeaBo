@@ -3,22 +3,21 @@ define([
     'underscore',
     'backbone',
     'text!templates/note/note.html',
-	'collections/note'
-], function($, _, Backbone, noteTemplate,NoteCollection){
+	'collections/note',
+	'views/note/note'
+], function($, _, Backbone, noteTemplate,NoteCollection,NoteView){
     
     var NotesView = Backbone.View.extend({
+        el: $("#whiteboard"),
 		initialize:function(){
             _.bindAll(this,'getNotes','createNote');
             window.app.eventDispatcher.bind("note:create",this.createNote);
             window.app.eventDispatcher.bind("whiteboard:view",this.getNotes);
 		},
-		events:{
-            //'click .mainPanel input[type=submit]' : 'submitClicked',
-        },
 		getNotes:function(whiteboard){
 			var notes = new NoteCollection(null,{id:whiteboard.id});
-			notes.fetch({success:function(collection, response){collection.each(function(model){
-				new NoteView({model:model});
+			notes.fetch({success:function(collection, response){collection.each(function(note){
+				new NoteView({model:note,whiteboardid:notes.id});
 			});}});
 		},
 		createNote:function(){
