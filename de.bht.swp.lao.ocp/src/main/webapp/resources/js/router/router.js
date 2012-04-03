@@ -7,11 +7,12 @@ define([
     'views/home/main',
     'views/login',
     'views/dialogs/logout',
+    'views/dialogs/inviteUser',
 	'views/whiteboard/whiteboard',
 	'collections/note',
 	'views/note/notes',
 	'views/home/toolbar'
-], function($, _, Backbone,WhiteboardCollection,RegisterView,MainHomeView,LoginView,LogoutDialogView,WhiteboardView,NoteCollection,NotesView,ToolbarView){
+], function($, _, Backbone,WhiteboardCollection,RegisterView,MainHomeView,LoginView,LogoutDialogView,InviteUserDialogView,WhiteboardView,NoteCollection,NotesView,ToolbarView){
     var AppRouter = Backbone.Router.extend({
         initialize: function(){
             
@@ -33,6 +34,7 @@ define([
 			window.app.whiteboardView = new WhiteboardView();
 			new ToolbarView();
 			new NotesView();
+			new InviteUserDialogView();
 			window.app.startCometd();
 			window.app.eventDispatcher.trigger("whiteboard:view", whiteboard);
         },

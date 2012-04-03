@@ -8,7 +8,8 @@ define([
     var TopbarView = Backbone.View.extend({
         el: $("#topNavigation"),
         events:{
-            'click .right a[href="logout"]' :'logoutClicked'
+            'click .right a[href="logout"]' :'logoutClicked',
+            'click .right a[href="invite"]' :'inviteClicked'
         },
         initialize:function(){
             _(this).bindAll('changedUser');
@@ -26,6 +27,10 @@ define([
         logoutClicked:function(e){
             e.preventDefault();
             window.app.eventDispatcher.trigger("logoutClicked", null);
+        },
+        inviteClicked:function(e){
+            e.preventDefault();
+            window.app.eventDispatcher.trigger("inviteClicked", null);
         }
     });
     
