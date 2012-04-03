@@ -1,0 +1,15 @@
+<div id="inviteUserContainer">
+
+    <h1>
+        Invite a Person <span>Enter an Email address</span>
+    </h1>
+
+    <form method="post"
+        action="<%= config.contextPath %>/whiteboard/inviteUser">
+        Mail: <input type="text" class="mailaddress" name="address" /><br />
+        <div class="buttonline">
+            <input type="submit" value="Submit">
+            <button type="button" class="cancel">Cancel</button>
+        </div>
+    </form>
+</div>
