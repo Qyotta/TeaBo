@@ -12,7 +12,7 @@ define([
 		initialize:function(){
             _.bindAll(this,'getNotes','createNote');
             window.app.eventDispatcher.bind("note:create",this.createNote);
-            window.app.eventDispatcher.bind("whiteboard:view",this.getNotes);
+            window.app.eventDispatcher.bind("whiteboard:opened",this.getNotes);
 		},
 		getNotes:function(whiteboard){
 			var notes = new NoteCollection(null,{id:whiteboard.id});

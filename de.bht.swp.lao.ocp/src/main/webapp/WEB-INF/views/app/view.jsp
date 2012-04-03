@@ -14,49 +14,14 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <script type="text/javascript">var config = {contextPath: '${pageContext.request.contextPath}'}</script>
-<script src="${pageContext.request.contextPath}/resources/js/libs/require/require.js"></script>
-
 <script type="text/javascript">
-require.config({
-    paths: {
-        jquery: 'resources/js/libs/jquery/jquery-min',
-        underscore: 'resources/js/libs/underscore/underscore-min',
-        backbone: 'resources/js/libs/backbone/backbone-optamd3-min',
-        jqueryui: 'resources/js/libs/jquery/jquery-ui-1.8.17',
-        text: 'resources/js/libs/require/text',
-        cometd: 'resources/js/libs/org/cometd',
-        jquerycometd: 'resources/js/libs/jquery/jquery.cometd',
-        templates: 'resources/templates',
-        collections:'resources/js/collections',
-        models:'resources/js/models',
-        views:'resources/js/views',
-        router:'resources/js/router'
-    }
-});
-
-require([
-    // Load our app module and pass it to our definition function
-    'backbone',
-    'resources/js/app',
-    'models/user'
-], function(Backbone,App,User){
-    // The "app" dependency is passed in as "App"
-   $(function() {
-        <c:if test="${not empty user}">
-            var userData = {id:${user.id},firstname:"${user.firstname}",lastname:"${user.lastname}",email:"${user.email}",position:"${user.position}",showToolTips:${user.showToolTips}}
-        </c:if>
-        var userData = userData || {};
-        window.app = new App({
-            debug: true, 
-            user : new User(userData)
-        });
-        
-        app.init();
-        
-        Backbone.history.start();
-    });
-});
+<c:if test="${not empty user}">
+    window.userData = {id:${user.id},firstname:"${user.firstname}",lastname:"${user.lastname}",email:"${user.email}",position:"${user.position}",showToolTips:${user.showToolTips}};
+</c:if>
 </script>
+<script data-main="resources/js/main"src="${pageContext.request.contextPath}/resources/js/libs/require/require.js"></script>
+
+
 
 <nav id="topNavigation">
     

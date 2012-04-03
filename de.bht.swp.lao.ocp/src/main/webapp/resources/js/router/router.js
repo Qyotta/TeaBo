@@ -2,16 +2,11 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'collections/whiteboard',
     'views/register',
     'views/home/main',
     'views/login',
-    'views/dialogs/logout',
-	'views/whiteboard/whiteboard',
-	'collections/note',
-	'views/note/notes',
-	'views/home/toolbar'
-], function($, _, Backbone,WhiteboardCollection,RegisterView,MainHomeView,LoginView,LogoutDialogView,WhiteboardView,NoteCollection,NotesView,ToolbarView){
+    'views/dialogs/logout'
+], function($, _, Backbone,RegisterView,MainHomeView,LoginView,LogoutDialogView){
     var AppRouter = Backbone.Router.extend({
         initialize: function(){
             
@@ -29,12 +24,7 @@ define([
             new RegisterView();
         },
         showWhiteboard: function(id){
-			var whiteboard = window.app.whiteboards.get(id);
-			window.app.whiteboardView = new WhiteboardView();
-			new ToolbarView();
-			new NotesView();
-			window.app.startCometd();
-			window.app.eventDispatcher.trigger("whiteboard:view", whiteboard);
+        	window.app.eventDispatcher.trigger("whiteboard:open", id);
         },
         showLogin: function(){
             if(!window.app.loggedIn()){
@@ -58,16 +48,9 @@ define([
                 window.app.logoutDialogView = new LogoutDialogView();
             }
             
-            if(!window.app.whiteboards){
-                window.app.whiteboards = new WhiteboardCollection();
-            }
-            
             var mainHomeView = new MainHomeView();
-            
-            window.app.whiteboards.fetch({success: function(){
-                mainHomeView.render();
-            }});
-            
+            window.app.eventDispatcher.trigger("mainpanel:show");
+            window.app.log("mainpanel:show");
         },
         defaultAction: function(actions){
             if(!window.app.loggedIn()){

@@ -7,8 +7,9 @@ define([
 	'jquerycometd',
     'models/user',
     'router/router',
-    'views/home/topbar'
-], function($, _, Backbone,cometd,jquerycometd,User,AppRouter,TopbarView){        
+    'views/home/topbar',
+    'controllers/note'
+], function($, _, Backbone,cometd,jquerycometd,User,AppRouter,TopbarView,NoteController){        
     var App = function(options) {
 		this.cometd = $.cometd;
         this.user = options.user;
@@ -22,8 +23,9 @@ define([
     App.prototype = {
         init:function(){
             this.eventDispatcher = _.extend({}, Backbone.Events);
-            this.topbarView = new TopbarView();
             this.router = new AppRouter();
+            this.topbarView = new TopbarView();
+            this.noteController = new NoteController();
         },
         log: function(str) {
             if(this.options.debug) console.log(str);
