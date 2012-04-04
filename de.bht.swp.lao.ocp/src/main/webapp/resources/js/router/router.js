@@ -5,18 +5,9 @@ define([
     'views/register',
     'views/home/main',
     'views/login',
-<<<<<<< HEAD
-    'views/dialogs/logout'
-], function($, _, Backbone,RegisterView,MainHomeView,LoginView,LogoutDialogView){
-=======
     'views/dialogs/logout',
     'views/dialogs/inviteUser',
-	'views/whiteboard/whiteboard',
-	'collections/note',
-	'views/note/notes',
-	'views/home/toolbar'
-], function($, _, Backbone,WhiteboardCollection,RegisterView,MainHomeView,LoginView,LogoutDialogView,InviteUserDialogView,WhiteboardView,NoteCollection,NotesView,ToolbarView){
->>>>>>> 1e32dcf499215bc968bbde93f8eb0f9afd823745
+], function($, _, Backbone,RegisterView,MainHomeView,LoginView,LogoutDialogView,InviteUserDialogView){
     var AppRouter = Backbone.Router.extend({
         initialize: function(){
             
