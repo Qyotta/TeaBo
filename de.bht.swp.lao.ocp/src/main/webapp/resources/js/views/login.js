@@ -8,7 +8,7 @@ define([
     var LoginDialogView = Backbone.View.extend({
         el:$('#page'),
         initialize:function(){
-            this.render();
+
         },
         events:{
             'click .loginContainer input[type=submit]' : 'loginBtnClicked',
@@ -28,7 +28,8 @@ define([
                 success: function(data){ 
                     window.app.user.set(data);
                     if(window.app.loggedIn()){
-                        window.app.router.navigate("main", {trigger: true});
+                        window.router.loggedIn();
+                        window.router.navigate("main", {trigger: true});
                     }
                 },
                 error: function(request, errorType, exception){

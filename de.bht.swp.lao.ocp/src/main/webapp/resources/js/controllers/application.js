@@ -4,9 +4,8 @@ define([
     'backbone',
     '../app',
     'models/user', 
-    'views/home/topbar',
-    'controllers/note'
-], function($, _, Backbone,App,User, TopbarView, NoteController){
+    'views/home/topbar'
+], function($, _, Backbone,App,User, TopbarView){
     
     var ApplicationController = function(options){
         
@@ -17,8 +16,6 @@ define([
         initialize:function(){
             this.createApplication();
             window.app.eventDispatcher.trigger("application:started");
-
-            Backbone.history.start();
         },
         createApplication:function(){
             var userData = window.userData || {};
@@ -29,7 +26,6 @@ define([
             });
             
             this.topbarView = new TopbarView();
-            this.noteController = new NoteController();
         }
     };
     

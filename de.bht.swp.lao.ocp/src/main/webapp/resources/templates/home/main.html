@@ -16,10 +16,10 @@
                 <li id="<%= whiteboard.get("id") %>">
                     <a href="#whiteboard/<%= whiteboard.get("id") %>"><%= whiteboard.get("name") %></a> 
                     <% if(user.email == whiteboard.creator){ %>
-						<a class="delete">
-							<img src="<%= config.contextPath %>/resources/images/cross.png" alt="delete" title="Delete Whiteboard"/>
-						</a>
-					<% } %>
+                        <a href="#!/" class="delete">
+                            <img src="<%= config.contextPath %>/resources/images/cross.png" alt="delete" title="Delete Whiteboard"/>
+                        </a>
+                    <% } %>
                 </li> 
             <% }); %>
         </ul>

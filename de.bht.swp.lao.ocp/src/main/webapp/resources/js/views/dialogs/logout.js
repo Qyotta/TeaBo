@@ -37,7 +37,7 @@ define([
                     window.app.logout();
                     if(!window.app.loggedIn()){
                         self.hideDialog();
-                        window.app.router.navigate("login", {trigger: true});
+                        window.router.navigate("login", {trigger: true});
                     }
                 },
                 error: function(err){

@@ -5,10 +5,9 @@ define([
     'cometd', 
     'jquerycometd',
     'models/user',
-    'router/router',
     ], 
     
-    function($, _, Backbone, cometd, jquerycometd, User,AppRouter) {
+    function($, _, Backbone, cometd, jquerycometd, User) {
     var App = function(options) {
         this.cometd = $.cometd;
         this.user = options.user;
@@ -24,7 +23,6 @@ define([
     App.prototype = {
         initialize : function() {
             this.eventDispatcher = _.extend({}, Backbone.Events);
-            this.router = new AppRouter();
         },
         log : function(str) {
             if (this.options.debug)
@@ -52,10 +50,8 @@ define([
                 logLevel : 'info'
             });
 
-            this.cometd.addListener('/meta/handshake',
-                    this.onMetaHandshake);
-            this.cometd
-                    .addListener('/meta/connect', this.onMetaConnect);
+            this.cometd.addListener('/meta/handshake', this.onMetaHandshake);
+            this.cometd.addListener('/meta/connect', this.onMetaConnect);
             this.cometd.handshake();
         },
         subscribeChannel : function(channel, callback) {
@@ -89,7 +85,7 @@ define([
             $('#topNavigation').html('');
             $('#page').html('');
             $('#dialogs').html('');
-            this.init();
+            this.initialize();
         }
     };
 

@@ -10,7 +10,7 @@ define([
 ], function($, _, Backbone,RegisterView,MainHomeView,LoginView,LogoutDialogView,InviteUserDialogView){
     var AppRouter = Backbone.Router.extend({
         initialize: function(){
-            
+            window.app.eventDispatcher.bind('application:loggedIn',this.loggedIn);
         },
         routes: {
             // Define some URL routes
@@ -25,20 +25,20 @@ define([
             new RegisterView();
         },
         showWhiteboard: function(id){
-        	window.app.eventDispatcher.trigger("whiteboard:open", id);
-			new InviteUserDialogView();
+            window.app.eventDispatcher.trigger("whiteboard:open", id);
+            new InviteUserDialogView();
         },
         showLogin: function(){
             if(!window.app.loggedIn()){
-                if(!window.app.loginView){
-                    window.app.loginView = new LoginView();
-                }else{
-                    window.app.loginView.render();
-                }    
+                this.loginView = new LoginView();
+                this.loginView.render();
             }
             else{
                 this.navigate("main", {trigger: true});
             }
+        },
+        loggedIn: function() {
+            window.whiteboardController.sync();
         },
         showMainPanel: function(){
             if(!window.app.loggedIn()){

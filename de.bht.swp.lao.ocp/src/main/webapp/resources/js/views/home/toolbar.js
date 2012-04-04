@@ -18,10 +18,10 @@ define([
             var compiledTemplate = _.template( toolbarTemplate, data );
             this.el.html(compiledTemplate);
         },
-		createNoteClicked:function(evt){
-			evt.preventDefault();
+        createNoteClicked:function(evt){
+            evt.preventDefault();
             window.app.eventDispatcher.trigger("note:create", null);
-		}
+        }
     });
     
     return ToolbarView;
