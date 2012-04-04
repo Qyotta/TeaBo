@@ -4,7 +4,6 @@ define([
     'backbone'
 ], function($, _, Backbone,main){
     var Dialog = Backbone.View.extend({
-        el:$('#dialogs'),
         initialize:function(){
             window.app.log('initialize dialog');
         },
@@ -13,6 +12,7 @@ define([
             this.el.html(compiledTemplate);
         },
         showDialog:function(){
+            this.render();
             this.containerFadeIn();
         },
         hideDialog:function(){

@@ -23,6 +23,7 @@ define([
         
         dismiss: function() {
             $(this.el).slideUp();
+            $(this.el).css('z-index', '-2000');
             return false;
         },
         
@@ -31,9 +32,11 @@ define([
             
             $(this.el).html(this.message + " <span>(<a href='javascript:void(0)'>dismiss</a>)</span>");
             $(this.el).hide();
+            $(this.el).css('z-index', '9');
             $('body').append(this.el);
             $(this.el).slideDown();
             window.setTimeout(function() {
+                $(this.el).css('z-index', '-2000');
                 $(view.el).slideUp();
                 window.setTimeout(function() {view.remove();},5000);
             },this.displayLength);
