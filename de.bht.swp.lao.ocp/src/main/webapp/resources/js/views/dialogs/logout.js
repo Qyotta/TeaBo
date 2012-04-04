@@ -6,10 +6,11 @@ define([
     'text!templates/dialogs/logout.html'
 ], function($, _, Backbone, Dialog, logoutDialogTemplate){
     var LogoutDialogView = Dialog.extend({
+        el:$('#dialogs'),
         initialize:function(){
             _.bindAll(this,'showLogoutDialog');
             window.app.eventDispatcher.bind("logoutClicked",this.showLogoutDialog);
-            this.render();
+            //this.render();
         },
         events:{
             'click #logoutContainer button.cancel' : 'hideLogoutDialog',
