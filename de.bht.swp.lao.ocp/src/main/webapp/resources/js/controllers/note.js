@@ -25,7 +25,7 @@ define([
         },
         getNotes:function(whiteboard){
             this.whiteboard = whiteboard;
-            this.noteCollection = new NoteCollection(null,{id:whiteboard.id});
+            this.noteCollection = new NoteCollection(null,{id:this.whiteboard.id});
             
             window.app.subscribeChannel('/note/posted/'+this.whiteboard.id, this.noteCreated);
             

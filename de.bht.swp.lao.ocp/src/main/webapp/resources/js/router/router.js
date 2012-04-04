@@ -49,9 +49,11 @@ define([
             if(!window.app.logoutDialogView){
                 window.app.logoutDialogView = new LogoutDialogView();
             }
-            
-            var mainHomeView = new MainHomeView();
-            window.app.eventDispatcher.trigger("mainpanel:show");
+            if(!this.mainHomeView) {
+                this.mainHomeView = new MainHomeView();
+            }
+            this.mainHomeView.render();
+            window.app.eventDispatcher.trigger("topbar:refresh");
             window.app.log("mainpanel:show");
         },
         defaultAction: function(actions){

@@ -21,6 +21,9 @@ define([
         createNoteClicked:function(evt){
             evt.preventDefault();
             window.app.eventDispatcher.trigger("note:create", null);
+        },
+        unrender: function() {
+            this.el.empty();
         }
     });
     

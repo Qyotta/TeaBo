@@ -18,8 +18,8 @@ require.config({
 
 require([
 // Load our app module and pass it to our definition function
- 'backbone', 'controllers/application', 'controllers/whiteboard', 'controllers/note', 'controllers/toolbar', 'router/router' ], 
-function(Backbone, ApplicationController, WhiteboardController, NoteController, ToolbarController, AppRouter) {
+ 'backbone', 'controllers/application', 'controllers/whiteboard', 'controllers/note', 'controllers/toolbar', 'controllers/topbar', 'router/router' ], 
+function(Backbone, ApplicationController, WhiteboardController, NoteController, ToolbarController, TopbarController, AppRouter) {
     // The "app" dependency is passed in as "App"
     $(function() {
 
@@ -27,6 +27,7 @@ function(Backbone, ApplicationController, WhiteboardController, NoteController, 
         window.whiteboardController  = new WhiteboardController();
         window.noteController        = new NoteController();
         window.toolbarController     = new ToolbarController();
+        window.topbarController      = new TopbarController();
         
         window.router = new AppRouter();
         Backbone.history.start();

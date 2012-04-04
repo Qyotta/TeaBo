@@ -9,15 +9,16 @@ define([
         el: $("#topNavigation"),
         events:{
             'click .right a[href="logout"]' :'logoutClicked',
-            'click .right a[href="invite"]' :'inviteClicked'
+            'click .right a[href="invite"]' :'inviteClicked',
+            'click .right a[href="main"]' :'mainClicked'
         },
         initialize:function(){
             _(this).bindAll('changedUser');
             window.app.user.bind("change", this.changedUser);
             this.render();
         },
-        render: function(){
-            var data = {user:window.app.user,title:null};
+        render: function(view){
+            var data = {user:window.app.user,title:null,view: view};
             var compiledTemplate = _.template( topbarTemplate, data );
             this.el.html(compiledTemplate);
         },
@@ -26,11 +27,16 @@ define([
         },
         logoutClicked:function(e){
             e.preventDefault();
-            window.app.eventDispatcher.trigger("logoutClicked", null);
+            window.app.eventDispatcher.trigger('logoutClicked', null);
         },
         inviteClicked:function(e){
             e.preventDefault();
-            window.app.eventDispatcher.trigger("inviteClicked", null);
+            window.app.eventDispatcher.trigger('inviteClicked', null);
+        },
+        mainClicked:function(e) {
+            e.preventDefault();
+            window.app.eventDispatcher.trigger('whiteboard:close',null);
+            window.router.navigate("main", {trigger: true});
         }
     });
     

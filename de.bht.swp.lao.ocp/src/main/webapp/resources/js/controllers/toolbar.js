@@ -16,7 +16,7 @@ define([
             this.view = new ToolbarView();
         },
         removeTools: function() {
-            this.view.remove();
+            this.view.unrender();
         }
     };
     

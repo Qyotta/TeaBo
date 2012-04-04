@@ -17,7 +17,6 @@ define([
     
     WhiteboardController.prototype = {
         initialize:function(options){
-            window.app.log("whiteboard controller");
             this.whiteboards = new WhiteboardCollection();
             this.sync();
         },
@@ -35,13 +34,15 @@ define([
             this.whiteboard = this.whiteboards.get(id);
             this.view = new WhiteboardView();
             window.app.startCometd();
-            window.app.eventDispatcher.trigger("whiteboard:opened",this.whiteboard);
+            window.app.eventDispatcher.trigger('whiteboard:opened',this.whiteboard);
         },
         close:function(){
+            if(this.whiteboard) {
+                this.view.el.empty();
+            }
             this.whiteboard = null;
-            this.view.remove();
             window.app.stopCometd();
-            window.app.eventDispatcher.trigger("whiteboard:closed",whiteboard);
+            window.app.eventDispatcher.trigger('whiteboard:closed');
         }
     };
     
