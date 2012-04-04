@@ -17,6 +17,7 @@ define([
     
     WhiteboardController.prototype = {
     	initialize:function(options){
+    	    window.app.log("whiteboard controller");
     		this.whiteboards = new WhiteboardCollection();
     		this.sync();
     	},

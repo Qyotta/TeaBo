@@ -12,17 +12,15 @@ define([
             'click .mainPanel a.delete' :'deleteWhiteboard',
         },
         initialize:function(){
-            _.bindAll(this,'removeWhiteboardView','render');
-            window.whiteboardController.whiteboards.bind("remove", this.removeWhiteboardView);
-            window.app.eventDispatcher.bind('whiteboard:synced',this.render);
+            _.bindAll(this,'removeWhiteboardView','render','synced');
+            window.app.eventDispatcher.bind('whiteboard:synced',this.synced);
             window.app.eventDispatcher.bind('mainpanel:show',this.render);
             
         },
         deleteWhiteboard: function(evt){
             evt.preventDefault();
-            var self = this;
             var id = this.$(evt.currentTarget.parentNode).attr('id');
-            var model = window.whiteboardController.whiteboards.get(id);
+            var model = this.collection.get(id);
             model.destroy();
         },
         submitClicked: function(evt){
@@ -44,8 +42,16 @@ define([
                 this.render();
             }
         },
+        synced:function(collection){
+            this.collection = collection;
+            this.collection.bind("remove", this.removeWhiteboardView);
+            this.render();
+        },
         render: function(){
-            var data = { user:window.app.user, whiteboards: window.whiteboardController.whiteboards.models, _: _ };
+            if(this.collection==null){
+                return;
+            }
+            var data = { user:window.app.user, whiteboards: this.collection.models, _: _ };
             var compiledTemplate = _.template( mainHomeTemplate, data );
             this.el.html(compiledTemplate);
         }
