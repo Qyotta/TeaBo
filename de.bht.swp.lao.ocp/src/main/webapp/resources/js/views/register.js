@@ -44,7 +44,7 @@ define([
                                 lastname:this.lastname,
                                 position:this.position},
                                 {success:function(model, response){
-                                    window.app.router.navigate("main",{trigger: true});
+                                    window.router.navigate("login",{trigger: true});
                                     new Notice({message:"Registration was successful. Please login with your credentials."});
                                 },error:function(model, response){
                                      new Error({message:"Registration was not successful. Try again."});
@@ -78,7 +78,7 @@ define([
         },
         cancelClicked:function(evt){
             evt.preventDefault();
-            window.app.router.navigate("main", {trigger: true});
+            window.router.navigate("login", {trigger: true});
         },
     });
     
