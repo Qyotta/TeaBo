@@ -28,7 +28,7 @@ public class UserDao implements IUserDao {
     public User findByEmail(String email) {
         try {
             return (User) em.createQuery("from User u where u.email = ?1")
-                    .setParameter(1, email).getSingleResult();
+                    .setParameter(1, email).setMaxResults(1).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
