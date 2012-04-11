@@ -7,15 +7,14 @@ define([
     'views/notice/notice',
     'views/notice/error',
 ], function($, _, Backbone, Dialog, inviteUserDialogTemplate, Notice, Error){
-    var whiteboardId=0;
     var isActive = false;
     var InviteUserDialogView = Dialog.extend({
         el:$('#dialogs'),
-        initialize:function(){  
+        initialize:function(options){  
             _.bindAll(this,'showInviteUserDialog', 'inviteUser');
-            window.app.eventDispatcher.bind("whiteboard:opened",this.setWhiteboardId);
-            window.app.eventDispatcher.bind("inviteClicked",this.showInviteUserDialog);
-            //this.render();
+            window.app.eventDispatcher.bind("topbar:inviteClicked",this.showInviteUserDialog);
+            console.log(this.options.whiteboardId);
+            this.render();
         },
         events:{
             'click #inviteUserContainer button.cancel' : 'hideInviteUserDialog',
@@ -24,10 +23,6 @@ define([
         render: function(){
             var compiledTemplate = _.template( inviteUserDialogTemplate );
             this.el.html(compiledTemplate);
-        },
-        setWhiteboardId:function(whiteboard){
-            alert(whiteboard.id);
-            whiteboardId = whiteboard.id;
         },
         showInviteUserDialog:function(){
             this.showDialog();
@@ -43,8 +38,9 @@ define([
                 return false;
             }
             isActive = true;
-
-            if(whiteboardId < 1){
+            
+            console.log(this.options.whiteboardId);
+            if(this.options.whiteboardId < 1){
                 alert("Whiteboard:opened - Trigger didn't work");
                 return false;
             }
@@ -53,7 +49,7 @@ define([
                 url: 'whiteboard/invite',
                 type: 'post',
                 contentType: 'application/json',
-                data: '{"email":"'+$('input[name=address]').val()+'", "whiteboardId":'+whiteboardId+'}',
+                data: '{"email":"'+$('input[name=address]').val()+'", "whiteboardId":'+this.options.whiteboardId+'}',
                 success: function(data){ 
                     self.hideDialog();
                     new Notice({message:"Invitation was sent"});

@@ -31,7 +31,7 @@ import de.bht.swp.lao.ocp.utils.UserUtilities;
 public class WhiteboardController {
   public static final String BASE_URL = "/whiteboard";
 
-  public static final String WHITEBOARD_WHITEBOARD_ID = BASE_URL + "/{whiteboardId}";
+  public static final String WHITEBOARD_WHITEBOARD_ID = BASE_URL + "/{id}";
 
   public static final String WHITEBOARD_WHITEBOARD_ID_INVITE = BASE_URL + "/invite";
 
@@ -88,7 +88,7 @@ public class WhiteboardController {
 
   @RequestMapping(value = WHITEBOARD_WHITEBOARD_ID, method = RequestMethod.DELETE)
   public @ResponseBody
-  WhiteboardDTO deleteCreatedWhiteboard(ModelMap model, HttpServletRequest request, @PathVariable Long id) {
+  WhiteboardDTO delete(ModelMap model, HttpServletRequest request, @PathVariable Long id) {
     User user = (User) request.getSession().getAttribute("user");
 
     if (user == null) {

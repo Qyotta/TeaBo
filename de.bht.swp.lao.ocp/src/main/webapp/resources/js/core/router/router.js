@@ -27,7 +27,7 @@ define([
         },
         showWhiteboard: function(id){
             window.app.eventDispatcher.trigger("whiteboard:open", id);
-            new InviteUserDialogView();
+            new InviteUserDialogView({whiteboardId:id});
         },
         showLogin: function(){
             if(!window.app.loggedIn()){
@@ -39,7 +39,7 @@ define([
             }
         },
         loggedIn: function() {
-            window.app.whiteboard.sync();
+            window.app.modules.whiteboard.sync();
         },
         showMainPanel: function(){
             if(!window.app.loggedIn()){

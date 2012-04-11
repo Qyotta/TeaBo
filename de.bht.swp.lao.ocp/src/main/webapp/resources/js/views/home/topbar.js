@@ -31,7 +31,7 @@ define([
         },
         inviteClicked:function(e){
             e.preventDefault();
-            window.app.eventDispatcher.trigger('inviteClicked', null);
+            window.app.eventDispatcher.trigger('topbar:inviteClicked', null);
         },
         mainClicked:function(e) {
             e.preventDefault();

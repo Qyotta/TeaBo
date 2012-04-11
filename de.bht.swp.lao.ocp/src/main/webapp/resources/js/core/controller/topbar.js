@@ -25,7 +25,6 @@ define([
             if(whiteboard) {
                 var view = 'whiteboard';
             }
-            console.log('lets change it up!');
             this.view.render(view);
         }
     };

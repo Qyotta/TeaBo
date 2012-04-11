@@ -37,6 +37,7 @@ define([
                     window.app.logout();
                     if(!window.app.loggedIn()){
                         self.hideDialog();
+                        window.app.eventDispatcher.trigger('whiteboard:close', null);
                         window.app.eventDispatcher.trigger('logout', null);
                         window.router.navigate("login", {trigger: true});
                     }

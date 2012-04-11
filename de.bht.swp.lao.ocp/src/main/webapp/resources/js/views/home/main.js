@@ -27,7 +27,7 @@ define([
             evt.preventDefault();
             var self = this;
             var name = $('.mainPanel input[name=name]').val();
-            window.whiteboardController.whiteboards.create({name:name},
+            window.app.modules.whiteboard.whiteboards.create({name:name},
             {success: function(model, resp) {
                     self.render();
                 },
@@ -38,7 +38,7 @@ define([
         },
         removeWhiteboardView: function(model){
             $('#' + model.id).remove();
-            if(window.app.whiteboards.length===0){
+            if(window.app.modules.whiteboard.whiteboards.length===0){
                 this.render();
             }
         },

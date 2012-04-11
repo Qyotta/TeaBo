@@ -33,6 +33,19 @@ define([
         },
         open:function(id){
             this.whiteboard = this.whiteboards.get(id);
+            var self = this;
+            if(!this.whiteboard){
+            this.whiteboards.fetch({success: function(collection, response){
+                    window.app.eventDispatcher.trigger("whiteboard:synced",collection);
+                    window.app.log('whiteboard:synced');
+                    self.open(id);
+                }, error: function() {
+                    window.app.log('You are not authorized, please login!');
+                    window.router.navigate("login", {trigger: true});
+                    return false;
+                }});
+                return;
+            }
             this.view = new WhiteboardView();
             window.app.startCometd();
             window.app.eventDispatcher.trigger('whiteboard:opened',this.whiteboard);

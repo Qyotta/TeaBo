@@ -30,11 +30,13 @@ require([
             'topbar':Topbar
         };
         
-        app    = new Application();
-        router = new Router();
+        window.app    = new Application();
+        window.app.loadModules(modules);
+        
+        window.router = new Router();
         Backbone.history.start();
         
-        app.loadModules(modules);
+        
         
     });
 });
