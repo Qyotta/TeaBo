@@ -14,13 +14,13 @@ require.config({
 require([
     'jquery',
     'backbone', 
-    'core/models/application',
     'core/router/router', 
+    'core/controller/application',
     'core/controller/whiteboard',
     'core/controller/toolbar', 
     'core/controller/topbar',
-    'controller/note'
-], function($, Backbone, Application, Router, Whiteboard, Note, Toolbar, Topbar) {
+    'modules/note/controller_note'
+], function($, Backbone, Router, Application, Whiteboard, Toolbar, Topbar, Note) {
     $(function() {
 
         var modules = {

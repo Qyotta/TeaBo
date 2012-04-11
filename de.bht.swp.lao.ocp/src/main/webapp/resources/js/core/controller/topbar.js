@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'views/home/topbar'
+    'core/views/topbar'
 ], function($, _, Backbone, TopbarView){
     
     var TopbarController = function(options){

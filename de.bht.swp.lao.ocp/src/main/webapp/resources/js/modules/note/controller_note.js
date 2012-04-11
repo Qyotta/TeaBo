@@ -2,9 +2,9 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'collections/note',
-    'views/note/note',
-    'models/note'
+    'modules/note/collection_note',
+    'modules/note/view_note',
+    'modules/note/model_note'
 ], function($, _, Backbone, NoteCollection,NoteView,Note){
     
     var NoteController = function(options){

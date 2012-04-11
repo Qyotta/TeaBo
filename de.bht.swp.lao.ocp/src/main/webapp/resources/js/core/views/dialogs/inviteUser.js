@@ -2,18 +2,17 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'views/dialogs/dialog',
+    'core/views/dialogs/dialog',
+    'core/views/notice/notice',
+    'core/views/notice/error',
     'text!templates/dialogs/inviteUser.html',
-    'views/notice/notice',
-    'views/notice/error',
-], function($, _, Backbone, Dialog, inviteUserDialogTemplate, Notice, Error){
+], function($, _, Backbone, Dialog, Notice, Error, inviteUserDialogTemplate){
     var isActive = false;
     var InviteUserDialogView = Dialog.extend({
         el:$('#dialogs'),
         initialize:function(options){  
             _.bindAll(this,'showInviteUserDialog', 'inviteUser');
             window.app.eventDispatcher.bind("topbar:inviteClicked",this.showInviteUserDialog);
-            console.log(this.options.whiteboardId);
             this.render();
         },
         events:{
@@ -39,11 +38,6 @@ define([
             }
             isActive = true;
             
-            console.log(this.options.whiteboardId);
-            if(this.options.whiteboardId < 1){
-                alert("Whiteboard:opened - Trigger didn't work");
-                return false;
-            }
             var self = this;
             $.ajax({
                 url: 'whiteboard/invite',

@@ -3,7 +3,7 @@ define([
     'underscore',
     'backbone',
     'core/collections/whiteboard',
-    'views/whiteboard/whiteboard'
+    'core/views/whiteboard'
 ], function($, _, Backbone, WhiteboardCollection, WhiteboardView){
     
     var WhiteboardController = function(options){

@@ -2,11 +2,11 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'views/register',
-    'views/home/main',
+    'core/views/register',
+    'core/views/main',
     'core/views/login',
-    'views/dialogs/logout',
-    'views/dialogs/inviteUser',
+    'core/views/dialogs/logout',
+    'core/views/dialogs/inviteUser',
 ], function($, _, Backbone, RegisterView,MainHomeView,LoginView,LogoutDialogView,InviteUserDialogView){
     var AppRouter = Backbone.Router.extend({
         initialize: function(){

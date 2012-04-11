@@ -3,7 +3,7 @@ define([
     'underscore',
     'backbone',
     'text!templates/login.html',
-    'views/notice/error',
+    'core/views/notice/error',
 ], function($, _, Backbone, loginTemplate,Error){
     var LoginDialogView = Backbone.View.extend({
         el:$('#page'),

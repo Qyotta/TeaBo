@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'models/note'
+    'modules/note/model_note'
 ], function($, _, Backbone, Note){
 
     var NoteCollection = Backbone.Collection.extend({

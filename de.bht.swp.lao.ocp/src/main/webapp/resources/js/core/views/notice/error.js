@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'views/notice/notice',
+    'core/views/notice/notice',
 ], function($, _, Backbone,Notice){
     var Error = Notice.extend({
         id: 'error',

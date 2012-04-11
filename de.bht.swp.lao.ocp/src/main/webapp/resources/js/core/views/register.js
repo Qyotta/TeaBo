@@ -3,8 +3,8 @@ define([
     'underscore',
     'backbone',
     'text!templates/register.html',
-    'views/notice/notice',
-    'views/notice/error',
+    'core/views/notice/notice',
+    'core/views/notice/error',
 ], function($, _, Backbone,registerTemplate,Notice,Error){
     var RegisterView = Backbone.View.extend({
         el: $("#page"),
