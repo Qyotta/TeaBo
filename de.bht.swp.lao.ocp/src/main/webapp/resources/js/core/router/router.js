@@ -4,13 +4,14 @@ define([
     'backbone',
     'views/register',
     'views/home/main',
-    'views/login',
+    'core/views/login',
     'views/dialogs/logout',
     'views/dialogs/inviteUser',
-], function($, _, Backbone,RegisterView,MainHomeView,LoginView,LogoutDialogView,InviteUserDialogView){
+], function($, _, Backbone, RegisterView,MainHomeView,LoginView,LogoutDialogView,InviteUserDialogView){
     var AppRouter = Backbone.Router.extend({
         initialize: function(){
             window.app.eventDispatcher.bind('application:loggedIn',this.loggedIn);
+            window.app.log("app router loaded");
         },
         routes: {
             // Define some URL routes
@@ -38,7 +39,7 @@ define([
             }
         },
         loggedIn: function() {
-            window.whiteboardController.sync();
+            window.app.whiteboard.sync();
         },
         showMainPanel: function(){
             if(!window.app.loggedIn()){

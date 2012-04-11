@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'collections/whiteboard',
+    'core/collections/whiteboard',
     'views/whiteboard/whiteboard'
 ], function($, _, Backbone, WhiteboardCollection, WhiteboardView){
     
@@ -17,6 +17,7 @@ define([
     
     WhiteboardController.prototype = {
         initialize:function(options){
+            window.app.log('whiteboard loaded');
             this.whiteboards = new WhiteboardCollection();
             this.sync();
         },

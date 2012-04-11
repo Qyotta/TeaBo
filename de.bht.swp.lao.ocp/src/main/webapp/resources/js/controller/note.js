@@ -18,7 +18,7 @@ define([
     
     NoteController.prototype = {
         initialize: function() {
-            
+            window.app.log('Note loaded');
         },
         subscribeChannels:function(){
             window.app.subscribeChannel('/whiteboardItem/move/'+this.id,this._handleMovedWhiteboardItem);

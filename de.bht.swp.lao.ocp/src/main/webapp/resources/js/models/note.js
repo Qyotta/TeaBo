@@ -1,7 +1,7 @@
 define([
     'underscore',
     'backbone',
-	'models/whiteboarditem',
+	'core/models/whiteboarditem',
 ], function(_, Backbone,WhiteboardItem) {
     var Note = WhiteboardItem.extend({
         

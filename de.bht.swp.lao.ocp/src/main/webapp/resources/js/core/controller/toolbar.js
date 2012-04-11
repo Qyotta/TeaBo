@@ -9,9 +9,13 @@ define([
         _.bindAll(this,'showTools','removeTools');
         window.app.eventDispatcher.bind("whiteboard:open",this.showTools);
         window.app.eventDispatcher.bind("whiteboard:close",this.removeTools);
+        this.initialize();
     };
     
     ToolbarController.prototype = {
+        initialize: function() {
+            window.app.log('toolbar loaded');
+        },
         showTools: function() {
             this.view = new ToolbarView();
         },

@@ -10,7 +10,6 @@ define([
         initialize:function(){
             _.bindAll(this,'showLogoutDialog');
             window.app.eventDispatcher.bind("logoutClicked",this.showLogoutDialog);
-            //this.render();
         },
         events:{
             'click #logoutContainer button.cancel' : 'hideLogoutDialog',
@@ -38,6 +37,7 @@ define([
                     window.app.logout();
                     if(!window.app.loggedIn()){
                         self.hideDialog();
+                        window.app.eventDispatcher.trigger('logout', null);
                         window.router.navigate("login", {trigger: true});
                     }
                 },

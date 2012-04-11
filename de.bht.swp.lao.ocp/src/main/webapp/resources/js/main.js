@@ -7,30 +7,34 @@ require.config({
         text : 'libs/require/text',
         cometd : 'libs/org/cometd',
         jquerycometd : 'libs/jquery/jquery.cometd',
-        templates : '../templates',
-        collections : 'collections',
-        models : 'models',
-        views : 'views',
-        router : 'router',
-        controllers : 'controllers'
+        templates : '../templates'
     }
 });
 
 require([
-// Load our app module and pass it to our definition function
- 'backbone', 'controllers/application', 'controllers/whiteboard', 'controllers/note', 'controllers/toolbar', 'controllers/topbar', 'router/router' ], 
-function(Backbone, ApplicationController, WhiteboardController, NoteController, ToolbarController, TopbarController, AppRouter) {
-    // The "app" dependency is passed in as "App"
+    'jquery',
+    'backbone', 
+    'core/models/application',
+    'core/router/router', 
+    'core/controller/whiteboard',
+    'core/controller/toolbar', 
+    'core/controller/topbar',
+    'controller/note'
+], function($, Backbone, Application, Router, Whiteboard, Note, Toolbar, Topbar) {
     $(function() {
 
-        window.applicationController = new ApplicationController();
-        window.whiteboardController  = new WhiteboardController();
-        window.noteController        = new NoteController();
-        window.toolbarController     = new ToolbarController();
-        window.topbarController      = new TopbarController();
+        var modules = {
+            'whiteboard':Whiteboard, 
+            'note':Note, 
+            'toolbar':Toolbar, 
+            'topbar':Topbar
+        };
         
-        window.router = new AppRouter();
+        app    = new Application();
+        router = new Router();
         Backbone.history.start();
-
+        
+        app.loadModules(modules);
+        
     });
 });

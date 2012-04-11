@@ -24,19 +24,16 @@ define([
         initialize : function() {
             this.eventDispatcher = _.extend({}, Backbone.Events);
         },
-        log : function(str) {
-            if (this.options.debug)
-                console.log(str);
-        },
+        
         setPreviousState : function() {
             this.previous_state = document.location.hash;
         },
         gotoPreviousState : function() {
             document.location.hash = this.previous_state;
         },
-        loggedIn : function() {
-            return !this.user.isNew();
-        },
+        // loggedIn : function() {
+            // return !this.user.isNew();
+        // },
         createGuestUser : function() {
             this.user = new User();
         },
