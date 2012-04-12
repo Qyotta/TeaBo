@@ -63,7 +63,7 @@ define([
                 url : "cometd",
                 logLevel : 'info'
             });
-
+            
             this.cometd.addListener('/meta/handshake', this.onMetaHandshake);
             this.cometd.addListener('/meta/connect', this.onMetaConnect);
             this.cometd.handshake();
@@ -82,9 +82,9 @@ define([
                 this._connected = false;
                 return;
             }
-
+            
             this._connected = true;
-
+            
             var self = this;
             $(window).unload(function() {
                 self.stopCometd();
