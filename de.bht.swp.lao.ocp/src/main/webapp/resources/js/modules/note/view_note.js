@@ -8,6 +8,7 @@ define([
     
     var NoteView = Backbone.View.extend({
         initialize:function(){
+            _.bindAll(this,'deleteClicked');
             this.model.bind('change',this.changed,this);
             var self = this;
             $(this.el).draggable({
@@ -35,6 +36,7 @@ define([
         },
         events:{
             //'click .mainPanel input[type=submit]' : 'submitClicked',
+            'click .file_mouseOverMenu_bottom' : 'deleteClicked'
         },
         render:function(){
             var data = { note:this.model, _: _ };
@@ -48,6 +50,9 @@ define([
             }else{
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
             }
+        },
+        deleteClicked:function(){
+            window.app.eventDispatcher.trigger("note:delete",this.model.id);
         }
     });
     
