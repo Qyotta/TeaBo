@@ -75,8 +75,7 @@ define([
             this.cometd.publish(channel, msg);
         },
         onMetaHandshake : function() {
-            window.app.eventDispatcher.trigger('handshakeComplete',
-                    null);
+            window.app.eventDispatcher.trigger('handshakeComplete', null);
         },
         onMetaConnect : function() {
             if (cometd.isDisconnected()) {

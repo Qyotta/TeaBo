@@ -83,8 +83,9 @@
 .loginContainer dl dd, .registerContainer dl dd {
     margin-bottom:5px;
 }
-.loginContainer dl input.button, .registerContainer dl input.button {
+.loginContainer > form > dl > dd > input.button {
     margin:3px 0 0 0;
+    width:70px;
 }
 .loginContainer form span {
     color:#FF0000;

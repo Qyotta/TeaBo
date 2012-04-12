@@ -9,8 +9,9 @@ define([
     var RegisterView = Backbone.View.extend({
         el: $("#page"),
         events:{
-            'click .registerCancelButtons input[type=submit]' : 'submitClicked',
-            'click .registerCancelButtons button' : 'cancelClicked',
+            'mousedown .registerCancelButtons input[type=submit]' : 'submitClicked',
+            'mousedown .registerCancelButtons button' : 'cancelClicked',
+            'hover .exclamation' : 'showError'
         },
         initialize:function(){
             this.render();
@@ -22,7 +23,7 @@ define([
         },
         submitClicked:function(evt){
             evt.preventDefault();
-            
+            console.log(evt);
             this.firstname = $('input[name=firstname]').val();
             this.lastname = $('input[name=lastname]').val();
             this.position = $('input[name=position]').val();
@@ -80,6 +81,14 @@ define([
             evt.preventDefault();
             window.router.navigate("login", {trigger: true});
         },
+        showError:function(e) {
+            var errors = $(e.currentTarget).find('div.errors');
+            if(e.type === 'mouseenter') {
+                errors.show();
+            } else {
+                errors.hide();
+            }
+        }
     });
     
     return RegisterView;

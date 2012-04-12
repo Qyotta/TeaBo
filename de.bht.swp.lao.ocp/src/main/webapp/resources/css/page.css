@@ -39,6 +39,13 @@ html {
     display:none;
 }
 
+div.registerContainer > form > dl > dd > input {
+    width:185px;
+}
+div.loginContainer    > form > dl > dd > input {
+    width:210px;
+}
+
 .wrongfield{
     border-color:#cc3300;   
 }
