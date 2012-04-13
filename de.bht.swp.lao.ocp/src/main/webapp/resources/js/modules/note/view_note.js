@@ -7,7 +7,13 @@ define([
 ], function($, _, Backbone,jqueryui,noteTemplate){
     
     var NoteView = Backbone.View.extend({
+        events:{
+            //'click .mainPanel input[type=submit]' : 'submitClicked',
+            'focus input[type=text], .note textarea' : 'isFocused',
+            'blur input[type=text], .note textarea' : 'isBlured',
+        },
         initialize:function(){
+            _.bindAll(this,'isFocused','isBlured');
             this.model.bind('change',this.changed,this);
             var self = this;
             $(this.el).draggable({
@@ -30,11 +36,20 @@ define([
             $(this.el).addClass("note draggable");
             this.render();
         },
+        isFocused:function(){
+            window.app.log("focused "+this.model.id);
+            this.timer = setInterval(function() {
+                window.app.log('fired');
+            }, 500);
+        },
+        isBlured:function(){
+            window.app.log("blured "+this.model.id);
+            if(this.timer){
+                clearInterval(this.timer);
+            }
+        },
         changed:function(){
             this.render();
-        },
-        events:{
-            //'click .mainPanel input[type=submit]' : 'submitClicked',
         },
         render:function(){
             var data = { note:this.model, _: _ };
