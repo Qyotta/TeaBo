@@ -8,10 +8,11 @@ define([
 ], function($, _, Backbone, NoteCollection,NoteView,Note){
     
     var NoteController = function(options){
-        _.bindAll(this,'getNotes','createNote','noteCreated','subscribeChannels','_handleMovedWhiteboardItem');
+        _.bindAll(this,'getNotes','createNote','noteCreated','subscribeChannels','_handleMovedWhiteboardItem', 'deleteNote');
         window.app.eventDispatcher.bind("note:create",this.createNote);
         window.app.eventDispatcher.bind("whiteboard:opened",this.getNotes);
         window.app.eventDispatcher.bind('handshakeComplete',this.subscribeChannels);
+        window.app.eventDispatcher.bind('note:delete',this.deleteNote);
         
         this.initialize();
     };
@@ -61,6 +62,10 @@ define([
             var _y = message.data.y;
             var note = this.noteCollection.get(_id);
             note.set({x:_x,y:_y});
+        },
+        deleteNote:function(id) {
+            var model = this.noteCollection.get(id);
+            model.destroy();
         }
     };
     

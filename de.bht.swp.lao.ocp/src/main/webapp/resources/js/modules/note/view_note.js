@@ -11,9 +11,10 @@ define([
             //'click .mainPanel input[type=submit]' : 'submitClicked',
             'focus input[type=text], .note textarea' : 'isFocused',
             'blur input[type=text], .note textarea' : 'isBlured',
+            'click .file_mouseOverMenu_bottom' : 'deleteClicked'
         },
         initialize:function(){
-            _.bindAll(this,'isFocused','isBlured');
+            _.bindAll(this,'isFocused','isBlured','deleteClicked');
             this.model.bind('change',this.changed,this);
             var self = this;
             $(this.el).draggable({
@@ -63,6 +64,9 @@ define([
             }else{
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
             }
+        },
+        deleteClicked:function(){
+            window.app.eventDispatcher.trigger("note:delete",this.model.id);
         }
     });
     
