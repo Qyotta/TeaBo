@@ -8,6 +8,8 @@ define([
 ], function( _, Backbone, Router, User, cometd, jquerycometd){
     
     var Application = function() {
+
+		_.bindAll(this,'onMetaConnect');
         this.debugMode = true,
         this.user = {},
         this.modules = {},
@@ -19,8 +21,6 @@ define([
     
     Application.prototype = {
         initialize: function(options) {
-            console.log('---- App started -----');
-            
             this.eventDispatcher = _.extend({}, Backbone.Events);
             
             if(window.userData) {
@@ -39,7 +39,6 @@ define([
         },
         logout : function() {
             this.createGuestUser();
-//            this.reset();
         },
         createGuestUser : function() {
             this.user = new User();
@@ -78,7 +77,7 @@ define([
             window.app.eventDispatcher.trigger('handshakeComplete', null);
         },
         onMetaConnect : function() {
-            if (cometd.isDisconnected()) {
+            if (this.cometd.isDisconnected()) {
                 this._connected = false;
                 return;
             }
