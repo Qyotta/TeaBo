@@ -52,7 +52,7 @@ define([
             }
         },
         deleteClicked:function(){
-            window.app.eventDispatcher.trigger("note:delete",this.model.id);
+            window.app.eventDispatcher.trigger("note:delete",this.model);
         }
     });
     

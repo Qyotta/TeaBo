@@ -63,8 +63,7 @@ define([
             var note = this.noteCollection.get(_id);
             note.set({x:_x,y:_y});
         },
-        deleteNote:function(id) {
-            var model = this.noteCollection.get(id);
+        deleteNote:function(model) {
             model.destroy();
         }
     };
