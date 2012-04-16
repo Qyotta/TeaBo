@@ -10,7 +10,8 @@ define([
         events:{
             'click .right a[href="logout"]' :'logoutClicked',
             'click .right a[href="invite"]' :'inviteClicked',
-            'click .right a[href="main"]' :'mainClicked'
+            'click .right a[href="main"]' :'mainClicked',
+            'click .logo a[href="main"]' : 'mainClicked'
         },
         initialize:function(){
             _(this).bindAll('changedUser');
