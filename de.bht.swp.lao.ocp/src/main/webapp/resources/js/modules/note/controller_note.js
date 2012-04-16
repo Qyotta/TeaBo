@@ -67,7 +67,7 @@ define([
             var _y 		= message.data.y;
             
             var _note 	= this.noteCollection.get(_id);
-            _note.set({"x":_x,"y":_y});
+            _note.set({x:_x,y:_y});
 
             window.app.log("note moved("+_id+",x:"+_x+",y:"+_y+")");
         },

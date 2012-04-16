@@ -82,16 +82,18 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             };
             var compiledTemplate = _.template(noteTemplate, data);
 			
-			$(this.el).attr("id", this.model.id);
+			$(this.el).attr("id", "note-"+this.model.id);
             $(this.el).addClass("note draggable");
 
-            $(this.el).css('left', this.model.get('x') + 'px');
-            $(this.el).css('top', this.model.get('y') + 'px');
-            $(this.el).css('position', 'absolute');
             
-			if ($("#" + this.model.id).length > 0) {
+            $(this.el).css('position', 'absolute');
+			if ($("#note-" + this.model.id).length > 0) {
+			    $("#note-" + this.model.id).css('left', this.model.get('x') + 'px');
+	            $("#note-" + this.model.id).css('top', this.model.get('y') + 'px');
                 $(this.el).html(compiledTemplate);
             } else {
+                $(this.el).css('left', this.model.get('x') + 'px');
+                $(this.el).css('top', this.model.get('y') + 'px');
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
             }
         },
