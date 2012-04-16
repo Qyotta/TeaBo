@@ -53,19 +53,23 @@ define([
             var _note = new Note({
                     creator : message.data.creator,
                     x       : message.data.x,
-                    y       : message.data.y,
+                    y       : message.data.y
             });
             _note.id = message.data.id;
             this.noteCollection.add(_note);
-            this.views[_note.id] = new NoteView({ model: _note , whiteboardId: this.whiteboard.id });
+            window.app.log("whiteboard id "+this.whiteboard.id);
+            this.views[_note.id] = new NoteView({ model: _note, whiteboardId: this.whiteboard.id });
+            window.app.log(this.views);
         },
         _handleMovedWhiteboardItem:function(message) {
             var _id 	= message.data.id;
             var _x 		= message.data.x;
             var _y 		= message.data.y;
-
+            
             var _note 	= this.noteCollection.get(_id);
             _note.set({x:_x,y:_y});
+
+            window.app.log("note moved("+_id+",x:"+_x+",y:"+_y+")");
         },
         _handleDeletedWhiteboardItem:function(message){
         	var _id = message.data.id;

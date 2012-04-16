@@ -8,13 +8,12 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             'blur input[type=text],  textarea' : 'isBlured',
             'click .file_mouseOverMenu_bottom' : 'deleteClicked'
         },
-        initialize : function() {
+        initialize : function(options) {
             _.bindAll(this, 'isFocused', 'isBlured', 'deleteClicked','edited','changed');
 			this.model.bind('change',this.changed,this);
 			this.editing = false;
 
-            var self = this;
-            window.app.log($(this.el));
+			var self = this;
             $(this.el).draggable({
                 handle : $('.file_mouseOverMenu_top', this),
                 scroll : false,
@@ -29,18 +28,21 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
                         x : _x,
                         y : _y
                     });
+                    
                     window.app.publish('/service/whiteboardItem/move', {
                         id : self.model.id,
                         x : _x,
                         y : _y,
-                        whiteboardid : self.model.get("whiteboardId")
+                        whiteboardid : self.options.whiteboardId
                     });
+                    window.app.log("note move published to wb("+self.options.whiteboardId+")");
                 }
             });
             
             this.render();
         },
 		changed:function(){
+			window.app.log("changed("+this.model.id+",editing: "+this.editing+")");
 			if(!this.editing)this.render();
 		},
         edited : function() {
@@ -55,7 +57,7 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             window.app.publish('/service/note/edit/', {
                 id : this.model.id,
                 text: this.model.get('text'),
-                whiteboardid : this.model.get("whiteboardId")
+                whiteboardid : this.options.whiteboardId
             });
         },
         isFocused : function() {
@@ -73,6 +75,7 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             }
         },
         render : function() {
+        	window.app.log("render");
             var data = {
                 note : this.model,
                 _ : _
