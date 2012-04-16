@@ -20,7 +20,7 @@ define([
             this.view = new ToolbarView();
         },
         removeTools: function() {
-            this.view.unrender();
+            if(this.view)this.view.unrender();
         }
     };
     
