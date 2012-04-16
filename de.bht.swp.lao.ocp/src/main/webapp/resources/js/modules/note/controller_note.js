@@ -56,10 +56,9 @@ define([
                     y       : message.data.y
             });
             _note.id = message.data.id;
+            if(this.views[_note.id])return;
             this.noteCollection.add(_note);
-            window.app.log("whiteboard id "+this.whiteboard.id);
             this.views[_note.id] = new NoteView({ model: _note, whiteboardId: this.whiteboard.id });
-            window.app.log(this.views);
         },
         _handleMovedWhiteboardItem:function(message) {
             var _id 	= message.data.id;

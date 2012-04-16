@@ -43,7 +43,9 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
         },
 		changed:function(){
 			window.app.log("changed("+this.model.id+",editing: "+this.editing+")");
-			if(!this.editing)this.render();
+			if(!this.editing){
+				this.render();
+			}
 		},
         edited : function() {
             this.input = $('.noteItems textarea',this.el);
@@ -67,7 +69,6 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
         },
         isBlured : function() {
 			this.editing = false;
-
             $(this.el).removeClass(".edited");
 
             if (this.timer) {
@@ -75,7 +76,6 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             }
         },
         render : function() {
-        	window.app.log("render");
             var data = {
                 note : this.model,
                 _ : _
@@ -90,8 +90,9 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
 			if ($("#note-" + this.model.id).length > 0) {
 			    $("#note-" + this.model.id).css('left', this.model.get('x') + 'px');
 	            $("#note-" + this.model.id).css('top', this.model.get('y') + 'px');
-                $(this.el).html(compiledTemplate);
+	            $("#note-" + this.model.id).html(compiledTemplate);
             } else {
+            	window.app.log($(this.el));
                 $(this.el).css('left', this.model.get('x') + 'px');
                 $(this.el).css('top', this.model.get('y') + 'px');
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
