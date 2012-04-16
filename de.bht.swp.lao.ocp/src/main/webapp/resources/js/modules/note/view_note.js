@@ -11,10 +11,10 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
         initialize : function() {
             _.bindAll(this, 'isFocused', 'isBlured', 'deleteClicked','edited','changed');
 			this.model.bind('change',this.changed,this);
-			
 			this.editing = false;
 
             var self = this;
+            window.app.log($(this.el));
             $(this.el).draggable({
                 handle : $('.file_mouseOverMenu_top', this),
                 scroll : false,

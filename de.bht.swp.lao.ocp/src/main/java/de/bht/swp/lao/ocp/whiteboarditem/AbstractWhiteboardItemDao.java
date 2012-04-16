@@ -102,10 +102,12 @@ public abstract class AbstractWhiteboardItemDao<T extends WhiteboardItem>
      * lao.ocp.whiteboarditem.WhiteboardItem)
      */
     @Override
+    @Transactional
     public void delete(T whiteboardItem) {
         try {
             T a = em.getReference(getType(), whiteboardItem.getId());
-            if (whiteboardItem.getId() != null) {
+
+            if (a.getId() != null) {
                 em.remove(a);
             }
         } catch (Exception e) {

@@ -8,7 +8,7 @@ define([
 ], function($, _, Backbone, NoteCollection,NoteView,Note){
     
     var NoteController = function(options){
-        _.bindAll(this,'getNotes','createNote','noteCreated','subscribeChannels','_handleMovedWhiteboardItem','_handleEditedNote', 'deleteNote');
+        _.bindAll(this,'getNotes','createNote','noteCreated','subscribeChannels','_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem','_handleEditedNote', 'deleteNote');
         window.app.eventDispatcher.bind("note:create",this.createNote);
         window.app.eventDispatcher.bind("whiteboard:opened",this.getNotes);
         window.app.eventDispatcher.bind('handshakeComplete',this.subscribeChannels);
@@ -19,10 +19,11 @@ define([
     
     NoteController.prototype = {
         initialize: function() {
-			
+			this.views = [];
         },
         subscribeChannels:function(){
             window.app.subscribeChannel('/whiteboardItem/move/'+this.whiteboard.id,this._handleMovedWhiteboardItem);
+            window.app.subscribeChannel('/whiteboardItem/delete/'+this.whiteboard.id,this._handleDeletedWhiteboardItem);
 			window.app.subscribeChannel('/note/edited/'+this.whiteboard.id,this._handleEditedNote);
             window.app.subscribeChannel('/note/posted/'+this.whiteboard.id, this.noteCreated);
         },
@@ -30,14 +31,13 @@ define([
             this.whiteboard = whiteboard;
             this.noteCollection = new NoteCollection(null,{id:this.whiteboard.id});
             
-            window.app.subscribeChannel('/note/posted/'+this.whiteboard.id, this.noteCreated);
-            
             var self = this;
             this.noteCollection.fetch({
                 success:function(collection, response){
-                    collection.each(function(note) {
-                        new NoteView({ model:note, whiteboardId: self.whiteboard.id});
+                    collection.each(function(_note) {
+                        self.views[_note.id] = new NoteView({ model:_note, whiteboardId: self.whiteboard.id});
                     });
+                    self.subscribeChannels();
                 }
             });
         },
@@ -50,13 +50,14 @@ define([
             });
         },
         noteCreated:function(message) {
-            var note = new Note({
+            var _note = new Note({
                     creator : message.data.creator,
                     x       : message.data.x,
                     y       : message.data.y,
-                    id      : message.data.id
             });
-            new NoteView({ model: note , whiteboardId: this.whiteboard.id });
+            _note.id = message.data.id;
+            this.noteCollection.add(_note);
+            this.views[_note.id] = new NoteView({ model: _note , whiteboardId: this.whiteboard.id });
         },
         _handleMovedWhiteboardItem:function(message) {
             var _id 	= message.data.id;
@@ -66,16 +67,26 @@ define([
             var _note 	= this.noteCollection.get(_id);
             _note.set({x:_x,y:_y});
         },
+        _handleDeletedWhiteboardItem:function(message){
+        	var _id = message.data.id;
+        	var _note = this.noteCollection.get(_id);
+        	if(_note){
+        		this.noteCollection.remove(_note);
+        		this.views[_note.id].remove();
+        	}
+        },
 		_handleEditedNote:function(message){
 			var _id 	= message.data.id;
 			var _text 	= message.data.text;
 
             var _note 	= this.noteCollection.get(_id);
             _note.set({text:_text});
-			window.app.log("note edited {"+_id+","+_text+"}");
 		},
         deleteNote:function(model) {
-            model.destroy();
+        	window.app.publish( '/service/whiteboardItem/delete', {
+        		id : model.id,
+                whiteboardid : this.whiteboard.id
+            });
         }
     };
     

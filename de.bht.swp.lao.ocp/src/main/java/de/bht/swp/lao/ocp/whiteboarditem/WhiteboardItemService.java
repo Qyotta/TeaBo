@@ -54,6 +54,28 @@ public class WhiteboardItemService {
         }
     }
 
+    @Listener(value = { "/service/whiteboardItem/delete" })
+    public void processDelete(ServerSession remote,
+            ServerMessage.Mutable message) {
+        Map<String, Object> data = message.getDataAsMap();
+
+        Long id = (Long) data.get("id");
+        Long whiteboardid = (Long) data.get("whiteboardid");
+
+        WhiteboardItem wi = whiteboardItemDao.findById(id);
+
+        whiteboardItemDao.delete(wi);
+
+        Map<String, Object> output = new HashMap<String, Object>();
+        output.put("id", id);
+
+        String channel = "/whiteboardItem/delete/" + whiteboardid;
+        for (ServerSession session : bayeux.getChannel(channel)
+                .getSubscribers()) {
+            session.deliver(serverSession, channel, output, null);
+        }
+    }
+
     @Listener(value = { "/service/whiteboardItem/editing" })
     public void processProgress(ServerSession remote,
             ServerMessage.Mutable message) {
