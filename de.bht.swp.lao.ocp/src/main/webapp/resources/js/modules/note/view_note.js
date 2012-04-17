@@ -99,7 +99,7 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             }
         },
         deleteClicked : function() {
-            window.app.eventDispatcher.trigger("note:delete", this.model);
+            window.app.eventDispatcher.trigger("note:delete_clicked", this.model);
         }
     });
 

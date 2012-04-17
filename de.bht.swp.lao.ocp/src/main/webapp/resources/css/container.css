@@ -156,7 +156,7 @@
 
 #dialogs{display:none;}
 
-#logoutContainer{
+#confirmDeleteNoteContainer, #logoutContainer{
     width:320px;
     height:50px;
     position:absolute;
@@ -175,6 +175,18 @@
     box-shadow: 4px 4px 8px #222;
     z-index:101;
 }
+
+#confirmDeleteNoteContainer .delete-note-button form {margin:10px 0 0 0;}
+#confirmDeleteNoteContainer{height:80px;}
+
+.hide-confirm-container{
+	margin: 5px 0 0 -100px;
+}
+
+.hide-confirm-container label{
+	font-size:12px;
+}
+
 .blurBox .attachmentMenu, .blurBox .noteMenu {
     display:none!important;
 }

@@ -4,8 +4,9 @@ define([
     'backbone',
     'modules/note/collection_note',
     'modules/note/view_note',
-    'modules/note/model_note'
-], function($, _, Backbone, NoteCollection,NoteView,Note){
+    'modules/note/model_note',
+    'modules/note/view_confirm_delete'
+], function($, _, Backbone, NoteCollection,NoteView,Note,ConfirmDeleteView){
     
     var NoteController = function(options){
         _.bindAll(this,'getNotes','createNote','noteCreated','subscribeChannels','_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem','_handleEditedNote', 'deleteNote');
@@ -20,6 +21,7 @@ define([
     NoteController.prototype = {
         initialize: function() {
 			this.views = [];
+			this.confirmDeleteView = new ConfirmDeleteView();
         },
         subscribeChannels:function(){
             window.app.subscribeChannel('/whiteboardItem/move/'+this.whiteboard.id,this._handleMovedWhiteboardItem);
