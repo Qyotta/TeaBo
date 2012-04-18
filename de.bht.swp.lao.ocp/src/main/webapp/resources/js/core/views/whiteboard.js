@@ -2,15 +2,18 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'jquerycollision',
     'text!templates/whiteboard/whiteboard.html',
-], function($, _, Backbone, whiteboardTemplate){
+], function($, _, Backbone, collision, whiteboardTemplate){
     
     var WhiteboardView = Backbone.View.extend({
         el: $("#page"),
         events:{
             'mousedown #whiteboard' : 'startSelection',
             'mousemove #whiteboard' : 'dragEnterEvent',
-            'mouseup #whiteboard'   : 'dragEndEvent'
+            'mouseup #whiteboard'   : 'dragEndEvent',
+            'mousedown .noteMenu'   : 'preventSelection',
+            'mouseup .noteMenu'     : 'preventSelection'
         },
         initialize:function(){
             this.render();
@@ -21,7 +24,11 @@ define([
             this.el.html(compiledTemplate);
         },
         startSelection: function(e) {
-            if(this.isSelectionBox) return;
+            
+            this.el.find('.note').removeClass('selected');
+            if(this.isSelectionBox || this.isMovingNote) return;
+            
+            this.el.find('.note.hoverable').removeClass('hoverable');
             
             this.isSelectionBox = true;
             this.startDragX = e.clientX;
@@ -37,7 +44,7 @@ define([
             whiteboard.append(this.selectionBox);
         },
         dragEnterEvent: function(e) {
-            if(!this.isSelectionBox) return;
+            if(!this.isSelectionBox || this.selectionBox === undefined || this.isMovingNote) return;
             
             if(e.clientX - this.startDragX < 0) {
                 // drag from right to left
@@ -55,12 +62,21 @@ define([
                 // drag from top to bottom
                 this.selectionBox.css('height',e.clientY - this.startDragY);
             }
+            
+            var selectedNotes = this.selectionBox.collision('.note');
+            selectedNotes.addClass('selected');
+            this.el.find('#whiteboard > .note').not(selectedNotes).removeClass('selected');
         },
         dragEndEvent: function() {
-            if(!this.isSelectionBox) return;
+            if(!this.isSelectionBox || this.selectionBox === undefined) return;
             
             this.selectionBox.remove();
             this.isSelectionBox = false;
+            
+            this.el.find('.note').addClass('hoverable');
+        },
+        preventSelection: function() {
+            this.isMovingNote = !this.isMovingNote;
         }
     });
     

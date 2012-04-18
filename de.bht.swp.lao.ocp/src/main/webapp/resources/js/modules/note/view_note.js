@@ -17,7 +17,7 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             $(this.el).draggable({
                 handle : $('.file_mouseOverMenu_top', this),
                 scroll : false,
-                // drag: _handleDragItem,
+                drag : this.handleDragItem,
                 stop : function(e, ui) {
                     var id = $(this).attr('id');
                     $(this).find('.noteMenu').css('display', '');
@@ -36,14 +36,17 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
                         whiteboardid : self.options.whiteboardId
                     });
                     window.app.log("note move published to wb("+self.options.whiteboardId+")");
+                    
                 }
             });
             
             this.render();
         },
+        handleDragItem: function() {
+            $(this).find('.noteMenu').css('display','block');
+            $(this).find('.creator').css('display','block');
+        },
         changed:function(){
-            window.app.log("changed("+this.model.id+",editing: "+this.editing+")");
-            
             var textarea = $('#note-'+this.model.id).find('textarea');
             textarea.css('height', textarea[0].scrollHeight / 2 + 'px');
             textarea.css('height', textarea[0].scrollHeight + 'px');
@@ -88,7 +91,7 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             var compiledTemplate = _.template(noteTemplate, data);
             
             $(this.el).attr("id", "note-"+this.model.id);
-            $(this.el).addClass("note draggable");
+            $(this.el).addClass("note draggable hoverable");
 
             
             $(this.el).css('position', 'absolute');

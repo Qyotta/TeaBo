@@ -4,6 +4,7 @@ require.config({
         underscore : 'libs/underscore/underscore-min',
         backbone : 'libs/backbone/backbone-optamd3-min',
         jqueryui : 'libs/jquery/jquery-ui-1.8.17',
+        jquerycollision : 'libs/jquery/jquery-collision-1.0.1',
         text : 'libs/require/text',
         cometd : 'libs/org/cometd',
         jquerycometd : 'libs/jquery/jquery.cometd',
