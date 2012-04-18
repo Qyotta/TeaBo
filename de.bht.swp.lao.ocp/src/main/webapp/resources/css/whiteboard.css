@@ -126,3 +126,10 @@
     width: 10px;
     padding: 0 0 5px;
 }
+
+#selectionBox {
+    position:absolute;
+    z-index: 10000;
+    border:1px dashed #70ADC9;
+    background: rgba(112, 173, 201,0.3);
+}
