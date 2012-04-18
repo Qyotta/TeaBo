@@ -3,10 +3,12 @@ package de.bht.swp.lao.ocp.attachment;
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tika.metadata.HttpHeaders;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.xml.sax.ContentHandler;
@@ -34,7 +37,6 @@ import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
  * 
  */
 @Controller
-@RequestMapping(value = "/attachment/*")
 public class AttachmentController {
     @Inject
     private IWhiteboardItemDao<Attachment> attachmentDao;
@@ -52,7 +54,7 @@ public class AttachmentController {
      * @param response
      * @throws IOException
      */
-    @RequestMapping(value = "/uploadfile-{whiteboardId}.htm", method = RequestMethod.POST)
+    @RequestMapping(value = "/attachment/uploadfile-{whiteboardId}.htm", method = RequestMethod.POST)
     // @formatter:off
     public void uploadFile(@RequestParam("data") MultipartFile data,
             @RequestParam("id") Long id, MultipartHttpServletRequest request,
@@ -124,7 +126,7 @@ public class AttachmentController {
      *            the http response object
      * @throws IOException
      */
-    @RequestMapping(value = "/{attachmentid}/{filename}/download.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "/attachment/{attachmentid}/{filename}/download.htm", method = RequestMethod.GET)
     public void dowloadFile(@PathVariable("attachmentid") Long id,
             HttpServletResponse response) throws IOException {
         Attachment attachment = attachmentDao.findById(id);
@@ -140,5 +142,18 @@ public class AttachmentController {
         } catch (IOException e) {
             throw new IOException(e);
         }
+    }
+    
+    @RequestMapping(value = "/whiteboard/{id}/attachments", method = RequestMethod.GET)
+    public @ResponseBody
+    List<AttachmentDTO> getAttachmentsByWhiteboard(HttpServletRequest request,
+            @PathVariable Long id) {
+        List<AttachmentDTO> attachments = new ArrayList<AttachmentDTO>();
+
+        for (Attachment attachment : attachmentDao.findAllbyWhiteboardId(id)) {
+            attachments.add(new AttachmentDTO(attachment));
+        }
+
+        return attachments;
     }
 }

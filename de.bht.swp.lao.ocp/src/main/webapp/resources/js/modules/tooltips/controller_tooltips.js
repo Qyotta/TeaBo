@@ -28,6 +28,9 @@ define([
                         window.app.log('open tooltips');
                         that.showTooltips();
                     }
+                    else {
+                        that.view.setCheckbox(true);
+                    }
                 }
             });
         },

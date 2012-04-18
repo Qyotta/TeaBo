@@ -47,7 +47,6 @@ define([
                 }
             });
         }
-    });    
-    
+    });
     return LogoutDialogView;
 });
