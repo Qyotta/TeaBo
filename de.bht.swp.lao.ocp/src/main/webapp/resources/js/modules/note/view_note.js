@@ -10,10 +10,10 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
         },
         initialize : function(options) {
             _.bindAll(this, 'isFocused', 'isBlured', 'deleteClicked','edited','changed');
-			this.model.bind('change',this.changed,this);
-			this.editing = false;
+            this.model.bind('change',this.changed,this);
+            this.editing = false;
 
-			var self = this;
+            var self = this;
             $(this.el).draggable({
                 handle : $('.file_mouseOverMenu_top', this),
                 scroll : false,
@@ -41,12 +41,17 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             
             this.render();
         },
-		changed:function(){
-			window.app.log("changed("+this.model.id+",editing: "+this.editing+")");
-			if(!this.editing){
-				this.render();
-			}
-		},
+        changed:function(){
+            window.app.log("changed("+this.model.id+",editing: "+this.editing+")");
+            
+            var textarea = $('#note-'+this.model.id).find('textarea');
+            textarea.css('height', textarea[0].scrollHeight / 2 + 'px');
+            textarea.css('height', textarea[0].scrollHeight + 'px');
+            
+            if(!this.editing){
+                this.render();
+            }
+        },
         edited : function() {
             this.input = $('.noteItems textarea',this.el);
             var _text  = this.input.val();
@@ -63,12 +68,12 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             });
         },
         isFocused : function() {
-			this.editing = true;
+            this.editing = true;
             $(this.el).addClass(".edited");
             this.timer = setInterval(this.edited, 500);
         },
         isBlured : function() {
-			this.editing = false;
+            this.editing = false;
             $(this.el).removeClass(".edited");
 
             if (this.timer) {
@@ -81,22 +86,26 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
                 _ : _
             };
             var compiledTemplate = _.template(noteTemplate, data);
-			
-			$(this.el).attr("id", "note-"+this.model.id);
+            
+            $(this.el).attr("id", "note-"+this.model.id);
             $(this.el).addClass("note draggable");
 
             
             $(this.el).css('position', 'absolute');
-			if ($("#note-" + this.model.id).length > 0) {
-			    $("#note-" + this.model.id).css('left', this.model.get('x') + 'px');
-	            $("#note-" + this.model.id).css('top', this.model.get('y') + 'px');
-	            $("#note-" + this.model.id).html(compiledTemplate);
+            if ($("#note-" + this.model.id).length > 0) {
+                $("#note-" + this.model.id).css('left', this.model.get('x') + 'px');
+                $("#note-" + this.model.id).css('top', this.model.get('y') + 'px');
+                $("#note-" + this.model.id).html(compiledTemplate);
             } else {
-            	window.app.log($(this.el));
+                window.app.log($(this.el));
                 $(this.el).css('left', this.model.get('x') + 'px');
                 $(this.el).css('top', this.model.get('y') + 'px');
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
             }
+            
+            var textarea = $(this.el).find('textarea');
+            textarea.css('height', textarea[0].scrollHeight / 2 + 'px');
+            textarea.css('height', textarea[0].scrollHeight + 'px');
         },
         deleteClicked : function() {
             window.app.eventDispatcher.trigger("note:delete_clicked", this.model);

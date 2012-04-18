@@ -57,6 +57,7 @@
     width: 199px;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FDFDCC), to(#F8F7B6) );
     background: -moz-linear-gradient(100% 100% 90deg, #F8F7B6, #FDFDCC);
+    overflow: hidden;
 }
 
 .whiteboard .note input {

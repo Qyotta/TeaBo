@@ -20,13 +20,13 @@ define([
     
     NoteController.prototype = {
         initialize: function() {
-			this.views = [];
-			this.confirmDeleteView = new ConfirmDeleteView();
+            this.views = [];
+            this.confirmDeleteView = new ConfirmDeleteView();
         },
         subscribeChannels:function(){
             window.app.subscribeChannel('/whiteboardItem/move/'+this.whiteboard.id,this._handleMovedWhiteboardItem);
             window.app.subscribeChannel('/whiteboardItem/delete/'+this.whiteboard.id,this._handleDeletedWhiteboardItem);
-			window.app.subscribeChannel('/note/edited/'+this.whiteboard.id,this._handleEditedNote);
+            window.app.subscribeChannel('/note/edited/'+this.whiteboard.id,this._handleEditedNote);
             window.app.subscribeChannel('/note/posted/'+this.whiteboard.id, this.noteCreated);
         },
         getNotes:function(whiteboard){
@@ -63,33 +63,33 @@ define([
             this.views[_note.id] = new NoteView({ model: _note, whiteboardId: this.whiteboard.id });
         },
         _handleMovedWhiteboardItem:function(message) {
-            var _id 	= message.data.id;
-            var _x 		= message.data.x;
-            var _y 		= message.data.y;
+            var _id     = message.data.id;
+            var _x      = message.data.x;
+            var _y      = message.data.y;
             
-            var _note 	= this.noteCollection.get(_id);
+            var _note   = this.noteCollection.get(_id);
             _note.set({x:_x,y:_y});
 
             window.app.log("note moved("+_id+",x:"+_x+",y:"+_y+")");
         },
         _handleDeletedWhiteboardItem:function(message){
-        	var _id = message.data.id;
-        	var _note = this.noteCollection.get(_id);
-        	if(_note){
-        		this.noteCollection.remove(_note);
-        		this.views[_note.id].remove();
-        	}
+            var _id = message.data.id;
+            var _note = this.noteCollection.get(_id);
+            if(_note){
+                this.noteCollection.remove(_note);
+                this.views[_note.id].remove();
+            }
         },
-		_handleEditedNote:function(message){
-			var _id 	= message.data.id;
-			var _text 	= message.data.text;
+        _handleEditedNote:function(message){
+            var _id     = message.data.id;
+            var _text   = message.data.text;
 
-            var _note 	= this.noteCollection.get(_id);
+            var _note   = this.noteCollection.get(_id);
             _note.set({text:_text});
-		},
+        },
         deleteNote:function(model) {
-        	window.app.publish( '/service/whiteboardItem/delete', {
-        		id : model.id,
+            window.app.publish( '/service/whiteboardItem/delete', {
+                id : model.id,
                 whiteboardid : this.whiteboard.id
             });
         }
