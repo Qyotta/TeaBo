@@ -19,15 +19,17 @@ require([
     'core/controller/whiteboard',
     'core/controller/toolbar', 
     'core/controller/topbar',
-    'modules/note/controller_note'
-], function($, Backbone, Router, Application, Whiteboard, Toolbar, Topbar, Note) {
+    'modules/note/controller_note',
+    'modules/tooltips/controller_tooltips'
+], function($, Backbone, Router, Application, Whiteboard, Toolbar, Topbar, Note, Tooltips) {
     $(function() {
 
         var modules = {
             'whiteboard':Whiteboard, 
             'note':Note, 
             'toolbar':Toolbar, 
-            'topbar':Topbar
+            'topbar':Topbar,
+            'tooltips':Tooltips
         };
         
         window.app    = new Application();

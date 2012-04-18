@@ -8,7 +8,8 @@ define([
     var ToolbarView = Backbone.View.extend({
         el: $("#bottomNavigation"),
         events:{
-            'click a.createNote' :'createNoteClicked'
+            'click a.createNote' :'createNoteClicked',
+            'click a[href=showToolTips]' :'showToolTips'
         },
         initialize:function(){
             this.render();
@@ -24,6 +25,10 @@ define([
         },
         unrender: function() {
             this.el.empty();
+        },
+        showToolTips: function(evt) {
+            evt.preventDefault();
+            window.app.eventDispatcher.trigger("toolbar:showToolTips", null);
         }
     });
     

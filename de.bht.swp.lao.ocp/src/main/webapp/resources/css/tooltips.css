@@ -1,4 +1,4 @@
-#startscreen div.lightbox {
+#tooltips div.lightbox {
     background: #FFFFFF;
     width: 600px;
     position: absolute;
@@ -18,10 +18,10 @@
     -o-box-shadow: 0px 0px 30px #AAA;
     box-shadow: 0px 0px 30px #AAA;
 }
-#startscreen div.lightbox h1, #startscreen div.bubble h2 {
+#tooltips div.lightbox h1, #startscreen div.bubble h2 {
     margin-top:0px;
 }
-#startscreen div.bubble {
+#tooltips div.bubble {
     z-index: 9999999;
     position: absolute;
     background: #000;
@@ -44,69 +44,69 @@
     padding: 10px;
 }
 
-#startscreen div.bubble img.bottom, 
-#startscreen div.bubble img.left, 
-#startscreen div.bubble img.top, 
-#startscreen div.bubble img.right { position: absolute; }
-#startscreen div.bubble img.bottom { bottom: -50px }
-#startscreen div.bubble img.left { left: -50px }
-#startscreen div.bubble img.top { top: -50px }
-#startscreen div.bubble img.right { right: -50px }
+#tooltips div.bubble img.bottom, 
+#tooltips div.bubble img.left, 
+#tooltips div.bubble img.top, 
+#tooltips div.bubble img.right { position: absolute; }
+#tooltips div.bubble img.bottom { bottom: -50px }
+#tooltips div.bubble img.left { left: -50px }
+#tooltips div.bubble img.top { top: -50px }
+#tooltips div.bubble img.right { right: -50px }
 
-#startscreen #createNote {
+#tooltips #createNote {
     bottom: 105px;
     left: 12px;
 }
 
-#startscreen #uploadFile {
+#tooltips #uploadFile {
     bottom: 105px;
     left: 67px;
 }
 
-#startscreen #inviteUser {
+#tooltips #inviteUser {
     right: 100px;
     top: 80px;
 }
-#startscreen #dragAndDrop {
+#tooltips #dragAndDrop {
     left:50%;
     top:50%;
     width: 400px;
     margin:-135px 0 0 -200px;
 }
-#startscreen #dragAndDrop img {
+#tooltips #dragAndDrop img {
     float: left;
     padding: 0 21px 0 0;
     position: relative;
     right: 0!important;
     top: -4px;
 }
-#startscreen #prev {
+#tooltips #prev {
     position: absolute;
     left: 3px;
     top: 30px;
     display: none;
 }
 
-#startscreen div {
+#tooltips div {
     display: none;
 }
 
-#startscreen div div {
+#tooltips div div {
     display: block;
 }
 
-#startscreen .showAgain {
+#tooltips .showAgain {
     font-size: 10px;
     margin-top: 30px;
 }
 
-#startscreen #next {
+#tooltips #next {
     position: absolute;
     right: 3px;
     top: 30px;
 }
 
-#startscreen button.closeToolTip {
+#tooltips button.closeToolTip {
     position: absolute;
     top: 10px;
     right: 10px;

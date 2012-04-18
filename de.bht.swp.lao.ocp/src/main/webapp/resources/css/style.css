@@ -15,7 +15,7 @@
 /* styles for the right sidebar */
 @import url('sidebar.css') screen;
 /* styles for all elements of the infotour */
-@import url('infotour.css') screen;
+@import url('tooltips.css') screen;
 /* styles for each popup container */
 @import url('container.css') screen;
 

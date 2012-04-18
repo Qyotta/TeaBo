@@ -23,16 +23,8 @@
 
 
 
-<nav id="topNavigation">
-    
-</nav>
-
-<div id="page">
-	
-</div>
-
-<div id="dialogs">
-    
-</div>
-
+<nav id="topNavigation"></nav>
+<div id="page"></div>
+<div id="dialogs"></div>
 <nav id="bottomNavigation"></nav>
+<div id="tooltips"></div>
