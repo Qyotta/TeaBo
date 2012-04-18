@@ -17,84 +17,116 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import de.bht.swp.lao.ocp.exceptions.OCPHTTPException;
+import de.bht.swp.lao.ocp.user.settings.IUserSettingsDao;
+import de.bht.swp.lao.ocp.user.settings.UserSettings;
 
 @Controller
 @RequestMapping(value = "/user/*")
 public class UserController {
 
-    @Autowired
-    private UserLoginValidator userLoginValidator;
+  @Autowired
+  private UserLoginValidator userLoginValidator;
 
-    @Inject
-    private IUserDao userDao;
+  @Inject
+  private IUserDao userDao;
 
-    @RequestMapping(value = "/setToolTipFlag.htm", method = RequestMethod.POST)
-    public @ResponseBody
-    Map<String, Object> setFlag(@RequestParam("value") boolean value,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-        User user = (User) request.getSession().getAttribute("user");
+  @Inject
+  private IUserSettingsDao userSettingsDao;
 
-        user.setShowToolTips(!value);
-        userDao.save(user);
+  @RequestMapping(value = "/setToolTipFlag.htm", method = RequestMethod.POST)
+  public @ResponseBody
+  Map<String, Object> setFlag(@RequestParam("value") boolean value, HttpServletRequest request,
+      HttpServletResponse response) throws IOException {
+    User user = (User) request.getSession().getAttribute("user");
 
-        Map<String, Object> out = new HashMap<String, Object>();
-        out.put("value", true);
-        return out;
+    UserSettings settings = userSettingsDao.findByKey(user, "ToolTipFlag");
+
+    if (settings != null) {
+      settings.setValue(!value);
+    } else {
+      settings = new UserSettings();
+      settings.setUser(user);
+      settings.setKey("ToolTipFlag");
+      settings.setValue(!value);
+    }
+    // user.setShowToolTips(!value);
+    userSettingsDao.save(settings);
+    // userDao.save(user);
+
+    Map<String, Object> out = new HashMap<String, Object>();
+    out.put("value", true);
+    return out;
+  }
+
+  @RequestMapping(value = "/showAgain.htm", method = RequestMethod.POST)
+  public @ResponseBody
+  Map<String, Object> getFlag(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    User user = (User) request.getSession().getAttribute("user");
+
+    UserSettings settings = userSettingsDao.findByKey(user, "ToolTipFlag");
+    Boolean showToolTips = false;
+    if (settings != null) {
+      showToolTips = Boolean.valueOf(settings.getValue());
     }
 
-    @RequestMapping(value = "/showAgain.htm", method = RequestMethod.POST)
-    public @ResponseBody
-    Map<String, Object> getFlag(HttpServletRequest request,
-            HttpServletResponse response) throws IOException {
-        User user = (User) request.getSession().getAttribute("user");
+    System.out.println("");
+    System.out.println("");
+    System.out.println("");
+    System.out.println("");
+    System.out.println("");
+    System.out.println("");
 
-        Map<String, Object> out = new HashMap<String, Object>();
-        out.put("value", user.isShowToolTips());
-        return out;
+    System.err.println("test");
+    System.out.println(showToolTips);
+
+    System.out.println("");
+    System.out.println("");
+    System.out.println("");
+    System.out.println("");
+    System.out.println("");
+    System.out.println("");
+
+    Map<String, Object> out = new HashMap<String, Object>();
+    out.put("value", showToolTips);
+    return out;
+  }
+
+  @RequestMapping(value = "/logout", method = RequestMethod.POST)
+  public @ResponseBody
+  boolean logout(HttpServletRequest request) {
+    request.getSession().invalidate();
+    return true;
+  }
+
+  @RequestMapping(value = "/login", method = RequestMethod.POST)
+  public @ResponseBody
+  UserDTO login(@RequestBody User user, HttpServletRequest request) {
+    boolean valid = userLoginValidator.validate(user);
+
+    if (!valid) {
+      throw new OCPHTTPException(OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
+          "Login error. Please check your credentials and try again.");
+    } else {
+      User u = userDao.findByEmail(user.getEmail());
+      request.getSession().setAttribute("user", u);
+      return new UserDTO(u);
+    }
+  }
+
+  @RequestMapping(method = RequestMethod.POST)
+  public @ResponseBody
+  UserDTO register(@RequestBody User user) {
+    if (user == null) {
+      throw new OCPHTTPException(OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED, "Register data not valid.");
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public @ResponseBody
-    boolean logout(HttpServletRequest request) {
-        request.getSession().invalidate();
-        return true;
+    User userWithEmail = userDao.findByEmail(user.getEmail());
+    if (userWithEmail != null) {
+      throw new OCPHTTPException(OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED, "Email is already in use.");
     }
+    userDao.save(user);
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public @ResponseBody
-    UserDTO login(@RequestBody User user, HttpServletRequest request) {
-        boolean valid = userLoginValidator.validate(user);
-
-        if (!valid) {
-            throw new OCPHTTPException(
-                    OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
-                    "Login error. Please check your credentials and try again.");
-        } else {
-            User u = userDao.findByEmail(user.getEmail());
-            request.getSession().setAttribute("user", u);
-            return new UserDTO(u);
-        }
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody
-    UserDTO register(@RequestBody User user) {
-        if (user == null) {
-            throw new OCPHTTPException(
-                    OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
-                    "Register data not valid.");
-        }
-
-        User userWithEmail = userDao.findByEmail(user.getEmail());
-        if (userWithEmail != null) {
-            throw new OCPHTTPException(
-                    OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
-                    "Email is already in use.");
-        }
-        userDao.save(user);
-
-        return new UserDTO(user);
-    }
+    return new UserDTO(user);
+  }
 
 }
