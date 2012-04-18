@@ -1,0 +1,17 @@
+<div id="uploadContainer">
+    <h1>
+        Upload a File
+        <span>Supported file types are PDF, DOC, DOCx, XLS, PPT, PPTx, ODP, ODF</span>
+    </h1>
+    <iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
+    <form method="post" enctype="multipart/form-data" id="fileupload" action="<%=config.contextPath%>/attachment/uploadfile-<%=whiteboard.id%>.htm" target="uploadFrame">
+        <span>File</span><input type="file" name="data"> <input type="hidden" name="id" id="uploadId" /><br/>
+        <br/>
+        <span>Description</span><textarea name="shortDescription" maxlength="170"></textarea>
+        <br/>
+        <div>
+            <button type="button" class="cancel">Cancel</button>
+            <input type="submit" value="Submit">
+        </div> 
+    </form>
+</div>

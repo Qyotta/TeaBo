@@ -9,7 +9,7 @@ define([
     
     var Application = function() {
 
-		_.bindAll(this,'onMetaConnect');
+        _.bindAll(this,'onMetaConnect');
         this.debugMode = true,
         this.user = {},
         this.modules = {},

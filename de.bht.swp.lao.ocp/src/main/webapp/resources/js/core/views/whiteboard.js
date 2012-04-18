@@ -11,13 +11,13 @@ define([
             //'click .mainPanel input[type=submit]' : 'submitClicked',
         },
         initialize:function(){
-			this.render();
+            this.render();
         },
-		render:function(){
-			var data = { _: _ };
+        render:function(){
+            var data = { _: _ };
             var compiledTemplate = _.template( whiteboardTemplate, data );
             this.el.html(compiledTemplate);
-		}
+        }
     });
     
     return WhiteboardView;

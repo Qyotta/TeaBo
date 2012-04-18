@@ -19,14 +19,16 @@ require([
     'core/controller/whiteboard',
     'core/controller/toolbar', 
     'core/controller/topbar',
+    'modules/attachment/controller_attachment',
     'modules/note/controller_note',
     'modules/tooltips/controller_tooltips'
-], function($, Backbone, Router, Application, Whiteboard, Toolbar, Topbar, Note, Tooltips) {
+], function($, Backbone, Router, Application, Whiteboard, Toolbar, Topbar, Attachment, Note, Tooltips) {
     $(function() {
 
         var modules = {
             'whiteboard':Whiteboard, 
             'note':Note, 
+            'attachment':Attachment,
             'toolbar':Toolbar, 
             'topbar':Topbar,
             'tooltips':Tooltips

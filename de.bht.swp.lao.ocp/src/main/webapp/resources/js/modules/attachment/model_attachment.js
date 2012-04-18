@@ -3,9 +3,9 @@ define([
     'backbone',
     'core/models/whiteboarditem',
 ], function(_, Backbone,WhiteboardItem) {
-    var Note = WhiteboardItem.extend({
+    var Attachment = WhiteboardItem.extend({
         
     });
     
-    return Note;
+    return Attachment;
 });

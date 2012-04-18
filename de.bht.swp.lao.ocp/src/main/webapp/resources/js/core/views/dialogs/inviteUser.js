@@ -55,7 +55,7 @@ define([
                 }
             });
         }
-    });    
+    });
     
     return InviteUserDialogView;
 });
