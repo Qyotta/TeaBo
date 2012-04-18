@@ -61,6 +61,9 @@ define([
                 data: 'value='+!$('#showAgain').is(':checked')
             });
             $(this.toolTips[this.toolTipCnt-1]).fadeOut(500);
+        },
+        setCheckbox: function(value){
+            this.el.find(':checkbox').attr('checked', value);
         }
     });
 
