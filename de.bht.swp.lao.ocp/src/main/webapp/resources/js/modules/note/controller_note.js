@@ -8,10 +8,12 @@ define([
     'modules/note/view_confirm_delete'
 ], function($, _, Backbone, NoteCollection,NoteView,Note,ConfirmDeleteView){
     
+  
     var NoteController = function(options){
         _.bindAll(this,'getNotes','createNote','noteCreated','subscribeChannels','_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem','_handleEditedNote', 'deleteNote');
         window.app.eventDispatcher.bind("note:create",this.createNote);
         window.app.eventDispatcher.bind("whiteboard:opened",this.getNotes);
+        window.app.eventDispatcher.bind("whiteboard:opened",this.getDeleteFlag());
         window.app.eventDispatcher.bind('handshakeComplete',this.subscribeChannels);
         window.app.eventDispatcher.bind('note:delete',this.deleteNote);
         
@@ -91,6 +93,22 @@ define([
             window.app.publish( '/service/whiteboardItem/delete', {
                 id : model.id,
                 whiteboardid : this.whiteboard.id
+            });
+        },
+        getDeleteFlag:function(){
+            var that = this;
+            $.ajax({
+                url: config.contextPath+"/user/getDeleteFlag.htm",
+                type: 'POST',
+                success: function(jsonData) {
+                    if(jsonData.value === false) {
+                        window.app.log('delete confirm enabled');
+                        that.confirmDeleteView.setFlag(true);
+                    }
+                    else {
+                        that.confirmDeleteView.setFlag(false);
+                    }
+                }
             });
         }
     };

@@ -24,6 +24,8 @@ import de.bht.swp.lao.ocp.user.settings.UserSettings;
 @RequestMapping(value = "/user/*")
 public class UserController {
 
+  private static final String DELETE_CONFIRM_FLAG = "DeleteConfirmFlag";
+
   private static final String TOOL_TIP_FLAG = "ToolTipFlag";
 
   @Autowired
@@ -34,6 +36,47 @@ public class UserController {
 
   @Inject
   private IUserSettingsDao userSettingsDao;
+
+  @RequestMapping(value = "/setDeleteFlag.htm", method = RequestMethod.POST)
+  public @ResponseBody
+  Map<String, Object> setDeleteFlag(@RequestParam("value") boolean value, HttpServletRequest request,
+      HttpServletResponse response) throws IOException {
+    User user = (User) request.getSession().getAttribute("user");
+
+    UserSettings settings = userSettingsDao.findByKey(user, DELETE_CONFIRM_FLAG);
+
+    if (settings != null) {
+      settings.setValue(!value);
+    } else {
+      settings = new UserSettings();
+      settings.setUser(user);
+      settings.setKey(DELETE_CONFIRM_FLAG);
+      settings.setValue(!value);
+    }
+    // user.setShowToolTips(!value);
+    userSettingsDao.save(settings);
+    // userDao.save(user);
+
+    Map<String, Object> out = new HashMap<String, Object>();
+    out.put("value", true);
+    return out;
+  }
+
+  @RequestMapping(value = "/showDeleteConfirm.htm", method = RequestMethod.POST)
+  public @ResponseBody
+  Map<String, Object> getDeleteFlag(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    User user = (User) request.getSession().getAttribute("user");
+
+    UserSettings settings = userSettingsDao.findByKey(user, DELETE_CONFIRM_FLAG);
+    Boolean showToolTips = false;
+    if (settings != null) {
+      showToolTips = Boolean.valueOf(settings.getValue());
+    }
+
+    Map<String, Object> out = new HashMap<String, Object>();
+    out.put("value", showToolTips);
+    return out;
+  }
 
   @RequestMapping(value = "/setToolTipFlag.htm", method = RequestMethod.POST)
   public @ResponseBody
@@ -70,23 +113,6 @@ public class UserController {
     if (settings != null) {
       showToolTips = Boolean.valueOf(settings.getValue());
     }
-
-    System.out.println("");
-    System.out.println("");
-    System.out.println("");
-    System.out.println("");
-    System.out.println("");
-    System.out.println("");
-
-    System.err.println("test");
-    System.out.println(showToolTips);
-
-    System.out.println("");
-    System.out.println("");
-    System.out.println("");
-    System.out.println("");
-    System.out.println("");
-    System.out.println("");
 
     Map<String, Object> out = new HashMap<String, Object>();
     out.put("value", showToolTips);

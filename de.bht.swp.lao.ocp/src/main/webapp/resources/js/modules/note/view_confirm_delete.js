@@ -7,6 +7,7 @@ define([
 ], function($, _, Backbone, Dialog, confirmDeleteTemplate){
     var ConfirmDeleteView = Dialog.extend({
         el:$('#dialogs'),
+        showDialog:true,
         initialize:function(){
             _.bindAll(this,'showConfirmDialog');
             window.app.eventDispatcher.bind("note:delete_clicked",this.showConfirmDialog);
@@ -21,8 +22,14 @@ define([
             this.el.html(compiledTemplate);
         },
         showConfirmDialog:function(model){
-        	this.model = model;
-            this.showDialog();
+            if(this.showDialog){
+                this.model = model;
+                this.showDialog();
+            }
+            else {
+                window.app.eventDispatcher.trigger('note:delete',this.model);
+            }
+        	
         },
         hideConfirmDialog:function(evt){
             evt.preventDefault();
@@ -31,8 +38,16 @@ define([
         },
         confirmed:function(evt){
             evt.preventDefault();
+            $.ajax({
+                url: config.contextPath+"/user/setDeleteFlag.htm",
+                type: 'POST',
+                data: 'value='+!$('input[name="confirm-delete"]').is(':checked')
+            });
             this.hideDialog();
             window.app.eventDispatcher.trigger('note:delete',this.model);
+        },
+        setFlag:function(value){
+            this.showDialog = value;
         }
     });    
     
