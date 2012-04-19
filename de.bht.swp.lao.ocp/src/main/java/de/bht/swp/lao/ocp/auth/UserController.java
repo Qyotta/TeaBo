@@ -24,6 +24,8 @@ import de.bht.swp.lao.ocp.user.settings.UserSettings;
 @RequestMapping(value = "/user/*")
 public class UserController {
 
+  private static final String TOOL_TIP_FLAG = "ToolTipFlag";
+
   @Autowired
   private UserLoginValidator userLoginValidator;
 
@@ -39,14 +41,14 @@ public class UserController {
       HttpServletResponse response) throws IOException {
     User user = (User) request.getSession().getAttribute("user");
 
-    UserSettings settings = userSettingsDao.findByKey(user, "ToolTipFlag");
+    UserSettings settings = userSettingsDao.findByKey(user, TOOL_TIP_FLAG);
 
     if (settings != null) {
       settings.setValue(!value);
     } else {
       settings = new UserSettings();
       settings.setUser(user);
-      settings.setKey("ToolTipFlag");
+      settings.setKey(TOOL_TIP_FLAG);
       settings.setValue(!value);
     }
     // user.setShowToolTips(!value);
@@ -63,7 +65,7 @@ public class UserController {
   Map<String, Object> getFlag(HttpServletRequest request, HttpServletResponse response) throws IOException {
     User user = (User) request.getSession().getAttribute("user");
 
-    UserSettings settings = userSettingsDao.findByKey(user, "ToolTipFlag");
+    UserSettings settings = userSettingsDao.findByKey(user, TOOL_TIP_FLAG);
     Boolean showToolTips = false;
     if (settings != null) {
       showToolTips = Boolean.valueOf(settings.getValue());

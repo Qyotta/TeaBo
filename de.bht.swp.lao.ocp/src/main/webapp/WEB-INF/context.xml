@@ -22,6 +22,7 @@
     
     <bean id="userLoginValidator" class="de.bht.swp.lao.ocp.auth.UserLoginValidator" />
     <bean id="userDao" class="de.bht.swp.lao.ocp.auth.UserDao" />
+    <bean id="userSettingsDao" class="de.bht.swp.lao.ocp.user.settings.UserSettingsDao" />
     <bean id="noteDao" class="de.bht.swp.lao.ocp.note.NoteDao" />
     <bean id="attachmentDao" class="de.bht.swp.lao.ocp.attachment.AttachmentDao" />
     <bean id="whiteboardItemDao" class="de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItemDao" />
