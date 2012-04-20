@@ -108,14 +108,13 @@ define([
         	    }
         },
         _handleUploadCompleteAttachment:function(message){
-        	window.app.log("upload complete");
         	var _id = message.data.id;
         	var _attachment = this.attachmentCollection.get(_id);
         	window.app.log(_attachment);
         	_attachment.set({complete:true});
         },
         _handleUploadFailedAttachment:function(message){
-        	var _id = message.id;
+        	var _id = message.data.id;
         	var _attachment = this.attachmentCollection.get(_id);
         	if(_attachment){
                 this.noteCollection.remove(_attachment);
