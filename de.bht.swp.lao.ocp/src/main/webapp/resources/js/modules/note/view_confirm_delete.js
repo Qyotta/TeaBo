@@ -7,9 +7,9 @@ define([
 ], function($, _, Backbone, Dialog, confirmDeleteTemplate){
     var ConfirmDeleteView = Dialog.extend({
         el:$('#dialogs'),
-        showDialog:true,
+        shouldShowDialog:true,
         initialize:function(){
-            _.bindAll(this,'showConfirmDialog');
+            _.bindAll(this,'showConfirmDialog','hideConfirmDialog');
             window.app.eventDispatcher.bind("note:delete_clicked",this.showConfirmDialog);
         },
         events:{
@@ -22,7 +22,7 @@ define([
             this.el.html(compiledTemplate);
         },
         showConfirmDialog:function(model){
-            if(this.showDialog){
+            if(this.shouldShowDialog){
                 this.model = model;
                 this.showDialog();
             }

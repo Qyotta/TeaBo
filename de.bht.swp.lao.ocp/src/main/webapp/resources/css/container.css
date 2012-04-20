@@ -156,7 +156,7 @@
 
 #dialogs{display:none;}
 
-#confirmDeleteNoteContainer, #logoutContainer{
+#confirmDeleteAttachmentContainer, #confirmDeleteNoteContainer, #logoutContainer{
     width:320px;
     height:50px;
     position:absolute;
@@ -176,8 +176,8 @@
     z-index:101;
 }
 
-#confirmDeleteNoteContainer .delete-note-button form {margin:10px 0 0 0;}
-#confirmDeleteNoteContainer{height:80px;}
+#confirmDeleteAttachmentContainer .delete-attachment-button form,#confirmDeleteNoteContainer .delete-note-button form {margin:10px 0 0 0;}
+#confirmDeleteAttachmentContainer,#confirmDeleteNoteContainer{height:80px;}
 
 .hide-confirm-container{
 	margin: 5px 0 0 -100px;
