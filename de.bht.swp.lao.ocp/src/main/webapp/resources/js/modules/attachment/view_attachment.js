@@ -5,6 +5,7 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
     var AttachmentView = Backbone.View.extend({
         events : {
             'click .file_mouseOverMenu_bottom' : 'deleteClicked',
+            'dblclick .attachmentItems' : 'downloadFile',
         },
         initialize : function(options) {
             _.bindAll(this, 'deleteClicked','changed');
@@ -49,6 +50,7 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             this.render();
         },
         render : function() {
+        	window.app.log("render");
         	var filename = this.model.get('filename');
         	var ext = filename.split('.').pop(),
             shortName = filename.substr(0, filename.length - (ext.length + 1)),
@@ -87,6 +89,12 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
         deleteClicked : function(evt) {
         	evt.preventDefault();
         	window.app.eventDispatcher.trigger("attachment:delete_clicked", this.model);
+        },
+        downloadFile : function(evt) {
+        	evt.preventDefault();
+        	window.app.log("download clicked");
+            var url = config.contextPath+"/attachment/"+this.model.id+"/"+this.model.get('filename')+"/download.htm";
+            window.open(url,'_blank');
         }
     });
 
