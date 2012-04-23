@@ -7,9 +7,9 @@ define([
 ], function($, _, Backbone, Dialog, confirmDeleteTemplate){
     var ConfirmDeleteView = Dialog.extend({
         el:$('#dialogs'),
-        showDialog:true,
+        cDialog:true,
         initialize:function(){
-            _.bindAll(this,'showConfirmDialog');
+            _.bindAll(this,'showConfirmDialog', 'confirmed', 'hideConfirmDialog');
             window.app.eventDispatcher.bind("note:delete_clicked",this.showConfirmDialog);
         },
         events:{
@@ -22,8 +22,8 @@ define([
             this.el.html(compiledTemplate);
         },
         showConfirmDialog:function(model){
-            if(this.showDialog){
-                this.model = model;
+            this.model = model;
+            if(this.cDialog){
                 this.showDialog();
             }
             else {
@@ -41,13 +41,15 @@ define([
             $.ajax({
                 url: config.contextPath+"/user/setDeleteFlag.htm",
                 type: 'POST',
-                data: 'value='+!$('input[name="confirm-delete"]').is(':checked')
+                data: 'value='+!$('#dialogs :checkbox').is(':checked')
             });
+            this.setFlag(!$('#dialogs :checkbox').is(':checked'));
             this.hideDialog();
             window.app.eventDispatcher.trigger('note:delete',this.model);
         },
         setFlag:function(value){
-            this.showDialog = value;
+            window.app.log('show deleteConfirm:'+value);
+            this.cDialog = value;
         }
     });    
     

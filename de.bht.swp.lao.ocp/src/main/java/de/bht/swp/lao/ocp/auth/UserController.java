@@ -46,12 +46,12 @@ public class UserController {
     UserSettings settings = userSettingsDao.findByKey(user, DELETE_CONFIRM_FLAG);
 
     if (settings != null) {
-      settings.setValue(!value);
+      settings.setValue(value);
     } else {
       settings = new UserSettings();
       settings.setUser(user);
       settings.setKey(DELETE_CONFIRM_FLAG);
-      settings.setValue(!value);
+      settings.setValue(value);
     }
     // user.setShowToolTips(!value);
     userSettingsDao.save(settings);
@@ -62,19 +62,19 @@ public class UserController {
     return out;
   }
 
-  @RequestMapping(value = "/showDeleteConfirm.htm", method = RequestMethod.POST)
+  @RequestMapping(value = "/getDeleteFlag.htm", method = RequestMethod.POST)
   public @ResponseBody
   Map<String, Object> getDeleteFlag(HttpServletRequest request, HttpServletResponse response) throws IOException {
     User user = (User) request.getSession().getAttribute("user");
 
     UserSettings settings = userSettingsDao.findByKey(user, DELETE_CONFIRM_FLAG);
-    Boolean showToolTips = false;
+    Boolean showDeleteConfirm = true;
     if (settings != null) {
-      showToolTips = Boolean.valueOf(settings.getValue());
+      showDeleteConfirm = Boolean.valueOf(settings.getValue());
     }
 
     Map<String, Object> out = new HashMap<String, Object>();
-    out.put("value", showToolTips);
+    out.put("value", showDeleteConfirm);
     return out;
   }
 
