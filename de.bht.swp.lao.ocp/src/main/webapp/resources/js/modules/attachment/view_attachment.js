@@ -4,7 +4,7 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
 
     var AttachmentView = Backbone.View.extend({
         events : {
-            'click .file_mouseOverMenu_bottom' : 'deleteClicked',
+            'click .file_mouseOverMenu_bottom' : 'deleteClicked'
         },
         initialize : function(options) {
             _.bindAll(this, 'deleteClicked','changed');
@@ -21,10 +21,10 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             $(this.el).draggable({
                 handle : $('.file_mouseOverMenu_top', this),
                 scroll : false,
-                // drag: _handleDragItem,
+                //drag : _handleDragItem,
                 stop : function(e, ui) {
                     var id = $(this).attr('id');
-                    $(this).find('.noteMenu').css('display', '');
+                    $(this).find('.attachmentMenu').css('display', '');
                     $(this).find('.creator').css('display', '');
                     _x = parseInt($(this).css('left'));
                     _y = parseInt($(this).css('top'));

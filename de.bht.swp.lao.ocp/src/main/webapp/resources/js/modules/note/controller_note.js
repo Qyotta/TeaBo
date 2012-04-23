@@ -6,18 +6,11 @@ define(
                 ConfirmDeleteView) {
 
             var NoteController = function(options) {
-                _.bindAll(this, 'getNotes', 'getDeleteFlag', 'createNote',
-                        'noteCreated', 'subscribeChannels',
-                        '_handleMovedWhiteboardItem',
-                        '_handleDeletedWhiteboardItem', '_handleEditedNote',
-                        'deleteNote');
+                _.bindAll(this, 'getNotes', 'getDeleteFlag', 'createNote','noteCreated', 'subscribeChannels','_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote');
                 window.app.eventDispatcher.bind("note:create", this.createNote);
-                window.app.eventDispatcher.bind("whiteboard:opened",
-                        this.getNotes);
-                window.app.eventDispatcher.bind("whiteboard:opened", this
-                        .getDeleteFlag());
-                window.app.eventDispatcher.bind('handshakeComplete',
-                        this.subscribeChannels);
+                window.app.eventDispatcher.bind("whiteboard:opened",this.getNotes);
+                window.app.eventDispatcher.bind("whiteboard:opened", this.getDeleteFlag());
+                window.app.eventDispatcher.bind('handshakeComplete',this.subscribeChannels);
                 window.app.eventDispatcher.bind('note:delete', this.deleteNote);
 
                 this.initialize();

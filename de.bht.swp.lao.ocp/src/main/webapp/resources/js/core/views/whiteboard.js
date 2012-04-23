@@ -13,7 +13,9 @@ define([
             'mousemove #whiteboard' : 'dragEnterEvent',
             'mouseup #whiteboard'   : 'dragEndEvent',
             'mousedown .noteMenu'   : 'preventSelection',
-            'mouseup .noteMenu'     : 'preventSelection'
+            'mouseup .noteMenu'     : 'preventSelection',
+            'mousedown .attachmentMenu'   : 'preventSelection',
+            'mouseup .attachmentMenu'     : 'preventSelection'
         },
         initialize:function(){
             this.render();

@@ -11,9 +11,10 @@ define([
     
     var AttachmentController = function(options){
         window.app.log("attachment controller");
-        _.bindAll(this,'getAttachments','createAttachment','deleteAttachment','_handlePostedAttachment','_handleUploadCompleteAttachment','_handleUploadFailedAttachment');
+        _.bindAll(this,'getAttachments', 'getDeleteFlag','createAttachment','deleteAttachment','_handlePostedAttachment','_handleUploadCompleteAttachment','_handleUploadFailedAttachment');
         window.app.eventDispatcher.bind("attachment:create",this.createAttachment);
         window.app.eventDispatcher.bind("whiteboard:opened",this.getAttachments);
+        window.app.eventDispatcher.bind("whiteboard:opened", this.getDeleteFlag());
         window.app.eventDispatcher.bind('attachment:delete',this.deleteAttachment);
         this.initialize();
     };
@@ -49,10 +50,14 @@ define([
             window.app.eventDispatcher.trigger("attachment:view_upload_dialog",this.whiteboard);
         },
         deleteAttachment:function(model) {
-            window.app.publish( '/service/whiteboardItem/delete', {
-                id : model.id,
-                whiteboardid : this.whiteboard.id
-            });
+            if (typeof model == "undefined" || model == null) {
+                window.app.log('delete-event triggered multiple times');
+            } else {
+                window.app.publish( '/service/whiteboardItem/delete', {
+                    id : model.id,
+                    whiteboardid : this.whiteboard.id
+                });
+            }
         },
         _handleMovedWhiteboardItem:function(message) {
             var _id     = message.data.id;
@@ -147,6 +152,22 @@ define([
                 }
             });
             activeUpload = null;
+        },
+        getDeleteFlag : function() {
+            var that = this;
+            $.ajax({
+                url : config.contextPath + "/user/getDeleteFlag.htm",
+                type : 'POST',
+                success : function(jsonData) {
+                    if (jsonData.value === false) {
+                        window.app.log('[attachment] confirm should not be shown');
+                        that.confirmDeleteView.setFlag(false);
+                    } else {
+                        window.app.log('[attachment] confirm should be shown');
+                        that.confirmDeleteView.setFlag(true);
+                    }
+                }
+            });
         }
 
     };

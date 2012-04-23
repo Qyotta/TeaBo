@@ -58,7 +58,7 @@ public class UserController {
     // userDao.save(user);
 
     Map<String, Object> out = new HashMap<String, Object>();
-    out.put("value", true);
+    out.put("value", value);
     return out;
   }
 

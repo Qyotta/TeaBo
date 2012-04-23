@@ -48,8 +48,7 @@ define([
             window.app.eventDispatcher.trigger('note:delete',this.model);
         },
         setFlag:function(value){
-            window.app.log('show deleteConfirm:'+value);
-            this.cDialog = value;
+            this.shouldShowDialog = value;
         }
     });    
     
