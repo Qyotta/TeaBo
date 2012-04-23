@@ -44,12 +44,19 @@
 .whiteboard .note.selected .noteItems {
     box-shadow: 0 0 15px #4B99CE;
 }
+
 .whiteboard .note.hoverable:hover .noteMenu {
     display:block;
 }
+
 .whiteboard .note.hoverable:hover .creator {
     display:block;
 }
+
+.whiteboard .attachment.hoverable:hover .attachmentMenu {
+    display:block;
+}
+
 
 .whiteboard .note textarea {
     background: none repeat scroll 0 0 transparent;

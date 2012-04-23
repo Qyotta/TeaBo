@@ -1,16 +1,22 @@
 define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
-        'text!templates/note/note.html', ], function($, _, Backbone, jqueryui,
-        noteTemplate) {
+        'text!templates/attachment/attachment.html', ], function($, _, Backbone, jqueryui,
+        attachmentTemplate) {
 
     var AttachmentView = Backbone.View.extend({
         events : {
-            'click .file_mouseOverMenu_bottom' : 'deleteClicked'
+            'click .file_mouseOverMenu_bottom' : 'deleteClicked',
         },
         initialize : function(options) {
-            _.bindAll(this, 'deleteClicked','edited','changed');
+            _.bindAll(this, 'deleteClicked','changed');
+            
+            this.controller = options.controller;
+            
             this.model.bind('change',this.changed,this);
-            this.editing = false;
 
+            $(this.el).attr("id", "attachment-"+this.model.id);
+            $(this.el).addClass("attachment draggable hoverable");
+            $(this.el).css('position', 'absolute');
+            
             var self = this;
             $(this.el).draggable({
                 handle : $('.file_mouseOverMenu_top', this),
@@ -36,42 +42,51 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
                     window.app.log("attachment move published to wb("+self.options.whiteboardId+")");
                 }
             });
-            
+            window.app.log("attachment view");
             this.render();
         },
         changed:function(){
-            window.app.log("changed("+this.model.id+")");
             this.render();
         },
         render : function() {
+        	var filename = this.model.get('filename');
+        	var ext = filename.split('.').pop(),
+            shortName = filename.substr(0, filename.length - (ext.length + 1)),
+            
+            imgPath = config.contextPath+"/resources/images/teambox-free-file-icons/32px/"+ext+".png";
+        	
+        	if(!this.model.isComplete()){
+        		window.app.log(this.controller.activeUpload);
+	        	if (this.controller.activeUpload != null && this.model.get('uid') === this.controller.activeUpload[1]){
+	    	        imgPath = config.contextPath+"/resources/images/loading.gif";
+	    	    } else {
+	    	    	imgPath = config.contextPath+"/resources/images/stop.gif";
+	    	    }
+        	}
+        	
+            this.model.set({image : imgPath,shortName:shortName});
+        	
             var data = {
-                note : this.model,
+                attachment : this.model,
                 _ : _
             };
-            var compiledTemplate = _.template(noteTemplate, data);
-            
-            $(this.el).attr("id", "attachment-"+this.model.id);
-            $(this.el).addClass("attachment draggable");
 
+            var compiledTemplate = _.template(attachmentTemplate, data);
             
-            $(this.el).css('position', 'absolute');
             if ($("#attachment-" + this.model.id).length > 0) {
                 $("#attachment-" + this.model.id).css('left', this.model.get('x') + 'px');
                 $("#attachment-" + this.model.id).css('top', this.model.get('y') + 'px');
                 $("#attachment-" + this.model.id).html(compiledTemplate);
             } else {
-                window.app.log($(this.el));
                 $(this.el).css('left', this.model.get('x') + 'px');
                 $(this.el).css('top', this.model.get('y') + 'px');
+
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
             }
-            
-            var textarea = $(this.el).find('textarea');
-            textarea.css('height', textarea[0].scrollHeight / 2 + 'px');
-            textarea.css('height', textarea[0].scrollHeight + 'px');
         },
-        deleteClicked : function() {
-            window.app.eventDispatcher.trigger("attachment:delete_clicked", this.model);
+        deleteClicked : function(evt) {
+        	evt.preventDefault();
+        	window.app.eventDispatcher.trigger("attachment:delete_clicked", this.model);
         }
     });
 
