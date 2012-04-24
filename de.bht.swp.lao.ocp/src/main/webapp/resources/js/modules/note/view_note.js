@@ -91,7 +91,7 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             var compiledTemplate = _.template(noteTemplate, data);
             
             $(this.el).attr("id", "note-"+this.model.id);
-            $(this.el).addClass("note draggable hoverable");
+            $(this.el).addClass("whiteboarditem note draggable hoverable");
 
             
             $(this.el).css('position', 'absolute');

@@ -27,10 +27,10 @@ define([
         },
         startSelection: function(e) {
             
-            this.el.find('.note').removeClass('selected');
+            this.el.find('.whiteboarditem').removeClass('selected');
             if(this.isSelectionBox || this.isMovingNote) return;
             
-            this.el.find('.note.hoverable').removeClass('hoverable');
+            this.el.find('.whiteboarditem.hoverable').removeClass('hoverable');
             
             this.isSelectionBox = true;
             this.startDragX = e.clientX;
@@ -65,9 +65,11 @@ define([
                 this.selectionBox.css('height',e.clientY - this.startDragY);
             }
             
-            var selectedNotes = this.selectionBox.collision('.note');
-            selectedNotes.addClass('selected');
-            this.el.find('#whiteboard > .note').not(selectedNotes).removeClass('selected');
+            var selectedWhiteboardItems = this.selectionBox.collision('.whiteboarditem');
+            window.app.log("selected items");
+            window.app.log(selectedWhiteboardItems);
+            selectedWhiteboardItems.addClass('selected');
+            this.el.find('#whiteboard > .whiteboarditem').not(selectedWhiteboardItems).removeClass('selected');
         },
         dragEndEvent: function() {
             if(!this.isSelectionBox || this.selectionBox === undefined) return;
@@ -75,7 +77,7 @@ define([
             this.selectionBox.remove();
             this.isSelectionBox = false;
             
-            this.el.find('.note').addClass('hoverable');
+            this.el.find('.whiteboarditem').addClass('hoverable');
         },
         preventSelection: function() {
             this.isMovingNote = !this.isMovingNote;

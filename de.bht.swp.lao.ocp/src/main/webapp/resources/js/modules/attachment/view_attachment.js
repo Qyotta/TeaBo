@@ -15,7 +15,7 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             this.model.bind('change',this.changed,this);
 
             $(this.el).attr("id", "attachment-"+this.model.id);
-            $(this.el).addClass("attachment draggable hoverable");
+            $(this.el).addClass("whiteboarditem attachment draggable hoverable");
             $(this.el).css('position', 'absolute');
             
             var self = this;
