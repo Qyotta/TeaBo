@@ -86,9 +86,6 @@ define(
                         x : _x,
                         y : _y
                     });
-
-                    window.app.log("note moved(" + _id + ",x:" + _x + ",y:"
-                            + _y + ")");
                 },
                 _handleDeletedWhiteboardItem : function(message) {
                     var _id = message.data.id;

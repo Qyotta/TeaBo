@@ -26,9 +26,15 @@ define([
             this.el.html(compiledTemplate);
         },
         startSelection: function(e) {
+            e.preventDefault();
+            
             if(e.target.parentElement.tagName != 'A') {
                 this.el.find('.whiteboarditem').removeClass('selected');
             }
+            if(e.target.tagName != 'DIV') {
+                return false;
+            }
+
             if(this.isSelectionBox || this.isMovingNote) return;
             
             this.el.find('.whiteboarditem.hoverable').removeClass('hoverable');
