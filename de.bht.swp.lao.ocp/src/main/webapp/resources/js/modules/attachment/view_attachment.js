@@ -6,6 +6,8 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
         events : {
             'click .file_mouseOverMenu_bottom' : 'deleteClicked',
             'dblclick .attachmentItems' : 'downloadFile',
+            'mouseenter':'mouseEnter',
+            'mouseleave':'mouseLeave'
         },
         initialize : function(options) {
             _.bindAll(this, 'deleteClicked','changed');
@@ -43,14 +45,19 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
                     window.app.log("attachment move published to wb("+self.options.whiteboardId+")");
                 }
             });
-            window.app.log("attachment view");
             this.render();
+        },
+        mouseEnter:function(){
+            window.app.log("select");
+            window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.SELECT);
+        },
+        mouseLeave:function(){
+            window.app.log("unselect");
         },
         changed:function(){
             this.render();
         },
         render : function() {
-        	window.app.log("render");
         	var filename = this.model.get('filename');
         	var ext = filename.split('.').pop(),
             shortName = filename.substr(0, filename.length - (ext.length + 1)),
@@ -92,7 +99,6 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
         },
         downloadFile : function(evt) {
         	evt.preventDefault();
-        	window.app.log("download clicked");
             var url = config.contextPath+"/attachment/"+this.model.id+"/"+this.model.get('filename')+"/download.htm";
             window.open(url,'_blank');
         }

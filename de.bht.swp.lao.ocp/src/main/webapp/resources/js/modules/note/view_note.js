@@ -100,7 +100,6 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
                 $("#note-" + this.model.id).css('top', this.model.get('y') + 'px');
                 $("#note-" + this.model.id).html(compiledTemplate);
             } else {
-                window.app.log($(this.el));
                 $(this.el).css('left', this.model.get('x') + 'px');
                 $(this.el).css('top', this.model.get('y') + 'px');
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
