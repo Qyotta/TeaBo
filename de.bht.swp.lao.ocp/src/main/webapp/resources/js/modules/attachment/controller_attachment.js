@@ -115,6 +115,7 @@ define([
         _handleUploadCompleteAttachment:function(message){
         	var _id = message.data.id;
         	var _attachment = this.attachmentCollection.get(_id);
+        	
         	window.app.log(_attachment);
         	_attachment.set({complete:true});
         },
