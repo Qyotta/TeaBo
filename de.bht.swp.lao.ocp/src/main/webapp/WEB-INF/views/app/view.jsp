@@ -24,6 +24,7 @@
 
 
 <nav id="topNavigation"></nav>
+<nav class="rightNavigation"></nav>
 <div id="page"></div>
 <div id="dialogs"></div>
 <nav id="bottomNavigation"></nav>

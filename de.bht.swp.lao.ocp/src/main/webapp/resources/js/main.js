@@ -20,10 +20,11 @@ require([
     'core/controller/whiteboard',
     'core/controller/toolbar', 
     'core/controller/topbar',
+    'core/controller/sidebar',
     'modules/attachment/controller_attachment',
     'modules/note/controller_note',
     'modules/tooltips/controller_tooltips'
-], function($, Backbone, Router, Application, Whiteboard, Toolbar, Topbar, Attachment, Note, Tooltips) {
+], function($, Backbone, Router, Application, Whiteboard, Toolbar, Topbar, Sidebar, Attachment, Note, Tooltips) {
     $(function() {
 
         var modules = {
@@ -32,6 +33,7 @@ require([
             'attachment':Attachment,
             'toolbar':Toolbar, 
             'topbar':Topbar,
+            'sidebar':Sidebar,
             'tooltips':Tooltips
         };
         

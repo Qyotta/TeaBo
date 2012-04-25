@@ -6,12 +6,13 @@ define(
                 ConfirmDeleteView) {
 
             var NoteController = function(options) {
-                _.bindAll(this, 'getNotes', 'getDeleteFlag', 'createNote','noteCreated', 'subscribeChannels','_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote');
+                _.bindAll(this, 'getNotes', 'getDeleteFlag', 'createNote','noteCreated', 'subscribeChannels','_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote', '_reportElementOrder', '_handleForegroundWhiteboardItem');
                 window.app.eventDispatcher.bind("note:create", this.createNote);
                 window.app.eventDispatcher.bind("whiteboard:opened",this.getNotes);
                 window.app.eventDispatcher.bind("whiteboard:opened", this.getDeleteFlag());
                 window.app.eventDispatcher.bind('handshakeComplete',this.subscribeChannels);
                 window.app.eventDispatcher.bind('note:delete', this.deleteNote);
+                window.app.eventDispatcher.bind('note:order_change', this._reportElementOrder);
 
                 this.initialize();
             };
@@ -32,6 +33,7 @@ define(
                             + this.whiteboard.id, this._handleEditedNote);
                     window.app.subscribeChannel('/note/posted/'
                             + this.whiteboard.id, this.noteCreated);
+                    window.app.subscribeChannel('/whiteboardItem/order/'+this.whiteboard.id, this._handleForegroundWhiteboardItem);
                 },
                 getNotes : function(whiteboard) {
                     this.whiteboard = whiteboard;
@@ -45,6 +47,7 @@ define(
                             collection.each(function(_note) {
                                 self.views[_note.id] = new NoteView({
                                     model : _note,
+                                    controller: self,
                                     whiteboardId : self.whiteboard.id
                                 });
                             });
@@ -85,9 +88,11 @@ define(
                         x : _x,
                         y : _y
                     });
-
-                    window.app.log("note moved(" + _id + ",x:" + _x + ",y:"
-                            + _y + ")");
+                },
+                _handleForegroundWhiteboardItem : function(message) {
+                    var _id = message.data.id.split('-')[1];
+                    var _note = this.noteCollection.get(_id);
+                    this.views[_note.id]._handleForegroundWhiteboardItem(message);
                 },
                 _handleDeletedWhiteboardItem : function(message) {
                     var _id = message.data.id;
@@ -104,6 +109,20 @@ define(
                     var _note = this.noteCollection.get(_id);
                     _note.set({
                         text : _text
+                    });
+                },
+              //TODO commenting
+                /**
+                * ?
+                *
+                * @param {jQueryObject} elem ?
+                *
+                */
+                _reportElementOrder : function (model) {
+                    window.app.log("report orderChanged");
+                    window.app.publish('/service/whiteboardItem/order', {
+                        id : parseInt(model.id),
+                        whiteboardid : parseInt(this.whiteboard.id)
                     });
                 },
                 deleteNote : function(model) {

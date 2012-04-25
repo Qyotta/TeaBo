@@ -113,8 +113,17 @@ define([
             this.startY = null;  
         },
         startSelection: function(e) {
+            e.preventDefault();
+            
             if(this.modus!=WhiteboardModus.MULTISELECT){return;}
-
+            
+            if(e.target.parentElement.tagName != 'A') {
+                $(this.el).find('.whiteboarditem').removeClass('selected');
+            }
+            if(e.target.tagName != 'DIV') {
+                return false;
+            }
+            
             $(this.el).find('.whiteboarditem').removeClass('selected');
             if(this.isSelectionBox) return;
             

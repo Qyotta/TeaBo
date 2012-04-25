@@ -45,6 +45,9 @@
 .whiteboard .whiteboarditem.selected .content {
     box-shadow: 0 0 15px #4B99CE;
 }
+.whiteboard .whiteboarditem.attachment.selected .content{
+    background: none repeat scroll 0 0 rgba(75, 153, 206, 0.3);
+}
 
 .whiteboard .note.hoverable:hover .noteMenu {
     display:block;
@@ -107,15 +110,17 @@
     padding: 9px 0 0;
     font-size:0px; /* to avoid whitespace underneath each picture*/
 }
-
-
+.attachmentMenu {
+    float: left;
+    padding: 0 0 0 3px;
+}
 .whiteboard .attachment {
     min-width: 130px;
     position:absolute;
 }
 
-.whiteboard .attachment .attachmentItems{
-    width:120px;
+.whiteboard > .attachment > .attachmentItems{
+    width:70px;
     float: left;
 }
 

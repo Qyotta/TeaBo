@@ -1,5 +1,5 @@
-define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
-        'text!templates/attachment/attachment.html', ], function($, _, Backbone, jqueryui,
+define([ 'jquery', 'underscore', 'backbone', 'jqueryui','core/modus',
+        'text!templates/attachment/attachment.html', ], function($, _, Backbone, jqueryui,WhiteboardModus,
         attachmentTemplate) {
 
     var AttachmentView = Backbone.View.extend({
@@ -10,7 +10,7 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             'mouseleave':'mouseLeave'
         },
         initialize : function(options) {
-            _.bindAll(this, 'deleteClicked','changed');
+            _.bindAll(this, 'deleteClicked','changed','handleDragItem');
             
             this.controller = options.controller;
             
@@ -24,57 +24,96 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             $(this.el).draggable({
                 handle : $('.file_mouseOverMenu_top', this),
                 scroll : false,
-                //drag : _handleDragItem,
+                drag : self.handleDragItem,
                 stop : function(e, ui) {
                     var id = $(this).attr('id');
                     $(this).find('.attachmentMenu').css('display', '');
                     $(this).find('.creator').css('display', '');
-                    _x = parseInt($(this).css('left'));
-                    _y = parseInt($(this).css('top'));
-                    self.model.set({
-                        x : _x,
-                        y : _y
+                    self.persistPosition();
+                    $.each($('div.whiteboard > div'), function(i,elem) {
+                        $(elem).data('oldPosX','').data('oldPosY','');
                     });
-                    
-                    window.app.publish('/service/whiteboardItem/move', {
-                        id : self.model.id,
-                        x : _x,
-                        y : _y,
-                        whiteboardid : self.options.whiteboardId
+                    // find view
+                    views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
+                    $.each(views,function(j,view) {
+                        if(view && $(view.el).attr('id') != id && $(view.el).hasClass('selected')) {
+                            view.persistPosition();
+                        }
                     });
-                    window.app.log("attachment move published to wb("+self.options.whiteboardId+")");
                 }
             });
             this.render();
         },
         mouseEnter:function(){
             window.app.log("select");
-            window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.SELECT);
+//            window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.SELECT);
         },
         mouseLeave:function(){
             window.app.log("unselect");
+        },
+        persistPosition: function() {
+            _x = parseInt($(this.el).css('left'),10);
+            _y = parseInt($(this.el).css('top'),10);
+            this.model.set({
+                x : _x,
+                y : _y
+            });
+            
+            window.app.publish('/service/whiteboardItem/move', {
+                id : this.model.id,
+                x : _x,
+                y : _y,
+                whiteboardid : this.options.whiteboardId
+            });
+        },
+        handleDragItem: function(e) {
+            // find all selected items
+            var elem = $('div.whiteboard > div.selected');
+            // do it only if more than two are selected and elem itself is selected
+            if(elem.length > 1 && $(this.el).hasClass('selected')) {
+                $.each(elem,function(i,element) {
+                    // dont move current element - it moves by itself
+                    if($(e.target).attr('id') != $(element).attr('id')) {
+                        var posX = parseInt($(element).css('left')),
+                            posY = parseInt($(element).css('top')),
+                            targetX = parseInt($(e.target).css('left'),10)-47,
+                            targetY = parseInt($(e.target).css('top'),10)+8;
+                        // save start pos to get the diff
+                        if(!$(element).data('oldPosX')) {
+                            $(element).data('oldPosX',posX);
+                            $(element).data('oldPosY',posY);
+                            $(e.target).data('oldPosX',targetX);
+                            $(e.target).data('oldPosY',targetY);
+                        }
+                        // change position
+                        $(element).css('left',$(element).data('oldPosX') - ($(e.target).data('oldPosX')+$(e.target).width()-e.clientX));
+                        $(element).css('top',$(element).data('oldPosY') - ($(e.target).data('oldPosY')-e.clientY));
+                    }
+                });
+            }
+            $(this.el).find('.noteMenu').css('display','block');
+            $(this.el).find('.creator').css('display','block');
         },
         changed:function(){
             this.render();
         },
         render : function() {
-        	var filename = this.model.get('filename');
-        	var ext = filename.split('.').pop(),
+            var filename = this.model.get('filename');
+            var ext = filename.split('.').pop(),
             shortName = filename.substr(0, filename.length - (ext.length + 1)),
             
             imgPath = config.contextPath+"/resources/images/teambox-free-file-icons/32px/"+ext+".png";
-        	
-        	if(!this.model.isComplete()){
-        		window.app.log(this.controller.activeUpload);
-	        	if (this.controller.activeUpload != null && this.model.get('uid') === this.controller.activeUpload[1]){
-	    	        imgPath = config.contextPath+"/resources/images/loading.gif";
-	    	    } else {
-	    	    	imgPath = config.contextPath+"/resources/images/stop.gif";
-	    	    }
-        	}
-        	
+            
+            if(!this.model.isComplete()){
+                if (this.controller.activeUpload != null && this.model.get('uid') === this.controller.activeUpload[1]){
+                    imgPath = config.contextPath+"/resources/images/loading.gif";
+                } else {
+                    imgPath = config.contextPath+"/resources/images/stop.gif";
+                }
+            }
+            
             this.model.set({image : imgPath,shortName:shortName});
-        	
+            
             var data = {
                 attachment : this.model,
                 _ : _
@@ -94,11 +133,11 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             }
         },
         deleteClicked : function(evt) {
-        	evt.preventDefault();
-        	window.app.eventDispatcher.trigger("attachment:delete_clicked", this.model);
+            evt.preventDefault();
+            window.app.eventDispatcher.trigger("attachment:delete_clicked", this.model);
         },
         downloadFile : function(evt) {
-        	evt.preventDefault();
+            evt.preventDefault();
             var url = config.contextPath+"/attachment/"+this.model.id+"/"+this.model.get('filename')+"/download.htm";
             window.open(url,'_blank');
         }
