@@ -56,21 +56,19 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
                 y : _y,
                 whiteboardid : this.options.whiteboardId
             });
-            window.app.log("note move published to wb("+this.options.whiteboardId+")");
         },
         handleDragItem: function(e) {
             // find all selected items
             var elem = $('div.whiteboard > div.selected');
             // do it only if more than two are selected and elem itself is selected
-            console.log(this.el);
             if(elem.length > 1 && $(this.el).hasClass('selected')) {
                 $.each(elem,function(i,element) {
                     // dont move current element - it moves by itself
                     if($(e.target).attr('id') != $(element).attr('id')) {
                         var posX = parseInt($(element).css('left')),
                             posY = parseInt($(element).css('top')),
-                            targetX = parseInt($(e.target).css('left'),10)-5,
-                            targetY = parseInt($(e.target).css('top'),10)+16;
+                            targetX = parseInt($(e.target).css('left'),10)-47,
+                            targetY = parseInt($(e.target).css('top'),10)+8;
                         // save start pos to get the diff
                         if(!$(element).data('oldPosX')) {
                             $(element).data('oldPosX',posX);
@@ -91,7 +89,6 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             this.render();
         },
         render : function() {
-            window.app.log("render");
             var filename = this.model.get('filename');
             var ext = filename.split('.').pop(),
             shortName = filename.substr(0, filename.length - (ext.length + 1)),
@@ -99,7 +96,6 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             imgPath = config.contextPath+"/resources/images/teambox-free-file-icons/32px/"+ext+".png";
             
             if(!this.model.isComplete()){
-                window.app.log(this.controller.activeUpload);
                 if (this.controller.activeUpload != null && this.model.get('uid') === this.controller.activeUpload[1]){
                     imgPath = config.contextPath+"/resources/images/loading.gif";
                 } else {
@@ -133,7 +129,6 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
         },
         downloadFile : function(evt) {
             evt.preventDefault();
-            window.app.log("download clicked");
             var url = config.contextPath+"/attachment/"+this.model.id+"/"+this.model.get('filename')+"/download.htm";
             window.open(url,'_blank');
         }

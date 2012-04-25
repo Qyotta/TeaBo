@@ -15,7 +15,7 @@ define([ 'jquery',
             this.model.bind('change',this.changed,this);
             this.editing = false;
             this.controller = options.controller;
-            //console.log(this.controller);
+            
             var self = this;
             $(this.el).draggable({
                 handle : $('.file_mouseOverMenu_top', this),
@@ -57,7 +57,6 @@ define([ 'jquery',
                 y : _y,
                 whiteboardid : this.options.whiteboardId
             });
-            window.app.log("note move published to wb("+this.options.whiteboardId+")");
         },
         handleDragItem: function(e) {
             // find all selected items
@@ -69,7 +68,7 @@ define([ 'jquery',
                     if($(e.target).attr('id') != $(element).attr('id')) {
                         var posX = parseInt($(element).css('left')),
                             posY = parseInt($(element).css('top')),
-                            targetX = parseInt($(e.target).css('left'),10)-5,
+                            targetX = parseInt($(e.target).css('left'),10)-7,
                             targetY = parseInt($(e.target).css('top'),10)+16;
                         // save start pos to get the diff
                         if(!$(element).data('oldPosX')) {
@@ -141,7 +140,6 @@ define([ 'jquery',
                 $("#note-" + this.model.id).css('top', this.model.get('y') + 'px');
                 $("#note-" + this.model.id).html(compiledTemplate);
             } else {
-                window.app.log($(this.el));
                 $(this.el).css('left', this.model.get('x') + 'px');
                 $(this.el).css('top', this.model.get('y') + 'px');
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
