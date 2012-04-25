@@ -20,6 +20,7 @@ define(
             NoteController.prototype = {
                 initialize : function() {
                     this.views = [];
+                    this.commands = [];
                     this.confirmDeleteView = new ConfirmDeleteView();
                 },
                 subscribeChannels : function() {

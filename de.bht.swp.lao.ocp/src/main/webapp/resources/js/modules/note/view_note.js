@@ -2,8 +2,10 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'jqueryui',
+         'core/utils/group_command',
+         'core/utils/move_command',
          'text!templates/note/note.html'], 
-         function($, _, Backbone, jqueryui, noteTemplate) {
+         function($, _, Backbone, jqueryui, GroupCommand, MoveCommand, noteTemplate) {
     var NoteView = Backbone.View.extend({
         events : {
             'focus input[type=text], textarea' : 'isFocused',
@@ -12,7 +14,7 @@ define([ 'jquery',
             'click ' : 'orderChange'
         },
         initialize : function(options) {
-            _.bindAll(this, 'isFocused', 'isBlured', 'deleteClicked','edited','changed','persistPosition','handleDragItem', 'orderChange', '_handleForegroundWhiteboardItem');
+            _.bindAll(this, 'isFocused', 'isBlured', 'deleteClicked','edited','changed','handleDragItem', 'orderChange', '_handleForegroundWhiteboardItem');
             this.model.bind('change',this.changed,this);
             this.editing = false;
             this.controller = options.controller;
@@ -27,37 +29,34 @@ define([ 'jquery',
                     $(this).find('.noteMenu').css('display', '');
                     $(this).find('.creator').css('display', '');
                     
-                    self.persistPosition();
+                    //self.persistPosition();
                     
                     $.each($('div.whiteboard > div'), function(i,elem) {
                         $(elem).data('oldPosX','').data('oldPosY','');
                     });
                     // find view
                     views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
+                    
                     $.each(views,function(j,view) {
                         if(view && $(view.el).attr('id') != id && $(view.el).hasClass('selected')) {
-                            view.persistPosition();
+                            var _x = parseInt($(view.el).css('left'),10);
+                            var _y = parseInt($(view.el).css('top'),10);
+                            self.controller.commands.push(new MoveCommand({
+                                id : view.model.id,
+                                x : _x,
+                                y : _y,
+                                
+                                whiteboardid : view.options.whiteboardId
+                            }));
                         }
                     });
+                    
+                    var groupCommand = new GroupCommand(self.controller.commands);
+                    groupCommand.execute();
                 }
             });
             
             this.render();
-        },
-        persistPosition: function() {
-            _x = parseInt($(this.el).css('left'),10);
-            _y = parseInt($(this.el).css('top'),10);
-            this.model.set({
-                x : _x,
-                y : _y
-            });
-            
-            window.app.publish('/service/whiteboardItem/move', {
-                id : this.model.id,
-                x : _x,
-                y : _y,
-                whiteboardid : this.options.whiteboardId
-            });
         },
         handleDragItem: function(e) {
             // find all selected items
