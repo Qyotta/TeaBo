@@ -92,13 +92,14 @@
     display:block;
     margin:0 0 0 3px;
 }
+
 #inviteUserContainer, #uploadContainer {
     width:320px;
-    height:125px;
+    height:130px;
     position:absolute;
     top:50%;
     left:50%;
-    margin: -25px 0 0 -160px;
+    margin: -62px 0 0 -160px;
     background: none repeat scroll 0 0 #494949;
     color: #B2B2B2;
     padding:10px 0 5px 0;
@@ -114,34 +115,40 @@
 
 #uploadContainer {
     width: 500px;
-    height: 220px;
-    margin:-100px 0 0 -200px;
+    height: 210px;
+    margin:-110px 0 0 -200px;
 }
 #uploadContainer form {
-    padding: 0 12px;
+    padding: 0 9px;
+    margin-left: 10px;
 }
 #uploadContainer form div {
     text-align:center;
-    padding:20px 0 0 0;
+    padding:14px 0 0 0;
 }
 #uploadContainer form span {
     float:left;
     display:block;
-    width:75px;
+    width:80px;
+    margin-right: -74px;
+    text-align: right;
 }
 #uploadContainer form textarea {
-    width:293px;
+    width:349px;
+    margin-left: 61px;
+    height: 55px;
 }
 
 #inviteUserContainer h1, #uploadContainer h1 {
     bottom: 3px;
     color: #B2B2B2;
-    font-size: 16px;
+    font-size: 19px;
     height: 45px;
-    margin: 0 0 0 7px;
-    padding: 13px 0 0 5px;
+    margin: 0 0 2px 7px;
+    padding: 5px 0 3px 5px;
     position: relative;
     width: 100%;
+    text-align: left;
 }
 #inviteUserContainer input#address {
     width:230px;
