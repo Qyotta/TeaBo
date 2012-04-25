@@ -1,5 +1,5 @@
-define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
-        'text!templates/attachment/attachment.html', ], function($, _, Backbone, jqueryui,
+define([ 'jquery', 'underscore', 'backbone', 'jqueryui','core/modus',
+        'text!templates/attachment/attachment.html', ], function($, _, Backbone, jqueryui,WhiteboardModus,
         attachmentTemplate) {
 
     var AttachmentView = Backbone.View.extend({
@@ -7,6 +7,8 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             'click .file_mouseOverMenu_bottom' : 'deleteClicked',
             'dblclick .attachmentItems' : 'downloadFile',
             'click .attachmentItems' : 'isClicked',
+            'mouseenter':'mouseEnter',
+            'mouseleave':'mouseLeave'
         },
         initialize : function(options) {
             _.bindAll(this, 'deleteClicked','changed','handleDragItem');
@@ -42,6 +44,13 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
                 }
             });
             this.render();
+        },
+        mouseEnter:function(){
+            window.app.log("select");
+//            window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.SELECT);
+        },
+        mouseLeave:function(){
+            window.app.log("unselect");
         },
         persistPosition: function() {
             _x = parseInt($(this.el).css('left'),10);

@@ -3,9 +3,8 @@ define([
     'underscore',
     'backbone',
     'core/collections/whiteboard',
-    'core/views/whiteboard'
+    'core/views/whiteboard',
 ], function($, _, Backbone, WhiteboardCollection, WhiteboardView){
-    
     var WhiteboardController = function(options){
         
         _.bindAll(this,'open','close');
@@ -46,7 +45,7 @@ define([
                 }});
                 return;
             }
-            this.view = new WhiteboardView();
+            this.view = new WhiteboardView({model:this.whiteboard});
             window.app.startCometd();
             window.app.eventDispatcher.trigger('whiteboard:opened',this.whiteboard);
         },
