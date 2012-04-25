@@ -8,10 +8,11 @@ define([ 'jquery',
         events : {
             'focus input[type=text], textarea' : 'isFocused',
             'blur input[type=text],  textarea' : 'isBlured',
-            'click .file_mouseOverMenu_bottom' : 'deleteClicked'
+            'click .file_mouseOverMenu_bottom' : 'deleteClicked',
+            'click ' : 'orderChange'
         },
         initialize : function(options) {
-            _.bindAll(this, 'isFocused', 'isBlured', 'deleteClicked','edited','changed','persistPosition','handleDragItem');
+            _.bindAll(this, 'isFocused', 'isBlured', 'deleteClicked','edited','changed','persistPosition','handleDragItem', 'orderChange', '_handleForegroundWhiteboardItem');
             this.model.bind('change',this.changed,this);
             this.editing = false;
             this.controller = options.controller;
@@ -134,14 +135,17 @@ define([ 'jquery',
             $(this.el).addClass("whiteboarditem note draggable hoverable");
 
             
+            window.app.log("note z-index:"+this.model.get('orderIndex'));
             $(this.el).css('position', 'absolute');
             if ($("#note-" + this.model.id).length > 0) {
                 $("#note-" + this.model.id).css('left', this.model.get('x') + 'px');
                 $("#note-" + this.model.id).css('top', this.model.get('y') + 'px');
+                $("#note-" + this.model.id).css('z-index', this.model.get('orderIndex'));
                 $("#note-" + this.model.id).html(compiledTemplate);
             } else {
                 $(this.el).css('left', this.model.get('x') + 'px');
                 $(this.el).css('top', this.model.get('y') + 'px');
+                $(this.el).css('z-index', this.model.get('orderIndex'));
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
             }
             
@@ -151,7 +155,22 @@ define([ 'jquery',
         },
         deleteClicked : function() {
             window.app.eventDispatcher.trigger("note:delete_clicked", this.model);
-        }
+        },
+        orderChange : function (evt) {
+            window.app.log("Triggered orderChanged");
+            window.app.eventDispatcher.trigger("note:order_change", this.model);
+                //this.controller._reportElementOrder(this.model.id);
+        },
+        /**
+         * Handles a cometd notification about changed order at z-axis
+         *
+         * @param {CometdMessage} message An cometd message object.
+         *
+         */
+         _handleForegroundWhiteboardItem : function(message){
+             window.app.log("report change zIndex");
+             $(this.el).css('z-index', message.data.newIndex);
+         },
     });
 
     return NoteView;
