@@ -45,6 +45,7 @@ define(
                             collection.each(function(_note) {
                                 self.views[_note.id] = new NoteView({
                                     model : _note,
+                                    controller: self,
                                     whiteboardId : self.whiteboard.id
                                 });
                             });

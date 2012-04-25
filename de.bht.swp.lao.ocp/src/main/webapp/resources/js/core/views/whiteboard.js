@@ -26,8 +26,9 @@ define([
             this.el.html(compiledTemplate);
         },
         startSelection: function(e) {
-            
-            this.el.find('.whiteboarditem').removeClass('selected');
+            if(e.target.parentElement.tagName != 'A') {
+                this.el.find('.whiteboarditem').removeClass('selected');
+            }
             if(this.isSelectionBox || this.isMovingNote) return;
             
             this.el.find('.whiteboarditem.hoverable').removeClass('hoverable');
@@ -66,8 +67,6 @@ define([
             }
             
             var selectedWhiteboardItems = this.selectionBox.collision('.whiteboarditem');
-            window.app.log("selected items");
-            window.app.log(selectedWhiteboardItems);
             selectedWhiteboardItems.addClass('selected');
             this.el.find('#whiteboard > .whiteboarditem').not(selectedWhiteboardItems).removeClass('selected');
         },
