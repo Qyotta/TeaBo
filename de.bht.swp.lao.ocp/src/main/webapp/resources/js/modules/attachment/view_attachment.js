@@ -6,6 +6,7 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
         events : {
             'click .file_mouseOverMenu_bottom' : 'deleteClicked',
             'dblclick .attachmentItems' : 'downloadFile',
+            'click .attachmentItems' : 'isClicked',
         },
         initialize : function(options) {
             _.bindAll(this, 'deleteClicked','changed','handleDragItem');
@@ -131,6 +132,10 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui',
             evt.preventDefault();
             var url = config.contextPath+"/attachment/"+this.model.id+"/"+this.model.get('filename')+"/download.htm";
             window.open(url,'_blank');
+        },
+        isClicked : function(evt) {
+            evt.preventDefault();
+            window.app.eventDispatcher.trigger("attachment:isClicked", this.model);
         }
     });
 
