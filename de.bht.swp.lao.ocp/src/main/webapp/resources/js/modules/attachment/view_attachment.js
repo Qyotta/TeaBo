@@ -1,19 +1,21 @@
-define([ 'jquery', 'underscore', 'backbone', 'jqueryui','core/modus',
-        'text!templates/attachment/attachment.html', ], function($, _, Backbone, jqueryui,WhiteboardModus,
-        attachmentTemplate) {
-
+define([ 'jquery', 
+         'underscore', 
+         'backbone', 
+         'jqueryui',
+         'core/modus',
+         'core/utils/move_command',
+         'text!templates/attachment/attachment.html', ],
+         function($, _, Backbone, jqueryui, WhiteboardModus, MoveCommand, attachmentTemplate) {
     var AttachmentView = Backbone.View.extend({
         events : {
             'click .file_mouseOverMenu_bottom' : 'deleteClicked',
-            'dblclick .attachmentItems' : 'downloadFile',
-            'mouseenter':'mouseEnter',
-            'mouseleave':'mouseLeave'
+            'dblclick .attachmentItems' : 'downloadFile'
         },
         initialize : function(options) {
             _.bindAll(this, 'deleteClicked','changed','handleDragItem');
             
             this.controller = options.controller;
-            
+            this.commands   = [];
             this.model.bind('change',this.changed,this);
 
             $(this.el).attr("id", "attachment-"+this.model.id);
@@ -26,45 +28,45 @@ define([ 'jquery', 'underscore', 'backbone', 'jqueryui','core/modus',
                 scroll : false,
                 drag : self.handleDragItem,
                 stop : function(e, ui) {
-                    var id = $(this).attr('id');
+                    
                     $(this).find('.attachmentMenu').css('display', '');
                     $(this).find('.creator').css('display', '');
-                    self.persistPosition();
+                    
                     $.each($('div.whiteboard > div'), function(i,elem) {
                         $(elem).data('oldPosX','').data('oldPosY','');
                     });
+                    
                     // find view
-                    views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
-                    $.each(views,function(j,view) {
-                        if(view && $(view.el).attr('id') != id && $(view.el).hasClass('selected')) {
-                            view.persistPosition();
-                        }
-                    });
+                    if($('div.whiteboard > div.selected').length > 1) {
+                        // get all views
+                        views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
+                        // persist views
+                        $.each(views,function(j,view) {
+                            if(view && $(view.el).hasClass('selected')) {
+                                var _x = parseInt($(view.el).css('left'),10),
+                                    _y = parseInt($(view.el).css('top'),10);
+                                self.commands.push(new MoveCommand({
+                                    id : view.model.id,
+                                    x : _x,
+                                    y : _y,
+                                    whiteboardid : view.options.whiteboardId
+                                }));
+                            }
+                        });
+                        
+                        window.app.groupCommand.addCommands(self.commands);
+                        window.app.groupCommand.execute();
+                    } else {
+                        new MoveCommand({
+                            id: self.model.id,
+                            x : parseInt($(self.el).css('left'),10),
+                            y : parseInt($(self.el).css('top'),10),
+                            whiteboardid : self.options.whiteboardId
+                        }).execute();
+                    }
                 }
             });
             this.render();
-        },
-        mouseEnter:function(){
-            window.app.log("select");
-//            window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.SELECT);
-        },
-        mouseLeave:function(){
-            window.app.log("unselect");
-        },
-        persistPosition: function() {
-            _x = parseInt($(this.el).css('left'),10);
-            _y = parseInt($(this.el).css('top'),10);
-            this.model.set({
-                x : _x,
-                y : _y
-            });
-            
-            window.app.publish('/service/whiteboardItem/move', {
-                id : this.model.id,
-                x : _x,
-                y : _y,
-                whiteboardid : this.options.whiteboardId
-            });
         },
         handleDragItem: function(e) {
             // find all selected items

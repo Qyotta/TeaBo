@@ -35,7 +35,6 @@ define([ 'jquery',
                         $(elem).data('oldPosX','').data('oldPosY','');
                     });
                     
-                    
                     if($('div.whiteboard > div.selected').length > 1) {
                         // get all views
                         views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
