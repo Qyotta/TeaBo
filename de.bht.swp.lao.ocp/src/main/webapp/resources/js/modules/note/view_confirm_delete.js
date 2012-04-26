@@ -17,7 +17,6 @@ define([
             'click #confirmDeleteNoteContainer input[type=submit]': 'confirmed'
         },
         render: function(){
-        	window.app.log('render confirm dialog');
             var compiledTemplate = _.template( confirmDeleteTemplate );
             this.el.html(compiledTemplate);
         },

@@ -51,7 +51,7 @@ define([
         },
         close:function(){
             if(this.whiteboard) {
-                this.view.el.empty();
+                $(this.view.el).empty();
             }
             this.whiteboard = null;
             window.app.stopCometd();

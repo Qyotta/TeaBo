@@ -3,9 +3,10 @@ define([
     'backbone',
     'core/router/router',
     'core/models/user',
+    'core/utils/group_command',
     'cometd', 
     'jquerycometd'
-], function( _, Backbone, Router, User, cometd, jquerycometd){
+], function( _, Backbone, Router, User, GroupCommand, cometd, jquerycometd){
     
     var Application = function() {
 
@@ -15,6 +16,8 @@ define([
         this.modules = {},
         this.eventDispatcher = {},
         this.cometd = $.cometd;
+        this.commands = [];
+        this.groupCommand = new GroupCommand();
         
         this.initialize();
     };
@@ -66,12 +69,6 @@ define([
             this.cometd.addListener('/meta/handshake', this.onMetaHandshake);
             this.cometd.addListener('/meta/connect', this.onMetaConnect);
             this.cometd.handshake();
-        },
-        subscribeChannel : function(channel, callback) {
-            this.cometd.subscribe(channel, callback);
-        },
-        publish : function(channel, msg) {
-            this.cometd.publish(channel, msg);
         },
         onMetaHandshake : function() {
             window.app.eventDispatcher.trigger('handshakeComplete', null);
