@@ -12,7 +12,7 @@ define([
     
     SubscribeCommand.prototype = {
         execute: function() {
-            this.cometd.publish(this.channel,this.callback);
+            this.cometd.subscribe(this.channel,this.callback);
         }
     }
     

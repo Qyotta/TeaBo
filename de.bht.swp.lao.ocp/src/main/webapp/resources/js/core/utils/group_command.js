@@ -31,7 +31,6 @@ define([
             this.commands = this.commands.concat(commands);
         },
         startExecTimer: function() {
-            console.log(this.commands);
             if(this.commands.length) {
                 this.execute();
             }

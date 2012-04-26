@@ -12,7 +12,7 @@ define([
     
     var AttachmentController = function(options){
         window.app.log("attachment controller");
-        _.bindAll(this,'getAttachments', 'getDeleteFlag','createAttachment','deleteAttachment','_handlePostedAttachment','_handleUploadCompleteAttachment','_handleUploadFailedAttachment');
+        _.bindAll(this,'getAttachments', 'getDeleteFlag','createAttachment','deleteAttachment', '_handleDeletedWhiteboardItem', '_handlePostedAttachment','_handleUploadCompleteAttachment','_handleUploadFailedAttachment');
         window.app.eventDispatcher.bind("attachment:create",this.createAttachment);
         window.app.eventDispatcher.bind("whiteboard:opened",this.getAttachments);
         window.app.eventDispatcher.bind("whiteboard:opened", this.getDeleteFlag());
@@ -69,8 +69,6 @@ define([
             
             var _attachment   = this.attachmentCollection.get(_id);
             _attachment.set({x:_x,y:_y});
-
-            window.app.log("attachment moved("+_id+",x:"+_x+",y:"+_y+")");
         },
         _handleDeletedWhiteboardItem:function(message){
             var _id = message.data.id;
@@ -88,8 +86,6 @@ define([
                     _y        = message.data.y,
                     _uid      = message.data.uid,
                     _image    = config.contextPath;
-                
-                window.app.log("posted attachment "+_id+" uid:"+_uid+" activeUpload:"+this.activeUpload);
                 
                 var _attachment = new Attachment({
                     id:_id,
@@ -118,7 +114,6 @@ define([
         _handleUploadCompleteAttachment:function(message){
             var _id = message.data.id;
             var _attachment = this.attachmentCollection.get(_id);
-            window.app.log(_attachment);
             _attachment.set({complete:true});
         },
         _handleUploadFailedAttachment:function(message){

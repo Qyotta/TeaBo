@@ -2,12 +2,13 @@ define(
         [ 'jquery', 
           'underscore', 
           'backbone',
+          'core/utils/model_command',
           'core/utils/subscribe_command',
           'modules/note/collection_note',
           'modules/note/view_note', 
           'modules/note/model_note',
           'modules/note/view_confirm_delete' ],
-        function($, _, Backbone, SubscribeCommand, NoteCollection, NoteView, Note, ConfirmDeleteView) {
+        function($, _, Backbone, ModelCommand, SubscribeCommand, NoteCollection, NoteView, Note, ConfirmDeleteView) {
 
             var NoteController = function(options) {
                 _.bindAll(this, 'getNotes', 'getDeleteFlag', 'createNote','noteCreated', 'subscribeChannels','_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote', '_reportElementOrder', 'handleForegroundWhiteboardItem');
@@ -56,12 +57,15 @@ define(
                     });
                 },
                 createNote : function() {
-                    window.app.publish('/service/note/post/', {
-                        x : 400,
-                        y : 400,
-                        creator : window.app.user.get('email'),
-                        whiteboardid : this.whiteboard.id
-                    });
+                    window.app.groupCommand.addCommands(new ModelCommand(
+                        '/service/note/post/', 
+                        {
+                            x : 400,
+                            y : 400,
+                            creator : window.app.user.get('email'),
+                            whiteboardid : this.whiteboard.id
+                        }
+                    ));
                 },
                 noteCreated : function(message) {
                     var _note = new Note({
@@ -112,10 +116,13 @@ define(
                     });
                 },
                 _reportElementOrder : function (model) {
-                    window.app.publish('/service/whiteboardItem/order', {
-                        id : parseInt(model.id),
-                        whiteboardid : parseInt(this.whiteboard.id)
-                    });
+                    window.app.groupCommand.addCommands(new ModelCommand(
+                        '/service/whiteboardItem/order', 
+                        {
+                            id : parseInt(model.id),
+                            whiteboardid : parseInt(this.whiteboard.id)
+                        }
+                    ));
                 },
                 deleteNote : function(model) {
                     if (typeof model == "undefined" || model == null) {
