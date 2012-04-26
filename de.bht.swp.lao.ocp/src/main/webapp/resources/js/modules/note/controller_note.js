@@ -128,10 +128,13 @@ define(
                     if (typeof model == "undefined" || model == null) {
                         window.app.log('delete-event triggered multiple times');
                     } else {
-                        window.app.publish('/service/whiteboardItem/delete', {
-                            id : model.id,
-                            whiteboardid : this.whiteboard.id
-                        });
+                        window.app.groupCommand.addCommands(new ModelCommand(
+                            '/service/whiteboardItem/delete', 
+                            {
+                                id : model.id,
+                                whiteboardid : this.whiteboard.id
+                            }
+                        ));
                     }
                 },
                 getDeleteFlag : function() {

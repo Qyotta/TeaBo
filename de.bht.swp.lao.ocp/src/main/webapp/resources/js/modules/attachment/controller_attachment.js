@@ -3,12 +3,13 @@ define([
     'underscore',
     'backbone',
     'core/utils/subscribe_command',
+    'core/utils/model_command',
     'modules/attachment/collection_attachment',
     'modules/attachment/view_attachment',
     'modules/attachment/model_attachment',
     'modules/attachment/view_upload_dialog',
     'modules/attachment/view_confirm_delete'
-], function($, _, Backbone, SubscribeCommand,AttachmentCollection,AttachmentView,Attachment, UploadDialog,ConfirmDeleteView){
+], function($, _, Backbone, SubscribeCommand, ModelCommand, AttachmentCollection, AttachmentView, Attachment, UploadDialog, ConfirmDeleteView){
     
     var AttachmentController = function(options){
         window.app.log("attachment controller");
@@ -38,7 +39,6 @@ define([
         getAttachments:function(whiteboard){
             this.whiteboard = whiteboard;
             this.attachmentCollection = new AttachmentCollection(null,{id:this.whiteboard.id});
-            window.app.log("load attachments");
             var self = this;
             this.attachmentCollection.fetch({
                 success:function(collection, response){
@@ -56,10 +56,13 @@ define([
             if (typeof model == "undefined" || model == null) {
                 window.app.log('delete-event triggered multiple times');
             } else {
-                window.app.publish( '/service/whiteboardItem/delete', {
-                    id : model.id,
-                    whiteboardid : this.whiteboard.id
-                });
+                window.app.groupCommand.addCommands(new ModelCommand(
+                    '/service/whiteboardItem/delete', 
+                    {
+                        id : model.id,
+                        whiteboardid : this.whiteboard.id
+                    }
+                ));
             }
         },
         _handleMovedWhiteboardItem:function(message) {
@@ -104,9 +107,7 @@ define([
                 }
                 
                 this.attachmentCollection.add(_attachment);
-                
                 this.views[_attachment.id] = new AttachmentView({ model: _attachment, whiteboardId: this.whiteboard.id,controller:this });
-                
                 if (this.activeUpload != null && _uid === this.activeUpload[1]){
                     this._uploadFile(_id);
                 }
@@ -135,18 +136,24 @@ define([
 
                 if(attachment['error'] != undefined){
                     alert("Your File was not valid.");
-                    window.app.publish('/service/attachment/remove', {
-                        id : parseInt(attachment['id']),
-                        whiteboardid : self.whiteboard.id
-                    });
+                    window.app.groupCommand.addCommands(new ModelCommand(
+                        '/service/attachment/remove', 
+                        {
+                            id : parseInt(attachment['id']),
+                            whiteboardid : self.whiteboard.id
+                        }
+                    ));
                 }
                 else {
                     window.app.log("attachment upload complete");
                     window.app.log(self.whiteboard.id);
-                    window.app.publish('/service/attachment/complete', {
-                        id : parseInt(attachment['id']),
-                        whiteboardid : self.whiteboard.id
-                    });
+                    window.app.groupCommand.addCommands(new ModelCommand(
+                        '/service/attachment/complete', 
+                        {
+                            id : parseInt(attachment['id']),
+                            whiteboardid : self.whiteboard.id
+                        }
+                    ));
                 }
             });
             activeUpload = null;
