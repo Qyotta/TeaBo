@@ -130,31 +130,32 @@ define([
             $(this.el).find('.whiteboarditem.hoverable').removeClass('hoverable');
             
             this.isSelectionBox = true;
-            this.startDragX = e.clientX;
-            this.startDragY = e.clientY;
-            
+            this.startDragX = e.clientX+(-this.model.get('x'));
+            this.startDragY = e.clientY+(-this.model.get('y'));
             this.selectionBox = $('<div />').attr('id','selectionBox').css('top',this.startDragY).css('left',this.startDragX);
             
             $(this.el).append(this.selectionBox);
         },
         dragEnterEvent: function(e) {
             if(!this.isSelectionBox || this.selectionBox === undefined) return;
+            var x = e.clientX+(-this.model.get('x'));
+            var y = e.clientY+(-this.model.get('y'));
             
-            if(e.clientX - this.startDragX < 0) {
+            if(x - this.startDragX < 0) {
                 // drag from right to left
-                this.selectionBox.css('left',e.clientX);
-                this.selectionBox.css('width',this.startDragX - e.clientX);
+                this.selectionBox.css('left',x);
+                this.selectionBox.css('width',this.startDragX - x);
             } else {
                 // drag from left to right
-                this.selectionBox.css('width',e.clientX - this.startDragX);
+                this.selectionBox.css('width',x - this.startDragX);
             }
-            if(e.clientY - this.startDragY < 0) {
+            if(y - this.startDragY < 0) {
                 // drag from bottom to top
-                this.selectionBox.css('top',e.clientY);
-                this.selectionBox.css('height',this.startDragY - e.clientY);
+                this.selectionBox.css('top',y);
+                this.selectionBox.css('height',this.startDragY - y);
             } else {
                 // drag from top to bottom
-                this.selectionBox.css('height',e.clientY - this.startDragY);
+                this.selectionBox.css('height',y - this.startDragY);
             }
             
             var selectedWhiteboardItems = this.selectionBox.collision('.whiteboarditem');

@@ -11,8 +11,6 @@ define([ 'jquery',
             'click .file_mouseOverMenu_bottom' : 'deleteClicked',
             'dblclick .attachmentItems' : 'downloadFile',
             'click .attachmentItems' : 'isClicked',
-            'mouseenter':'mouseEnter',
-            'mouseleave':'mouseLeave'
         },
         initialize : function(options) {
             _.bindAll(this, 'deleteClicked','changed','handleDragItem');
