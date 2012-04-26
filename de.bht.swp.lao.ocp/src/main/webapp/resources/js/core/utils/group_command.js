@@ -5,9 +5,15 @@ define([
 ], function( _, $, cometd){
     
     var GroupCommand = function(commands) {
-        this.commands = commands;
+        
+        _.bindAll(this, 'startExecTimer');
+        
+        this.commands = [];
         this.stack    = [];
         this.cometd   = $.cometd;
+        
+        // start push execution in an interval
+        this.execTimer = setTimeout(this.startExecTimer,1000);
     }
     
     GroupCommand.prototype = {
@@ -16,12 +22,20 @@ define([
             this.cometd.batch(function() {
                 $.each(that.commands,function(i, command) {
                     command.execute();
-                })
-            })
+                });
+            });
+            this.stack.push(this.commands);
+            this.commands = [];
         },
         addCommands: function(commands) {
-            this.commands = commands;
-            this.stack.push(commands);
+            this.commands = this.commands.concat(commands);
+        },
+        startExecTimer: function() {
+            console.log(this.commands);
+            if(this.commands.length) {
+                this.execute();
+            }
+            this.execTimer = setTimeout(this.startExecTimer,1000);
         }
     }
     

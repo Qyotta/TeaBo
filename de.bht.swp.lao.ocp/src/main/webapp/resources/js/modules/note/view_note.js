@@ -2,10 +2,9 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'jqueryui',
-         'core/utils/edit_command',
-         'core/utils/move_command',
+         'core/utils/model_command',
          'text!templates/note/note.html'], 
-         function($, _, Backbone, jqueryui, EditCommand, MoveCommand, noteTemplate) {
+         function($, _, Backbone, jqueryui, ModelCommand, noteTemplate) {
     var NoteView = Backbone.View.extend({
         events : {
             'focus input[type=text], textarea' : 'isFocused',
@@ -17,8 +16,7 @@ define([ 'jquery',
             _.bindAll(this, 'isFocused', 'isBlured', 'deleteClicked','edited','changed','handleDragItem', 'orderChange', 'handleForegroundWhiteboardItem');
             this.model.bind('change',this.changed,this);
             this.editing    = false;
-            this.controller = options.controller
-            this.commands   = [];
+            this.controller = options.controller;
             
             var self = this;
             $(this.el).draggable({
@@ -39,28 +37,34 @@ define([ 'jquery',
                         // get all views
                         views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
                         // persist views
+                        var commands = [];
                         $.each(views,function(j,view) {
                             if(view && $(view.el).hasClass('selected')) {
                                 var _x = parseInt($(view.el).css('left'),10),
                                     _y = parseInt($(view.el).css('top'),10);
-                                self.commands.push(new MoveCommand({
-                                    id : view.model.id,
-                                    x : _x,
-                                    y : _y,
-                                    whiteboardid : view.options.whiteboardId
-                                }));
+                                commands.push(new ModelCommand(
+                                    '/service/whiteboardItem/move',
+                                    {
+                                        id : view.model.id,
+                                        x : _x,
+                                        y : _y,
+                                        whiteboardid : view.options.whiteboardId
+                                    }
+                                ));
                             }
                         });
                         
-                        window.app.groupCommand.addCommands(self.commands);
-                        window.app.groupCommand.execute();
+                        window.app.groupCommand.addCommands(commands);
                     } else {
-                        new MoveCommand({
-                            id: self.model.id,
-                            x : parseInt($(self.el).css('left'),10),
-                            y : parseInt($(self.el).css('top'),10),
-                            whiteboardid : self.options.whiteboardId
-                        }).execute();
+                        window.app.groupCommand.addCommands(new ModelCommand(
+                            '/service/whiteboardItem/move',
+                            {
+                                id: self.model.id,
+                                x : parseInt($(self.el).css('left'),10),
+                                y : parseInt($(self.el).css('top'),10),
+                                whiteboardid : self.options.whiteboardId
+                            }
+                        ));
                     }
                 }
             });
@@ -112,11 +116,14 @@ define([ 'jquery',
             if(_text == _oldText) return;
             
             this.model.set({text:_text});
-            new EditCommand({
-                id : this.model.id,
-                text: this.model.get('text'),
-                whiteboardid : this.options.whiteboardId
-            }).execute();
+            window.app.groupCommand.addCommands(new ModelCommand(
+                '/service/note/edit/',
+                {
+                    id : this.model.id,
+                    text: this.model.get('text'),
+                    whiteboardid : this.options.whiteboardId
+                }
+            ));
             
         },
         isFocused : function() {

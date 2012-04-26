@@ -3,9 +3,9 @@ define([ 'jquery',
          'backbone', 
          'jqueryui',
          'core/modus',
-         'core/utils/move_command',
+         'core/utils/model_command',
          'text!templates/attachment/attachment.html', ],
-         function($, _, Backbone, jqueryui, WhiteboardModus, MoveCommand, attachmentTemplate) {
+         function($, _, Backbone, jqueryui, WhiteboardModus, ModelCommand, attachmentTemplate) {
     var AttachmentView = Backbone.View.extend({
         events : {
             'click .file_mouseOverMenu_bottom' : 'deleteClicked',
@@ -15,7 +15,6 @@ define([ 'jquery',
             _.bindAll(this, 'deleteClicked','changed','handleDragItem');
             
             this.controller = options.controller;
-            this.commands   = [];
             this.model.bind('change',this.changed,this);
 
             $(this.el).attr("id", "attachment-"+this.model.id);
@@ -41,28 +40,35 @@ define([ 'jquery',
                         // get all views
                         views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
                         // persist views
+                        var commands = [];
                         $.each(views,function(j,view) {
                             if(view && $(view.el).hasClass('selected')) {
                                 var _x = parseInt($(view.el).css('left'),10),
                                     _y = parseInt($(view.el).css('top'),10);
-                                self.commands.push(new MoveCommand({
-                                    id : view.model.id,
-                                    x : _x,
-                                    y : _y,
-                                    whiteboardid : view.options.whiteboardId
-                                }));
+                                commands.push(new ModelCommand(
+                                    '/service/whiteboardItem/move',
+                                    {
+                                        id : view.model.id,
+                                        x : _x,
+                                        y : _y,
+                                        whiteboardid : view.options.whiteboardId
+                                    }
+                                ));
                             }
                         });
                         
-                        window.app.groupCommand.addCommands(self.commands);
-                        window.app.groupCommand.execute();
+                        window.app.groupCommand.addCommands(commands);
                     } else {
-                        new MoveCommand({
-                            id: self.model.id,
-                            x : parseInt($(self.el).css('left'),10),
-                            y : parseInt($(self.el).css('top'),10),
-                            whiteboardid : self.options.whiteboardId
-                        }).execute();
+                        // persist single item move
+                        window.app.groupCommand.addCommands(new ModelCommand(
+                            '/service/whiteboardItem/move',
+                            {
+                                id: self.model.id,
+                                x : parseInt($(self.el).css('left'),10),
+                                y : parseInt($(self.el).css('top'),10),
+                                whiteboardid : self.options.whiteboardId
+                            }
+                        ));
                     }
                 }
             });

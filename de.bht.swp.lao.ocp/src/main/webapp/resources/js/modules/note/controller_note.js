@@ -24,17 +24,16 @@ define(
             NoteController.prototype = {
                 initialize : function() {
                     this.views    = [];
-                    this.commands = [];
                     this.confirmDeleteView = new ConfirmDeleteView();
                 },
                 subscribeChannels : function() {
-                    this.commands.push(new SubscribeCommand('/whiteboardItem/move/'   + this.whiteboard.id, this._handleMovedWhiteboardItem));
-                    this.commands.push(new SubscribeCommand('/whiteboardItem/delete/' + this.whiteboard.id, this._handleDeletedWhiteboardItem));
-                    this.commands.push(new SubscribeCommand('/note/edited/'           + this.whiteboard.id, this._handleEditedNote));
-                    this.commands.push(new SubscribeCommand('/note/posted/'           + this.whiteboard.id, this.noteCreated));
-                    this.commands.push(new SubscribeCommand('/whiteboardItem/order/'  + this.whiteboard.id, this.handleForegroundWhiteboardItem));
-                    window.app.groupCommand.addCommands(this.commands);
-                    window.app.groupCommand.execute();
+                    var commands = [];
+                    commands.push(new SubscribeCommand('/whiteboardItem/move/'   + this.whiteboard.id, this._handleMovedWhiteboardItem));
+                    commands.push(new SubscribeCommand('/whiteboardItem/delete/' + this.whiteboard.id, this._handleDeletedWhiteboardItem));
+                    commands.push(new SubscribeCommand('/note/edited/'           + this.whiteboard.id, this._handleEditedNote));
+                    commands.push(new SubscribeCommand('/note/posted/'           + this.whiteboard.id, this.noteCreated));
+                    commands.push(new SubscribeCommand('/whiteboardItem/order/'  + this.whiteboard.id, this.handleForegroundWhiteboardItem));
+                    window.app.groupCommand.addCommands(commands);
                 },
                 getNotes : function(whiteboard) {
                     this.whiteboard = whiteboard;
@@ -113,7 +112,6 @@ define(
                     });
                 },
                 _reportElementOrder : function (model) {
-                    window.app.log("report orderChanged");
                     window.app.publish('/service/whiteboardItem/order', {
                         id : parseInt(model.id),
                         whiteboardid : parseInt(this.whiteboard.id)
