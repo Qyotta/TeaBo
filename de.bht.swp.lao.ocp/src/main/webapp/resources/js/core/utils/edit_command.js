@@ -4,18 +4,18 @@ define([
     'cometd'
 ], function( _, $, cometd){
     
-    var MoveCommand = function(obj) {
-        this.channel = '/service/whiteboardItem/move';
+    var EditCommand = function(obj) {
+        this.channel = '/service/note/edit/';
         this.obj     = obj;
         this.cometd  = $.cometd;
     }
     
-    MoveCommand.prototype = {
+    EditCommand.prototype = {
         execute: function() {
             this.cometd.publish(this.channel,this.obj);
         }
     }
     
-    return MoveCommand;
+    return EditCommand;
     
 });

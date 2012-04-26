@@ -2,12 +2,13 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'core/utils/subscribe_command',
     'modules/attachment/collection_attachment',
     'modules/attachment/view_attachment',
     'modules/attachment/model_attachment',
     'modules/attachment/view_upload_dialog',
     'modules/attachment/view_confirm_delete'
-], function($, _, Backbone,AttachmentCollection,AttachmentView,Attachment, UploadDialog,ConfirmDeleteView){
+], function($, _, Backbone, SubscribeCommand,AttachmentCollection,AttachmentView,Attachment, UploadDialog,ConfirmDeleteView){
     
     var AttachmentController = function(options){
         window.app.log("attachment controller");
@@ -21,16 +22,19 @@ define([
     
     AttachmentController.prototype = {
         initialize: function() {
-            this.views = [];
+            this.views    = [];
+            this.commands = [];
             this.confirmDeleteView = new ConfirmDeleteView();
             this.uploadDialog = new UploadDialog({controller:this});
         },
         subscribeChannels:function(){
-            window.app.subscribeChannel('/whiteboardItem/move/'+this.whiteboard.id,this._handleMovedWhiteboardItem);
-            window.app.subscribeChannel('/whiteboardItem/delete/'+this.whiteboard.id,this._handleDeletedWhiteboardItem);
-            window.app.subscribeChannel('/attachment/posted/'+this.whiteboard.id,this._handlePostedAttachment);
-            window.app.subscribeChannel('/attachment/upload/complete/'+this.whiteboard.id,this._handleUploadCompleteAttachment);
-            window.app.subscribeChannel('/attachment/upload/remove/'+this.whiteboard.id,this._handleUploadFailedAttachment);
+            this.commands.push(new SubscribeCommand('/whiteboardItem/move/'        +this.whiteboard.id,this._handleMovedWhiteboardItem));
+            this.commands.push(new SubscribeCommand('/whiteboardItem/delete/'      +this.whiteboard.id,this._handleDeletedWhiteboardItem));
+            this.commands.push(new SubscribeCommand('/attachment/posted/'          +this.whiteboard.id,this._handlePostedAttachment));
+            this.commands.push(new SubscribeCommand('/attachment/upload/complete/' +this.whiteboard.id,this._handleUploadCompleteAttachment));
+            this.commands.push(new SubscribeCommand('/attachment/upload/remove/'   +this.whiteboard.id,this._handleUploadFailedAttachment));
+            window.app.groupCommand.addCommands(this.commands);
+            window.app.groupCommand.execute();
         },
         getAttachments:function(whiteboard){
             this.whiteboard = whiteboard;

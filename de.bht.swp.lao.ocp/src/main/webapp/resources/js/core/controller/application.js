@@ -3,9 +3,10 @@ define([
     'backbone',
     'core/router/router',
     'core/models/user',
+    'core/utils/group_command',
     'cometd', 
     'jquerycometd'
-], function( _, Backbone, Router, User, cometd, jquerycometd){
+], function( _, Backbone, Router, User, GroupCommand, cometd, jquerycometd){
     
     var Application = function() {
 
@@ -15,6 +16,8 @@ define([
         this.modules = {},
         this.eventDispatcher = {},
         this.cometd = $.cometd;
+        this.commands = [];
+        this.groupCommand = new GroupCommand();
         
         this.initialize();
     };

@@ -6,9 +6,8 @@ define([
     
     var GroupCommand = function(commands) {
         this.commands = commands;
-        this.cometd = $.cometd;
-        console.log('created instanz');
-        var tmp = [];
+        this.stack    = [];
+        this.cometd   = $.cometd;
     }
     
     GroupCommand.prototype = {
@@ -19,6 +18,10 @@ define([
                     command.execute();
                 })
             })
+        },
+        addCommands: function(commands) {
+            this.commands = commands;
+            this.stack.push(commands);
         }
     }
     

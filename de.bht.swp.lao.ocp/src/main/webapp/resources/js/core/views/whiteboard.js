@@ -13,6 +13,17 @@ define([
             'mousemove' : 'mouseMove',
             'mouseup'   : 'mouseUp',
         },
+        initialize:function(){
+            _.bindAll(this,'modusChanged','keydown','keyup','mouseDown','mouseUp','mouseMove','startMove','move','endMove','render');
+
+            this.model.bind('change', this.render, this);
+            
+            window.app.eventDispatcher.bind('whiteboard:changed_modus',this.modusChanged);
+            $(document).keydown(this.keydown);
+            $(document).keyup(this.keyup);
+            this.modus = WhiteboardModus.MULTISELECT;
+            this.render();
+        },
         mouseDown:function(event){
             if(this.modus==WhiteboardModus.MULTISELECT){
                 this.startSelection(event);
@@ -33,17 +44,6 @@ define([
             }else if(this.modus==WhiteboardModus.HAND){
                 this.endMove();
             }
-        },
-        initialize:function(){
-            _.bindAll(this,'modusChanged','keydown','keyup','mouseDown','mouseUp','mouseMove','startMove','move','endMove','render');
-
-            this.model.bind('change', this.render, this);
-            
-            window.app.eventDispatcher.bind('whiteboard:changed_modus',this.modusChanged);
-            $(document).keydown(this.keydown);
-            $(document).keyup(this.keyup);
-            this.modus = WhiteboardModus.MULTISELECT;
-            this.render();
         },
         keydown:function(event){
             if(event.which==17){
@@ -133,10 +133,7 @@ define([
             this.startDragX = e.clientX;
             this.startDragY = e.clientY;
             
-            this.selectionBox = $('<div />').
-                                    attr('id','selectionBox').
-                                    css('top',this.startDragY).
-                                    css('left',this.startDragX);            
+            this.selectionBox = $('<div />').attr('id','selectionBox').css('top',this.startDragY).css('left',this.startDragX);
             
             $(this.el).append(this.selectionBox);
         },

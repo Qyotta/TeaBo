@@ -2,10 +2,10 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'jqueryui',
-         'core/utils/group_command',
+         'core/utils/edit_command',
          'core/utils/move_command',
          'text!templates/note/note.html'], 
-         function($, _, Backbone, jqueryui, GroupCommand, MoveCommand, noteTemplate) {
+         function($, _, Backbone, jqueryui, EditCommand, MoveCommand, noteTemplate) {
     var NoteView = Backbone.View.extend({
         events : {
             'focus input[type=text], textarea' : 'isFocused',
@@ -14,10 +14,11 @@ define([ 'jquery',
             'click ' : 'orderChange'
         },
         initialize : function(options) {
-            _.bindAll(this, 'isFocused', 'isBlured', 'deleteClicked','edited','changed','handleDragItem', 'orderChange', '_handleForegroundWhiteboardItem');
+            _.bindAll(this, 'isFocused', 'isBlured', 'deleteClicked','edited','changed','handleDragItem', 'orderChange', 'handleForegroundWhiteboardItem');
             this.model.bind('change',this.changed,this);
-            this.editing = false;
-            this.controller = options.controller;
+            this.editing    = false;
+            this.controller = options.controller
+            this.commands   = [];
             
             var self = this;
             $(this.el).draggable({
@@ -25,34 +26,43 @@ define([ 'jquery',
                 scroll : false,
                 drag : this.handleDragItem,
                 stop : function(e, ui) {
-                    var id = $(this).attr('id');
+                    // remove blocked menu and creator element
                     $(this).find('.noteMenu').css('display', '');
                     $(this).find('.creator').css('display', '');
                     
-                    //self.persistPosition();
-                    
+                    // remove unnecessary data attributes
                     $.each($('div.whiteboard > div'), function(i,elem) {
                         $(elem).data('oldPosX','').data('oldPosY','');
                     });
-                    // find view
-                    views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
                     
-                    $.each(views,function(j,view) {
-                        if(view && $(view.el).attr('id') != id && $(view.el).hasClass('selected')) {
-                            var _x = parseInt($(view.el).css('left'),10);
-                            var _y = parseInt($(view.el).css('top'),10);
-                            self.controller.commands.push(new MoveCommand({
-                                id : view.model.id,
-                                x : _x,
-                                y : _y,
-                                
-                                whiteboardid : view.options.whiteboardId
-                            }));
-                        }
-                    });
                     
-                    var groupCommand = new GroupCommand(self.controller.commands);
-                    groupCommand.execute();
+                    if($('div.whiteboard > div.selected').length > 1) {
+                        // get all views
+                        views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
+                        // persist views
+                        $.each(views,function(j,view) {
+                            if(view && $(view.el).hasClass('selected')) {
+                                var _x = parseInt($(view.el).css('left'),10),
+                                    _y = parseInt($(view.el).css('top'),10);
+                                self.commands.push(new MoveCommand({
+                                    id : view.model.id,
+                                    x : _x,
+                                    y : _y,
+                                    whiteboardid : view.options.whiteboardId
+                                }));
+                            }
+                        });
+                        
+                        window.app.groupCommand.addCommands(self.commands);
+                        window.app.groupCommand.execute();
+                    } else {
+                        new MoveCommand({
+                            id: self.model.id,
+                            x : parseInt($(self.el).css('left'),10),
+                            y : parseInt($(self.el).css('top'),10),
+                            whiteboardid : self.options.whiteboardId
+                        }).execute();
+                    }
                 }
             });
             
@@ -70,7 +80,7 @@ define([ 'jquery',
                             posY = parseInt($(element).css('top')),
                             targetX = parseInt($(e.target).css('left'),10)-7,
                             targetY = parseInt($(e.target).css('top'),10)+16;
-                        // save start pos to get the diff
+                        // save start pos to get the offset
                         if(!$(element).data('oldPosX')) {
                             $(element).data('oldPosX',posX);
                             $(element).data('oldPosY',posY);
@@ -100,15 +110,15 @@ define([ 'jquery',
             var _text  = this.input.val();
             var _oldText = this.model.get('text');
 
-            if(_text == _oldText)return;
+            if(_text == _oldText) return;
             
             this.model.set({text:_text});
-            
-            window.app.publish('/service/note/edit/', {
+            new EditCommand({
                 id : this.model.id,
                 text: this.model.get('text'),
                 whiteboardid : this.options.whiteboardId
-            });
+            }).execute();
+            
         },
         isFocused : function() {
             this.editing = true;
@@ -132,9 +142,7 @@ define([ 'jquery',
             
             $(this.el).attr("id", "note-"+this.model.id);
             $(this.el).addClass("whiteboarditem note draggable hoverable");
-
             
-            window.app.log("note z-index:"+this.model.get('orderIndex'));
             $(this.el).css('position', 'absolute');
             if ($("#note-" + this.model.id).length > 0) {
                 $("#note-" + this.model.id).css('left', this.model.get('x') + 'px');
@@ -156,20 +164,11 @@ define([ 'jquery',
             window.app.eventDispatcher.trigger("note:delete_clicked", this.model);
         },
         orderChange : function (evt) {
-            window.app.log("Triggered orderChanged");
             window.app.eventDispatcher.trigger("note:order_change", this.model);
-                //this.controller._reportElementOrder(this.model.id);
         },
-        /**
-         * Handles a cometd notification about changed order at z-axis
-         *
-         * @param {CometdMessage} message An cometd message object.
-         *
-         */
-         _handleForegroundWhiteboardItem : function(message){
-             window.app.log("report change zIndex");
-             $(this.el).css('z-index', message.data.newIndex);
-         },
+        handleForegroundWhiteboardItem : function(message){
+            $(this.el).css('z-index', message.data.newIndex);
+        },
     });
 
     return NoteView;

@@ -1,12 +1,16 @@
 define(
-        [ 'jquery', 'underscore', 'backbone', 'modules/note/collection_note',
-                'modules/note/view_note', 'modules/note/model_note',
-                'modules/note/view_confirm_delete' ],
-        function($, _, Backbone, NoteCollection, NoteView, Note,
-                ConfirmDeleteView) {
+        [ 'jquery', 
+          'underscore', 
+          'backbone',
+          'core/utils/subscribe_command',
+          'modules/note/collection_note',
+          'modules/note/view_note', 
+          'modules/note/model_note',
+          'modules/note/view_confirm_delete' ],
+        function($, _, Backbone, SubscribeCommand, NoteCollection, NoteView, Note, ConfirmDeleteView) {
 
             var NoteController = function(options) {
-                _.bindAll(this, 'getNotes', 'getDeleteFlag', 'createNote','noteCreated', 'subscribeChannels','_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote', '_reportElementOrder', '_handleForegroundWhiteboardItem');
+                _.bindAll(this, 'getNotes', 'getDeleteFlag', 'createNote','noteCreated', 'subscribeChannels','_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote', '_reportElementOrder', 'handleForegroundWhiteboardItem');
                 window.app.eventDispatcher.bind("note:create", this.createNote);
                 window.app.eventDispatcher.bind("whiteboard:opened",this.getNotes);
                 window.app.eventDispatcher.bind("whiteboard:opened", this.getDeleteFlag());
@@ -19,22 +23,18 @@ define(
 
             NoteController.prototype = {
                 initialize : function() {
-                    this.views = [];
+                    this.views    = [];
                     this.commands = [];
                     this.confirmDeleteView = new ConfirmDeleteView();
                 },
                 subscribeChannels : function() {
-                    window.app.subscribeChannel('/whiteboardItem/move/'
-                            + this.whiteboard.id,
-                            this._handleMovedWhiteboardItem);
-                    window.app.subscribeChannel('/whiteboardItem/delete/'
-                            + this.whiteboard.id,
-                            this._handleDeletedWhiteboardItem);
-                    window.app.subscribeChannel('/note/edited/'
-                            + this.whiteboard.id, this._handleEditedNote);
-                    window.app.subscribeChannel('/note/posted/'
-                            + this.whiteboard.id, this.noteCreated);
-                    window.app.subscribeChannel('/whiteboardItem/order/'+this.whiteboard.id, this._handleForegroundWhiteboardItem);
+                    this.commands.push(new SubscribeCommand('/whiteboardItem/move/'   + this.whiteboard.id, this._handleMovedWhiteboardItem));
+                    this.commands.push(new SubscribeCommand('/whiteboardItem/delete/' + this.whiteboard.id, this._handleDeletedWhiteboardItem));
+                    this.commands.push(new SubscribeCommand('/note/edited/'           + this.whiteboard.id, this._handleEditedNote));
+                    this.commands.push(new SubscribeCommand('/note/posted/'           + this.whiteboard.id, this.noteCreated));
+                    this.commands.push(new SubscribeCommand('/whiteboardItem/order/'  + this.whiteboard.id, this.handleForegroundWhiteboardItem));
+                    window.app.groupCommand.addCommands(this.commands);
+                    window.app.groupCommand.execute();
                 },
                 getNotes : function(whiteboard) {
                     this.whiteboard = whiteboard;
@@ -90,10 +90,10 @@ define(
                         y : _y
                     });
                 },
-                _handleForegroundWhiteboardItem : function(message) {
+                handleForegroundWhiteboardItem : function(message) {
                     var _id = message.data.id.split('-')[1];
                     var _note = this.noteCollection.get(_id);
-                    this.views[_note.id]._handleForegroundWhiteboardItem(message);
+                    this.views[_note.id].handleForegroundWhiteboardItem(message);
                 },
                 _handleDeletedWhiteboardItem : function(message) {
                     var _id = message.data.id;
@@ -112,13 +112,6 @@ define(
                         text : _text
                     });
                 },
-              //TODO commenting
-                /**
-                * ?
-                *
-                * @param {jQueryObject} elem ?
-                *
-                */
                 _reportElementOrder : function (model) {
                     window.app.log("report orderChanged");
                     window.app.publish('/service/whiteboardItem/order', {
