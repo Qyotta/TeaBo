@@ -70,20 +70,6 @@ define([
             this.cometd.addListener('/meta/connect', this.onMetaConnect);
             this.cometd.handshake();
         },
-        subscribeChannel : function(channel, callback) {
-            this.cometd.subscribe(channel, callback);
-        },
-        publish : function(channel, msg) {
-            this.cometd.publish(channel, msg);
-        },
-        batch : function(channel, objects) {
-            var that = this;
-            this.cometd.batch(function() {
-                $.each(objects,function(i, obj) {
-                    that.cometd.publish(channel,obj);
-                })
-            })
-        },
         onMetaHandshake : function() {
             window.app.eventDispatcher.trigger('handshakeComplete', null);
         },
