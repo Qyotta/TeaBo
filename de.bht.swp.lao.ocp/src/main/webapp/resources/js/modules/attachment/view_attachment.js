@@ -1,20 +1,23 @@
 define([ 'jquery', 
          'underscore', 
          'backbone', 
-         'jqueryui',
+         'core/views/whiteboarditem',
          'core/modus',
-         'core/utils/model_command',
          'text!templates/attachment/attachment.html', ],
-         function($, _, Backbone, jqueryui, WhiteboardModus, ModelCommand, attachmentTemplate) {
-    var AttachmentView = Backbone.View.extend({
+         function($, _, Backbone, WhiteboardItemView,WhiteboardModus, attachmentTemplate) {
+    var AttachmentView = WhiteboardItemView.extend({
+        name : 'attachment',
         events : {
-            'click .file_mouseOverMenu_bottom' : 'deleteClicked',
             'dblclick .attachmentItems' : 'downloadFile',
             'click .attachmentItems' : 'isClicked',
         },
+        constructor: function(){
+            this.events = _.extend( {}, WhiteboardItemView.prototype.events, this.events );
+            WhiteboardItemView.prototype.constructor.apply( this, arguments );
+         },
         initialize : function(options) {
-            _.bindAll(this, 'deleteClicked','changed','handleDragItem');
-            
+            WhiteboardItemView.prototype.initialize.apply( this );
+            _.bindAll(this,'changed');
             this.controller = options.controller;
             this.model.bind('change',this.changed,this);
 
@@ -22,86 +25,7 @@ define([ 'jquery',
             $(this.el).addClass("whiteboarditem attachment draggable hoverable");
             $(this.el).css('position', 'absolute');
             
-            var self = this;
-            $(this.el).draggable({
-                handle : $('.file_mouseOverMenu_top', this),
-                scroll : false,
-                drag : self.handleDragItem,
-                stop : function(e, ui) {
-                    
-                    $(this).find('.attachmentMenu').css('display', '');
-                    $(this).find('.creator').css('display', '');
-                    
-                    $.each($('div.whiteboard > div'), function(i,elem) {
-                        $(elem).data('oldPosX','').data('oldPosY','');
-                    });
-                    
-                    // find view
-                    if($('div.whiteboard > div.selected').length > 1) {
-                        // get all views
-                        views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
-                        // persist views
-                        var commands = [];
-                        $.each(views,function(j,view) {
-                            if(view && $(view.el).hasClass('selected')) {
-                                var _x = parseInt($(view.el).css('left'),10),
-                                    _y = parseInt($(view.el).css('top'),10);
-                                commands.push(new ModelCommand(
-                                    '/service/whiteboardItem/move',
-                                    {
-                                        id : view.model.id,
-                                        x : _x,
-                                        y : _y,
-                                        whiteboardid : view.options.whiteboardId
-                                    }
-                                ));
-                            }
-                        });
-                        
-                        window.app.groupCommand.addCommands(commands);
-                    } else {
-                        // persist single item move
-                        window.app.groupCommand.addCommands(new ModelCommand(
-                            '/service/whiteboardItem/move',
-                            {
-                                id: self.model.id,
-                                x : parseInt($(self.el).css('left'),10),
-                                y : parseInt($(self.el).css('top'),10),
-                                whiteboardid : self.options.whiteboardId
-                            }
-                        ));
-                    }
-                }
-            });
             this.render();
-        },
-        handleDragItem: function(e) {
-            // find all selected items
-            var elem = $('div.whiteboard > div.selected');
-            // do it only if more than two are selected and elem itself is selected
-            if(elem.length > 1 && $(this.el).hasClass('selected')) {
-                $.each(elem,function(i,element) {
-                    // dont move current element - it moves by itself
-                    if($(e.target).attr('id') != $(element).attr('id')) {
-                        var posX = parseInt($(element).css('left')),
-                            posY = parseInt($(element).css('top')),
-                            targetX = parseInt($(e.target).css('left'),10)-47,
-                            targetY = parseInt($(e.target).css('top'),10)+8;
-                        // save start pos to get the diff
-                        if(!$(element).data('oldPosX')) {
-                            $(element).data('oldPosX',posX);
-                            $(element).data('oldPosY',posY);
-                            $(e.target).data('oldPosX',targetX);
-                            $(e.target).data('oldPosY',targetY);
-                        }
-                        // change position
-                        $(element).css('left',$(element).data('oldPosX') - ($(e.target).data('oldPosX')+$(e.target).width()-e.clientX));
-                        $(element).css('top',$(element).data('oldPosY') - ($(e.target).data('oldPosY')-e.clientY));
-                    }
-                });
-            }
-            $(this.el).find('.noteMenu').css('display','block');
-            $(this.el).find('.creator').css('display','block');
         },
         changed:function(){
             this.render();
@@ -140,10 +64,6 @@ define([ 'jquery',
 
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
             }
-        },
-        deleteClicked : function(evt) {
-            evt.preventDefault();
-            window.app.eventDispatcher.trigger("attachment:delete_clicked", this.model);
         },
         downloadFile : function(evt) {
             evt.preventDefault();
