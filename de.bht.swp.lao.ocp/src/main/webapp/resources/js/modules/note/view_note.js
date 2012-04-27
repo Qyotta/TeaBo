@@ -60,6 +60,7 @@ define([ 'jquery',
             this.timer = setInterval(this.edited, 500);
         },
         isBlured : function() {
+            window.app.log("blured");
             this.editing = false;
             $(this.el).removeClass(".edited");
 

@@ -9,6 +9,8 @@ define([
     
     var WhiteboardView = Backbone.View.extend({
         events:{
+            'mouseenter .whiteboarditem': 'entersWhiteboardItem',
+            'mouseleave .whiteboarditem': 'leavesWhiteboardItem',
             'mousedown' : 'mouseDown',
             'mousemove' : 'mouseMove',
             'mouseup'   : 'mouseUp',
@@ -21,26 +23,31 @@ define([
             window.app.eventDispatcher.bind('whiteboard:changed_modus',this.modusChanged);
             $(document).keydown(this.keydown);
             $(document).keyup(this.keyup);
-            this.modus = WhiteboardModus.MULTISELECT;
+            this.modus = WhiteboardModus.SELECT;
             this.render();
         },
         mouseDown:function(event){
-            if(this.modus==WhiteboardModus.MULTISELECT){
+            if(this.modus==WhiteboardModus.SELECT){
+                this.modusChanged(WhiteboardModus.SELECTING);
                 this.startSelection(event);
             }else if(this.modus==WhiteboardModus.HAND){
+                window.app.log("start moving whiteboard");
                 this.startMove(event);
+            }else if(this.modus==WhiteboardModus.EDIT){
+                window.app.log("editing");
             }
         },
         mouseMove:function(event){
-            if(this.modus==WhiteboardModus.MULTISELECT){
+            if(this.modus==WhiteboardModus.SELECTING){
                 this.dragEnterEvent(event);
             }else if(this.modus==WhiteboardModus.HAND){
                 this.move(event);
             }
         },
         mouseUp:function(event){
-            if(this.modus==WhiteboardModus.MULTISELECT){
+            if(this.modus==WhiteboardModus.SELECTING){
                 this.dragEndEvent();
+                this.modusChanged(WhiteboardModus.SELECT);
             }else if(this.modus==WhiteboardModus.HAND){
                 this.endMove();
             }
@@ -56,14 +63,25 @@ define([
             // 18 == ALT
             if(event.keyCode==18){
                 event.preventDefault();
-                window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.MULTISELECT);
+                window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.SELECT);
+            }
+        },
+        entersWhiteboardItem:function(){
+            if(this.modus!=WhiteboardModus.SELECTING){
+                this.modusChanged(WhiteboardModus.EDIT);
+            }
+        },
+        leavesWhiteboardItem:function(event){
+            $(event.currentTarget.id+"input[type=text], textarea").trigger('blur');//workaround to triger blur
+            if(this.modus==WhiteboardModus.EDIT){
+                this.modusChanged(WhiteboardModus.SELECT);
             }
         },
         modusChanged:function(modus){
             this.modus = modus;
             if(this.modus == WhiteboardModus.HAND){
                 $(this.el).css('cursor', 'pointer');
-            }else if(this.modus == WhiteboardModus.MULTISELECT){
+            }else if(this.modus == WhiteboardModus.SELECT){
                 $(this.el).css('cursor', 'default');
             }
             window.app.log(modus);
@@ -71,16 +89,11 @@ define([
         render:function(){
             $(this.el).attr('id','whiteboard');
             $(this.el).addClass("whiteboard draggable");
+            $(this.el).css('left', this.model.get('x') + 'px');
+            $(this.el).css('top', this.model.get('y') + 'px');
  
-            if ($("#whiteboard").length > 0) {
-                $(this.el).css('left', this.model.get('x') + 'px');
-                $(this.el).css('top', this.model.get('y') + 'px');
-            } else {
-                $(this.el).css('left', this.model.get('x') + 'px');
-                $(this.el).css('top', this.model.get('y') + 'px');
-                
+            if ($("#whiteboard").length >= 0) {
                 $("#page").append($(this.el));
-                console.log("whiteboard rendered");
             }
         },
         startMove:function(event){
@@ -117,7 +130,7 @@ define([
         startSelection: function(e) {
             e.preventDefault();
             
-            if(this.modus!=WhiteboardModus.MULTISELECT){return;}
+            if(this.modus!=WhiteboardModus.SELECTING){return;}
             
             if(e.target.parentElement.tagName != 'A') {
                 $(this.el).find('.whiteboarditem').removeClass('selected');
