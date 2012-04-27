@@ -46,13 +46,15 @@ define([
             }
         },
         keydown:function(event){
-            if(event.which==17){
+            // 18 == ALT
+            if(event.which==18){
                 event.preventDefault();
                 if(this.modus!=WhiteboardModus.HAND)window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.HAND);
             }
         },
         keyup:function(event){
-            if(event.keyCode==17){
+            // 18 == ALT
+            if(event.keyCode==18){
                 event.preventDefault();
                 window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.MULTISELECT);
             }
@@ -107,7 +109,7 @@ define([
                 var xJump = _x < 0 ? _x : 0;
                 var yJump = _y < 0 ? _y : 0;
                 var self = this;
-                $(this.el).animate({top: yJump+'px', left: xJump+'px'},200,function(){self.model.set({x:0,y:0});});
+                $(this.el).animate({top: yJump+'px', left: xJump+'px'},200,function(){self.model.set({x:xJump,y:yJump});});
             }
             this.startX = null;
             this.startY = null;  
