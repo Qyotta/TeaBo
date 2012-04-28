@@ -10,7 +10,9 @@ define([
     
     var Application = function() {
 
-        _.bindAll(this,'onMetaConnect');
+        _.bindAll(this,'onMetaConnect', 'setSettings');
+        
+        
         this.debugMode = true,
         this.user = {},
         this.modules = {},
@@ -25,12 +27,17 @@ define([
     Application.prototype = {
         initialize: function(options) {
             this.eventDispatcher = _.extend({}, Backbone.Events);
+            this.eventDispatcher.bind('userSettings:synced',this.setSettings);
             
             if(window.userData) {
                 this.user = new User(window.userData);
             } else {
                 this.user = new User();
             }
+            
+        },
+        setSettings : function(_settings){
+          this.user.set({settings : _settings});
         },
         log : function(str) {
             if (this.debugMode) {

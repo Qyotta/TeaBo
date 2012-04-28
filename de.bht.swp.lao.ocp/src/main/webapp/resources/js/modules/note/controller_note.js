@@ -11,10 +11,9 @@ define(
         function($, _, Backbone, ModelCommand, SubscribeCommand, NoteCollection, NoteView, Note, ConfirmDeleteView) {
 
             var NoteController = function(options) {
-                _.bindAll(this, 'getNotes', 'getDeleteFlag', 'createNote','noteCreated', '_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote', '_reportElementOrder', 'handleForegroundWhiteboardItem');
+                _.bindAll(this, 'getNotes', 'createNote','noteCreated', '_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote', '_reportElementOrder', 'handleForegroundWhiteboardItem');
                 window.app.eventDispatcher.bind("note:create", this.createNote);
                 window.app.eventDispatcher.bind("whiteboard:opened",this.getNotes);
-                window.app.eventDispatcher.bind("whiteboard:opened", this.getDeleteFlag());
                 window.app.eventDispatcher.bind('handshakeComplete',this.subscribeChannels);
                 window.app.eventDispatcher.bind('note:delete', this.deleteNote);
                 window.app.eventDispatcher.bind('note:order_change', this._reportElementOrder);
@@ -25,7 +24,7 @@ define(
             NoteController.prototype = {
                 initialize : function() {
                     this.views    = [];
-                    this.confirmDeleteView = new ConfirmDeleteView();
+                    //this.confirmDeleteView = new ConfirmDeleteView();
                 },
                 subscribeChannels : function() {
                     var commands = [];
@@ -136,20 +135,6 @@ define(
                             }
                         ));
                     }
-                },
-                getDeleteFlag : function() {
-                    var that = this;
-                    $.ajax({
-                        url : config.contextPath + "/user/getDeleteFlag.htm",
-                        type : 'POST',
-                        success : function(jsonData) {
-                            if (jsonData.value === false) {
-                                that.confirmDeleteView.setFlag(false);
-                            } else {
-                                that.confirmDeleteView.setFlag(true);
-                            }
-                        }
-                    });
                 }
             };
 

@@ -2,10 +2,12 @@ define([
     'jquery',
     'underscore',
     'backbone',
-], function($, _, Backbone){
+    'core/collections/userSettings'
+], function($, _, Backbone, UserSettings){
     
     var User = Backbone.Model.extend({
-        url:'user/'
+        url:'user/',
+        settings : UserSettings
     });
     return User;
 });

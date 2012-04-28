@@ -1,7 +1,9 @@
 package de.bht.swp.lao.ocp.auth;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import de.bht.swp.lao.ocp.exceptions.OCPHTTPException;
 import de.bht.swp.lao.ocp.user.settings.IUserSettingsDao;
 import de.bht.swp.lao.ocp.user.settings.UserSettings;
+import de.bht.swp.lao.ocp.user.settings.UserSettingsDTO;
 
 @Controller
 @RequestMapping(value = "/user/*")
@@ -36,6 +39,49 @@ public class UserController {
 
   @Inject
   private IUserSettingsDao userSettingsDao;
+
+  @RequestMapping(value = "/getAllSettings.htm", method = RequestMethod.GET)
+  public @ResponseBody
+  List<UserSettingsDTO> getSettings(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    User user = (User) request.getSession().getAttribute("user");
+    if (user == null) {
+      return null;
+    }
+
+    List<UserSettings> settings = userSettingsDao.findByUser(user);
+
+    List<UserSettingsDTO> rSettings = new ArrayList<UserSettingsDTO>();
+
+    for (UserSettings us : settings) {
+      rSettings.add(new UserSettingsDTO(us));
+    }
+
+    return rSettings;
+  }
+
+  @RequestMapping(value = "/setSettings.htm", method = RequestMethod.POST)
+  public @ResponseBody
+  Map<String, Object> setSetting(@RequestParam("key") String key, @RequestParam("value") Object value,
+      HttpServletRequest request, HttpServletResponse response) throws IOException {
+    User user = (User) request.getSession().getAttribute("user");
+
+    UserSettings settings = userSettingsDao.findByKey(user, key);
+
+    if (settings != null) {
+      settings.setValue(value);
+    } else {
+      settings = new UserSettings();
+      settings.setUser(user);
+      settings.setKey(key);
+      settings.setValue(value);
+    }
+
+    userSettingsDao.save(settings);
+
+    Map<String, Object> out = new HashMap<String, Object>();
+    out.put("value", value);
+    return out;
+  }
 
   @RequestMapping(value = "/setDeleteFlag.htm", method = RequestMethod.POST)
   public @ResponseBody

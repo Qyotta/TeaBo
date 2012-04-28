@@ -13,10 +13,9 @@ define([
     
     var AttachmentController = function(options){
         window.app.log("attachment controller");
-        _.bindAll(this,'getAttachments', 'getDeleteFlag','createAttachment','deleteAttachment', '_handleDeletedWhiteboardItem', '_handlePostedAttachment','_handleUploadCompleteAttachment','_handleUploadFailedAttachment');
+        _.bindAll(this,'getAttachments','createAttachment','deleteAttachment', '_handleDeletedWhiteboardItem', '_handlePostedAttachment','_handleUploadCompleteAttachment','_handleUploadFailedAttachment');
         window.app.eventDispatcher.bind("attachment:create",this.createAttachment);
         window.app.eventDispatcher.bind("whiteboard:opened",this.getAttachments);
-        window.app.eventDispatcher.bind("whiteboard:opened", this.getDeleteFlag());
         window.app.eventDispatcher.bind('attachment:delete',this.deleteAttachment);
         this.initialize();
     };
