@@ -6,7 +6,8 @@ define([
     var WhiteboardModus = {
             HAND : 'HAND',
             SELECT : 'SELECT',
-            MULTISELECT: 'MULTISELECT'
+            SELECTING:'SELECTING',
+            EDIT: 'EDIT',
     };
     
     return WhiteboardModus;
