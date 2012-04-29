@@ -156,22 +156,6 @@ define([
                 }
             });
             activeUpload = null;
-        },
-        getDeleteFlag : function() {
-            var that = this;
-            $.ajax({
-                url : config.contextPath + "/user/getDeleteFlag.htm",
-                type : 'POST',
-                success : function(jsonData) {
-                    if (jsonData.value === false) {
-                        window.app.log('[attachment] confirm should not be shown');
-                        that.confirmDeleteView.setFlag(false);
-                    } else {
-                        window.app.log('[attachment] confirm should be shown');
-                        that.confirmDeleteView.setFlag(true);
-                    }
-                }
-            });
         }
 
     };

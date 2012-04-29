@@ -4,9 +4,9 @@ define([ 'jquery', 'underscore', 'backbone', 'core/views/dialogs/dialog',
     var ConfirmDeleteView = Dialog
             .extend({
                 el : $('#dialogs'),
-                shouldShowDialog : true,
+                showDialogFlag:"DeleteConfirmFlag",
                 initialize : function() {
-                    _.bindAll(this, 'showConfirmDialog');
+                    _.bindAll(this, 'showConfirmDialog', 'confirmed', 'hideConfirmDialog', 'shouldShowDialog');
                     window.app.eventDispatcher.bind("attachment:delete_clicked",this.showConfirmDialog);
                 },
                 events : {
@@ -19,11 +19,21 @@ define([ 'jquery', 'underscore', 'backbone', 'core/views/dialogs/dialog',
                 },
                 showConfirmDialog : function(model) {
                     this.model = model;
-                    if (this.shouldShowDialog) {
+                    if(this.shouldShowDialog()){
                         this.showDialog();
                     } else {
                         window.app.eventDispatcher.trigger('attachment:delete',this.model);
                     }
+                },
+                shouldShowDialog : function(){
+                    if(typeof window.app.user.get("settings").where(this.showDialogFlag)[0] == "undefined" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == true){
+                        if(typeof window.app.user.get("settings").where(this.showDialogFlag)[0] != "undefined") {
+                            window.app.log(window.app.user.get("settings").where(this.showDialogFlag)[0].get("value"));
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }   
                 },
                 hideConfirmDialog : function(evt) {
                     evt.preventDefault();
@@ -32,19 +42,9 @@ define([ 'jquery', 'underscore', 'backbone', 'core/views/dialogs/dialog',
                 },
                 confirmed : function(evt) {
                     evt.preventDefault();
-                    $.ajax({
-                        url : config.contextPath + "/user/setDeleteFlag.htm",
-                        type : 'POST',
-                        data : 'value='
-                                + !$('#dialogs :checkbox').is(':checked')
-                    });
-                    this.setFlag(!$('#dialogs :checkbox').is(':checked'));
+                    window.app.modules.userSettings.set(this.showDialogFlag,!$('#dialogs :checkbox').is(':checked'));
                     this.hideDialog();
                     window.app.eventDispatcher.trigger('attachment:delete',this.model);
-                },
-                setFlag : function(value) {
-                    window.app.log('[attachment] show deleteConfirm:' + value);
-                    this.shouldShowDialog = value;
                 }
             });
 

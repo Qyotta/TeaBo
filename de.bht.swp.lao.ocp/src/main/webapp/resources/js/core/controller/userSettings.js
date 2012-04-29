@@ -41,6 +41,7 @@ define([
           var settings = this.userSettings.where(_key)[0];
           if(!settings){
               settings = new UserSettings();
+              this.userSettings.add(settings);
           }
           settings.set({
               key : _key, 
