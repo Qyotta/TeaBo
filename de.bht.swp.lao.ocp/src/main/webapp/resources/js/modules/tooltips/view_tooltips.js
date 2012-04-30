@@ -7,6 +7,7 @@ define([
     
     var TooltipsView = Backbone.View.extend({
         el: $('#tooltips'),
+        showDialogFlag : "ToolTipFlag",
         events : {
             'click .closeToolTip' :'closeToolTip',
             'click .nextToolTip' :'nextToolTip',
@@ -36,7 +37,6 @@ define([
                 $(this.toolTips[0]).fadeIn(500);
                 this.toolTipCnt++;
             } else {
-                console.log('awww');
                 $(this.toolTips[this.toolTipCnt-1]).fadeOut(500,function() {
                     $(that.toolTips[that.toolTipCnt]).fadeIn(500);
                     that.toolTipCnt++;
@@ -55,11 +55,7 @@ define([
             });
         },
         closeToolTip: function() {
-            $.ajax({
-                url: config.contextPath+"/user/setToolTipFlag.htm",
-                type: 'POST',
-                data: 'value='+!$('#showAgain').is(':checked')
-            });
+            window.app.modules.userSettings.set(this.showDialogFlag,!$('#showAgain').is(':checked'));
             $(this.toolTips[this.toolTipCnt-1]).fadeOut(500);
         },
         setCheckbox: function(value){

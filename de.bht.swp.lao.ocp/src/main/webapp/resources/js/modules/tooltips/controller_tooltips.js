@@ -7,32 +7,32 @@ define([
     
     var TooltipsController = function(options){
         _.bindAll(this,'isShowTooltips','showTooltips','openTooltips');
-        window.app.eventDispatcher.bind("whiteboard:open",this.isShowTooltips);
+        window.app.eventDispatcher.bind("userSettings:synced",this.isShowTooltips);
         window.app.eventDispatcher.bind("toolbar:showToolTips",this.openTooltips);
         this.initialize();
     };
     
     TooltipsController.prototype = {
+        showDialogFlag : "ToolTipFlag",
         initialize: function() {
             window.app.log('tooltips loaded');
             this.view = new TooltipsView();
         },
         isShowTooltips: function() {
-            // check if tooltips be allowed to open
-            var that = this;
-            $.ajax({
-                url: config.contextPath+"/user/showAgain.htm",
-                type: 'POST',
-                success: function(jsonData) {
-                    if(jsonData.value === false) {
-                        window.app.log('open tooltips');
-                        that.showTooltips();
-                    }
-                    else {
-                        that.view.setCheckbox(true);
-                    }
-                }
-            });
+            if(this.shouldShowDialog()){
+                window.app.log('open tooltips');
+                this.showTooltips();
+            }
+            else {
+                this.view.setCheckbox(true);
+            }
+        },
+        shouldShowDialog : function(){
+            if(typeof window.app.user.get("settings").where(this.showDialogFlag)[0] == "undefined" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == "true"){
+                return true;
+            } else {
+                return false;
+            }   
         },
         showTooltips: function() {
             this.view.startTour();
