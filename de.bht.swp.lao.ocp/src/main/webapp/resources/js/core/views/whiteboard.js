@@ -30,8 +30,10 @@ define([
             if(this.modus==WhiteboardModus.SELECT){
                 this.modusChanged(WhiteboardModus.SELECTING);
                 this.startSelection(event);
+            }else if(this.modus==WhiteboardModus.MULTISELECT){
+                this.modusChanged(WhiteboardModus.MULTISELECTING);
+                this.startSelection(event);
             }else if(this.modus==WhiteboardModus.HAND){
-                window.app.log("start moving whiteboard");
                 this.startMove(event);
             }else if(this.modus==WhiteboardModus.EDIT){
                 window.app.log("editing");
@@ -39,6 +41,8 @@ define([
         },
         mouseMove:function(event){
             if(this.modus==WhiteboardModus.SELECTING){
+                this.dragEnterEvent(event);
+            }else if(this.modus==WhiteboardModus.MULTISELECTING){
                 this.dragEnterEvent(event);
             }else if(this.modus==WhiteboardModus.HAND){
                 this.move(event);
@@ -48,32 +52,43 @@ define([
             if(this.modus==WhiteboardModus.SELECTING){
                 this.dragEndEvent();
                 this.modusChanged(WhiteboardModus.SELECT);
+            }else if(this.modus==WhiteboardModus.MULTISELECTING){
+        	   this.dragEndEvent();
+               this.modusChanged(WhiteboardModus.MULTISELECT);
             }else if(this.modus==WhiteboardModus.HAND){
                 this.endMove();
             }
         },
         keydown:function(event){
-            // 18 == ALT
-            if(event.which==18){
+        	var _modus=null;
+        	if(event.which==18){ // 18 == ALT KEY
                 event.preventDefault();
-                if(this.modus!=WhiteboardModus.HAND)window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.HAND);
+                _modus = WhiteboardModus.HAND;
+            }else if(event.which==17){// 17 == CTRL KEY
+            	_modus = WhiteboardModus.MULTISELECT;
+            	if(this.modus==WhiteboardModus.MULTISELECTING){return;}
             }
+            if(this.modus!=_modus)window.app.eventDispatcher.trigger('whiteboard:changed_modus',_modus);
         },
         keyup:function(event){
-            // 18 == ALT
+            // 18 == ALT KEY
             if(event.keyCode==18){
+                event.preventDefault();
+                window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.SELECT);
+            }else if(event.keyCode==17){
                 event.preventDefault();
                 window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.SELECT);
             }
         },
         entersWhiteboardItem:function(){
-            if(this.modus!=WhiteboardModus.SELECTING){
-                this.modusChanged(WhiteboardModus.EDIT);
+            if(this.modus!=WhiteboardModus.SELECTING && this.modus!=WhiteboardModus.MULTISELECTING){
+                console.log(true,this.modus);
+            	this.modusChanged(WhiteboardModus.EDIT);
             }
         },
         leavesWhiteboardItem:function(event){
-            $(event.currentTarget.id+"input[type=text], textarea").trigger('blur');//workaround to triger blur
             if(this.modus==WhiteboardModus.EDIT){
+            	$(event.currentTarget.id+"input[type=text], textarea").trigger('blur');//workaround to trigger blur
                 this.modusChanged(WhiteboardModus.SELECT);
             }
         },
@@ -130,16 +145,24 @@ define([
         startSelection: function(e) {
             e.preventDefault();
             
-            if(this.modus!=WhiteboardModus.SELECTING){return;}
-            
-            if(e.target.parentElement.tagName != 'A') {
-                $(this.el).find('.whiteboarditem').removeClass('selected');
-            }
+//          WOZU???  
+//            if(e.target.parentElement.tagName != 'A') {
+//                $(this.el).find('.whiteboarditem').removeClass('selected');
+//            }
             if(e.target.tagName != 'DIV') {
                 return false;
             }
             
-            $(this.el).find('.whiteboarditem').removeClass('selected');
+        	this.selection = this.currentSelectedWhiteboardItems();
+            
+            // deselect previously selected notes if not multiselecting
+            if(this.modus==WhiteboardModus.MULTISELECTING){
+            	console.log("start multiselection");
+            }else{
+            	this.selection.removeClass('selected');
+            	this.selection = null;
+            }
+            
             if(this.isSelectionBox) return;
             
             $(this.el).find('.whiteboarditem.hoverable').removeClass('hoverable');
@@ -174,8 +197,11 @@ define([
             }
             
             var selectedWhiteboardItems = this.selectionBox.collision('.whiteboarditem');
+            
+            this.currentSelectedWhiteboardItems().not(this.selection).removeClass('selected');
+            
             selectedWhiteboardItems.addClass('selected');
-            $(this.el).find('.whiteboarditem').not(selectedWhiteboardItems).removeClass('selected');
+            
         },
         dragEndEvent: function() {
             if(!this.isSelectionBox || this.selectionBox === undefined) return;
@@ -184,6 +210,9 @@ define([
             this.isSelectionBox = false;
             
             $(this.el).find('.whiteboarditem').addClass('hoverable');
+        },
+        currentSelectedWhiteboardItems:function(){
+        	return $(this.el).find('.whiteboarditem.selected');
         }
     });
     
