@@ -32,7 +32,6 @@ define([
                 return false;
             }});
             
-            window.app.log(this.userSettings);
         },
         get:function(_key){
             return this.userSettings.where({key : _key});
@@ -40,6 +39,7 @@ define([
         set:function(_key, _value){
           var settings = this.userSettings.where(_key)[0];
           if(!settings){
+              alert(typeof this.userSettings.where(_key)[0]);
               settings = new UserSettings();
               this.userSettings.add(settings);
           }
