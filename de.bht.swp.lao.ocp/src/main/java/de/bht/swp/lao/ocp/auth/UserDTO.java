@@ -20,7 +20,6 @@ public class UserDTO {
     this.lastname = user.getLastname();
     this.email = user.getEmail();
     this.position = user.getPosition();
-    this.showToolTips = user.isShowToolTips();
   }
 
   public Integer getId() {
@@ -61,14 +60,6 @@ public class UserDTO {
 
   public void setPosition(String position) {
     this.position = position;
-  }
-
-  public boolean isShowToolTips() {
-    return showToolTips;
-  }
-
-  public void setShowToolTips(boolean showToolTips) {
-    this.showToolTips = showToolTips;
   }
 
 }

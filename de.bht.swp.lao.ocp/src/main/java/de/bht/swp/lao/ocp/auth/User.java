@@ -37,7 +37,6 @@ public class User {
   private String password;
 
   private String position;
-  private boolean showToolTips;
 
   @OneToMany(mappedBy = "creator", targetEntity = WhiteboardItem.class)
   private Set<WhiteboardItem> whiteboardItems;
@@ -141,14 +140,6 @@ public class User {
 
   public void setPosition(String position) {
     this.position = position;
-  }
-
-  public boolean isShowToolTips() {
-    return showToolTips;
-  }
-
-  public void setShowToolTips(boolean showToolTips) {
-    this.showToolTips = showToolTips;
   }
 
   @Override
