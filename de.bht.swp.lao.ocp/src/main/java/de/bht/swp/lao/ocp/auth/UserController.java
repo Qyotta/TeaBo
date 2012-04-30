@@ -27,10 +27,6 @@ import de.bht.swp.lao.ocp.user.settings.UserSettingsDTO;
 @RequestMapping(value = "/user/*")
 public class UserController {
 
-  private static final String DELETE_CONFIRM_FLAG = "DeleteConfirmFlag";
-
-  private static final String TOOL_TIP_FLAG = "ToolTipFlag";
-
   @Autowired
   private UserLoginValidator userLoginValidator;
 

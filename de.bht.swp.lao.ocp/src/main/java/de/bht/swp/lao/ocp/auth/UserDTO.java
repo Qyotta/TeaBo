@@ -1,9 +1,5 @@
 package de.bht.swp.lao.ocp.auth;
 
-import java.util.List;
-
-import de.bht.swp.lao.ocp.user.settings.UserSettingsDTO;
-
 public class UserDTO {
   private Integer id;
 
@@ -12,7 +8,6 @@ public class UserDTO {
   private String email;
 
   private String position;
-  private boolean showToolTips;
 
   public UserDTO(User user) {
     this.id = user.getId();
