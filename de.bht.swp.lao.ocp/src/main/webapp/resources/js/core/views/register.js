@@ -9,7 +9,7 @@ define([
     var RegisterView = Backbone.View.extend({
         el: $("#page"),
         events:{
-            'mousedown .registerCancelButtons input[type=submit]' : 'submitClicked',
+            'submit form[name="register"]' : 'submitClicked',
             'mousedown .registerCancelButtons button' : 'cancelClicked',
             'hover .exclamation' : 'showError'
         },
@@ -48,6 +48,8 @@ define([
                                     window.router.navigate("login",{trigger: true});
                                     new Notice({message:"Registration was successful. Please login with your credentials."});
                                 },error:function(model, response){
+                                    window.app.log(model);
+                                    window.app.log(response);
                                      new Error({message:"Registration was not successful. Try again."});
                                 }});
         },

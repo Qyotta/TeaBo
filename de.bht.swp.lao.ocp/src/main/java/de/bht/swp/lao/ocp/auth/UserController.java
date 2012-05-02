@@ -104,7 +104,7 @@ public class UserController {
 
   @RequestMapping(method = RequestMethod.POST)
   public @ResponseBody
-  UserDTO register(@ModelAttribute User user) {
+  UserDTO register(@RequestBody User user) {
     if (user == null) {
       throw new OCPHTTPException(OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED, "Register data not valid.");
     }
