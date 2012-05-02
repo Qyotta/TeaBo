@@ -16,7 +16,7 @@
 <script type="text/javascript">var config = {contextPath: '${pageContext.request.contextPath}'}</script>
 <script type="text/javascript">
 <c:if test="${not empty user}">
-    window.userData = {id:${user.id},firstname:"${user.firstname}",lastname:"${user.lastname}",email:"${user.email}",position:"${user.position}",showToolTips:${user.showToolTips}};
+    window.userData = {id:${user.id},firstname:"${user.firstname}",lastname:"${user.lastname}",email:"${user.email}",position:"${user.position}"};
 </c:if>
 </script>
 <script data-main="resources/js/main"src="${pageContext.request.contextPath}/resources/js/libs/require/require.js"></script>

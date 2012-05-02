@@ -27,6 +27,7 @@
     <bean id="attachmentDao" class="de.bht.swp.lao.ocp.attachment.AttachmentDao" />
     <bean id="whiteboardItemDao" class="de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItemDao" />
     <bean id="whiteboardDao" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardDao" />
+    <bean id="assignmentDao" class="de.bht.swp.lao.ocp.whiteboard.AssignmentDao" />
     <bean id="emailValidator" class="de.bht.swp.lao.ocp.auth.EmailValidator" />
 
 <!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 

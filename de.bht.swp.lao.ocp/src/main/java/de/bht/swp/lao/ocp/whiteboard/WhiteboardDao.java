@@ -77,9 +77,8 @@ public class WhiteboardDao implements IWhiteboardDao {
             for (WhiteboardItem n : w.getWhiteboardItems()) {
                 em.remove(n);
             }
-            for (User u : w.getAssignedUsers()) {
-                u.removeAssignedWhiteboard(w);
-                em.merge(u);
+            for (Assignment assignment : w.getAssignments()) {
+                em.remove(assignment);
             }
 
             em.remove(w);
