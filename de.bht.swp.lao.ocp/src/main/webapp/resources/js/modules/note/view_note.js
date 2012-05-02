@@ -3,7 +3,7 @@ define([ 'jquery',
          'backbone',
          'core/utils/model_command',
          'core/views/whiteboarditem',
-         'text!templates/note/note.html'], 
+         'text!templates/modules/note/note.html'], 
          function($, _, Backbone, ModelCommand,WhiteboardItemView,noteTemplate) {
     var NoteView = WhiteboardItemView.extend({
         name : 'note',
