@@ -21,11 +21,8 @@ define([
             this.view = new TopbarView();
             this.view.render();
         },
-        changeTopbar: function(whiteboard) {
-            if(whiteboard) {
-                var view = 'whiteboard';
-            }
-            this.view.render(view);
+        changeTopbar: function() {
+            this.view.render();
         }
     };
     

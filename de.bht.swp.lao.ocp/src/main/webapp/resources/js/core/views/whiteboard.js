@@ -53,20 +53,20 @@ define([
                 this.dragEndEvent();
                 this.modusChanged(WhiteboardModus.SELECT);
             }else if(this.modus==WhiteboardModus.MULTISELECTING){
-        	   this.dragEndEvent();
+               this.dragEndEvent();
                this.modusChanged(WhiteboardModus.MULTISELECT);
             }else if(this.modus==WhiteboardModus.HAND){
                 this.endMove();
             }
         },
         keydown:function(event){
-        	var _modus=null;
-        	if(event.which==18){ // 18 == ALT KEY
+            var _modus=null;
+            if(event.which==18){ // 18 == ALT KEY
                 event.preventDefault();
                 _modus = WhiteboardModus.HAND;
-            }else if(event.which==17){// 17 == CTRL KEY
-            	_modus = WhiteboardModus.MULTISELECT;
-            	if(this.modus==WhiteboardModus.MULTISELECTING){return;}
+            }else if(event.shiftKey){ // SHIFT KEY
+                _modus = WhiteboardModus.MULTISELECT;
+                if(this.modus==WhiteboardModus.MULTISELECTING){return;}
             }
             if(this.modus!=_modus)window.app.eventDispatcher.trigger('whiteboard:changed_modus',_modus);
         },
@@ -75,7 +75,7 @@ define([
             if(event.keyCode==18){
                 event.preventDefault();
                 window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.SELECT);
-            }else if(event.keyCode==17){
+            }else if(event.shiftKey){
                 event.preventDefault();
                 window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.SELECT);
             }
@@ -83,12 +83,12 @@ define([
         entersWhiteboardItem:function(){
             if(this.modus!=WhiteboardModus.SELECTING && this.modus!=WhiteboardModus.MULTISELECTING){
                 console.log(true,this.modus);
-            	this.modusChanged(WhiteboardModus.EDIT);
+                this.modusChanged(WhiteboardModus.EDIT);
             }
         },
         leavesWhiteboardItem:function(event){
             if(this.modus==WhiteboardModus.EDIT){
-            	$(event.currentTarget.id+"input[type=text], textarea").trigger('blur');//workaround to trigger blur
+                $(event.currentTarget.id+"input[type=text], textarea").trigger('blur');//workaround to trigger blur
                 this.modusChanged(WhiteboardModus.SELECT);
             }
         },
@@ -153,14 +153,14 @@ define([
                 return false;
             }
             
-        	this.selection = this.currentSelectedWhiteboardItems();
+            this.selection = this.currentSelectedWhiteboardItems();
             
             // deselect previously selected notes if not multiselecting
             if(this.modus==WhiteboardModus.MULTISELECTING){
-            	console.log("start multiselection");
+                console.log("start multiselection");
             }else{
-            	this.selection.removeClass('selected');
-            	this.selection = null;
+                this.selection.removeClass('selected');
+                this.selection = null;
             }
             
             if(this.isSelectionBox) return;
@@ -212,7 +212,7 @@ define([
             $(this.el).find('.whiteboarditem').addClass('hoverable');
         },
         currentSelectedWhiteboardItems:function(){
-        	return $(this.el).find('.whiteboarditem.selected');
+            return $(this.el).find('.whiteboarditem.selected');
         }
     });
     
