@@ -16,23 +16,32 @@ define([ 'jquery', 'underscore', 'backbone', 'text!templates/toolbar.html' ],
                     var compiledTemplate = _.template(toolbarTemplate, data);
                     this.el.html(compiledTemplate);
                 },
-                createNoteClicked : function(evt) {
-                    evt.preventDefault();
-                    window.app.eventDispatcher.trigger("note:create", null);
-                },
                 unrender : function() {
                     this.el.empty();
                 },
-                showToolTips : function(evt) {
+                createNoteClicked : function(evt) {
+                    // prevent action if a dialog is open
+                    if($('#dialogs').css('display') === 'block') {
+                        return;
+                    }
                     evt.preventDefault();
-                    window.app.eventDispatcher.trigger("toolbar:showToolTips",
-                            null);
+                    window.app.eventDispatcher.trigger("note:create", null);
+                },
+                showToolTips : function(evt) {
+                    // prevent action if a dialog is open
+                    if($('#dialogs').css('display') === 'block') {
+                        return;
+                    }
+                    evt.preventDefault();
+                    window.app.eventDispatcher.trigger("toolbar:showToolTips", null);
                 },
                 createAttachmentClicked : function(evt) {
+                    // prevent action if a dialog is open
+                    if($('#dialogs').css('display') === 'block') {
+                        return;
+                    }
                     evt.preventDefault();
-                    window.app.log("attachment clicked");
-                    window.app.eventDispatcher.trigger("attachment:create",
-                            null);
+                    window.app.eventDispatcher.trigger("attachment:create", null);
                 }
 
             });
