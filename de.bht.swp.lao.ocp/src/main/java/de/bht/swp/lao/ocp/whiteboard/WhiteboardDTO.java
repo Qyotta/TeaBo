@@ -11,7 +11,7 @@ public class WhiteboardDTO {
     public WhiteboardDTO(Whiteboard w) {
         this.id = w.getId();
         this.name = w.getName();
-        this.creator = w.getCreator().getEmail();
+        this.creator = w.getOwner().getUser().getEmail();
     }
 
     public Long getId() {
