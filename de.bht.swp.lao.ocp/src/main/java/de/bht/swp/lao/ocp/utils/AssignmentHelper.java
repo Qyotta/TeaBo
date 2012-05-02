@@ -1,9 +1,11 @@
 package de.bht.swp.lao.ocp.utils;
 
 import java.awt.Color;
+import java.util.Random;
 
 public class AssignmentHelper {
     public static Color generateColor(){
-        return new Color(255, 255, 0);
+        Random random = new Random();
+        return Color.getHSBColor(random.nextInt(359), 50, 100);
     }
 }

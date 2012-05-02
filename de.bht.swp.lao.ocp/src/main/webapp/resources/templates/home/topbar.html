@@ -17,7 +17,12 @@
         </div>
         
         <div>
-            <b>User:</b><%=user.get("email")%>
+            <%=user.get("email")%>
         </div>
+        <% if(view === "whiteboard") { %>
+                <div class="assigned-user-color-container">
+                    <div class="assigned-user-color" style="width:15px;height:15px; background:#ff0;"></div>
+                </div>
+        <% } %>
     <% } %>
 </div>
