@@ -18,7 +18,10 @@ define([
             window.app.user.bind("change", this.changedUser);
             this.render();
         },
-        render: function(view){
+        render: function(){
+            if($('#whiteboard').length) {
+                var view = 'whiteboard';
+            }
             var data = {user:window.app.user,title:null,view: view,versionNumber: window.app.versionNumber,versionType: window.app.versionType};
             var compiledTemplate = _.template( topbarTemplate, data );
             this.el.html(compiledTemplate);
