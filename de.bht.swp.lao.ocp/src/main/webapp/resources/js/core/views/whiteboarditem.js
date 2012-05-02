@@ -13,57 +13,12 @@ define([
             'click ' : 'orderChange'
         },
         initialize:function(whiteboard){
-            _.bindAll(this, 'handleDragItem', 'orderChange', 'handleForegroundWhiteboardItem');
+            _.bindAll(this, 'handleDragItem', 'persistPosition', 'orderChange', 'handleForegroundWhiteboardItem');
             
-            var self = this;
             $(this.el).draggable({
-                handle : $('.file_mouseOverMenu_top', this),
                 scroll : false,
                 drag : this.handleDragItem,
-                stop : function(e, ui) {
-                    // remove blocked menu and creator element
-                    $(this).find('.noteMenu').css('display', '');
-                    $(this).find('.creator').css('display', '');
-                    
-                    // remove unnecessary data attributes
-                    $.each($('div.whiteboard > div'), function(i,elem) {
-                        $(elem).data('oldPosX','').data('oldPosY','');
-                    });
-                    
-                    if($('div.whiteboard > div.selected').length > 1) {
-                        // get all views
-                        views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
-                        // persist views
-                        var commands = [];
-                        $.each(views,function(j,view) {
-                            if(view && $(view.el).hasClass('selected')) {
-                                var _x = parseInt($(view.el).css('left'),10),
-                                    _y = parseInt($(view.el).css('top'),10);
-                                commands.push(new ModelCommand(
-                                    '/service/whiteboardItem/move',
-                                    {
-                                        id : view.model.id,
-                                        x : _x,
-                                        y : _y,
-                                        whiteboardid : view.options.whiteboardId
-                                    }
-                                ));
-                            }
-                        });
-                        
-                        window.app.groupCommand.addCommands(commands);
-                    } else {
-                        window.app.groupCommand.addCommands(new ModelCommand(
-                            '/service/whiteboardItem/move',
-                            {
-                                id: self.model.id,
-                                x : parseInt($(self.el).css('left'),10),
-                                y : parseInt($(self.el).css('top'),10),
-                                whiteboardid : self.options.whiteboardId
-                            }
-                        ));
-                    }
-                }
+                stop : this.persistPosition
             });
         },
         handleDragItem: function(e) {
@@ -93,6 +48,52 @@ define([
             }
             $(this.el).find('.noteMenu').css('display','block');
             $(this.el).find('.creator').css('display','block');
+        },
+        persistPosition: function(e,ui) {
+            var self = this;
+            
+            // remove blocked menu and creator element
+            $(this).find('.noteMenu').css('display', '');
+            $(this).find('.creator').css('display', '');
+            
+            // remove unnecessary data attributes
+            $.each($('div.whiteboard > div'), function(i,elem) {
+                $(elem).data('oldPosX','').data('oldPosY','');
+            });
+            
+            if($('div.whiteboard > div.selected').length > 1) {
+                // get all views
+                views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
+                // persist views
+                var commands = [];
+                $.each(views,function(j,view) {
+                    if(view && $(view.el).hasClass('selected')) {
+                        var _x = parseInt($(view.el).css('left'),10),
+                            _y = parseInt($(view.el).css('top'),10);
+                        commands.push(new ModelCommand(
+                            '/service/whiteboardItem/move',
+                            {
+                                id : view.model.id,
+                                x : _x,
+                                y : _y,
+                                whiteboardid : view.options.whiteboardId
+                            }
+                        ));
+                    }
+                });
+                
+                window.app.groupCommand.addCommands(commands);
+            } else {
+                window.app.groupCommand.addCommands(new ModelCommand(
+                    '/service/whiteboardItem/move',
+                    {
+                        id: self.model.id,
+                        x : parseInt($(self.el).css('left'),10),
+                        y : parseInt($(self.el).css('top'),10),
+                        whiteboardid : self.options.whiteboardId
+                    }
+                ));
+            }
         },
         deleteClicked : function() {
             window.app.eventDispatcher.trigger(this.name+":delete_clicked", this.model);
