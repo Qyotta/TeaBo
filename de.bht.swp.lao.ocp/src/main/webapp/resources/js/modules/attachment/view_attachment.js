@@ -3,7 +3,7 @@ define([ 'jquery',
          'backbone', 
          'core/views/whiteboarditem',
          'core/modus',
-         'text!templates/attachment/attachment.html', ],
+         'text!templates/modules/attachment/attachment.html', ],
          function($, _, Backbone, WhiteboardItemView,WhiteboardModus, attachmentTemplate) {
     var AttachmentView = WhiteboardItemView.extend({
         name : 'attachment',

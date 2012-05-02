@@ -4,7 +4,7 @@ define([
     'backbone', 
     'core/utils/model_command',
     'core/views/dialogs/dialog',
-    'text!templates/attachment/upload_dialog.html'
+    'text!templates/modules/attachment/upload_dialog.html'
 ], function($, _, Backbone, ModelCommand, Dialog, uploadDialogTemplate) {
     var UploadDialog = Dialog.extend({
         el : $('#dialogs'),

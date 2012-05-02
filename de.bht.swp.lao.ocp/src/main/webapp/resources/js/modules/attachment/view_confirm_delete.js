@@ -1,5 +1,5 @@
 define([ 'jquery', 'underscore', 'backbone', 'core/views/dialogs/dialog',
-        'text!templates/attachment/confirm_delete.html' ], function($, _,
+        'text!templates/modules/attachment/confirm_delete.html' ], function($, _,
         Backbone, Dialog, confirmDeleteTemplate) {
     var ConfirmDeleteView = Dialog
             .extend({
