@@ -79,6 +79,11 @@ define([
                 event.preventDefault();
                 window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.SELECT);
             }
+            // [DEL]
+            else if(event.keyCode==46){
+                event.preventDefault();
+                window.app.eventDispatcher.trigger('whiteboardItem:delete_clicked');
+            }
         },
         entersWhiteboardItem:function(){
             if(this.modus!=WhiteboardModus.SELECTING && this.modus!=WhiteboardModus.MULTISELECTING){

@@ -15,6 +15,8 @@ define([
         initialize:function(whiteboard){
             _.bindAll(this, 'handleDragItem', 'persistPosition', 'orderChange', 'handleForegroundWhiteboardItem');
             
+            window.app.eventDispatcher.bind("whiteboardItem:delete_multiple",this.deleteMulitple);
+            
             $(this.el).draggable({
                 scroll : false,
                 drag : this.handleDragItem,
@@ -96,13 +98,43 @@ define([
             }
         },
         deleteClicked : function() {
-            window.app.eventDispatcher.trigger(this.name+":delete_clicked", this.model);
+            var elem = $('div.whiteboard > div.selected');
+            // do it only if more than two are selected and elem itself is selected
+            if(elem.length > 1 && $(this.el).hasClass('selected')) {
+                window.app.log("multiple !!!");
+                window.app.eventDispatcher.trigger("whiteboardItem:delete_multiple", this.model);
+            }else {
+                window.app.eventDispatcher.trigger(this.name+":delete_clicked", this.model);
+            }
         },
         orderChange : function (evt) {
             window.app.eventDispatcher.trigger(this.name+":order_change", this.model);
         },
         handleForegroundWhiteboardItem : function(message){
             $(this.el).css('z-index', message.data.newIndex);
+        },
+        deleteMulitple : function(model) {
+            var elem = $('div.whiteboard > div.selected');
+            // do it only if more than two are selected and elem itself is selected
+            if(elem.length > 1 && $(this.el).hasClass('selected')) {
+                views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
+                // persist views
+                var commands = [];
+                $.each(views,function(j,view) {
+                    if(view && $(view.el).hasClass('selected')) {
+                        
+                        commands.push(new ModelCommand(
+                            '/service/whiteboardItem/delete',
+                            {
+                                id : view.model.id,
+                                whiteboardid : view.options.whiteboardId
+                            }
+                        ));
+                    }
+                });
+                
+                window.app.groupCommand.addCommands(commands);
+            }
         }
     });
     
