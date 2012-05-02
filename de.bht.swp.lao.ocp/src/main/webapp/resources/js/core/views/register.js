@@ -48,8 +48,6 @@ define([
                                     window.router.navigate("login",{trigger: true});
                                     new Notice({message:"Registration was successful. Please login with your credentials."});
                                 },error:function(model, response){
-                                    window.app.log(model);
-                                    window.app.log(response);
                                      new Error({message:"Registration was not successful. Try again."});
                                 }});
         },
