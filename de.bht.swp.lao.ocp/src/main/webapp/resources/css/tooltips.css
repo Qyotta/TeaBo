@@ -80,6 +80,12 @@
     right: 0!important;
     top: -4px;
 }
+#tooltips #selectItems {
+    left:50%;
+    top:50%;
+    width: 400px;
+    margin:-185px 0 0 -200px;
+}
 #tooltips #prev {
     position: absolute;
     left: 3px;
