@@ -12,6 +12,8 @@ define([
 
         _.bindAll(this,'onMetaConnect', 'setSettings');
         
+        this.versionNumber = 0.2;
+        this.versionType = 'beta';
         
         this.debugMode = true,
         this.user = {},

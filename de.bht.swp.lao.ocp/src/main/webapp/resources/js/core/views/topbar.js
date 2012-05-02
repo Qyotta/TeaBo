@@ -19,7 +19,7 @@ define([
             this.render();
         },
         render: function(view){
-            var data = {user:window.app.user,title:null,view: view};
+            var data = {user:window.app.user,title:null,view: view,versionNumber: window.app.versionNumber,versionType: window.app.versionType};
             var compiledTemplate = _.template( topbarTemplate, data );
             this.el.html(compiledTemplate);
         },
