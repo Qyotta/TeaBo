@@ -81,23 +81,26 @@ define([
             }
         },
         _handlePostedAttachment:function(message){
-                var _id       = message.data.id,
-                    _creator  = message.data.creator,
-                    _filename = message.data.filename,
-                    _x        = message.data.x,
-                    _y        = message.data.y,
-                    _uid      = message.data.uid,
-                    _image    = config.contextPath;
+            console.log(message);
+                var id          = message.data.id,
+                    creator     = message.data.creator,
+                    description = message.data.text,
+                    filename    = message.data.filename,
+                    x           = message.data.x,
+                    y           = message.data.y,
+                    uid         = message.data.uid,
+                    image       = config.contextPath;
                 
                 var _attachment = new Attachment({
-                    id:_id,
-                    creator : _creator,
-                    filename: _filename,
-                    x       : _x,
-                    y       : _y,
-                    image   : _image,
-                    uid     : _uid,
-                    complete: false
+                    id          : id,
+                    creator     : creator,
+                    description : description,
+                    filename    : filename,
+                    x           : x,
+                    y           : y,
+                    image       : image,
+                    uid         : uid,
+                    complete    : false
                 });
                 
                 if(this.views[_attachment.id]!=null){

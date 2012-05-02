@@ -21,6 +21,7 @@ import de.bht.swp.lao.ocp.auth.IUserDao;
 import de.bht.swp.lao.ocp.auth.User;
 import de.bht.swp.lao.ocp.exceptions.OCPHTTPException;
 import de.bht.swp.lao.ocp.mailer.InviteMailer;
+import de.bht.swp.lao.ocp.utils.AssignmentHelper;
 import de.bht.swp.lao.ocp.utils.UserUtilities;
 
 /**
@@ -37,6 +38,9 @@ public class WhiteboardController {
 
     @Inject
     private IWhiteboardDao whiteboardDao;
+
+    @Inject
+    private IAssignmentDAO assignmentDao;
 
     @Inject
     private IUserDao userDao;
@@ -65,12 +69,12 @@ public class WhiteboardController {
     }
 
     private boolean isOwnedByUser(User user, Whiteboard whiteboard) {
-        return user.equals(whiteboard.getCreator());
+        return whiteboard.getOwner().getUser().equals(user);
     }
 
     @RequestMapping(value = BASE_URL, method = RequestMethod.GET)
     public @ResponseBody
-    List<WhiteboardDTO> getWhiteboards(HttpServletRequest request) {
+    List<WhiteboardDTO> getAssignments(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
 
         if (user == null) {
@@ -82,12 +86,11 @@ public class WhiteboardController {
         user = userDao.findById(user.getId());
 
         List<WhiteboardDTO> out = new ArrayList<WhiteboardDTO>();
-        for (Whiteboard w : user.getWhiteboards()) {
-            out.add(new WhiteboardDTO(w));
+        
+        for (Assignment assignment : user.getAssignments()) {
+            out.add(new WhiteboardDTO(assignment.getWhiteboard()));
         }
-        for (Whiteboard w : user.getAssignedWhiteboards()) {
-            out.add(new WhiteboardDTO(w));
-        }
+        
         return out;
     }
 
@@ -134,9 +137,12 @@ public class WhiteboardController {
                     "Please login!");
         }
 
-        whiteboard.setCreator(user);
         whiteboardDao.saveOrUpdate(whiteboard);
-
+        
+        Assignment assignment = new Assignment(user, whiteboard, AssignmentHelper.generateColor(),true);
+        
+        assignmentDao.saveOrUpdate(assignment);
+        whiteboard = whiteboardDao.findById(whiteboard.getId());
         return new WhiteboardDTO(whiteboard);
     }
 
@@ -162,20 +168,24 @@ public class WhiteboardController {
 
         String mailaddress = (String) data.get("email");
         Long whiteboardId = Long.valueOf((Integer) data.get("whiteboardId"));
+        
         User invitedUser = userDao.findByEmail(mailaddress);
-
+        
         if (invitedUser == null) {
             invitedUser = new User();
             invitedUser.setEmail(mailaddress);
             invitedUser.setPassword(UserUtilities.randomPassword());
         }
-
-        Whiteboard w = whiteboardDao.findById(whiteboardId);
-        invitedUser.addAssignedWhiteboard(w);
         userDao.save(invitedUser);
+        
+        Whiteboard whiteboard = whiteboardDao.findById(whiteboardId);
+        
+        Assignment assignment = new Assignment(invitedUser, whiteboard, AssignmentHelper.generateColor(),false);
+        assignmentDao.saveOrUpdate(assignment);
+        
         String hostname = request.getScheme() + "://" + request.getServerName()
                 + ":" + request.getServerPort();
-        new InviteMailer(hostname, request.getContextPath(), invitedUser, w)
+        new InviteMailer(hostname, request.getContextPath(), invitedUser, whiteboard)
                 .sendMessage(invitedUser);
 
         String s = "{\"success\":true}";

@@ -1,18 +1,20 @@
 package de.bht.swp.lao.ocp.whiteboard;
 
+import java.awt.Color;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import de.bht.swp.lao.ocp.auth.User;
+import de.bht.swp.lao.ocp.utils.AssignmentHelper;
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 /**
@@ -27,26 +29,31 @@ public class Whiteboard {
     private Long id;
 
     private String name;
+    public Whiteboard(){}
+    
+    public Whiteboard(String name, User owner) {
+        super();
+        this.name = name;
+        this.assignments = getAssignments();
+        Color color = AssignmentHelper.generateColor();
+        this.assignments.add(new Assignment(owner, this, color, true));
+    }
 
-    @ManyToOne
-    private User creator;
-
-    // @OneToMany(mappedBy = "whiteboard", cascade = CascadeType.ALL)
-    // @JoinColumn(name = "whiteboard", insertable = true, updatable = true,
-    // nullable = true)
-    // @OrderColumn
     @OneToMany(mappedBy = "whiteboard", cascade = CascadeType.ALL)
     private List<WhiteboardItem> whiteboardItems;
 
-    @ManyToMany(mappedBy = "assignedWhiteboards")
-    private Set<User> assignedUsers;
+    @OneToMany(mappedBy = "whiteboard",targetEntity=Assignment.class,fetch = FetchType.EAGER)
+    private Set<Assignment> assignments;
 
-    public Set<User> getAssignedUsers() {
-        return assignedUsers;
+    public Set<Assignment> getAssignments() {
+        if(this.assignments==null){
+            this.assignments = new HashSet<Assignment>();
+        }
+        return assignments;
     }
 
-    public void setAssignedUsers(Set<User> assignedUsers) {
-        this.assignedUsers = assignedUsers;
+    public void setAssignments(Set<Assignment> assignments) {
+        this.assignments = assignments;
     }
 
     public List<WhiteboardItem> getWhiteboardItems() {
@@ -57,12 +64,13 @@ public class Whiteboard {
         this.whiteboardItems = whiteboardItems;
     }
 
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public Assignment getOwner() {
+        for (Assignment assignment : this.assignments) {
+            if (assignment.getIsOwner()) {
+                return assignment;
+            }
+        }
+        return null;
     }
 
     public Long getId() {

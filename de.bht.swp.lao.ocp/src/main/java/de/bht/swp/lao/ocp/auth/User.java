@@ -8,12 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import de.bht.swp.lao.ocp.user.settings.UserSettings;
-import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
+import de.bht.swp.lao.ocp.whiteboard.Assignment;
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 
 /**
@@ -23,151 +22,140 @@ import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 @Entity
 @Table(name = "LAO_USER")
 public class User {
-  @Id
-  @GeneratedValue
-  private Integer id;
+    @Id
+    @GeneratedValue
+    private Integer id;
 
-  private String firstname;
-  private String lastname;
+    private String firstname;
+    private String lastname;
 
-  @Column(unique = true)
-  private String email;
+    @Column(unique = true)
+    private String email;
 
-  @Column(nullable = false)
-  private String password;
+    @Column(nullable = false)
+    private String password;
 
-  private String position;
+    private String position;
 
-  @OneToMany(mappedBy = "creator", targetEntity = WhiteboardItem.class)
-  private Set<WhiteboardItem> whiteboardItems;
+    @OneToMany(mappedBy = "creator", targetEntity = WhiteboardItem.class)
+    private Set<WhiteboardItem> whiteboardItems;
 
-  @OneToMany(mappedBy = "creator", targetEntity = Whiteboard.class, fetch = FetchType.EAGER)
-  private Set<Whiteboard> whiteboards;
+    @OneToMany(mappedBy = "user", targetEntity = Assignment.class, fetch = FetchType.EAGER)
+    private Set<Assignment> assignments;
 
-  @OneToMany(mappedBy = "user", targetEntity = UserSettings.class, fetch = FetchType.EAGER)
-  private Set<UserSettings> settings;
+    @OneToMany(mappedBy = "user", targetEntity = UserSettings.class, fetch = FetchType.EAGER)
+    private Set<UserSettings> settings;
 
-  @ManyToMany(fetch = FetchType.EAGER)
-  private Set<Whiteboard> assignedWhiteboards;
-
-  public Set<UserSettings> getSettings() {
-    return settings;
-  }
-
-  public void setSettings(Set<UserSettings> settings) {
-    this.settings = settings;
-  }
-
-  public Set<Whiteboard> getAssignedWhiteboards() {
-    return assignedWhiteboards;
-  }
-
-  public void setAssignedWhiteboards(Set<Whiteboard> assignedWhiteboards) {
-    this.assignedWhiteboards = assignedWhiteboards;
-  }
-
-  public Set<WhiteboardItem> getWhiteboardObjects() {
-    return whiteboardItems;
-  }
-
-  public void setWhiteboardObjects(Set<WhiteboardItem> notes) {
-    this.whiteboardItems = notes;
-  }
-
-  public Set<Whiteboard> getWhiteboards() {
-    return whiteboards;
-  }
-
-  public void setWhiteboards(Set<Whiteboard> whiteboards) {
-    this.whiteboards = whiteboards;
-  }
-
-  public void addAssignedWhiteboard(Whiteboard w) {
-    if (assignedWhiteboards == null) {
-      assignedWhiteboards = new HashSet<Whiteboard>();
+    public Set<UserSettings> getSettings() {
+        return settings;
     }
 
-    this.assignedWhiteboards.add(w);
-  }
-
-  public void removeAssignedWhiteboard(Whiteboard w) {
-    this.assignedWhiteboards.remove(w);
-  }
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public String getFirstname() {
-    return firstname;
-  }
-
-  public void setFirstname(String firstname) {
-    this.firstname = firstname;
-  }
-
-  public String getLastname() {
-    return lastname;
-  }
-
-  public void setLastname(String lastname) {
-    this.lastname = lastname;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public String getPosition() {
-    return position;
-  }
-
-  public void setPosition(String position) {
-    this.position = position;
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-
-    int hashid = 0;
-    if (id == null) {
-      hashid = id.hashCode();
+    public void setSettings(Set<UserSettings> settings) {
+        this.settings = settings;
     }
-    result = prime * result + hashid;
-    return result;
-  }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
+    public Set<WhiteboardItem> getWhiteboardObjects() {
+        return whiteboardItems;
     }
-    if (obj == null) {
-      return false;
+
+    public void setWhiteboardObjects(Set<WhiteboardItem> notes) {
+        this.whiteboardItems = notes;
     }
-    if (getClass() != obj.getClass()) {
-      return false;
+
+    public Set<Assignment> getAssignments() {
+        return assignments;
     }
-    User other = (User) obj;
-    return id.equals(other.id);
-  }
+
+    public void setAssignment(Set<Assignment> assignments) {
+        this.assignments = assignments;
+    }
+
+    public void addAssignment(Assignment assignment) {
+        if (assignments == null) {
+            assignments = new HashSet<Assignment>();
+        }
+
+        this.assignments.add(assignment);
+    }
+
+    public void removeAssignment(Assignment assignment) {
+        this.assignments.remove(assignment);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+
+        int hashid = 0;
+        if (id == null) {
+            hashid = id.hashCode();
+        }
+        result = prime * result + hashid;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        User other = (User) obj;
+        return id.equals(other.id);
+    }
 
 }
