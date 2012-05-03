@@ -20,7 +20,6 @@ define([
         },
         isShowTooltips: function() {
             if(this.shouldShowDialog()){
-                window.app.log('open tooltips');
                 this.showTooltips();
             }
             else {

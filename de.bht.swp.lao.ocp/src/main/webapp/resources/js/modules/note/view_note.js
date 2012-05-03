@@ -53,13 +53,11 @@ define([ 'jquery',
             
         },
         isFocused : function() {
-            window.app.log("focused");
             this.editing = true;
             $(this.el).addClass(".edited");
             this.timer = setInterval(this.edited, 500);
         },
         isBlured : function() {
-            window.app.log("blured");
             this.editing = false;
             $(this.el).removeClass(".edited");
 
@@ -89,7 +87,6 @@ define([ 'jquery',
                 $(this.el).css('z-index', this.model.get('orderIndex'));
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
             }
-            console.log(this.controller);
             var _color = this.controller.whiteboard.getColorByUser(this.model.get('creator'));
             
             $('.noteItems',$(this.el)).css('background',_color);

@@ -23,7 +23,6 @@ define([
         },
         submitClicked:function(evt){
             evt.preventDefault();
-            console.log(evt);
             this.firstname = $('input[name=firstname]').val();
             this.lastname = $('input[name=lastname]').val();
             this.position = $('input[name=position]').val();

@@ -52,7 +52,6 @@ define([
             }
             this.view = new WhiteboardView({model:this.whiteboard});
             window.app.startCometd();
-            console.log(this.whiteboard);
             window.app.eventDispatcher.trigger('whiteboard:opened',this.whiteboard);
         },
         close:function(){

@@ -101,7 +101,6 @@ define([
             var elem = $('div.whiteboard > div.selected');
             // do it only if more than two are selected and elem itself is selected
             if(elem.length > 1 && $(this.el).hasClass('selected')) {
-                window.app.log("multiple !!!");
                 window.app.eventDispatcher.trigger("whiteboardItem:delete_multiple", this.model);
             }else {
                 window.app.eventDispatcher.trigger(this.name+":delete_clicked", this.model);

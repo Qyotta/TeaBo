@@ -35,8 +35,6 @@ define([
                 this.startSelection(event);
             }else if(this.modus==WhiteboardModus.HAND){
                 this.startMove(event);
-            }else if(this.modus==WhiteboardModus.EDIT){
-                window.app.log("editing");
             }
         },
         mouseMove:function(event){
@@ -87,7 +85,6 @@ define([
         },
         entersWhiteboardItem:function(){
             if(this.modus!=WhiteboardModus.SELECTING && this.modus!=WhiteboardModus.MULTISELECTING){
-                console.log(true,this.modus);
                 this.modusChanged(WhiteboardModus.EDIT);
             }
         },
@@ -104,7 +101,6 @@ define([
             }else if(this.modus == WhiteboardModus.SELECT){
                 $(this.el).css('cursor', 'default');
             }
-            window.app.log(modus);
         },
         render:function(){
             $(this.el).attr('id','whiteboard');
@@ -161,9 +157,7 @@ define([
             this.selection = this.currentSelectedWhiteboardItems();
             
             // deselect previously selected notes if not multiselecting
-            if(this.modus==WhiteboardModus.MULTISELECTING){
-                console.log("start multiselection");
-            }else{
+            if(this.modus!=WhiteboardModus.MULTISELECTING){
                 this.selection.removeClass('selected');
                 this.selection = null;
             }
