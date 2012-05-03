@@ -103,7 +103,7 @@
     background: none repeat scroll 0 0 #494949;
     color: #B2B2B2;
     padding:10px 0 5px 0;
-    text-align: center;
+    text-align: left;
     border: 1px solid #B2B2B2;
     font-size: 16px;
     -webkit-box-shadow: 4px 4px 8px #222;
@@ -130,13 +130,15 @@
     float:left;
     display:block;
     width:80px;
-    margin-right: -74px;
     text-align: right;
 }
 #uploadContainer form textarea {
-    width:349px;
-    margin-left: 61px;
+    width:360px;
+    margin-left: 15px;
     height: 55px;
+}
+#uploadContainer > form > input {
+    margin: 0 0 0 15px;
 }
 
 #inviteUserContainer h1, #uploadContainer h1 {
@@ -159,6 +161,10 @@
 #inviteUserContainer form div {
     text-align:center;
     padding: 15px 0 0 0;
+}
+#inviteUserContainer > form > input {
+    margin: 0 0 0 10px;
+    width: 235px;
 }
 
 #dialogs{display:none;}
@@ -214,7 +220,7 @@
 .blurBox .attachmentItems p.image {
     background: none repeat scroll 0 0 rgba(85, 85, 85, 0.5);
     box-shadow: 0 0 10px #555555 !important;
-    margin: 12px 0 12px 44px;
+    margin: 12px 0 12px 18px;
     width: 32px;
 }
 .blurBox .attachmentItems p.image img {

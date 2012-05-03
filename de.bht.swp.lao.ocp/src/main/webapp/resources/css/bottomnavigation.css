@@ -8,7 +8,6 @@
     background: #494949;
 }
 #bottomNavigation ul {
-    padding: 0 0 0 20px;
     float: left;
 }
 
@@ -27,8 +26,35 @@
     position: relative;
     bottom: 25px;
 }
-
+#bottomNavigation ul li a:hover {
+    bottom:30px;
+}
 #bottomNavigation ul li a span {
     display: none;
     color: #C2C2C2;
+    position:relative;
+    bottom:4px;
+    font-size:11px;
+    text-align:center;
+}
+#bottomNavigation ul li a:hover span {
+    display:block;
+}
+#bottomNavigation > ul:first-Child {
+    height:25px;
+}
+#bottomNavigation > ul:first-child > li:first-child {
+    margin: 0 10px 0 0;
+    padding: 4px 10px 0 4px;
+    background:url('../images/toolbox_background.gif') repeat-x;
+    color:#ffffff;
+    text-shadow: 1px 1px 1px #000000;
+}
+#bottomNavigation > ul:first-child > li:first-child > img {
+    padding:0 5px 0 0;
+}
+#bottomNavigation > ul:first-child > li:first-child > img:last-child {
+    padding: 0 0 0 5px;
+    position: absolute;
+    top: 0;
 }
