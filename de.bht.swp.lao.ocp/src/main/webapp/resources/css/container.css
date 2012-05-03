@@ -63,7 +63,7 @@
     position: relative;
     width: 100%;
 }
-.loginContainer h1 span, .registerContainer h1 span, #inviteUserContainer h1 span, #uploadContainer h1 span {
+.loginContainer h1 span, .registerContainer h1 span, #uploadContainer h1 span {
     display: block;
     font-size: 11px;
 }
@@ -93,7 +93,7 @@
     margin:0 0 0 3px;
 }
 
-#inviteUserContainer, #uploadContainer {
+#uploadContainer {
     width:320px;
     height:130px;
     position:absolute;
@@ -141,7 +141,7 @@
     margin: 0 0 0 15px;
 }
 
-#inviteUserContainer h1, #uploadContainer h1 {
+#uploadContainer h1 {
     bottom: 3px;
     color: #B2B2B2;
     font-size: 19px;
@@ -151,20 +151,6 @@
     position: relative;
     width: 100%;
     text-align: left;
-}
-#inviteUserContainer input#address {
-    width:230px;
-}
-#inviteUserContainer form {
-    padding:0 12px;
-}
-#inviteUserContainer form div {
-    text-align:center;
-    padding: 15px 0 0 0;
-}
-#inviteUserContainer > form > input {
-    margin: 0 0 0 10px;
-    width: 235px;
 }
 
 #dialogs{display:none;}

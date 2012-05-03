@@ -2,8 +2,10 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'core/views/notice/notice',
+    'core/views/notice/error',
     'text!templates/home/topbar.html'
-], function($, _, Backbone, topbarTemplate){
+], function($, _, Backbone, Notice, Error, topbarTemplate){
     
     var TopbarView = Backbone.View.extend({
         el: $("#topNavigation"),
@@ -11,21 +13,29 @@ define([
             'click .right a[href="logout"]' :'logoutClicked',
             'click .right a[href="invite"]' :'inviteClicked',
             'click .right a[href="main"]' :'mainClicked',
-            'click .logo a[href="main"]' : 'mainClicked'
+            'click .logo a[href="main"]' : 'mainClicked',
+            'submit div.invite form' : 'inviteUser'
         },
         initialize:function(){
-            _(this).bindAll('changedUser');
+            _(this).bindAll('changedUser','inviteUser');
+            
+            this.isInviteInProgress = false;
+            
             window.app.user.bind("change", this.changedUser);
         },
         render: function(){
-            var _user  = window.app.user;
+            var user  = window.app.user,
+                title = null;
             
             if(this.whiteboard){
                 var view = 'whiteboard';
-                var _color = this.whiteboard.getColorByUser(_user.get('email'));
+                var color = this.whiteboard.getColorByUser(user.get('email'));
+            }
+            if(window.app.modules.whiteboard && window.app.modules.whiteboard.whiteboard) {
+                title = window.app.modules.whiteboard.whiteboard.attributes.name;
             }
             
-            var data = {user:_user,title:null,view: view,versionNumber: window.app.versionNumber,versionType: window.app.versionType,color:_color};
+            var data = {user:user,title:title,view: view,versionNumber: window.app.versionNumber,versionType: window.app.versionType,color:color};
             
             var compiledTemplate = _.template( topbarTemplate, data );
             this.el.html(compiledTemplate);
@@ -45,6 +55,29 @@ define([
             e.preventDefault();
             window.app.eventDispatcher.trigger('whiteboard:close',null);
             window.router.navigate("main", {trigger: true});
+        },
+        inviteUser:function(e) {
+            e.preventDefault();
+            if(this.isInviteInProgress == true){
+                return false;
+            }
+            this.isInviteInProgress = true;
+            
+            var self = this;
+            $.ajax({
+                url: 'whiteboard/invite',
+                type: 'post',
+                contentType: 'application/json',
+                data: '{"email":"'+$('input[name=address]').val()+'", "whiteboardId":'+window.app.modules.whiteboard.whiteboard.attributes.id+'}',
+                success: function(data){ 
+                    new Notice({message:"Invitation was sent"});
+                    self.isInviteInProgress = false;
+                },
+                error: function(err){
+                    window.app.log(err.statusText);
+                    self.isInviteInProgress = false;
+                }
+            });
         }
     });
     

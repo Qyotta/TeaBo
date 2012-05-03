@@ -6,23 +6,29 @@
         <span><b>lao (v<%=versionNumber%><%=versionType%>)</b></span>
     </a>
 </h1>
+<div class="left">
+    <% if(view === "whiteboard") { %>
+    <div class="invite">
+        <a href="invite"><img src="resources/images/user.gif">Whiteboard users</a>
+        <div>
+            <div class="assigned-user-color-container">
+                <div class="assigned-user-color" style="width:15px;height:15px; background:<%=color%>;"></div>
+                <%=user.get("email")%>
+            </div>
+            <form action="/de.bht.swp.lao.ocp/whiteboard/inviteUser" method="post">
+                <input class="mailaddress" type="text" name="address" placeholder="type email and press enter">
+            </form>
+        </div>
+    </div>
+    <% } %>
+</div>
 <div class="right">
     <% if(!user.isNew()) { %>
         <div>
             <% if(view === "whiteboard") { %>
-            <a href="invite">Invite a person</a>
-            <a href="main">Back to Main Panel</a>
+            <a href="main"><img src="resources/images/back_to_mainpanel.gif">Back to Main Panel</a>
             <% } %>
-            <a href="logout">Log out</a>
+            <a href="logout"><img src="resources/images/log_out.gif">Log out</a>
         </div>
-        
-        <div>
-            <%=user.get("email")%>
-        </div>
-        <% if(view === "whiteboard") { %>
-                <div class="assigned-user-color-container">
-                    <div class="assigned-user-color" style="width:15px;height:15px; background:<%=color%>;"></div>
-                </div>
-        <% } %>
     <% } %>
 </div>

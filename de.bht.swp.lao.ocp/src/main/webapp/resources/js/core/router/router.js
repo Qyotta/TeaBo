@@ -5,9 +5,8 @@ define([
     'core/views/register',
     'core/views/main',
     'core/views/login',
-    'core/views/dialogs/logout',
-    'core/views/dialogs/inviteUser',
-], function($, _, Backbone, RegisterView,MainHomeView,LoginView,LogoutDialogView,InviteUserDialogView){
+    'core/views/dialogs/logout'
+], function($, _, Backbone, RegisterView,MainHomeView,LoginView,LogoutDialogView){
     var AppRouter = Backbone.Router.extend({
         initialize: function(){
             window.app.eventDispatcher.bind('application:loggedIn',this.loggedIn);
@@ -27,7 +26,6 @@ define([
         },
         showWhiteboard: function(id){
             window.app.eventDispatcher.trigger("whiteboard:open", id);
-            new InviteUserDialogView({whiteboardId:id});
         },
         showLogin: function(){
             if(!window.app.loggedIn()){

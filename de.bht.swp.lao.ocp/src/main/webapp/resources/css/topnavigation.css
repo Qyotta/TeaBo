@@ -22,7 +22,7 @@ nav#topNavigation h1.logo {
     -box-shadow: 0px 0px 5px #000000;
     z-index: 100000;
 }
-nav#topNavigation h1 a {
+nav#topNavigation > h1 > a {
     width:126px;
     height:65px;
     display:block;
@@ -32,7 +32,52 @@ nav#topNavigation h1 a {
     background: url('../images/lao_logo.jpg') no-repeat;
     
 }
-
+nav#topNavigation > div.left {
+    float: left;
+    height: 20px;
+    margin: 0 0 0 150px;
+    padding: 5px 0 0;
+    width: 200px;
+}
+nav#topNavigation > div.left > div.invite {
+    position: relative;
+}
+nav#topNavigation > div.left > div.invite:hover > div {
+    display:block;
+}
+nav#topNavigation > div.left > div.invite > div {
+    background: none repeat scroll 0 0 #494949;
+    color: #CDCDCD;
+    font-size: 11px;
+    left: -5px;
+    padding: 10px;
+    position: absolute;
+    top: 20px;
+    display: none;
+}
+nav#topNavigation > div.left > div.invite > div > div.assigned-user-color-container {
+    height: 15px;
+    width: 100%;
+    line-height: 17px;
+    padding: 0 0 10px;
+    border-bottom: 1px solid #CDCDCD;
+}
+nav#topNavigation > div.left > div.invite > div > div.assigned-user-color-container > div {
+    float: left;
+    margin: 0 5px 0 0;
+    
+}
+nav#topNavigation > div.left > div.invite > div > form {
+    width:100%;
+    overflow:hidden;
+}
+nav#topNavigation > div.left > div.invite > div > form > input {
+    border: 0 none;
+    height: 20px;
+    margin: 10px 0 0;
+    padding: 0 5px;
+    width: 100%;
+}
 nav#topNavigation div.right {
     color: #FFFFFF;
     float: right;
@@ -45,14 +90,23 @@ nav#topNavigation div.right div {
     border-left:1px solid #c2c2c2;
     padding:0 10px;
 }
-nav#topNavigation div.right div a {
+nav#topNavigation div a {
     text-decoration:none;
     color:#c2c2c2;
     padding: 0 10px 0 0;
+    font-size:11px;
+}
+nav#topNavigation > div a > img {
+    bottom: 2px;
+    margin: 0 3px 0 0;
+    position: relative;
 }
 nav#topNavigation div.right div:last-Child {
     border-left:0px;
 }
 nav#topNavigation div.right b {
     margin-right:5px;
+}
+nav#topNavigation span.logo-title {
+    display:block;
 }
