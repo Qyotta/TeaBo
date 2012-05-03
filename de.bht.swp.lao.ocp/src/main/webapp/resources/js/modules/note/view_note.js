@@ -17,12 +17,11 @@ define([ 'jquery',
          },
         initialize : function(options) {
             WhiteboardItemView.prototype.initialize.apply( this );
-            window.app.log("note created");
             _.bindAll(this, 'isFocused', 'isBlured', 'edited','changed');
             this.model.bind('change',this.changed,this);
-            this.editing    = false;
-            this.controller = options.controller;
             
+            this.controller = options.controller;
+            this.editing    = false;
             this.render();
             this.delegateEvents();
         },
@@ -48,7 +47,7 @@ define([ 'jquery',
                 {
                     id : this.model.id,
                     text: this.model.get('text'),
-                    whiteboardid : this.options.whiteboardId
+                    whiteboardid : this.options.whiteboard.id
                 }
             ));
             
@@ -90,6 +89,10 @@ define([ 'jquery',
                 $(this.el).css('z-index', this.model.get('orderIndex'));
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
             }
+            console.log(this.controller);
+            var _color = this.controller.whiteboard.getColorByUser(this.model.get('creator'));
+            
+            $('.noteItems',$(this.el)).css('background',_color);
             
             var textarea = $(this.el).find('textarea');
             textarea.css('height', textarea[0].scrollHeight / 2 + 'px');

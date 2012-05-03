@@ -16,13 +16,17 @@ define([
         initialize:function(){
             _(this).bindAll('changedUser');
             window.app.user.bind("change", this.changedUser);
-            this.render();
         },
         render: function(){
-            if($('#whiteboard').length) {
+            var _user  = window.app.user;
+            
+            if(this.whiteboard){
                 var view = 'whiteboard';
+                var _color = this.whiteboard.getColorByUser(_user.get('email'));
             }
-            var data = {user:window.app.user,title:null,view: view,versionNumber: window.app.versionNumber,versionType: window.app.versionType};
+            
+            var data = {user:_user,title:null,view: view,versionNumber: window.app.versionNumber,versionType: window.app.versionType,color:_color};
+            
             var compiledTemplate = _.template( topbarTemplate, data );
             this.el.html(compiledTemplate);
         },

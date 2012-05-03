@@ -7,7 +7,8 @@ define([
     
     var User = Backbone.Model.extend({
         url:'user/',
-        settings : UserSettings
+        settings : UserSettings,
+        
     });
     return User;
 });

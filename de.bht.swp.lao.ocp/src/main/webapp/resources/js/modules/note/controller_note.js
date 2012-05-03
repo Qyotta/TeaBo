@@ -48,7 +48,6 @@ define(
                                 self.views[_note.id] = new NoteView({
                                     model : _note,
                                     controller: self,
-                                    whiteboardId : self.whiteboard.id
                                 });
                             });
                             self.subscribeChannels();
@@ -76,9 +75,11 @@ define(
                     if (this.views[_note.id])
                         return;
                     this.noteCollection.add(_note);
+                    
+                    var self = this;
                     this.views[_note.id] = new NoteView({
                         model : _note,
-                        whiteboardId : this.whiteboard.id
+                        controller: self,
                     });
                 },
                 _handleMovedWhiteboardItem : function(message) {

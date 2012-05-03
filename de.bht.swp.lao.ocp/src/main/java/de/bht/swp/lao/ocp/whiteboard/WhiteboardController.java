@@ -136,11 +136,11 @@ public class WhiteboardController {
                     OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
                     "Please login!");
         }
-
+        
         whiteboardDao.saveOrUpdate(whiteboard);
         
         Assignment assignment = new Assignment(user, whiteboard, AssignmentHelper.generateColor(),true);
-        
+
         assignmentDao.saveOrUpdate(assignment);
         whiteboard = whiteboardDao.findById(whiteboard.getId());
         return new WhiteboardDTO(whiteboard);

@@ -1,5 +1,8 @@
 package de.bht.swp.lao.ocp.whiteboard;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class WhiteboardDTO {
 
     private String creator;
@@ -8,10 +11,16 @@ public class WhiteboardDTO {
 
     private String name;
 
+    private Set<AssignmentDTO> assignments;
+    
     public WhiteboardDTO(Whiteboard w) {
         this.id = w.getId();
         this.name = w.getName();
         this.creator = w.getOwner().getUser().getEmail();
+        setAssignments(null);
+        for(Assignment assignment:w.getAssignments()){
+        	this.assignments.add(new AssignmentDTO(assignment));
+        }
     }
 
     public Long getId() {
@@ -37,4 +46,17 @@ public class WhiteboardDTO {
     public void setName(String name) {
         this.name = name;
     }
+
+	public Set<AssignmentDTO> getAssignments() {
+		return assignments;
+	}
+
+	public void setAssignments(Set<AssignmentDTO> assignments) {
+		if(assignments==null){
+			this.assignments = new HashSet<AssignmentDTO>();
+		}
+		else{
+			this.assignments = assignments;
+		}
+	}
 }
