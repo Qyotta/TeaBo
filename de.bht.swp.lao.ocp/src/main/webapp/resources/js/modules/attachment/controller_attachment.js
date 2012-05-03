@@ -42,7 +42,7 @@ define([
             this.attachmentCollection.fetch({
                 success:function(collection, response){
                     collection.each(function(_attachment) {
-                        self.views[_attachment.id] = new AttachmentView({ model:_attachment, whiteboardId: self.whiteboard.id, controller:this});
+                        self.views[_attachment.id] = new AttachmentView({ model:_attachment, controller:this});
                     });
                     self.subscribeChannels();
                 }
@@ -109,7 +109,7 @@ define([
                 }
                 
                 this.attachmentCollection.add(_attachment);
-                this.views[_attachment.id] = new AttachmentView({ model: _attachment, whiteboardId: this.whiteboard.id,controller:this });
+                this.views[_attachment.id] = new AttachmentView({ model: _attachment,controller:this });
                 if (this.activeUpload != null && _uid === this.activeUpload[1]){
                     this._uploadFile(_id);
                 }

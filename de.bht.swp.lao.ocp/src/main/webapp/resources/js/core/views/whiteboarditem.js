@@ -65,7 +65,7 @@ define([
             
             if($('div.whiteboard > div.selected').length > 1) {
                 // get all views
-                views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
+                views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true;});
                 // persist views
                 var commands = [];
                 $.each(views,function(j,view) {
@@ -78,7 +78,7 @@ define([
                                 id : view.model.id,
                                 x : _x,
                                 y : _y,
-                                whiteboardid : view.options.whiteboardId
+                                whiteboardid : self.controller.whiteboard.id
                             }
                         ));
                     }
@@ -92,7 +92,7 @@ define([
                         id: self.model.id,
                         x : parseInt($(self.el).css('left'),10),
                         y : parseInt($(self.el).css('top'),10),
-                        whiteboardid : self.options.whiteboardId
+                        whiteboardid : self.controller.whiteboard.id
                     }
                 ));
             }
@@ -117,7 +117,7 @@ define([
             var elem = $('div.whiteboard > div.selected');
             // do it only if more than two are selected and elem itself is selected
             if(elem.length > 1 && $(this.el).hasClass('selected')) {
-                views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true});
+                views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true;});
                 // persist views
                 var commands = [];
                 $.each(views,function(j,view) {
@@ -127,7 +127,7 @@ define([
                             '/service/whiteboardItem/delete',
                             {
                                 id : view.model.id,
-                                whiteboardid : view.options.whiteboardId
+                                whiteboardid : self.controller.whiteboard.id
                             }
                         ));
                     }

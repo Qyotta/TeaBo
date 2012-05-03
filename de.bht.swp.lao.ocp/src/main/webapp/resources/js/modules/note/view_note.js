@@ -47,7 +47,7 @@ define([ 'jquery',
                 {
                     id : this.model.id,
                     text: this.model.get('text'),
-                    whiteboardid : this.options.whiteboard.id
+                    whiteboardid : this.controller.whiteboard.id
                 }
             ));
             
