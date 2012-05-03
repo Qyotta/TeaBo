@@ -41,6 +41,7 @@ nav#topNavigation > div.left {
 }
 nav#topNavigation > div.left > div.invite {
     position: relative;
+    height:100%;
 }
 nav#topNavigation > div.left > div.invite:hover > div {
     display:block;

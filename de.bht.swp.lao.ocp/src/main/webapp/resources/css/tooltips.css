@@ -55,16 +55,16 @@
 
 #tooltips #createNote {
     bottom: 105px;
-    left: 12px;
+    left: 83px;
 }
 
 #tooltips #uploadFile {
     bottom: 105px;
-    left: 67px;
+    left: 135px;
 }
 
 #tooltips #inviteUser {
-    right: 100px;
+    left: 100px;
     top: 80px;
 }
 #tooltips #dragAndDrop {
