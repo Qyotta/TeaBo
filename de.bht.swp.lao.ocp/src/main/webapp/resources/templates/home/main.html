@@ -8,11 +8,28 @@
     </form>
     
     <h2>Whiteboards List</h2>
-    <% if(_.isEmpty(whiteboards)) { %>
+    <% if(_.isEmpty(ownWhiteboards)) { %>
         <p>No whiteboard yet.</p>
     <% } else{%>
         <ul>
-            <% _.each(whiteboards, function(whiteboard){ %>
+            <% _.each(ownWhiteboards, function(whiteboard){ %>
+                <li id="<%= whiteboard.get("id") %>">
+                    <a href="#whiteboard/<%= whiteboard.get("id") %>"><%= whiteboard.get("name") %></a> 
+                    <% if(user.email == whiteboard.creator){ %>
+                        <a href="#!/" class="delete">
+                            <img src="<%= config.contextPath %>/resources/images/cross.png" alt="delete" title="Delete Whiteboard"/>
+                        </a>
+                    <% } %>
+                </li> 
+            <% }); %>
+        </ul>
+    <% } %>
+    <h2>assigned Whiteboards</h2>
+    <% if(_.isEmpty(assignedWhiteboards)) { %>
+        <p>No whiteboard yet.</p>
+    <% } else{%>
+        <ul>
+            <% _.each(assignedWhiteboards, function(whiteboard){ %>
                 <li id="<%= whiteboard.get("id") %>">
                     <a href="#whiteboard/<%= whiteboard.get("id") %>"><%= whiteboard.get("name") %></a> 
                     <% if(user.email == whiteboard.creator){ %>

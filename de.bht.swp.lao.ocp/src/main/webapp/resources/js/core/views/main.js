@@ -12,7 +12,7 @@ define([
             'click .mainPanel a.delete' :'deleteWhiteboard',
         },
         initialize:function(){
-            _.bindAll(this,'removeWhiteboardView','render','synced');
+            _.bindAll(this,'removeWhiteboardView','render','synced','getOwnWhiteboards','getAssignedWhiteboards');
             window.app.eventDispatcher.bind('whiteboard:synced',this.synced);
             window.app.eventDispatcher.bind('mainpanel:show',this.render);
             
@@ -51,9 +51,45 @@ define([
             if(this.collection==null){
                 return;
             }
-            var data = { user:window.app.user, whiteboards: this.collection.models, _: _ };
+            var data = { user:window.app.user, ownWhiteboards: this.getOwnWhiteboards(), assignedWhiteboards: this.getAssignedWhiteboards(), _: _ };
             var compiledTemplate = _.template( mainHomeTemplate, data );
             this.el.html(compiledTemplate);
+        },
+        getOwnWhiteboards: function() {
+            var allWhiteboards = this.collection.models,
+                user           = window.app.user.attributes.email,
+                ownWhiteboards = [];
+                
+            $.each(allWhiteboards, function(i, whiteboard) {
+                $.each(whiteboard.attributes.assignments, function(i, assignment) {
+                    if(whiteboard.attributes.creator === user) {
+                        ownWhiteboards.push(whiteboard);
+                        return false;
+                    }
+                });
+            });
+            
+            return ownWhiteboards;
+        },
+        getAssignedWhiteboards: function() {
+            var allWhiteboards      = this.collection.models,
+                user                = window.app.user.attributes.email,
+                assignedWhiteboards = [],
+                userMatch           = false;
+                
+            $.each(allWhiteboards, function(i, whiteboard) {
+                $.each(whiteboard.attributes.assignments, function(i, assignment) {
+                    if(whiteboard.attributes.creator === user) {
+                        userMatch = true;
+                    }
+                });
+                if(!userMatch) {
+                    assignedWhiteboards.push(whiteboard);
+                }
+                userMatch = false;
+            });
+            
+            return assignedWhiteboards;
         }
     });
     
