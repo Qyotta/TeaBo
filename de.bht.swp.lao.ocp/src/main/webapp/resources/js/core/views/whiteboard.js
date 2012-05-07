@@ -4,8 +4,9 @@ define([
     'backbone',
     'jquerycollision',
     'core/modus',
+    'core/utils/model_command',
     'text!templates/whiteboard/whiteboard.html',
-], function($, _, Backbone, collision,WhiteboardModus, whiteboardTemplate){
+], function($, _, Backbone, collision,WhiteboardModus, ModelCommand, whiteboardTemplate){
     
     var WhiteboardView = Backbone.View.extend({
         events:{
@@ -21,6 +22,8 @@ define([
             this.model.bind('change', this.render, this);
             
             window.app.eventDispatcher.bind('whiteboard:changed_modus',this.modusChanged);
+            window.app.eventDispatcher.bind("whiteboardItem:delete_multiple",this.deleteMultipleWhiteboardItems)
+            
             $(document).keydown(this.keydown);
             $(document).keyup(this.keyup);
             this.modus = WhiteboardModus.SELECT;
@@ -80,7 +83,7 @@ define([
             // [DEL]
             else if(event.keyCode==46){
                 event.preventDefault();
-                window.app.eventDispatcher.trigger('whiteboardItem:delete_clicked');
+                window.app.eventDispatcher.trigger('whiteboardItem:delete_clicked', null);
             }
         },
         entersWhiteboardItem:function(){
@@ -93,6 +96,29 @@ define([
                 $(event.currentTarget.id+"input[type=text], textarea").trigger('blur');//workaround to trigger blur
                 this.modusChanged(WhiteboardModus.SELECT);
             }
+        },
+        deleteMultipleWhiteboardItems:function(whiteboardId){
+            var elem = $('div.whiteboard > div.selected');
+            // do it only if more than two are selected and elem itself is selected
+            if(elem.length > 1) {
+                views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true;});
+                // persist views
+                var commands = [];
+                $.each(views,function(j,view) {
+                    
+                    if(view && $(view.el).hasClass('selected')) {
+                        commands.push(new ModelCommand(
+                            '/service/whiteboardItem/delete',
+                            {
+                                id : view.model.id,
+                                whiteboardid : whiteboardId
+                            }
+                        ));
+                    }
+                });
+                
+                window.app.groupCommand.addCommands(commands);
+            }  
         },
         modusChanged:function(modus){
             this.modus = modus;

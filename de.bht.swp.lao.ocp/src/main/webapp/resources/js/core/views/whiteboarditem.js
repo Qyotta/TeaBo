@@ -13,9 +13,9 @@ define([
             'click ' : 'orderChange'
         },
         initialize:function(whiteboard){
-            _.bindAll(this, 'handleDragItem', 'persistPosition', 'orderChange', 'handleForegroundWhiteboardItem');
+            _.bindAll(this, 'handleDragItem', 'persistPosition', 'orderChange', 'handleForegroundWhiteboardItem', 'deleteClicked');
             
-            window.app.eventDispatcher.bind("whiteboardItem:delete_multiple",this.deleteMulitple);
+            window.app.eventDispatcher.bind("whiteboardItem:delete_clicked", this.deleteClicked);
             
             $(this.el).draggable({
                 scroll : false,
@@ -98,10 +98,12 @@ define([
             }
         },
         deleteClicked : function() {
+            var self = this;
             var elem = $('div.whiteboard > div.selected');
             // do it only if more than two are selected and elem itself is selected
-            if(elem.length > 1 && $(this.el).hasClass('selected')) {
-                window.app.eventDispatcher.trigger("whiteboardItem:delete_multiple", this.model);
+            if(elem.length > 1) {
+                
+                window.app.eventDispatcher.trigger("whiteboardItem:delete_multiple", self.controller.whiteboard.id);
             }else {
                 window.app.eventDispatcher.trigger(this.name+":delete_clicked", this.model);
             }
@@ -111,29 +113,6 @@ define([
         },
         handleForegroundWhiteboardItem : function(message){
             $(this.el).css('z-index', message.data.newIndex);
-        },
-        deleteMulitple : function(model) {
-            var elem = $('div.whiteboard > div.selected');
-            // do it only if more than two are selected and elem itself is selected
-            if(elem.length > 1 && $(this.el).hasClass('selected')) {
-                views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true;});
-                // persist views
-                var commands = [];
-                $.each(views,function(j,view) {
-                    if(view && $(view.el).hasClass('selected')) {
-                        
-                        commands.push(new ModelCommand(
-                            '/service/whiteboardItem/delete',
-                            {
-                                id : view.model.id,
-                                whiteboardid : self.controller.whiteboard.id
-                            }
-                        ));
-                    }
-                });
-                
-                window.app.groupCommand.addCommands(commands);
-            }
         }
     });
     
