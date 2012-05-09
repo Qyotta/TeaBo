@@ -93,7 +93,7 @@
     margin:0 0 0 3px;
 }
 
-#uploadContainer {
+#uploadContainer,#colorChooserContainer {
     width:320px;
     height:130px;
     position:absolute;
@@ -111,6 +111,12 @@
     -o-box-shadow: 4px 4px 8px #222;
     box-shadow: 4px 4px 8px #222;
     z-index:101;
+}
+
+#colorChooserContainer{
+	width: auto;
+	height:auto;
+	top:20%;
 }
 
 #uploadContainer {

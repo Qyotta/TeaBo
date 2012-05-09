@@ -14,7 +14,8 @@ define([
             'click .right a[href="invite"]' :'inviteClicked',
             'click .right a[href="main"]' :'mainClicked',
             'click .logo a[href="main"]' : 'mainClicked',
-            'submit div.invite form' : 'inviteUser'
+            'submit div.invite form' : 'inviteUser',
+            'click .assigned-user-color' : 'colorClicked'
         },
         initialize:function(){
             _(this).bindAll('changedUser','inviteUser');
@@ -78,6 +79,11 @@ define([
                     self.isInviteInProgress = false;
                 }
             });
+        },
+        colorClicked : function(e){
+            var _user = window.app.user;
+            var data = {user:_user,color:this.whiteboard.getColorByUser(_user.get('email'))};
+            window.app.eventDispatcher.trigger('topbar:choose_color',data);
         }
     });
     

@@ -7,12 +7,12 @@ define([
         initialize:function(){
             window.app.log('initialize dialog');
         },
-        render: function(){
+        render: function(args){
             var compiledTemplate = _.template( logoutDialogTemplate );
             this.el.html(compiledTemplate);
         },
-        showDialog:function(){
-            this.render();
+        showDialog:function(args){
+            this.render(args);
             this.containerFadeIn();
         },
         hideDialog:function(){
