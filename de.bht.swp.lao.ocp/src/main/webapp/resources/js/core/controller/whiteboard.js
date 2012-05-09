@@ -4,7 +4,8 @@ define([
     'backbone',
     'core/collections/whiteboard',
     'core/views/whiteboard',
-], function($, _, Backbone, WhiteboardCollection, WhiteboardView){
+    'core/views/dialogs/confirm_multiple_delete'
+], function($, _, Backbone, WhiteboardCollection, WhiteboardView, ConfirmDeleteView){
     var WhiteboardController = function(options){
         
         _.bindAll(this,'open','close');
@@ -18,6 +19,7 @@ define([
         initialize:function(options){
             window.app.log('whiteboard loaded');
             this.whiteboards = new WhiteboardCollection();
+            this.confirmDeleteView = new ConfirmDeleteView();
             this.sync();
         },
         sync:function(){

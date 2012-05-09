@@ -3,33 +3,34 @@ define([
     'underscore',
     'backbone',
     'core/views/dialogs/dialog',
-    'text!templates/modules/note/confirm_delete.html'
+    'text!templates/dialogs/confirm_multiple_delete.html'
 ], function($, _, Backbone, Dialog, confirmDeleteTemplate){
    
     var ConfirmDeleteView = Dialog.extend({
         el:$('#dialogs'),
         showDialogFlag:"DeleteConfirmFlag",
+        whiteboardId:0,
         initialize:function(){
             _.bindAll(this,'showConfirmDialog', 'confirmed', 'hideConfirmDialog', 'shouldShowDialog');
-            window.app.eventDispatcher.bind("note:delete_clicked",this.showConfirmDialog);
+            window.app.eventDispatcher.bind("whiteboardItem:delete_multiple",this.showConfirmDialog);
         },
         events:{
-            'click #confirmDeleteNoteContainer button.cancel' : 'hideConfirmDialog',
-            'click #confirmDeleteNoteContainer input[type=submit]': 'confirmed'
+            'click #confirmDeleteMultipleContainer button.cancel' : 'hideConfirmDialog',
+            'click #confirmDeleteMultipleContainer input[type=submit]': 'confirmed'
         },
         render: function(){
             var compiledTemplate = _.template( confirmDeleteTemplate );
             this.el.html(compiledTemplate);
         },
-        showConfirmDialog:function(model){
-            this.model = model;
+        showConfirmDialog:function(wId){
+            this.whiteboardId = wId;
             if(this.shouldShowDialog()){
                 this.showDialog();
             }
             else {
-                window.app.eventDispatcher.trigger('note:delete',this.model);
+                window.app.eventDispatcher.trigger('whiteboard:delete_multiple_items', this.whiteboardId);
             }
-        	
+            
         },
         shouldShowDialog : function(){
             if(typeof window.app.user.get("settings").where(this.showDialogFlag)[0] == "undefined" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == "true" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == true){
@@ -41,13 +42,12 @@ define([
         hideConfirmDialog:function(evt){
             evt.preventDefault();
             this.hideDialog();
-            this.model = null;
         },
         confirmed:function(evt){
             evt.preventDefault();
             window.app.modules.userSettings.set(this.showDialogFlag,!$('#dialogs :checkbox').is(':checked'));
             this.hideDialog();
-            window.app.eventDispatcher.trigger('note:delete',this.model);
+            window.app.eventDispatcher.trigger('whiteboard:delete_multiple_items', this.whiteboardId);
         }
     });    
     
