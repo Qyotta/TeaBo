@@ -1,6 +1,7 @@
 nav#topNavigation {
     height: 25px;
     width: 100%;
+    min-width:600px;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -83,7 +84,7 @@ nav#topNavigation div.right {
     color: #FFFFFF;
     float: right;
     padding: 5px 0 0 0;
-    width:900px;
+    width:300px;
     text-align:right;
 }
 nav#topNavigation div.right div {
