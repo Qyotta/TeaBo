@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.xml.sax.ContentHandler;
 
-import de.bht.swp.lao.ocp.auth.User;
+import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;
 
 /**

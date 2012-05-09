@@ -11,7 +11,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import de.bht.swp.lao.ocp.auth.User;
+import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 
 /**

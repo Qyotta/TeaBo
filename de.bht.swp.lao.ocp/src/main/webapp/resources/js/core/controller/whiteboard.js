@@ -8,9 +8,10 @@ define([
 ], function($, _, Backbone, WhiteboardCollection, WhiteboardView, ConfirmDeleteView){
     var WhiteboardController = function(options){
         
-        _.bindAll(this,'open','close');
+        _.bindAll(this,'open','close','subscribeChannels');
         window.app.eventDispatcher.bind("whiteboard:open",this.open);
         window.app.eventDispatcher.bind("whiteboard:close",this.close);
+        window.app.eventDispatcher.bind('handshakeComplete',this.subscribeChannels);
         
         this.initialize(options);
     };
@@ -21,6 +22,14 @@ define([
             this.whiteboards = new WhiteboardCollection();
             this.confirmDeleteView = new ConfirmDeleteView();
             this.sync();
+        },
+        subscribeChannels:function(){
+            var commands = [];
+            commands.push(new SubscribeCommand('/whiteboardItem/move/'   + this.whiteboard.id, this.userColorUpdated));
+            window.app.groupCommand.addCommands(commands);
+        },
+        userColorUpdated:function(message){
+            
         },
         sync:function(){
             this.whiteboards.fetch({success: function(collection, response){

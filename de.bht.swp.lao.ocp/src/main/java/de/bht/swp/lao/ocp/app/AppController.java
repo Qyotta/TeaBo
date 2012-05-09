@@ -7,8 +7,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import de.bht.swp.lao.ocp.auth.User;
-import de.bht.swp.lao.ocp.auth.UserDTO;
+import de.bht.swp.lao.ocp.user.User;
+import de.bht.swp.lao.ocp.user.UserDTO;
 
 @Controller
 public class AppController {

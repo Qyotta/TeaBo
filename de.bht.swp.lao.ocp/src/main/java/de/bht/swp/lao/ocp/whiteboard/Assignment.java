@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import de.bht.swp.lao.ocp.auth.User;
+import de.bht.swp.lao.ocp.user.User;
 
 @Entity
 @Table(name = "LAO_ASSIGNMENT")
