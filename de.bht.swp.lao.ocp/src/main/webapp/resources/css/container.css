@@ -119,6 +119,13 @@
 	top:20%;
 }
 
+.colorRangeContainer{float: left;margin: 10px;}
+.colorInfoContainer{float: left;margin: 10px;
+    width: 200px;margin: 10px;}
+.choosenColor{}
+.colorHexCode{}
+.colorChooserSaveCancel{margin: 10px;}
+
 #uploadContainer {
     width: 500px;
     height: 210px;
