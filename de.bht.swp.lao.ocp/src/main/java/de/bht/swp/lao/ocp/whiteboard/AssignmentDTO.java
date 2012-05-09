@@ -1,28 +1,38 @@
 package de.bht.swp.lao.ocp.whiteboard;
 
 public class AssignmentDTO {
-	private String user;
-	
-	private float[] color;
+  private Long id;
 
-	public AssignmentDTO(Assignment assignment){
-		this.setUser(assignment.getUser().getEmail());
-		this.setColor(assignment.getColor().getRGBColorComponents(null));
-	}
+  private String user;
 
-	public String getUser() {
-		return user;
-	}
+  private float[] color;
 
-	public void setUser(String user) {
-		this.user = user;
-	}
+  public AssignmentDTO(Assignment assignment) {
+    this.setUser(assignment.getUser().getEmail());
+    this.setColor(assignment.getColor().getRGBColorComponents(null));
+  }
 
-	public float[] getColor() {
-		return color;
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public void setColor(float[] color) {
-		this.color = color;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getUser() {
+    return user;
+  }
+
+  public void setUser(String user) {
+    this.user = user;
+  }
+
+  public float[] getColor() {
+    return color;
+  }
+
+  public void setColor(float[] color) {
+    this.color = color;
+  }
 }
