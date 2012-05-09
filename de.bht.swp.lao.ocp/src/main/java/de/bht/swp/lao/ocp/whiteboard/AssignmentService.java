@@ -31,7 +31,7 @@ public class AssignmentService {
   private ServerSession serverSession;
 
   @Inject
-  private IAssignmentDAO assignmentDao;
+  private IAssignmentDao assignmentDao;
 
   @SuppressWarnings("unchecked")
   @Listener(value = { "/service/assignment/changeColor" })
