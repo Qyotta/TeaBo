@@ -14,8 +14,8 @@ import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
 
-import de.bht.swp.lao.ocp.auth.IUserDao;
-import de.bht.swp.lao.ocp.auth.User;
+import de.bht.swp.lao.ocp.user.IUserDao;
+import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.whiteboard.IWhiteboardDao;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 import de.bht.swp.lao.ocp.whiteboarditem.IWhiteboardItemDao;

@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import de.bht.swp.lao.ocp.auth.IUserDao;
-import de.bht.swp.lao.ocp.auth.User;
 import de.bht.swp.lao.ocp.exceptions.OCPHTTPException;
 import de.bht.swp.lao.ocp.mailer.InviteMailer;
+import de.bht.swp.lao.ocp.user.IUserDao;
+import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.utils.AssignmentHelper;
 import de.bht.swp.lao.ocp.utils.UserUtilities;
 
@@ -40,7 +40,7 @@ public class WhiteboardController {
     private IWhiteboardDao whiteboardDao;
 
     @Inject
-    private IAssignmentDAO assignmentDao;
+    private IAssignmentDao assignmentDao;
 
     @Inject
     private IUserDao userDao;

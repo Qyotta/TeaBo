@@ -1,4 +1,4 @@
-package de.bht.swp.lao.ocp.auth;
+package de.bht.swp.lao.ocp.user;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;

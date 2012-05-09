@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import de.bht.swp.lao.ocp.auth.User;
+import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.utils.AssignmentHelper;
 import de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItem;
 

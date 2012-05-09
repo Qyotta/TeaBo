@@ -1,6 +1,6 @@
 package de.bht.swp.lao.ocp.mailer;
 
-import de.bht.swp.lao.ocp.auth.User;
+import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.whiteboard.Whiteboard;
 
 public class InviteMailer extends AbstractMailer {

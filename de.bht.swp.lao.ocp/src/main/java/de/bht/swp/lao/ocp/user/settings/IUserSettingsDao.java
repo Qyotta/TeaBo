@@ -2,7 +2,7 @@ package de.bht.swp.lao.ocp.user.settings;
 
 import java.util.List;
 
-import de.bht.swp.lao.ocp.auth.User;
+import de.bht.swp.lao.ocp.user.User;
 
 public interface IUserSettingsDao {
 

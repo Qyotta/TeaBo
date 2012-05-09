@@ -9,10 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.bht.swp.lao.ocp.auth.User;
 import de.bht.swp.lao.ocp.exceptions.OCPDBException;
+import de.bht.swp.lao.ocp.user.User;
 
-public class AssignmentDao implements IAssignmentDAO {
+public class AssignmentDao implements IAssignmentDao {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(WhiteboardDao.class);
