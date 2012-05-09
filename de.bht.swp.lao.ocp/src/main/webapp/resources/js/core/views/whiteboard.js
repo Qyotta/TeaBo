@@ -22,7 +22,7 @@ define([
             this.model.bind('change', this.render, this);
             
             window.app.eventDispatcher.bind('whiteboard:changed_modus',this.modusChanged);
-            window.app.eventDispatcher.bind("whiteboardItem:delete_multiple",this.deleteMultipleWhiteboardItems)
+            window.app.eventDispatcher.bind("whiteboard:delete_multiple_items",this.deleteMultipleWhiteboardItems);
             
             $(document).keydown(this.keydown);
             $(document).keyup(this.keyup);
