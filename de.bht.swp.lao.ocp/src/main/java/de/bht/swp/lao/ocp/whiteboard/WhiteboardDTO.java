@@ -5,8 +5,6 @@ import java.util.Set;
 
 public class WhiteboardDTO {
 
-    private String creator;
-
     private Long id;
 
     private String name;
@@ -16,7 +14,6 @@ public class WhiteboardDTO {
     public WhiteboardDTO(Whiteboard w) {
         this.id = w.getId();
         this.name = w.getName();
-        this.creator = w.getOwner().getUser().getEmail();
         setAssignments(null);
         for(Assignment assignment:w.getAssignments()){
         	this.assignments.add(new AssignmentDTO(assignment));
@@ -29,14 +26,6 @@ public class WhiteboardDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator;
     }
 
     public String getName() {

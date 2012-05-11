@@ -20,15 +20,15 @@
         <property name="maxUploadSize" value="16777215" />
     </bean>
     
-    <bean id="userLoginValidator" class="de.bht.swp.lao.ocp.auth.UserLoginValidator" />
-    <bean id="userDao" class="de.bht.swp.lao.ocp.auth.UserDao" />
+    <bean id="userLoginValidator" class="de.bht.swp.lao.ocp.user.UserLoginValidator" />
+    <bean id="userDao" class="de.bht.swp.lao.ocp.user.UserDao" />
     <bean id="userSettingsDao" class="de.bht.swp.lao.ocp.user.settings.UserSettingsDao" />
     <bean id="noteDao" class="de.bht.swp.lao.ocp.note.NoteDao" />
     <bean id="attachmentDao" class="de.bht.swp.lao.ocp.attachment.AttachmentDao" />
     <bean id="whiteboardItemDao" class="de.bht.swp.lao.ocp.whiteboarditem.WhiteboardItemDao" />
     <bean id="whiteboardDao" class="de.bht.swp.lao.ocp.whiteboard.WhiteboardDao" />
     <bean id="assignmentDao" class="de.bht.swp.lao.ocp.whiteboard.AssignmentDao" />
-    <bean id="emailValidator" class="de.bht.swp.lao.ocp.auth.EmailValidator" />
+    <bean id="emailValidator" class="de.bht.swp.lao.ocp.user.EmailValidator" />
 
 <!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
         <property name="username" value="root" /> <property name="password" value="root"/>

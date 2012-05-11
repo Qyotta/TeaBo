@@ -7,8 +7,7 @@ define([
     'core/views/dialogs/confirm_multiple_delete'
 ], function($, _, Backbone, WhiteboardCollection, WhiteboardView, ConfirmDeleteView){
     var WhiteboardController = function(options){
-        
-        _.bindAll(this,'open','close','subscribeChannels');
+        _.bindAll(this,'open','close','subscribeChannels','userColorUpdated');
         window.app.eventDispatcher.bind("whiteboard:open",this.open);
         window.app.eventDispatcher.bind("whiteboard:close",this.close);
         window.app.eventDispatcher.bind('handshakeComplete',this.subscribeChannels);
@@ -25,11 +24,17 @@ define([
         },
         subscribeChannels:function(){
             var commands = [];
-            commands.push(new SubscribeCommand('/whiteboardItem/move/'   + this.whiteboard.id, this.userColorUpdated));
+            commands.push(new SubscribeCommand('/assignment/change/color/'+ this.whiteboard.id, this.userColorUpdated));
             window.app.groupCommand.addCommands(commands);
         },
         userColorUpdated:function(message){
+            console.log('color update');
+            var _assignmentId = message.data.id;
             
+            var assignment = this.whiteboard.get('assignments').get(_assignmentId);
+            assignment.set({color:[message.data.color_r,message.data.color.g,message.data.color.b]});
+            console.log('color updated');
+            console.log(message);
         },
         sync:function(){
             this.whiteboards.fetch({success: function(collection, response){

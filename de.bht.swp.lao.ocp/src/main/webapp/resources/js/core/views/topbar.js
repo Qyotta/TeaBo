@@ -4,8 +4,9 @@ define([
     'backbone',
     'core/views/notice/notice',
     'core/views/notice/error',
-    'text!templates/home/topbar.html'
-], function($, _, Backbone, Notice, Error, topbarTemplate){
+    'text!templates/home/topbar.html',
+    'core/views/AssignmentListView'
+], function($, _, Backbone, Notice, Error, topbarTemplate,AssignmentListView){
     
     var TopbarView = Backbone.View.extend({
         el: $("#topNavigation"),
@@ -14,8 +15,7 @@ define([
             'click .right a[href="invite"]' :'inviteClicked',
             'click .right a[href="main"]' :'mainClicked',
             'click .logo a[href="main"]' : 'mainClicked',
-            'submit div.invite form' : 'inviteUser',
-            'click .assigned-user-color' : 'colorClicked'
+            'submit form#invite' : 'inviteUser',
         },
         initialize:function(){
             _(this).bindAll('changedUser','inviteUser');
@@ -40,6 +40,11 @@ define([
             
             var compiledTemplate = _.template( topbarTemplate, data );
             this.el.html(compiledTemplate);
+            
+            if(this.whiteboard){
+                this.assignmentView = new AssignmentListView({model:this.whiteboard.get('assignments')});
+                $('#whiteboard-users-container').html(this.assignmentView.render().el);
+            }
         },
         changedUser:function(){
             this.render();
@@ -59,6 +64,7 @@ define([
         },
         inviteUser:function(e) {
             e.preventDefault();
+            alert("invite");
             if(this.isInviteInProgress == true){
                 return false;
             }
@@ -79,11 +85,6 @@ define([
                     self.isInviteInProgress = false;
                 }
             });
-        },
-        colorClicked : function(e){
-            var _user = window.app.user;
-            var data = {user:_user,color:this.whiteboard.getColorByUser(_user.get('email'))};
-            window.app.eventDispatcher.trigger('topbar:choose_color',data);
         }
     });
     

@@ -172,14 +172,6 @@ define([
         startSelection: function(e) {
             e.preventDefault();
             
-//          WOZU???  
-//            if(e.target.parentElement.tagName != 'A') {
-//                $(this.el).find('.whiteboarditem').removeClass('selected');
-//            }
-            if(e.target.tagName != 'DIV') {
-                return false;
-            }
-            
             this.selection = this.currentSelectedWhiteboardItems();
             
             // deselect previously selected notes if not multiselecting

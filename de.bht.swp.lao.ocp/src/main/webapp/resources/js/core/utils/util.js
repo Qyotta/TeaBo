@@ -42,7 +42,6 @@ define([
            p = v * (1 - s);
            q = v * (1 - s * f);
            t = v * (1 - s * (1 - f));
-
            switch(i) {
                case 0:
                    r = v;
@@ -79,7 +78,6 @@ define([
                    g = p;
                    b = q;
            }
-           
            return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
        }
     }; 

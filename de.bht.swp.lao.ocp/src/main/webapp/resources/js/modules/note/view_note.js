@@ -17,10 +17,13 @@ define([ 'jquery',
          },
         initialize : function(options) {
             WhiteboardItemView.prototype.initialize.apply( this );
-            _.bindAll(this, 'isFocused', 'isBlured', 'edited','changed');
+            _.bindAll(this, 'isFocused', 'isBlured', 'edited','changed','render');
             this.model.bind('change',this.changed,this);
             
             this.controller = options.controller;
+            this.assignment = this.controller.whiteboard.getAssignmentByUser(this.model.creator());
+
+            this.assignment.bind('change',this.render);
             this.editing    = false;
             this.render();
             this.delegateEvents();
@@ -87,9 +90,9 @@ define([ 'jquery',
                 $(this.el).css('z-index', this.model.get('orderIndex'));
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
             }
-            var _color = this.controller.whiteboard.getColorByUser(this.model.get('creator'));
+            var _color = this.assignment.get('color');
             
-            $('.noteItems',$(this.el)).css('background',_color);
+            $('.noteItems',$(this.el)).css('background',"rgb("+_color[0]*100+"%,"+_color[1]*100+"%,"+_color[2]*100+"%)");
             
             var textarea = $(this.el).find('textarea');
             textarea.css('height', textarea[0].scrollHeight / 2 + 'px');

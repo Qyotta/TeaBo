@@ -11,11 +11,10 @@
     <div class="invite">
         <a href="invite"><img src="resources/images/user.gif">Whiteboard users</a>
         <div>
-            <div class="assigned-user-color-container">
-                <div class="assigned-user-color" style="width:15px;height:15px; background:<%=color%>;"></div>
-                <%=user.get("email")%>
-            </div>
-            <form action="/de.bht.swp.lao.ocp/whiteboard/inviteUser" method="post">
+	        <div id="whiteboard-users-container">
+	            test
+	        </div>
+	        <form id="invite" action="/de.bht.swp.lao.ocp/whiteboard/inviteUser" method="post">
                 <input class="mailaddress" type="text" name="address" placeholder="type email and press enter">
             </form>
         </div>

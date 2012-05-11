@@ -26,6 +26,7 @@ define([
         },
         openedWhiteboard:function(whiteboard){
             this.view.whiteboard=whiteboard;
+            
             this.view.render(whiteboard);
         },
         closedWhiteboard:function(){

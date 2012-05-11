@@ -3,12 +3,14 @@ package de.bht.swp.lao.ocp.whiteboard;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.cometd.bayeux.server.BayeuxServer;
+import org.cometd.bayeux.server.ConfigurableServerChannel;
 import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
 import org.cometd.java.annotation.Listener;
@@ -16,7 +18,7 @@ import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
 
 /**
- * This class is providing channels for cometd related to notes.
+ * This class is providing channels for cometd related to assignments.
  * 
  */
 @Named
@@ -24,42 +26,57 @@ import org.cometd.java.annotation.Session;
 @Service("assignmentService")
 public class AssignmentService {
 
-  @Inject
-  private BayeuxServer bayeux;
+	@Inject
+	private BayeuxServer bayeux;
 
-  @Session
-  private ServerSession serverSession;
+	@Session
+	private ServerSession serverSession;
 
-  @Inject
-  private IAssignmentDAO assignmentDao;
+	@Inject
+	private IAssignmentDao assignmentDao;
 
-  @SuppressWarnings("unchecked")
-  @Listener(value = { "/service/assignment/changeColor" })
-  public void processPost(ServerSession remote, ServerMessage.Mutable message) {
-    Map<String, Object> data = message.getDataAsMap();
+	@Listener(value = { "/service/assignment/changeColor/" })
+	public void processChangedColor(ServerSession remote, ServerMessage.Mutable message){
+		Map<String, Object> data = message.getDataAsMap();
+		Long assignmentId = (Long) data.get("assignmentId");
+		
+		Long r = (Long) data.get("color_r");
+		Long g = (Long) data.get("color_g");
+		Long b = (Long) data.get("color_b");
 
-    Long assignmentId = (Long) data.get("assignmentId");
-    Map<String, Object> color = (Map<String, Object>) data.get("color");
+		Assignment assignment = assignmentDao.findByID(assignmentId);
 
-    Color newColor = new Color(Integer.valueOf((String) color.get("r")), Integer.valueOf((String) color.get("g")),
-        Integer.valueOf((String) color.get("b")));
+		if (assignment != null) {
+			assignment.setColor(new Color(r.intValue(),g.intValue(),b.intValue()));
+			assignmentDao.saveOrUpdate(assignment);
+		}
+		
+		Map<String, Object> output = new HashMap<String, Object>();
+		output.put("id", assignment.getId());
+		output.put("color_r", assignment.getColor().getRed());
+		output.put("color_g", assignment.getColor().getGreen());
+		output.put("color_b", assignment.getColor().getBlue());
 
-    Assignment a = assignmentDao.findByID(assignmentId);
-
-    if (a != null) {
-      a.setColor(newColor);
-      assignmentDao.saveOrUpdate(a);
-    }
-
-    Map<String, Object> output = new HashMap<String, Object>();
-
-    output.put("id", a.getId());
-    output.put("color", a.getColor().getRGBColorComponents(null));
-
-    String channel = "/assignment/changedColor/" + a.getWhiteboard().getId();
-    for (ServerSession session : bayeux.getChannel(channel).getSubscribers()) {
-      session.deliver(serverSession, channel, output, null);
-    }
-  }
+		String wbId = assignment.getWhiteboard().getId().toString();
+		String channel = "/assignment/change/color/" + wbId;
+		System.out.println(channel);
+		System.out.println(bayeux);
+		
+		bayeux.createIfAbsent(channel, new ConfigurableServerChannel.Initializer(){
+		    public void configureChannel(ConfigurableServerChannel c)
+		    {
+		        c.setPersistent(true);
+		    }
+		});
+		
+		Set<ServerSession> sessions = bayeux.getChannel(channel).getSubscribers();
+		System.out.println(sessions.size());
+		
+		for (ServerSession session : bayeux.getChannel(channel).getSubscribers()) {
+			System.out.println(session.getId());
+			session.deliver(serverSession, channel, output, null);
+		}
+		System.out.println("4");
+	}
 
 }
