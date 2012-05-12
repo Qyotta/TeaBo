@@ -114,17 +114,23 @@
 }
 
 #colorChooserContainer{
-	width: auto;
-	height:auto;
-	top:20%;
+    width: auto;
+    height:auto;
+    top:20%;
 }
 
-.colorRangeContainer{float: left;margin: 10px;}
-.colorInfoContainer{float: left;margin: 10px;
-    width: 200px;margin: 10px;}
-.choosenColor{}
-.colorHexCode{}
-.colorChooserSaveCancel{margin: 10px;}
+.colorRangeContainer{
+    float: left;
+    margin: 10px;
+}
+.colorInfoContainer{
+    float: left;
+    width: 200px;
+    margin: 10px;
+}
+.colorChooserSaveCancel{
+    margin: 10px;
+}
 
 #uploadContainer {
     width: 500px;
@@ -196,11 +202,11 @@
 }
 
 .hide-confirm-container{
-	margin: 5px 0 0 -100px;
+    margin: 5px 0 0 -100px;
 }
 
 .hide-confirm-container label{
-	font-size:12px;
+    font-size:12px;
 }
 
 .blurBox .attachmentMenu, .blurBox .noteMenu {

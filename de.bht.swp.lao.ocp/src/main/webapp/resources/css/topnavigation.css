@@ -116,9 +116,10 @@ nav#topNavigation span.logo-title {
 #whiteboard-users-container ul li{
     clear: both;
     margin: 0 0 5px 0;
+    line-height: 17px;
 }
-
 .assigned-user-color{
+    margin: 0 5px 0 0;
     float: left;
     width: 15px;
     height: 15px;
