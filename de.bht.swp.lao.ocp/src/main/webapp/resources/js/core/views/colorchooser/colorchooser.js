@@ -28,7 +28,8 @@ define([
             this.el.html(compiledTemplate);
         },
         colorChoosen:function(e){
-            var rgb = Utils.hsvToRgb(e.offsetY,50,100);
+            var yPos = e.offsetY;
+            var rgb = Utils.hsvToRgb(yPos,50,100);
             this.color = [rgb[0]/255,rgb[1]/255,rgb[2]/255];
             this.render();
         },

@@ -58,17 +58,9 @@ public class AssignmentService {
 
 		String wbId = assignment.getWhiteboard().getId().toString();
 		String channel = "/assignment/change/color/" + wbId;
-		System.out.println(channel);
-		System.out.println(bayeux);
-		System.out.println(bayeux.getChannel(channel));
-		
 		Set<ServerSession> sessions = bayeux.getChannel(channel).getSubscribers();
-		System.out.println(sessions.size());
-		
 		for (ServerSession session : sessions) {
-			System.out.println(session.getId());
 			session.deliver(serverSession, channel, output, null);
 		}
-		System.out.println("4");
 	}
 }

@@ -4,8 +4,9 @@ define([
     'backbone',
     'core/collections/whiteboard',
     'core/views/whiteboard',
-    'core/views/dialogs/confirm_multiple_delete'
-], function($, _, Backbone, WhiteboardCollection, WhiteboardView, ConfirmDeleteView){
+    'core/views/dialogs/confirm_multiple_delete',
+    'core/utils/subscribe_command'
+], function($, _, Backbone, WhiteboardCollection, WhiteboardView, ConfirmDeleteView,SubscribeCommand){
     var WhiteboardController = function(options){
         _.bindAll(this,'open','close','subscribeChannels','userColorUpdated','sync');
         window.app.eventDispatcher.bind("whiteboard:open",this.open);
