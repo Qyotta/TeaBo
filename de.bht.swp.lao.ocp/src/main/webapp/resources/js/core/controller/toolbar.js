@@ -7,7 +7,7 @@ define([
     
     var ToolbarController = function(options){
         _.bindAll(this,'showTools','removeTools');
-        window.app.eventDispatcher.bind("whiteboard:open",this.showTools);
+        window.app.eventDispatcher.bind("whiteboard:opened",this.showTools);
         window.app.eventDispatcher.bind("whiteboard:close",this.removeTools);
         this.initialize();
     };
