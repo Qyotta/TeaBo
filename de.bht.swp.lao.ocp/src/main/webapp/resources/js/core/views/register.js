@@ -46,7 +46,7 @@ define([
                                 {success:function(model, response){
                                     window.router.loggedIn();
                                     window.router.navigate("login",{trigger: true});
-                                    new Notice({message:"Registration was successful. Please login with your credentials."});
+                                    new Notice({message:"Registration was successful. You're now logged in!"});
                                 },error:function(model, response){
                                      new Error({message:"Registration was not successful. Try again."});
                                 }});
