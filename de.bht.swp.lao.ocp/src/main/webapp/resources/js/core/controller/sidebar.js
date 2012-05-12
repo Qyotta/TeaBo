@@ -7,7 +7,7 @@ define([
     
     var SidebarController = function(options){
         _.bindAll(this,'showSidebar','removeSidebar','fillAttachmentDataSidebar');
-        window.app.eventDispatcher.bind("whiteboard:open",this.showSidebar);
+        window.app.eventDispatcher.bind("whiteboard:opened",this.showSidebar);
         window.app.eventDispatcher.bind("whiteboard:close",this.removeSidebar);
         window.app.eventDispatcher.bind("attachment:isClicked", this.fillAttachmentDataSidebar);
         this.initialize();
