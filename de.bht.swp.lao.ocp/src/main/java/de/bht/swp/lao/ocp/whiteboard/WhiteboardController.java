@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import de.bht.swp.lao.ocp.exceptions.OCPHTTPException;
 import de.bht.swp.lao.ocp.mailer.InviteMailer;
+import de.bht.swp.lao.ocp.user.EmailValidator;
 import de.bht.swp.lao.ocp.user.IUserDao;
 import de.bht.swp.lao.ocp.user.User;
 import de.bht.swp.lao.ocp.utils.AssignmentHelper;
@@ -44,6 +45,9 @@ public class WhiteboardController {
 
     @Inject
     private IUserDao userDao;
+    
+    @Inject
+    private EmailValidator emailValidator;
 
     @RequestMapping(value = WHITEBOARD_WHITEBOARD_ID, method = RequestMethod.GET)
     public @ResponseBody
@@ -166,14 +170,20 @@ public class WhiteboardController {
             HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        String mailaddress = (String) data.get("email");
+        String email = (String) data.get("email");
         Long whiteboardId = Long.valueOf((Integer) data.get("whiteboardId"));
         
-        User invitedUser = userDao.findByEmail(mailaddress);
+        if(!emailValidator.isValidEmailAddress(email)){
+        	throw new OCPHTTPException(
+                    OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
+                    "Not a valid email address.");
+        }
+        
+        User invitedUser = userDao.findByEmail(email);
         
         if (invitedUser == null) {
             invitedUser = new User();
-            invitedUser.setEmail(mailaddress);
+            invitedUser.setEmail(email);
             invitedUser.setPassword(UserUtilities.randomPassword());
         }
         userDao.save(invitedUser);

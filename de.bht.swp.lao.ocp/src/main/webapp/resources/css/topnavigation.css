@@ -112,3 +112,14 @@ nav#topNavigation div.right b {
 nav#topNavigation span.logo-title {
     display:block;
 }
+
+#whiteboard-users-container ul li{
+    clear: both;
+    margin: 0 0 5px 0;
+}
+
+.assigned-user-color{
+    float: left;
+    width: 15px;
+    height: 15px;
+}

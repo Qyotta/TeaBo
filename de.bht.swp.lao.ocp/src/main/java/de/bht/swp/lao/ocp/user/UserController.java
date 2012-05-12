@@ -35,6 +35,9 @@ public class UserController {
 
     @Inject
     private IUserSettingsDao userSettingsDao;
+    
+    @Inject
+    private EmailValidator emailValidator;
 
     @RequestMapping(value = "/getAllSettings.htm", method = RequestMethod.GET)
     public @ResponseBody
@@ -112,8 +115,17 @@ public class UserController {
                     OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
                     "Register data not valid.");
         }
-
-        User userWithEmail = userDao.findByEmail(user.getEmail());
+        
+        String email = user.getEmail();
+        
+        if(!emailValidator.isValidEmailAddress(email)){
+        	throw new OCPHTTPException(
+                    OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
+                    "Not a valid email address.");
+        }
+        
+        User userWithEmail = userDao.findByEmail(email);
+        
         if (userWithEmail != null) {
             throw new OCPHTTPException(
                     OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,

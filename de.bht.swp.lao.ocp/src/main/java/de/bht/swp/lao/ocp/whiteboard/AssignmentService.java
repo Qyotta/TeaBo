@@ -10,7 +10,6 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.cometd.bayeux.server.BayeuxServer;
-import org.cometd.bayeux.server.ConfigurableServerChannel;
 import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
 import org.cometd.java.annotation.Listener;
@@ -61,18 +60,12 @@ public class AssignmentService {
 		String channel = "/assignment/change/color/" + wbId;
 		System.out.println(channel);
 		System.out.println(bayeux);
-		
-		bayeux.createIfAbsent(channel, new ConfigurableServerChannel.Initializer(){
-		    public void configureChannel(ConfigurableServerChannel c)
-		    {
-		        c.setPersistent(true);
-		    }
-		});
+		System.out.println(bayeux.getChannel(channel));
 		
 		Set<ServerSession> sessions = bayeux.getChannel(channel).getSubscribers();
 		System.out.println(sessions.size());
 		
-		for (ServerSession session : bayeux.getChannel(channel).getSubscribers()) {
+		for (ServerSession session : sessions) {
 			System.out.println(session.getId());
 			session.deliver(serverSession, channel, output, null);
 		}
