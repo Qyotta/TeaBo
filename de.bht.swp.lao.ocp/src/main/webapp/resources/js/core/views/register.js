@@ -44,6 +44,7 @@ define([
                                 lastname:this.lastname,
                                 position:this.position},
                                 {success:function(model, response){
+                                    window.router.loggedIn();
                                     window.router.navigate("login",{trigger: true});
                                     new Notice({message:"Registration was successful. Please login with your credentials."});
                                 },error:function(model, response){
