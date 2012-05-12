@@ -7,11 +7,11 @@ define([
     'core/views/dialogs/confirm_multiple_delete'
 ], function($, _, Backbone, WhiteboardCollection, WhiteboardView, ConfirmDeleteView){
     var WhiteboardController = function(options){
-        _.bindAll(this,'open','close','subscribeChannels','userColorUpdated');
+        _.bindAll(this,'open','close','subscribeChannels','userColorUpdated','sync');
         window.app.eventDispatcher.bind("whiteboard:open",this.open);
         window.app.eventDispatcher.bind("whiteboard:close",this.close);
         window.app.eventDispatcher.bind('handshakeComplete',this.subscribeChannels);
-        
+        window.app.eventDispatcher.bind("whiteboard:sync",this.sync);
         this.initialize(options);
     };
     

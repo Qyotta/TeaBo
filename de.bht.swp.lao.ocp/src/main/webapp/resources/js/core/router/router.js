@@ -52,10 +52,13 @@ define([
             if(!window.app.logoutDialogView){
                 window.app.logoutDialogView = new LogoutDialogView();
             }
+            
             if(!this.mainHomeView) {
                 this.mainHomeView = new MainHomeView();
             }
-            this.mainHomeView.render();
+            
+            window.app.eventDispatcher.trigger("whiteboard:sync");
+            
             window.app.eventDispatcher.trigger("topbar:refresh");
             window.app.log("mainpanel:show");
         },
