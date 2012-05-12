@@ -31,11 +31,9 @@ define([
         userColorUpdated:function(message){
             console.log('color update');
             var _assignmentId = message.data.id;
-            
             var assignment = this.whiteboard.get('assignments').get(_assignmentId);
-            assignment.set({color:[message.data.color_r,message.data.color.g,message.data.color.b]});
+            assignment.set({color:[message.data.color_r/255,message.data.color_g/255,message.data.color_b/255]});
             console.log('color updated');
-            console.log(message);
         },
         sync:function(){
             this.whiteboards.fetch({success: function(collection, response){

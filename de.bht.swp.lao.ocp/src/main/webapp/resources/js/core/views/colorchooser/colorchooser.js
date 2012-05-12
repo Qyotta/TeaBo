@@ -44,9 +44,6 @@ define([
             window.app.groupCommand.addCommands(
                     [new ModelCommand('/service/assignment/changeColor/',data)]);
             this.hideColorChooserDialog(evt);
-            console.log();
-            this.assignment.set({color: [_color[0],_color[1],_color[2]]});
-//            window.app.eventDispatcher.trigger("assignment:color_changed",this.assignment);
         },
         showColorChooserDialog:function(data){
             this.assignment = data;

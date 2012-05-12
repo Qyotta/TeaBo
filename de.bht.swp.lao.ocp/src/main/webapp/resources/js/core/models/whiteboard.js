@@ -24,6 +24,7 @@ define([
           return {name: this.get("name")};
         },
         getAssignmentByUser:function(user){
+            if(user==null)return null;
             var assignments = this.get('assignments');
             if(!assignments)return;
             return assignments.filter(function(a){
