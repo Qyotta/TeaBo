@@ -109,7 +109,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody
-    UserDTO register(@RequestBody User user) {
+    UserDTO register(@RequestBody User user, HttpServletRequest request) {
         if (user == null) {
             throw new OCPHTTPException(
                     OCPHTTPException.HTTPCode.HTTP_401_UNAUTHORIZED_EXPLAINED,
@@ -132,6 +132,7 @@ public class UserController {
                     "Email is already in use.");
         }
         userDao.save(user);
+        request.getSession().setAttribute("user", user);
 
         return new UserDTO(user);
     }
