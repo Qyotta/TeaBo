@@ -17,7 +17,7 @@ define([
         events:{
             'click #colorChooserContainer button.cancel' : 'hideColorChooserDialog',
             'click #colorChooserContainer button.save':'saveClicked',
-            'click .colorRangeContainer img' : 'colorChoosen'
+            'click #colorChooserContainer > img' : 'colorChoosen'
         },
         render: function(){
             var color = this.color;

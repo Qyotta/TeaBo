@@ -1,10 +1,11 @@
 <div id="colorChooserContainer"> 
-    <div class="colorRangeContainer"><img src="resources/images/colorchooser/color_range.jpg"></div>
-    <div class="colorInfoContainer"> 
-        <div class="choosenColor" style="width:15px;height:15px; background:<%=color %>;"></div>
-        <div class="colorHexCode">HEX:<span class="hexCode"></span></div>
-    </div>
-    <div class="colorChooserSaveCancel">
+    <img src="resources/images/colorchooser/color_range.jpg" alt="choose a color" title="choose a color">
+    <div> 
+        <div style="background:<%=color %>">&nbsp;</div>
+        <span>R:</span><input name="color_r" value="0">
+        <span>G:</span><input name="color_r" value="0">
+        <span>B:</span><input name="color_r" value="0">
+        
         <button type="button" class="save">Save</button>
         <button type="button" class="cancel">cancel</button>
     </div>

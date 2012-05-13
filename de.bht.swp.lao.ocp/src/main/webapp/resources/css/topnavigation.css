@@ -72,6 +72,7 @@ nav#topNavigation > div.left > div.invite > div > div.assigned-user-color-contai
 nav#topNavigation > div.left > div.invite > div > form {
     width:100%;
     overflow:hidden;
+    border-top: 1px solid;
 }
 nav#topNavigation > div.left > div.invite > div > form > input {
     border: 0 none;
