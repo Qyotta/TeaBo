@@ -44,14 +44,15 @@ define([
             }   
         },
         prevToolTip: function() {
+            var that = this;
             if(!this.toolTipCnt)
                 return;
             if(this.toolTipCnt===this.toolTips.length)
                 this.closeToolTip();
             
             $(this.toolTips[this.toolTipCnt-1]).fadeOut(500,function() {
-                $(this.toolTips[this.toolTipCnt-2]).fadeIn(500);
-                this.toolTipCnt--;
+                $(that.toolTips[that.toolTipCnt-2]).fadeIn(500);
+                that.toolTipCnt--;
             });
         },
         closeToolTip: function() {
