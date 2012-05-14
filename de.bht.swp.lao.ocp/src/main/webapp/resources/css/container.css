@@ -114,8 +114,8 @@
 }
 
 #colorChooserContainer{
-    width: 181px;
-    height:auto;
+    width: 261px;
+    height: 225px;
     top:20%;
 }
 #colorChooserContainer > img {
