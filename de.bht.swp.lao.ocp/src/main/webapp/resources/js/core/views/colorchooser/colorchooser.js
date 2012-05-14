@@ -28,9 +28,18 @@ define([
             this.el.html(compiledTemplate);
         },
         colorChoosen:function(e){
-            console.log(e);
             var yPos = e.offsetY || e.pageY - $(e.target).offset().top;
-            var rgb = Utils.hsvToRgb(yPos,50,100);
+            var xPos = e.offsetX || e.pageX - $(e.target).offset().left;
+            var s = 1;
+            var v = 1;
+            if(yPos>90){
+                v = 1-((yPos-90)/180);
+            }else{
+                s = (yPos/180)+0.2;
+            }
+            
+            var h = xPos/180;
+            var rgb = Utils.hsvToRgb(h*360,s*100,v*100);
             this.color = [rgb[0]/255,rgb[1]/255,rgb[2]/255];
             this.render();
         },
