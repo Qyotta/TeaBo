@@ -114,15 +114,36 @@
 }
 
 #colorChooserContainer{
+    border: 0 none;
+    height: 180px;
+    left: 350px;
+    margin: 0;
+    top: 40px;
     width: 261px;
-    height: 225px;
-    top:20%;
+}
+#colorChooserContainer > a {
+    background: url("../images/close.png") no-repeat;
+    text-indent: -3000px; 
+    font-size:0px;
+    display:block;
+    width: 22px;
+    height:22px;
+    position:absolute;
+    top:-14px;
+    right:-14px;
 }
 #colorChooserContainer > img {
     float:left;
 }
 #colorChooserContainer > img:hover {
     cursor:crosshair;
+}
+#colorChooserContainer > img.arrow {
+    left: -18px;
+    position: absolute;
+}
+#colorChooserContainer > img.arrow:hover {
+    cursor:default;
 }
 #colorChooserContainer > div {
     float: left;
@@ -132,13 +153,31 @@
 #colorChooserContainer > div > input {
     width:40px;
     margin: 0 0 5px;
+    font-size:10px;
+    height:8px;
+    background: #414141;
+    border: 1px solid #777777;
+    color: #FFFFFF;
+    float:left;
+    padding: 5px 0 3px;
 }
 #colorChooserContainer > div > span {
     display: block;
     float: left;
-    line-height: 25px;
+    line-height: 20px;
     width: 25px;
-    margin: 0 0 5px;
+    height:20px;
+    margin: 0 0 3px;
+    font-size: 10px;
+}
+#colorChooserContainer > div > span.hex {
+    height: 15px;
+    margin-top: 33px;
+    width: 100%;
+}
+#colorChooserContainer > div > input.hex {
+    padding:3px;
+    height:10px;
 }
 #colorChooserContainer > div > button {
     position:absolute;
@@ -153,7 +192,7 @@
 #colorChooserContainer > div > div {
     background: none repeat scroll 0 0 #9AFF80;
     border: 1px solid #000000;
-    height: 70px;
+    height: 30px;
     width: 70px;
     margin:0 0 10px;
 }
