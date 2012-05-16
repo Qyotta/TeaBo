@@ -125,3 +125,6 @@ nav#topNavigation span.logo-title {
     width: 15px;
     height: 15px;
 }
+.assigned-user-color:hover {
+    cursor: pointer;
+}

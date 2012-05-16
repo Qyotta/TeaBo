@@ -15,6 +15,7 @@ define([
             'click .right a[href="invite"]' :'inviteClicked',
             'click .right a[href="main"]' :'mainClicked',
             'click .logo a[href="main"]' : 'mainClicked',
+            'click div.invite' : 'preventDefault',
             'submit form#invite' : 'inviteUser',
         },
         initialize:function(){
@@ -85,6 +86,9 @@ define([
                     self.isInviteInProgress = false;
                 }
             });
+        },
+        preventDefault:function(e) {
+            e.preventDefault();
         }
     });
     

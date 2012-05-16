@@ -10,13 +10,12 @@ define([
     var ColorChooserDialogView = Dialog.extend({
         el:$('#dialogs'),
         initialize:function(){
-            _.bindAll(this,'showColorChooserDialog');
+            _.bindAll(this,'showColorChooserDialog','saveClicked');
             window.app.eventDispatcher.bind("topbar:choose_color",this.showColorChooserDialog);
-            console.log('ColorChooserDialogView');
+            this.menu = $('div.left > div.invite > div');
         },
         events:{
-            'click #colorChooserContainer button.cancel' : 'hideColorChooserDialog',
-            'click #colorChooserContainer button.save':'saveClicked',
+            'click a':'saveClicked',
             'click #colorChooserContainer > img' : 'colorChoosen'
         },
         render: function(){
@@ -44,6 +43,7 @@ define([
             this.render();
         },
         saveClicked:function(evt){
+            evt.preventDefault();
             var _color = this.color;
             var data = {
                     assignmentId : this.assignment.id,
@@ -58,12 +58,14 @@ define([
         showColorChooserDialog:function(data){
             this.assignment = data;
             this.color = this.assignment.get('color');
+            $('div.left > div.invite > div').css('display','block');
             this.showDialog();
         },
         hideColorChooserDialog:function(evt){
             evt.preventDefault();
             this.hideDialog();
-        },
+            $('div.left > div.invite > div').removeAttr('style');
+        }
     });
     return ColorChooserDialogView;
 });
