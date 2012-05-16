@@ -1,12 +1,13 @@
 <div id="colorChooserContainer"> 
-    <a href="close">close</a>
+    <a href="close" class="close">close</a>
+    <a href="accept" class="accept">accept</a>
     <img src="resources/images/arrow-color-chooser.png" alt="" class="arrow">
     <img src="resources/images/colorchooser/range.jpg" alt="choose a color" title="choose a color">
     <div> 
         <div style="background:<%=color %>">&nbsp;</div>
-        <span>R:</span><input name="color_r" value="0">
-        <span>G:</span><input name="color_r" value="0">
-        <span>B:</span><input name="color_r" value="0">
-        <span class="hex">#hex:</span><input class="hex" name="color_hex" value="#000000" />
+        <span>R:</span><input name="color_r" class="rgb" value="<%=r %>" disabled="disabled">
+        <span>G:</span><input name="color_g" class="rgb" value="<%=g %>" disabled="disabled">
+        <span>B:</span><input name="color_b" class="rgb" value="<%=b %>" disabled="disabled">
+        <span class="hex">#hex:</span><input class="hex" name="color_hex" value="<%=hex %>" disabled="disabled" />
     </div>
 </div>

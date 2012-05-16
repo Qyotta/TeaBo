@@ -121,7 +121,7 @@
     top: 40px;
     width: 261px;
 }
-#colorChooserContainer > a {
+#colorChooserContainer > a.close, #colorChooserContainer > a.accept {
     background: url("../images/close.png") no-repeat;
     text-indent: -3000px; 
     font-size:0px;
@@ -129,8 +129,12 @@
     width: 22px;
     height:22px;
     position:absolute;
-    top:-14px;
-    right:-14px;
+    top:-7px;
+    right:-16px;
+}
+#colorChooserContainer > a.accept {
+    background: url("../images/accept.png") no-repeat;
+    top: 17px;
 }
 #colorChooserContainer > img {
     float:left;
@@ -178,6 +182,7 @@
 #colorChooserContainer > div > input.hex {
     padding:3px;
     height:10px;
+    width:45px;
 }
 #colorChooserContainer > div > button {
     position:absolute;
