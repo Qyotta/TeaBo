@@ -20,6 +20,7 @@ var userID = 0,
     User   = mongoose.model('User', new mongoose.Schema({
         _id         : Number,
         email       : String,
+        password    : String,
         firstname   : String,
         lastname    : String,
         position    : String,
@@ -46,5 +47,25 @@ app.post('/user', function(req,res) {
     });
     res.send(user);
 });
+
+app.get('/user',function(req,res) {
+    User.find(function(err,users) {
+        res.send(JSON.stringify(users));
+    })
+})
+
+app.post('/user/login',function(req,res) {
+    var query = {'email':req.body.email,'password':req.body.password}
+    console.log('check auth for ',query);
+    User.findOne(query,function(err,user) {
+        if(!err && user) {
+            console.log('login successful for ',user);
+            res.send(user);
+        } else {
+            console.log('access denied!');
+            res.send('');
+        }
+    })
+})
 
 app.listen(3000);
