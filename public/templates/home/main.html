@@ -13,8 +13,8 @@
     <% } else{%>
         <ul>
             <% _.each(ownWhiteboards, function(whiteboard){ %>
-                <li id="<%= whiteboard.get("id") %>">
-                    <a href="#whiteboard/<%= whiteboard.get("id") %>"><%= whiteboard.get("name") %></a> 
+                <li id="<%= whiteboard._id %>">
+                    <a href="#whiteboard/<%= whiteboard._id %>"><%= whiteboard.name %></a> 
                     <% if(user.email == whiteboard.creator){ %>
                         <a href="#!/" class="delete">
                             <img src="/images/cross.png" alt="delete" title="Delete Whiteboard"/>
@@ -30,13 +30,8 @@
     <% } else{%>
         <ul>
             <% _.each(assignedWhiteboards, function(whiteboard){ %>
-                <li id="<%= whiteboard.get("id") %>">
-                    <a href="#whiteboard/<%= whiteboard.get("id") %>"><%= whiteboard.get("name") %></a> 
-                    <% if(user.email == whiteboard.creator){ %>
-                        <a href="#!/" class="delete">
-                            <img src="/images/cross.png" alt="delete" title="Delete Whiteboard"/>
-                        </a>
-                    <% } %>
+                <li id="<%= whiteboard._id %>">
+                    <a href="#whiteboard/<%= whiteboard._id %>"><%= whiteboard.name %></a> 
                 </li> 
             <% }); %>
         </ul>

@@ -28,7 +28,6 @@ define([
                 success: function(data){ 
                     window.app.user.set(data);
                     if(window.app.loggedIn()){
-                        window.router.loggedIn();
                         window.router.navigate("main", {trigger: true});
                     }
                 },

@@ -47,7 +47,7 @@ define([
             }
         },
         loggedIn : function() {
-            return !this.user.isNew();
+            return Object.keys(window.app.user.attributes).length;
         },
         logout : function() {
             this.createGuestUser();

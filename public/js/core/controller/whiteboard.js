@@ -39,6 +39,7 @@ define([
             this.whiteboards.fetch({success: function(collection, response){
                 window.app.eventDispatcher.trigger("whiteboard:synced",collection);
                 window.app.log('whiteboard:synced');
+                return true;
             }, error: function() {
                 window.app.log('You are not authorized, please login!');
                 window.router.navigate("login", {trigger: true});

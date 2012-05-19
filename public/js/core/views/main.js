@@ -52,41 +52,30 @@ define([
                 return;
             }
             var data = { user:window.app.user, ownWhiteboards: this.getOwnWhiteboards(), assignedWhiteboards: this.getAssignedWhiteboards(), _: _ };
+            console.log(data);
             var compiledTemplate = _.template( mainHomeTemplate, data );
             this.el.html(compiledTemplate);
         },
         getOwnWhiteboards: function() {
-            var allWhiteboards = this.collection.models,
-                user           = window.app.user.attributes.email,
+            var user           = window.app.user,
                 ownWhiteboards = [];
                 
-            $.each(allWhiteboards, function(i, whiteboard) {
-                $.each(whiteboard.attributes.assignments, function(i, assignment) {
-                    if(whiteboard.attributes.creator === user) {
-                        ownWhiteboards.push(whiteboard);
-                        return false;
-                    }
-                });
+            $.each(user.attributes.assignments, function(i, assignment) {
+                if(assignment.isOwner) {
+                    ownWhiteboards.push(assignment.whiteboard[0]);
+                }
             });
             
             return ownWhiteboards;
         },
         getAssignedWhiteboards: function() {
-            var allWhiteboards      = this.collection.models,
-                user                = window.app.user.attributes.email,
-                assignedWhiteboards = [],
-                userMatch           = false;
+            var user                = window.app.user,
+                assignedWhiteboards = [];
                 
-            $.each(allWhiteboards, function(i, whiteboard) {
-                $.each(whiteboard.attributes.assignments, function(i, assignment) {
-                    if(whiteboard.attributes.creator === user) {
-                        userMatch = true;
-                    }
-                });
-                if(!userMatch) {
-                    assignedWhiteboards.push(whiteboard);
+            $.each(user.attributes.assignments, function(i, assignment) {
+                if(!assignment.isOwner) {
+                    assignedWhiteboards.push(assignment.whiteboard[0]);
                 }
-                userMatch = false;
             });
             
             return assignedWhiteboards;
