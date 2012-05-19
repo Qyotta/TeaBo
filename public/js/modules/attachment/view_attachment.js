@@ -35,13 +35,13 @@ define([ 'jquery',
             var ext = filename.split('.').pop(),
             shortName = filename.substr(0, filename.length - (ext.length + 1)),
             
-            imgPath = config.contextPath+"/resources/images/teambox-free-file-icons/32px/"+ext+".png";
+            imgPath = config.contextPath+"/images/teambox-free-file-icons/32px/"+ext+".png";
             
             if(!this.model.isComplete()){
                 if (this.controller.activeUpload != null && this.model.get('uid') === this.controller.activeUpload[1]){
-                    imgPath = config.contextPath+"/resources/images/loading.gif";
+                    imgPath = config.contextPath+"/images/loading.gif";
                 } else {
-                    imgPath = config.contextPath+"/resources/images/stop.gif";
+                    imgPath = config.contextPath+"/images/stop.gif";
                 }
             }
             

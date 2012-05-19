@@ -9,12 +9,12 @@
 <div class="left">
     <% if(view === "whiteboard") { %>
     <div class="invite">
-        <a href="invite"><img src="resources/images/user.gif">Whiteboard users</a>
+        <a href="invite"><img src="/images/user.gif">Whiteboard users</a>
         <div>
 	        <div id="whiteboard-users-container">
 	            test
 	        </div>
-	        <form id="invite" action="/de.bht.swp.lao.ocp/whiteboard/inviteUser" method="post">
+	        <form id="invite" action="/inviteUser" method="post">
                 <input class="mailaddress" type="text" name="address" placeholder="type email and press enter">
             </form>
         </div>
@@ -25,9 +25,9 @@
     <% if(!user.isNew()) { %>
         <div>
             <% if(view === "whiteboard") { %>
-            <a href="main"><img src="resources/images/back_to_mainpanel.gif">Back to Main Panel</a>
+            <a href="main"><img src="/images/back_to_mainpanel.gif">Back to Main Panel</a>
             <% } %>
-            <a href="logout"><img src="resources/images/log_out.gif">Log out</a>
+            <a href="logout"><img src="/images/log_out.gif">Log out</a>
         </div>
     <% } %>
 </div>

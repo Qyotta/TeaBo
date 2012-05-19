@@ -1,7 +1,7 @@
 var application_root = __dirname,
-    express 		 = require("express"),
-    path 			 = require("path"),
-    mongoose 		 = require('mongoose');
+    express          = require("express"),
+    path             = require("path"),
+    mongoose         = require('mongoose');
 
 var app = express.createServer();
 mongoose.connect('mongodb://localhost/lao');
@@ -16,8 +16,35 @@ app.configure(function(){
     app.set('view engine', 'jade')
 });
 
-app.get('/',function(req,res) {
-	res.send('Hello nodeJS App!');
+var userID = 0,
+    User   = mongoose.model('User', new mongoose.Schema({
+        _id         : Number,
+        email       : String,
+        firstname   : String,
+        lastname    : String,
+        position    : String,
+        whiteboards : {
+            own: [],
+            assigned: []
+        }
+    }));
+    
+app.post('/user', function(req,res) {
+    var user = new User({
+        _id: ++userID,
+        email: req.body.email,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        position: req.body.position
+    });
+    user.save(function(err) {
+        if(!err) {
+            console.log('user created');
+        } else {
+            console.log('[ERROR] ',err);
+        }
+    });
+    res.send(user);
 });
 
 app.listen(3000);

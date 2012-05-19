@@ -12,7 +12,7 @@
                 <input type="email" name="email" value="<%=email%>" />
                 <% if(errors && errors.email){ %>
                     <div class="exclamation">
-                        <img src="resources/images/exclamation_mark.png">
+                        <img src="/images/exclamation_mark.png">
                         <div class="errors"><%= errors.email%></div>
                     </div>
                 <% } %>
@@ -22,7 +22,7 @@
                 <input type="password" name="password"/>
                 <% if(errors && errors.password){ %>
                     <div class="exclamation">
-                        <img src="resources/images/exclamation_mark.png">
+                        <img src="/images/exclamation_mark.png">
                         <div class="errors"><%= errors.password %></div>
                     </div>
                 <% } %>
@@ -32,7 +32,7 @@
                 <input type="password" name="passwordvalidate" />
                 <% if(errors && errors.verify){ %>
                     <div class="exclamation">
-                        <img src="resources/images/exclamation_mark.png">
+                        <img src="/images/exclamation_mark.png">
                         <div class="errors"><%= errors.verify%></div>
                     </div>
                 <% } %>
