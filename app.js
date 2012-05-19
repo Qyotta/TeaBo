@@ -16,18 +16,44 @@ app.configure(function(){
     app.set('view engine', 'jade')
 });
 
-var userID = 0,
-    User   = mongoose.model('User', new mongoose.Schema({
-        _id         : Number,
-        email       : String,
-        password    : String,
-        firstname   : String,
-        lastname    : String,
-        position    : String,
-        whiteboards : {
-            own: [],
-            assigned: []
-        }
+var userID           = 0,
+    assignmentID     = 0,
+    settingsID       = 0,
+    whiteboardID     = 0,
+    whiteboardItemID = 0
+    User = mongoose.model('User', new mongoose.Schema({
+        _id       : Number,
+        email     : String,
+        password  : String,
+        firstname : String,
+        lastname  : String,
+        position  : String
+    })),
+    Assignment = mongoose.model('Assignment', new mongoose.Schmea({
+        _id          : Number,
+        color        : String,
+        isOwner      : Boolean,
+        userID       : Number,
+        whiteboardID : Number
+    })),
+    Settings = mongoose.model('Settings', new mongoose.Schema({
+        _id    : Number,
+        key    : String,
+        value  : String,
+        userID : Number
+    })),
+    Whiteboard = mongoose.model('Whiteboard', new mongoose.Schema({
+        _id  : Number,
+        name : String
+    })),
+    WhiteboardItem = mongoose.model('WhiteboardItem', new mongoose.Schema({
+        _id          : Number,
+        editing      : Boolean,
+        orderIndex   : Number,
+        x            : Number,
+        y            : Number,
+        creatorID    : Number,
+        whiteboardID : Number
     }));
     
 app.post('/user', function(req,res) {
@@ -67,5 +93,7 @@ app.post('/user/login',function(req,res) {
         }
     })
 })
+
+
 
 app.listen(3000);
