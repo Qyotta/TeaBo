@@ -33,7 +33,7 @@ define([
             var full_name = $('<h2/>').attr('class','full_filename').html(model.get('filename')),
                 creator = $('<div/>').attr('class','creator').html('uploded by '+model.get('creator')),
                 description = $('<textarea/>').attr('class','description').attr('readonly','readonly').html(model.get('description')),
-                download = $('<a/>').attr('href',config.contextPath+"/attachment/"+model.id+"/"+model.get('filename')+"/download.htm").html('Download'),
+                download = $('<a/>').attr('href','/attachment/'+model.id+'/'+model.get('filename')+'/download.htm').html('Download'),
                 fileinfo = $('<div/>')
                     .attr('class','fileinfo')
                     .append(full_name)

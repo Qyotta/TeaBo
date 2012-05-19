@@ -47,7 +47,7 @@ define([
               value : _value
           });
           window.app.groupCommand.addCommands(new UserSettingsCommand(
-                  config.contextPath+'/user/setSettings.htm', 
+                  '/user/settings', 
                   {
                       key : _key,
                       value : _value

@@ -22,7 +22,7 @@
     <% } %>
 </div>
 <div class="right">
-    <% if(!user.isNew()) { %>
+    <% if(Object.keys(window.app.user.attributes).length) { %>
         <div>
             <% if(view === "whiteboard") { %>
             <a href="main"><img src="/images/back_to_mainpanel.gif">Back to Main Panel</a>

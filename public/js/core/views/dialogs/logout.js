@@ -32,7 +32,6 @@ define([
             $.ajax({
                 url: 'user/logout',
                 type: 'post',
-                contentType: 'application/json',
                 success: function(data){ 
                     window.app.logout();
                     if(!window.app.loggedIn()){

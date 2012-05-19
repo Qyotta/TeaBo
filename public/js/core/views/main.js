@@ -52,7 +52,6 @@ define([
                 return;
             }
             var data = { user:window.app.user, ownWhiteboards: this.getOwnWhiteboards(), assignedWhiteboards: this.getAssignedWhiteboards(), _: _ };
-            console.log(data);
             var compiledTemplate = _.template( mainHomeTemplate, data );
             this.el.html(compiledTemplate);
         },

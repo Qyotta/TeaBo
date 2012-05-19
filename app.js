@@ -92,6 +92,15 @@ app.post('/user/login',function(req,res) {
     })
 })
 
+app.post('/user/logout',function(req,res) {
+    req.session.user = null;
+    res.send('true');
+})
+
+app.post('/user/settings',function(req,res) {
+    res.send('true');
+})
+
 app.get('/whiteboard', function(req,res) {
     var result = Array();
     if(req.session.user) {
@@ -102,10 +111,6 @@ app.get('/whiteboard', function(req,res) {
         res.send('');
     }
 })
-
-function sendResult(res,respond) {
-    res.send(respond);
-}
 
 app.post('/whiteboard', function(req,res) {
     var whiteboard = new Whiteboard({
@@ -139,6 +144,11 @@ app.post('/whiteboard', function(req,res) {
         }
     });
 })
+
+
+
+
+/* -------------------------------------------- */
 
 app.get('/see/assignments',function(req,res) {
     Assignment.find(function(err,users) {
