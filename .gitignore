@@ -7,3 +7,4 @@ derby.log
 de.bht.swp.lao.ocp/lao/*
 de.bht.swp.lao.ocp/WebContent/*
 .metadata
+node_modules/*
