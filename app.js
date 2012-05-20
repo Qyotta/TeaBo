@@ -97,6 +97,15 @@ app.post('/user/logout',function(req,res) {
     res.send('true');
 })
 
+app.get('/user/session',function(req,res) {
+    if(req.session.user){
+        res.header('Content-Type','application/json');
+        res.send(req.session.user);
+    } else {
+        res.send({});
+    }
+})
+
 app.post('/user/settings',function(req,res) {
     res.send('true');
 })
@@ -145,6 +154,9 @@ app.post('/whiteboard', function(req,res) {
     });
 })
 
+app.get('/whiteboard/:id',function(req,res) {
+    res.send(req.params.id);
+})
 
 
 

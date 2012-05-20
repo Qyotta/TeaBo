@@ -6,7 +6,6 @@ define([
     var AssignmentCollection = Backbone.Collection.extend({
         model: Assignment,
         parse:function(response){
-            console.log(response);
             return response;
         },
         getColorByUser:function(user){

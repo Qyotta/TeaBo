@@ -20,7 +20,7 @@ define([
             'login':'showLogin',
             'main':'showMainPanel',
             // Default
-            '*actions': 'defaultAction'
+            // '*actions': 'defaultAction'
         },
         loadRegister:function(){
             new RegisterView();
@@ -44,6 +44,9 @@ define([
             window.app.modules.whiteboard.sync();
         },
         showMainPanel: function(){
+            if(!window.app.user.synced) {
+                return;
+            }
             if(!window.app.loggedIn()){
                 this.navigate("login", {trigger: true});
                 return;

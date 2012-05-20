@@ -21,7 +21,7 @@ define([
             window.app.log('whiteboard loaded');
             this.whiteboards = new WhiteboardCollection();
             this.confirmDeleteView = new ConfirmDeleteView();
-            this.sync();
+            // this.sync();
         },
         subscribeChannels:function(){
             var commands = [];
@@ -29,21 +29,23 @@ define([
             window.app.groupCommand.addCommands(commands);
         },
         userColorUpdated:function(message){
-            console.log('color update');
             var _assignmentId = message.data.id;
             var assignment = this.whiteboard.get('assignments').get(_assignmentId);
             assignment.set({color:[message.data.color_r/255,message.data.color_g/255,message.data.color_b/255]});
-            console.log('color updated');
         },
         sync:function(){
             this.whiteboards.fetch({success: function(collection, response){
-                window.app.eventDispatcher.trigger("whiteboard:synced",collection);
-                window.app.log('whiteboard:synced');
-                return true;
+                if(collection.length !== 0) {
+                    window.app.eventDispatcher.trigger("whiteboard:synced",collection);
+                    window.app.log('whiteboard:synced');
+                    return true;
+                } else {
+                    window.app.log('You are not authorized, please login!');
+                    window.router.navigate("login", {trigger: true});
+                    return false;
+                }
             }, error: function() {
-                window.app.log('You are not authorized, please login!');
-                window.router.navigate("login", {trigger: true});
-                return false;
+                console.error('[ERROR] - couldn\'t sync whiteboard');
             }});
         },
         open:function(id){
