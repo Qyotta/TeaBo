@@ -7,6 +7,7 @@ define([
 
     var WhiteboardCollection = Backbone.Collection.extend({
         model: Whiteboard,
+        idAttribute: "_id",
         url: 'whiteboard/'
     });
     

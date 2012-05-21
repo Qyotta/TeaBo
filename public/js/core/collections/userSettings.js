@@ -3,6 +3,7 @@ define([ 'jquery', 'underscore', 'backbone', 'core/models/userSettings' ],
 
             var UserSettingsCollection = Backbone.Collection.extend({
                 model : UserSettings,
+                idAttribute: "_id",
                 url : 'user/getAllSettings.htm',
                 where : function(_key) {;
                     var item = this.filter(function(settings) {

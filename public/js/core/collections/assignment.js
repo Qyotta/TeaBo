@@ -5,6 +5,7 @@ define([
 ], function(_, Backbone,Assignment) {
     var AssignmentCollection = Backbone.Collection.extend({
         model: Assignment,
+        idAttribute: "_id",
         parse:function(response){
             return response;
         },

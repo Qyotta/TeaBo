@@ -10,6 +10,7 @@ define([
             y:0,
             assignments: new AssignmentCollection()
         },
+        idAttribute: "_id",
         parse: function(response) {
             response.assignments = new AssignmentCollection(response.assignments);
             return response;

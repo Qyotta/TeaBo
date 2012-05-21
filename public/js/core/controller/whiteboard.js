@@ -35,15 +35,9 @@ define([
         },
         sync:function(){
             this.whiteboards.fetch({success: function(collection, response){
-                if(collection.length !== 0) {
-                    window.app.eventDispatcher.trigger("whiteboard:synced",collection);
-                    window.app.log('whiteboard:synced');
-                    return true;
-                } else {
-                    window.app.log('You are not authorized, please login!');
-                    window.router.navigate("login", {trigger: true});
-                    return false;
-                }
+                window.app.log('whiteboard:synced');
+                window.app.eventDispatcher.trigger("whiteboard:synced",collection);
+                return true;
             }, error: function() {
                 console.error('[ERROR] - couldn\'t sync whiteboard');
             }});

@@ -26,10 +26,16 @@ define([
                 contentType: 'application/json',
                 data: '{"email":"'+$('input[name=email]').val()+'","password":"'+$('input[name=password]').val()+'"}',
                 success: function(data){ 
-                    window.app.user.set(data);
-                    if(window.app.loggedIn()){
-                        window.router.navigate("main", {trigger: true});
+                    if(data !== '') {
+                        window.app.user.set(data);
+                        window.app.user.synced = true;
+                        if(window.app.loggedIn()){
+                            window.router.navigate("main", {trigger: true});
+                        }
+                    } else {
+                        new Error({message:'username or password was wrong, please try again!'});
                     }
+                    
                 },
                 error: function(request, errorType, exception){
                     new Error({message:exception});

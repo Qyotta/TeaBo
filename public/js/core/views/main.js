@@ -56,24 +56,22 @@ define([
             this.el.html(compiledTemplate);
         },
         getOwnWhiteboards: function() {
-            var user           = window.app.user,
-                ownWhiteboards = [];
+            var ownWhiteboards = [];
                 
-            $.each(user.attributes.assignments, function(i, assignment) {
-                if(assignment.isOwner) {
-                    ownWhiteboards.push(assignment.whiteboard[0]);
+            $.each(this.collection.models, function(i, whiteboard) {
+                if(whiteboard.attributes.isOwner) {
+                    ownWhiteboards.push(whiteboard.attributes);
                 }
             });
             
             return ownWhiteboards;
         },
         getAssignedWhiteboards: function() {
-            var user                = window.app.user,
-                assignedWhiteboards = [];
+            var assignedWhiteboards = [];
                 
-            $.each(user.attributes.assignments, function(i, assignment) {
-                if(!assignment.isOwner) {
-                    assignedWhiteboards.push(assignment.whiteboard[0]);
+            $.each(this.collection.models, function(i, whiteboard) {
+                if(!whiteboard.attributes.isOwner) {
+                    assignedWhiteboards.push(whiteboard.attributes);
                 }
             });
             

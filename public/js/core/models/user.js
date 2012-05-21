@@ -7,6 +7,7 @@ define([
     
     var User = Backbone.Model.extend({
         url:'user/',
+        idAttribute: "_id",
         settings : UserSettings,
         
     });

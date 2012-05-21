@@ -18,40 +18,49 @@ app.configure(function(){
     app.set('view engine', 'jade')
 });
 
-var userID           = 0,
+var Schema           = mongoose.Schema,
+    ObjectId         = Schema.ObjectId,
+    userID           = 0,
     assignmentID     = 0,
     whiteboardID     = 0,
     whiteboardItemID = 0,
-    Settings = new mongoose.Schema({
+    SettingsSchema = new Schema({
         key    : String,
         value  : String,
         userID : Number
     }),
-    User = mongoose.model('User', new mongoose.Schema({
+    UserSchema = new Schema({
         email       : String,
         password    : String,
         firstname   : String,
         lastname    : String,
         position    : String,
-        settings    : [Settings],
-        assignments : [Assignment]
-    })),
-    Assignment = mongoose.model('Assignment', new mongoose.Schema({
+        settings    : [SettingsSchema]
+    }),
+    AssignmentSchema = new Schema({
         color      : [Number],
+        user       : [UserSchema],
         isOwner    : Boolean,
-        whiteboard : [Whiteboard]
-    })),
-    Whiteboard = mongoose.model('Whiteboard', new mongoose.Schema({
-        name  : String,
-        items : [WhiteboardItem]
-    })),
-    WhiteboardItem = mongoose.model('WhiteboardItem', new mongoose.Schema({
+        whiteboard : [WhiteboardSchema]
+    }),
+    WhiteboardSchema = new Schema({
+        name        : String,
+        x           : Number,
+        y           : Number
+    }),
+    WhiteboardItemSchema = new Schema({
         editing      : Boolean,
         orderIndex   : Number,
         x            : Number,
         y            : Number,
-        creator      : [User]
-    }));
+        creator      : ObjectId
+    }),
+    
+    Settings        = mongoose.model('Settings',SettingsSchema),
+    User            = mongoose.model('User', UserSchema),
+    Assignment      = mongoose.model('Assignment', AssignmentSchema),
+    Whiteboard      = mongoose.model('Whiteboard', WhiteboardSchema),
+    WhiteboardItems = mongoose.model('WhiteboardItem', WhiteboardItemSchema);
     
 app.post('/user', function(req,res) {
     var user = new User({
@@ -64,6 +73,7 @@ app.post('/user', function(req,res) {
     user.save(function(err) {
         if(!err) {
             console.log('user created');
+            req.session.user = user;
         } else {
             console.log('[ERROR] ',err);
         }
@@ -82,7 +92,7 @@ app.post('/user/login',function(req,res) {
     console.log('check auth for ',query);
     User.findOne(query,function(err,user) {
         if(!err && user) {
-            console.log('login successful for ',user);
+            console.log('login successful for ',user.email);
             req.session.user = user;
             res.send(user);
         } else {
@@ -106,15 +116,27 @@ app.get('/user/session',function(req,res) {
     }
 })
 
+// TODO implement
 app.post('/user/settings',function(req,res) {
     res.send('true');
 })
 
 app.get('/whiteboard', function(req,res) {
-    var result = Array();
     if(req.session.user) {
-        User.findById(req.session.user._id,function(err,user) {
-            res.send(user.assignments);
+        Assignment.find({'user._id':req.session.user._id},function(err,assignedWhiteboards) {
+            var whiteboards = [];
+            for(var i = 0; i < assignedWhiteboards.length; ++i) {
+                whiteboards.push({
+                    _id: assignedWhiteboards[i].whiteboard[0]._id,
+                    name: assignedWhiteboards[i].whiteboard[0].name,
+                    x: assignedWhiteboards[i].whiteboard[0].x,
+                    y: assignedWhiteboards[i].whiteboard[0].y,
+                    isOwner: assignedWhiteboards[i].isOwner
+                });
+            }
+            res.header('Transfer-Encoding','chunked');
+            res.header('Content-Type','application/json');
+            res.send(whiteboards);            
         })
     } else {
         res.send('');
@@ -123,35 +145,42 @@ app.get('/whiteboard', function(req,res) {
 
 app.post('/whiteboard', function(req,res) {
     var whiteboard = new Whiteboard({
-        name: req.body.name
+        name: req.body.name,
+        x: 0,
+        y: 0
     });
     whiteboard.save(function(err) {
-        if(!err) {
-            console.log('whiteboard "'+req.body.name+'" created!');
-            User.findById(req.session.user._id, function(err,user) {
-                if(!err) {
-                    console.log('works here?');
-                    var assignment = new Assignment({
-                        color      : [100,100,100],
-                        isOwner    : true,
-                        whiteboard : whiteboard
-                    });
-                    console.log('works here too?');
-                    user.assignments.push(assignment);
-                    user.save(function(err) {
-                        if(!err) {
-                            console.log('assignment added');
-                        } else {
-                            console.log('ERROR: assignment wasnt added');
-                        }
-                    })
-                }
+        User.findById(req.session.user._id, function(err,user) {
+            var assignment = new Assignment({
+                color      : [100,100,100],
+                user       : [user],
+                isOwner    : true,
+                whiteboard : [whiteboard]
             });
-            res.send({name:req.body.name});
-        } else {
-            console.log('[ERROR] ',err);
-        }
+            assignment.save();
+            res.send({
+                _id:whiteboard._id,
+                name:req.body.name,
+                x: 0,
+                y: 0,
+                isOwner: true
+            });
+            console.log('whiteboard "'+req.body.name+'" created!');
+        });
     });
+})
+
+app.delete('/whiteboard/:id', function(req,res) {
+    return Whiteboard.findById(req.params.id, function(err, whiteboard) {
+        return whiteboard.remove(function(err) {
+            if(!err) {
+                console.log('whiteboard with id ' + req.params.id + ' removed successfull');
+                return res.send('');
+            } else {
+                return res.send('');
+            }
+        })
+    })
 })
 
 app.get('/whiteboard/:id',function(req,res) {
@@ -163,7 +192,7 @@ app.get('/whiteboard/:id',function(req,res) {
 /* -------------------------------------------- */
 
 app.get('/see/assignments',function(req,res) {
-    Assignment.find(function(err,users) {
+    Assignment.find({},function(err,users) {
         res.send(JSON.stringify(users));
     })
 })
@@ -188,5 +217,38 @@ app.get('/assignments/remove',function(req,res) {
         res.send('All Assignments removed!');
     })
 })
+app.get('/user/remove',function(req,res) {
+    User.find({}, function(err,user) {
+        for(var i = 0; i < user.length; ++i) {
+            user[i].remove();
+        }
+        res.send('All users removed!');
+    })
+})
+app.get('/clearDB',function(req,res) {
+    Whiteboard.find({}, function(err,user) {
+        for(var i = 0; i < user.length; ++i) {
+            user[i].remove();
+        }
+    })
+    Assignment.find({}, function(err,user) {
+        for(var i = 0; i < user.length; ++i) {
+            user[i].remove();
+        }
+    })
+    User.find({}, function(err,user) {
+        for(var i = 0; i < user.length; ++i) {
+            user[i].remove();
+        }
+    })
+    
+    var user = new User({
+        email:'max-mustermann@gmail.com',
+        password:'testtest'
+    });
+    user.save();
 
+    res.send('DB cleared!');
+    
+});
 app.listen(3000);

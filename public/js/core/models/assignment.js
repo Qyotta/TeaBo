@@ -10,7 +10,8 @@ define([
                 attributes.user = new User(attributes.user);
             }
             return Backbone.Model.prototype.set.call(this, attributes, options);
-        }
+        },
+        idAttribute: "_id"
     });
     
     return Assignment;

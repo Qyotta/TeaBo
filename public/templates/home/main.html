@@ -15,11 +15,9 @@
             <% _.each(ownWhiteboards, function(whiteboard){ %>
                 <li id="<%= whiteboard._id %>">
                     <a href="#whiteboard/<%= whiteboard._id %>"><%= whiteboard.name %></a> 
-                    <% if(user.email == whiteboard.creator){ %>
-                        <a href="#!/" class="delete">
-                            <img src="/images/cross.png" alt="delete" title="Delete Whiteboard"/>
-                        </a>
-                    <% } %>
+                    <a href="#!/" class="delete">
+                        <img src="/images/cross.png" alt="delete" title="Delete Whiteboard"/>
+                    </a>
                 </li> 
             <% }); %>
         </ul>
