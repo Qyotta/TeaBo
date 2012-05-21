@@ -64,22 +64,28 @@ var Schema           = mongoose.Schema,
     WhiteboardItems = mongoose.model('WhiteboardItem', WhiteboardItemSchema);
     
 app.post('/user', function(req,res) {
-    var user = new User({
-        email: req.body.email,
-        password: req.body.password,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        position: req.body.position
-    });
-    user.save(function(err) {
-        if(!err) {
-            console.log('user created');
-            req.session.user = user;
+    User.find({'email':req.body.email}, function(err,users) {
+        if(!users.length) {
+            var user = new User({
+                email: req.body.email,
+                password: req.body.password,
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                position: req.body.position
+            });
+            user.save(function(err) {
+                if(!err) {
+                    console.log('user created');
+                    req.session.user = user;
+                } else {
+                    console.log('[ERROR] ',err);
+                }
+            });
+            res.send(user);
         } else {
-            console.log('[ERROR] ',err);
+            res.send('');
         }
     });
-    res.send(user);
 });
 
 app.get('/user',function(req,res) {

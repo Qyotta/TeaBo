@@ -2,10 +2,11 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'core/models/user',
     'text!templates/register.html',
     'core/views/notice/notice',
     'core/views/notice/error',
-], function($, _, Backbone,registerTemplate,Notice,Error){
+], function($, _, Backbone, User,registerTemplate,Notice,Error){
     var RegisterView = Backbone.View.extend({
         el: $("#page"),
         events:{
@@ -14,6 +15,7 @@ define([
             'hover .exclamation' : 'showError'
         },
         initialize:function(){
+            this.registerInProgress = false;
             this.render();
         },
         render:function(){
@@ -37,19 +39,35 @@ define([
                 this.render();
                 return;
             }
+            // prevent double submit
+            // TODO find better solution for this case
+            if(this.registerInProgress) {
+                return;
+            }
+            this.registerInProgress = true;
+            console.log('register me!');
             
-            window.app.user.save({email:this.email,
-                                password:this.password,
-                                firstname:this.firstname,
-                                lastname:this.lastname,
-                                position:this.position},
-                                {success:function(model, response){
-                                    window.router.loggedIn();
-                                    window.router.navigate("login",{trigger: true});
-                                    new Notice({message:"Registration was successful. You're now logged in!"});
-                                },error:function(model, response){
-                                     new Error({message:"Registration was not successful. Try again."});
-                                }});
+            this.user = new User();
+            this.user.save({
+                email:this.email,
+                password:this.password,
+                firstname:this.firstname,
+                lastname:this.lastname,
+                position:this.position},
+                {success:function(model, response){
+                    console.log('register this user');
+                    if(response) {
+                        window.app.user.set(response);
+                        window.router.loggedIn();
+                        window.router.navigate("login",{trigger: true});
+                        new Notice({message:"Registration was successful. You're now logged in!"});
+                    } else {
+                        new Error({message:"An user with this email address is already registered!"});
+                    }                                    
+                },error:function(model, response){
+                     new Error({message:"Registration was not successful. Try again."});
+                }
+            });
         },
         validateInput:function(){
             var errors = null;
