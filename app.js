@@ -20,6 +20,7 @@ app.configure(function(){
 
 var Schema           = mongoose.Schema,
     ObjectId         = Schema.ObjectId,
+    QueryObjectId    = mongoose.Types.ObjectId,
     userID           = 0,
     assignmentID     = 0,
     whiteboardID     = 0,
@@ -171,17 +172,19 @@ app.post('/whiteboard', function(req,res) {
 })
 
 app.delete('/whiteboard/:id', function(req,res) {
-    return Whiteboard.findById(req.params.id, function(err, whiteboard) {
-        return whiteboard.remove(function(err) {
-            if(!err) {
-                console.log('whiteboard with id ' + req.params.id + ' removed successfull');
-                return res.send('');
-            } else {
-                return res.send('');
-            }
-        })
-    })
-})
+    Whiteboard.findById(req.params.id, function(err, whiteboard) {
+        if(whiteboard) {
+            Assignment.find({'whiteboard._id':new QueryObjectId(req.params.id)},function(err,assignments) {
+                for(var i = 0; i < assignments.length; ++i) {
+                    assignments[i].remove();
+                    console.log('whiteboard and assignments removed');
+                }
+                whiteboard.remove();
+            })
+        }
+    });
+    return res.send('');
+});
 
 app.get('/whiteboard/:id',function(req,res) {
     res.send(req.params.id);
