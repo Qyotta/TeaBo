@@ -3,7 +3,9 @@ var application_root = __dirname,
     path             = require("path"),
     mongoose         = require('mongoose');
 
-var app = express.createServer();
+var app              = express.createServer();
+var QueryObjectId    = mongoose.Types.ObjectId;
+
 mongoose.connect('mongodb://localhost/lao');
 
 app.configure(function(){
@@ -18,50 +20,12 @@ app.configure(function(){
     app.set('view engine', 'jade')
 });
 
-var Schema           = mongoose.Schema,
-    ObjectId         = Schema.ObjectId,
-    QueryObjectId    = mongoose.Types.ObjectId,
-    userID           = 0,
-    assignmentID     = 0,
-    whiteboardID     = 0,
-    whiteboardItemID = 0,
-    SettingsSchema = new Schema({
-        key    : String,
-        value  : String,
-        userID : Number
-    }),
-    UserSchema = new Schema({
-        email       : String,
-        password    : String,
-        firstname   : String,
-        lastname    : String,
-        position    : String,
-        settings    : [SettingsSchema]
-    }),
-    AssignmentSchema = new Schema({
-        color      : [Number],
-        user       : [UserSchema],
-        isOwner    : Boolean,
-        whiteboard : [WhiteboardSchema]
-    }),
-    WhiteboardSchema = new Schema({
-        name        : String,
-        x           : Number,
-        y           : Number
-    }),
-    WhiteboardItemSchema = new Schema({
-        editing      : Boolean,
-        orderIndex   : Number,
-        x            : Number,
-        y            : Number,
-        creator      : ObjectId
-    }),
-    
-    Settings        = mongoose.model('Settings',SettingsSchema),
-    User            = mongoose.model('User', UserSchema),
-    Assignment      = mongoose.model('Assignment', AssignmentSchema),
-    Whiteboard      = mongoose.model('Whiteboard', WhiteboardSchema),
-    WhiteboardItems = mongoose.model('WhiteboardItem', WhiteboardItemSchema);
+// require models
+var User            = require('./models/user').model,
+    Settings        = require('./models/settings').model,
+    Assignment      = require('./models/assignment').model,
+    Whiteboard      = require('./models/whiteboard').model;
+    WhiteboardItems = require('./models/whiteboardItem').model;
     
 app.post('/user', function(req,res) {
     User.find({'email':req.body.email}, function(err,users) {
