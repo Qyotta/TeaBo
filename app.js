@@ -73,14 +73,8 @@ app.post('/user', function(req,res) {
                 lastname: req.body.lastname,
                 position: req.body.position
             });
-            user.save(function(err) {
-                if(!err) {
-                    console.log('user created');
-                    req.session.user = user;
-                } else {
-                    console.log('[ERROR] ',err);
-                }
-            });
+            user.save();
+            req.session.user = user;
             res.send(user);
         } else {
             res.send('');
