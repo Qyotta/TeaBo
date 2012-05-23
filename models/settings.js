@@ -2,8 +2,7 @@ var mongoose = require('mongoose'),
 
     schema   = new mongoose.Schema({
         key    : String,
-        value  : String,
-        userID : Number
+        value  : String
     }),
     model    = mongoose.model('Settings',schema);
     

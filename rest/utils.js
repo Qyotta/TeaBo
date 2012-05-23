@@ -1,6 +1,7 @@
 var User            = require('../models/user').model,
     Assignment      = require('../models/assignment').model,
     Whiteboard      = require('../models/whiteboard').model,
+    Settings        = require('../models/settings').model,
     rest            = [];
 
 rest.push({
@@ -28,6 +29,16 @@ rest.push({
     url: '/see/user',
     callback: function(req,res) {
         User.find(function(err,users) {
+            res.send(JSON.stringify(users));
+        })
+    }
+})
+
+rest.push({
+    type: 'get',
+    url: '/see/settings',
+    callback: function(req,res) {
+        Settings.find(function(err,users) {
             res.send(JSON.stringify(users));
         })
     }
