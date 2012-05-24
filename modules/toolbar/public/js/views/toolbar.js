@@ -1,5 +1,8 @@
-define([ 'jquery', 'underscore', 'backbone', 'text!templates/toolbar.html' ],
-        function($, _, Backbone, toolbarTemplate) {
+define([ 'jquery', 
+         'underscore', 
+         'backbone', 
+         'text!/toolbar/templates/toolbar.html' 
+], function($, _, Backbone, toolbarTemplate) {
 
             var ToolbarView = Backbone.View.extend({
                 el : $("#bottomNavigation"),
