@@ -3,7 +3,7 @@ define([
     'underscore',
     'backbone',
     '/core/js/views/dialogs/dialog.js',
-    'text!templates/dialogs/confirm_multiple_delete.html'
+    'text!/core/templates/dialogs/confirm_multiple_delete.html'
 ], function($, _, Backbone, Dialog, confirmDeleteTemplate){
    
     var ConfirmDeleteView = Dialog.extend({

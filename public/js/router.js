@@ -40,8 +40,7 @@ define([
             }
         },
         loggedIn: function() {
-            window.app.eventDispatcher.trigger("whiteboard:overview");
-            /*window.app.modules.whiteboard.sync();*/ // TODO move to whiteboard controller!
+            this.showMainPanel();
         },
         showMainPanel: function(){
             if(!window.app.user.synced) {
@@ -60,10 +59,8 @@ define([
                 this.mainHomeView = new MainHomeView();
             }
             
-            window.app.eventDispatcher.trigger("whiteboard:sync");
-            
+            window.app.eventDispatcher.trigger("mainpanel:show");
             window.app.eventDispatcher.trigger("topbar:refresh");
-            window.app.log("mainpanel:show");
         },
         defaultAction: function(actions){
             if(!window.app.loggedIn()){

@@ -15,6 +15,8 @@ define([
             _.bindAll(this,'removeWhiteboardView','render','synced','getOwnWhiteboards','getAssignedWhiteboards');
             window.app.eventDispatcher.bind('whiteboard:synced',this.synced);
             window.app.eventDispatcher.bind('mainpanel:show',this.render);
+            window.app.eventDispatcher.bind('whiteboard:overview',this.render);
+            
             
         },
         deleteWhiteboard: function(evt){
@@ -48,12 +50,14 @@ define([
             this.render();
         },
         render: function(){
+            console.log("mainpanel render");
             if(this.collection==null){
                 return;
             }
             var data = { user:window.app.user, ownWhiteboards: this.getOwnWhiteboards(), assignedWhiteboards: this.getAssignedWhiteboards(), _: _ };
             var compiledTemplate = _.template( mainHomeTemplate, data );
             this.el.html(compiledTemplate);
+            console.log(compiledTemplate);
         },
         getOwnWhiteboards: function() {
             var ownWhiteboards = [];
