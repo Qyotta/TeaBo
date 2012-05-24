@@ -1,7 +1,7 @@
 define([
     'underscore',
     'backbone',
-    '/user/js/model/user.js',
+    '/user/js/models/user.js',
     // '/core/js/utils/group_command.js',
 ], function( _, Backbone, User) {//}, User, GroupCommand ){
         
@@ -79,6 +79,7 @@ define([
             var m = [];
             for(var module in modules) {
                 m[module] = new modules[module];
+                console.log(module+" module created");
             }
             this.modules = m;
         },
