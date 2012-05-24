@@ -50,6 +50,7 @@ app.get('/', function(req,res) {
 })
 
 function registerRestServices(rest) {
+    console.log(rest);
     if(rest) {
         for(var i = 0; i < rest.length; ++i) {
             var url = rest[i].url;

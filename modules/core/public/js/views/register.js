@@ -23,6 +23,9 @@ define([
             var compiledTemplate = _.template( registerTemplate , data);
             this.el.html(compiledTemplate);
         },
+        unrender:function(){
+            this.el.remove();
+        },
         submitClicked:function(evt){
             evt.preventDefault();
             this.firstname = $('input[name=firstname]').val();
@@ -45,8 +48,7 @@ define([
                 return;
             }
             this.registerInProgress = true;
-            console.log('register me!');
-            
+            var self = this;
             this.user = new User();
             this.user.save({
                 email:this.email,
@@ -59,7 +61,8 @@ define([
                     if(response) {
                         window.app.user.set(response);
                         window.router.loggedIn();
-                        window.router.navigate("login",{trigger: true});
+                        self.unrender();
+                        window.router.navigate("main",{trigger: true});
                         new Notice({message:"Registration was successful. You're now logged in!"});
                     } else {
                         new Error({message:"An user with this email address is already registered!"});

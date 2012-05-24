@@ -1,10 +1,9 @@
 define([
     'underscore',
     'backbone',
-    '/js/router.js',
     '/user/js/model/user.js',
     // '/core/js/utils/group_command.js',
-], function( _, Backbone, Router, User) {//}, User, GroupCommand ){
+], function( _, Backbone, User) {//}, User, GroupCommand ){
         
     var Application = function() {
         _.bindAll(this,'onMetaConnect', 'setSettings','loggedIn');

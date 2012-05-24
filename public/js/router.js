@@ -40,7 +40,8 @@ define([
             }
         },
         loggedIn: function() {
-            window.app.modules.whiteboard.sync();
+            window.app.eventDispatcher.trigger("whiteboard:overview");
+            /*window.app.modules.whiteboard.sync();*/ // TODO move to whiteboard controller!
         },
         showMainPanel: function(){
             if(!window.app.user.synced) {

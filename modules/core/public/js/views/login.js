@@ -17,9 +17,12 @@ define([
             var compiledTemplate = _.template( loginTemplate );
             this.el.html(compiledTemplate);
         },
+        unrender: function(){
+            this.el.remove();
+        },
         loginBtnClicked:function(evt){
             evt.preventDefault();
-            
+            var self = this;
             $.ajax({
                 url: 'user/login',
                 type: 'post',
@@ -30,6 +33,7 @@ define([
                         window.app.user.set(data);
                         window.app.user.synced = true;
                         if(window.app.loggedIn()){
+                            self.unrender();
                             window.router.navigate("main", {trigger: true});
                         }
                     } else {
