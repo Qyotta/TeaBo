@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'core/views/AssignmentListRow'
+    '/core/js/views/AssignmentListRow.js'
 ], function($, _, Backbone, AssignmentListRow){
     
     var AssignmentListView = Backbone.View.extend({

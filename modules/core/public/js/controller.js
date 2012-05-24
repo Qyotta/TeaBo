@@ -75,12 +75,8 @@ define([
             $('#dialogs').html('');
             this.initialize();
         },
-        loadModules: function(modules) {
-            var m = [];
-            for(var module in modules) {
-                m[module] = new modules[module];
-            }
-            this.modules = m;
+        loadModules: function(name,module) {
+            this.modules[name] = new module;
         },
         startCometd : function() {
             this.cometd.configure({

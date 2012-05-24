@@ -2,10 +2,10 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'core/views/notice/notice',
-    'core/views/notice/error',
-    'text!templates/home/topbar.html',
-    'core/views/AssignmentListView'
+    '/core/js/views/notice/notice.js',
+    '/core/js/views/notice/error.js',
+    'text!/topbar/templates/topbar.html',
+    '/core/js/views/AssignmentListView.js'
 ], function($, _, Backbone, Notice, Error, topbarTemplate,AssignmentListView){
     
     var TopbarView = Backbone.View.extend({
