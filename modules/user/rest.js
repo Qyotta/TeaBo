@@ -1,4 +1,4 @@
-var User = require('../models/user').model,
+var User = require('./models/user').model,
     rest = [];
 
 rest.push({

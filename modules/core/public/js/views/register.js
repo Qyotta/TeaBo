@@ -2,10 +2,10 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'core/models/user',
-    'text!templates/register.html',
-    'core/views/notice/notice',
-    'core/views/notice/error',
+    '/user/js/model/user.js',
+    'text!/core/templates/register.html',
+    '/core/js/views/notice/notice.js',
+    '/core/js/views/notice/error.js',
 ], function($, _, Backbone, User,registerTemplate,Notice,Error){
     var RegisterView = Backbone.View.extend({
         el: $("#page"),

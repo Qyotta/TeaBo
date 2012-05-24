@@ -2,8 +2,8 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'core/views/dialogs/dialog',
-    'text!templates/dialogs/logout.html'
+    '/core/js/views/dialogs/dialog.js',
+    'text!/core/templates/dialogs/logout.html'
 ], function($, _, Backbone, Dialog, logoutDialogTemplate){
     var LogoutDialogView = Dialog.extend({
         el:$('#dialogs'),

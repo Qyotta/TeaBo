@@ -2,11 +2,11 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'core/views/register',
-    'core/views/main',
-    'core/views/login',
-    'core/views/dialogs/logout',
-    'core/views/colorchooser/colorchooser'
+    '/core/js/views/register.js',
+    '/core/js/views/main.js',
+    '/core/js/views/login.js',
+    '/core/js/views/dialogs/logout.js',
+    '/core/js/views/colorchooser/colorchooser.js'
 ], function($, _, Backbone, RegisterView,MainHomeView,LoginView,LogoutDialogView,ColorChooserDialogView){
     var AppRouter = Backbone.Router.extend({
         initialize: function(){

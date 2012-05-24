@@ -1,11 +1,3 @@
-/* All boilerplate stuff */
-@import url('boilerplate.css') screen;
-
-/* general page styles */
-@import url('page.css') screen;
-/* styles for buttons, headings and ui specific stuff */
-@import url('ui.css') screen;
-
 /* styles for top- and bottom navigation */
 @import url('topnavigation.css') screen;
 @import url('bottomnavigation.css') screen;
@@ -16,8 +8,3 @@
 @import url('sidebar.css') screen;
 /* styles for all elements of the infotour */
 @import url('tooltips.css') screen;
-/* styles for each popup container */
-@import url('container.css') screen;
-
-/* print styles */
-@import url('print.css') print;

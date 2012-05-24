@@ -21,6 +21,7 @@ app.configure(function(){
 
 
 var moduleTemplates = [],
+    moduleStyles    = [],
     moduleNames     = [];
 
 fs.readdirSync('./modules').forEach(function(file) {
@@ -28,10 +29,15 @@ fs.readdirSync('./modules').forEach(function(file) {
     
     moduleTemplates = moduleTemplates.filter(function(e){return e});
     moduleTemplates.push(module.template);
+    moduleStyles    = moduleStyles.filter(function(e){return e});
+    if(module.style) {
+        moduleStyles.push('<link rel="stylesheet" href="'+file+'/'+module.style+'">');
+    }
     moduleNames.push(file);
     
     app.use('/'+file,express.static(application_root+'/modules/'+file+'/public'));
     module.init();
+    registerRestServices(module.rest);
     
     console.log(file + ' module loaded');
 })
@@ -40,7 +46,32 @@ app.get('/', function(req,res) {
     var header = fs.readFileSync('./templates/header.tpl', 'utf8'),
         script = '<script>var modules = [\'' + moduleNames.join('\',\'') + '\']; </script>'
     
-    res.send(header + script + '\n\n' + moduleTemplates.join('\n'));
+    res.send(header + script + '\n\n' + moduleStyles.join('\n') + '\n\n' + moduleTemplates.join('\n'));
 })
+
+function registerRestServices(rest) {
+    if(rest) {
+        for(var i = 0; i < rest.length; ++i) {
+            var url = rest[i].url;
+            var method = rest[i].type;
+            var callback = rest[i].callback;
+            
+            switch(method){
+                case 'get':
+                    app.get(url,callback);
+                    break;
+                case 'post':
+                    app.post(url,callback);
+                    break;
+                case 'delete':
+                    app.delete(url,callback);
+                    break;
+                case 'put':
+                    app.put(url,callback);
+                    break;
+            }    
+        }
+    }
+}
 
 app.listen(3000);

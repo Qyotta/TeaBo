@@ -2,10 +2,10 @@ define([
     'underscore',
     'backbone',
     '/js/router.js',
-    // 'core/models/user',
-    // 'core/utils/group_command',
-], function( _, Backbone, Router ){ //User, GroupCommand,
-    
+    '/user/js/model/user.js',
+    // '/core/js/utils/group_command.js',
+], function( _, Backbone, Router, User) {//}, User, GroupCommand ){
+        
     var Application = function() {
         _.bindAll(this,'onMetaConnect', 'setSettings','loggedIn');
         
@@ -29,28 +29,28 @@ define([
             this.eventDispatcher.bind('userSettings:synced',this.setSettings);
             
             // find session user
-            // this.user = new User();
-            // this.user.synced = false;
-            // var that = this;
-            // $.ajax({
-                // url: 'user/session',
-                // type: 'get',
-                // success: function(data){ 
-                    // that.user = that.user.set(data);
-                    // that.user.synced = true;
-                    // if(that.loggedIn()) {
-                        // if(Backbone.history.fragment === 'main') {
-                            // window.router.showMainPanel();
-                        // } else {
-                            // window.router.navigate('main', {trigger: true});
-                        // }
-                    // } else {
-                        // window.router.navigate('login', {trigger: true});
-                    // }
-                // }, error: function(err) {
-                    // console.error('[ERROR] - couldn\'t get user session data',err);
-                // }
-            // });
+            this.user = new User();
+            this.user.synced = false;
+            var that = this;
+            $.ajax({
+                url: 'user/session',
+                type: 'get',
+                success: function(data){ 
+                    that.user = that.user.set(data);
+                    that.user.synced = true;
+                    if(that.loggedIn()) {
+                        if(Backbone.history.fragment === 'main') {
+                            window.router.showMainPanel();
+                        } else {
+                            window.router.navigate('main', {trigger: true});
+                        }
+                    } else {
+                        window.router.navigate('login', {trigger: true});
+                    }
+                }, error: function(err) {
+                    console.error('[ERROR] - couldn\'t get user session data',err);
+                }
+            });
         },
         setSettings : function(_settings){
             this.user.set({settings : _settings});

@@ -1,5 +1,5 @@
 var mongoose       = require('mongoose'),
-    SettingsSchema = require('./settings').schema,
+    SettingsSchema = require('../../settings/models/settings').schema,
     
     schema = new mongoose.Schema({
         email       : String,

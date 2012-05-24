@@ -2,8 +2,8 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/login.html',
-    'core/views/notice/error',
+    'text!/core/templates/login.html',
+    '/core/js/views/notice/error.js',
 ], function($, _, Backbone, loginTemplate,Error){
     var LoginDialogView = Backbone.View.extend({
         el:$('#page'),

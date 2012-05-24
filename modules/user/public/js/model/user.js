@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'core/collections/userSettings'
+    '/settings/js/collection/userSettings.js'
 ], function($, _, Backbone, UserSettings){
     
     var User = Backbone.Model.extend({
