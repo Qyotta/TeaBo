@@ -12,40 +12,35 @@ require.config({
     }
 });
 
-require([
-    'jquery',
-    'backbone', 
-    'core/router/router', 
-    'core/controller/application',
-    'core/controller/whiteboard',
-    'core/controller/toolbar', 
-    'core/controller/topbar',
-    'core/controller/sidebar',
-    'core/controller/userSettings',
-    'modules/attachment/controller_attachment',
-    'modules/note/controller_note',
-    'modules/tooltips/controller_tooltips'
-], function($, Backbone, Router, Application, Whiteboard, Toolbar, Topbar, Sidebar, UserSettings, Attachment, Note, Tooltips) {
-    $(function() {
+define(function(require) {
 
-        var modules = {
-            'whiteboard':Whiteboard, 
-            'note':Note, 
-            'attachment':Attachment,
-            'toolbar':Toolbar, 
-            'topbar':Topbar,
-            'sidebar':Sidebar,
-            'userSettings':UserSettings,
-            'tooltips':Tooltips
-        };
-        
-        window.app    = new Application();
-        window.app.loadModules(modules);
-        
-        window.router = new Router();
-        Backbone.history.start();
-        
-        
-        
-    });
+    Router   = require('/js/router.js');
+    Backbone = require('backbone');
+
+    for(var i = 0; i < window.modules.length;++i) {
+        var name = window.modules[i],
+            path = '/' + name + '/js/controller.js';
+        loadModul(require,path,name);
+    }
+    
 });
+
+var loadedModules = new Object();
+var loadModul = function(require,path,name) {
+    require([path],function(module) {
+        loadedModules[name] = module;
+        
+        // check if last module is loaded and start application
+        if(name === window.modules[window.modules.length-1]) {
+            var Application = loadedModules.core;
+            
+            window.app = new Application();
+            window.app.loadModules(loadedModules);
+            
+            window.router = new Router();
+            Backbone.history.start();
+            
+            window.app.log('[INFO] - all modules loaded successfully');
+        }
+    })
+}

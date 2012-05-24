@@ -11,7 +11,6 @@ define([
     var AppRouter = Backbone.Router.extend({
         initialize: function(){
             window.app.eventDispatcher.bind('application:loggedIn',this.loggedIn);
-            window.app.log("app router loaded");
         },
         routes: {
             // Define some URL routes
