@@ -2,7 +2,7 @@ define([
     'jquery', 
     'underscore', 
     'backbone',
-    'text!templates/modules/tooltips/tooltips.html'
+    'text!/infotour/templates/infotour.html'
 ], function($, _, Backbone, TooltipsTemplate) {
     
     var TooltipsView = Backbone.View.extend({
@@ -56,7 +56,7 @@ define([
             });
         },
         closeToolTip: function() {
-            window.app.modules.userSettings.set(this.showDialogFlag,!$('#showAgain').is(':checked'));
+            window.app.modules.settings.set(this.showDialogFlag,!$('#showAgain').is(':checked'));
             $(this.toolTips[this.toolTipCnt-1]).fadeOut(500);
         },
         setCheckbox: function(value){

@@ -12,6 +12,8 @@ define([ 'jquery',
                     'click a[href=showToolTips]' : 'showToolTips'
                 },
                 initialize : function() {
+                    window.app.eventDispatcher.bind("toolbar:addTool",this.addTool);
+                    window.app.eventDispatcher.bind("toolbar:addElement",this.addElement);
                     this.render();
                 },
                 render : function() {
@@ -45,8 +47,13 @@ define([ 'jquery',
                     }
                     evt.preventDefault();
                     window.app.eventDispatcher.trigger("attachment:create", null);
+                },
+                addTool: function(html) {
+                    this.el.find('ul:first-Child').append('<li>' + html + '</li>')
+                },
+                addElement: function(html) {
+                    this.el.find('ul:last-Child').append('<li><div>' + html + '</div></li>')
                 }
-
             });
 
             return ToolbarView;

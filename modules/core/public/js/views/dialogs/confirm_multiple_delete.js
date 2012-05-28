@@ -45,7 +45,7 @@ define([
         },
         confirmed:function(evt){
             evt.preventDefault();
-            window.app.modules.userSettings.set(this.showDialogFlag,!$('#dialogs :checkbox').is(':checked'));
+            window.app.modules.settings.set(this.showDialogFlag,!$('#dialogs :checkbox').is(':checked'));
             this.hideDialog();
             window.app.eventDispatcher.trigger('whiteboard:delete_multiple_items', this.whiteboardId);
         }
