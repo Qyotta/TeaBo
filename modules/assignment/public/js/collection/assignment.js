@@ -1,7 +1,7 @@
 define([
     'underscore',
     'backbone',
-    'core/models/assignment'
+    '/assignment/js/model/assignment.js'
 ], function(_, Backbone,Assignment) {
     var AssignmentCollection = Backbone.Collection.extend({
         model: Assignment,

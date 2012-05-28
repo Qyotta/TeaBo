@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    '/whiteboard/js/collections/whiteboard.js',
+    '/whiteboard/js/collection/whiteboard.js',
     '/whiteboard/js/views/whiteboard.js',
     '/core/js/views/dialogs/confirm_multiple_delete.js',
     '/core/js/utils/subscribe_command.js'

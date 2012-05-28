@@ -1,8 +1,8 @@
 define([
     'underscore',
     'backbone',
-    '/user/js/models/user.js',
-    'core/models/assignment'
+    '/user/js/model/user.js',
+    '/assignment/js/model/assignment.js'
 ], function(_, Backbone,User) {
     var Assignment = Backbone.Model.extend({
         set: function(attributes, options) {

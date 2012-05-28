@@ -1,7 +1,7 @@
 define([
     'underscore',
     'backbone',
-    'core/collections/assignment'
+    '/assignment/js/collection/assignment.js'
 ], function(_, Backbone,AssignmentCollection) {
     var Whiteboard = Backbone.Model.extend({
         defaults: {

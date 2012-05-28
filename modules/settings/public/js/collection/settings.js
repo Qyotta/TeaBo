@@ -1,5 +1,9 @@
-define([ 'jquery', 'underscore', 'backbone', 'core/models/userSettings' ],
-        function($, _, Backbone, UserSettings) {
+define([ 
+    'jquery', 
+    'underscore', 
+    'backbone', 
+    '/settings/js/model/settings.js' 
+], function($, _, Backbone, UserSettings) {
 
             var UserSettingsCollection = Backbone.Collection.extend({
                 model : UserSettings,

@@ -6,10 +6,8 @@ var User            = require('../../modules/user/models/user').model,
 
 var get = function(req,res) {
     if(req.session.user) {
-        console.log('find assignments fpr user with _id ',req.session.user._id);
         Assignment.find({'user._id':req.session.user._id},function(err,assignedWhiteboards) {
             var whiteboards = [];
-            console.log(assignedWhiteboards.length);
             for(var i = 0; i < assignedWhiteboards.length; ++i) {
                 whiteboards.push({
                     _id: assignedWhiteboards[i].whiteboard[0]._id,
@@ -24,7 +22,6 @@ var get = function(req,res) {
             res.send(whiteboards);            
         })
     } else {
-        console.log('no session user available');
         res.send('');
     }
 }

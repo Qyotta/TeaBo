@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    '/user/js/models/user.js',
+    '/user/js/model/user.js',
     'text!/core/templates/register.html',
     '/core/js/views/notice/notice.js',
     '/core/js/views/notice/error.js',

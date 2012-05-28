@@ -1,7 +1,7 @@
 define([
     'underscore',
     'backbone',
-    '/user/js/models/user.js',
+    '/user/js/model/user.js',
     // '/core/js/utils/group_command.js',
 ], function( _, Backbone, User) {//}, User, GroupCommand ){
         
