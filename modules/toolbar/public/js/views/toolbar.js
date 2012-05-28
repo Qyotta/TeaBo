@@ -4,50 +4,35 @@ define([ 'jquery',
          'text!/toolbar/templates/toolbar.html' 
 ], function($, _, Backbone, toolbarTemplate) {
 
-            var ToolbarView = Backbone.View.extend({
-                el : $("#bottomNavigation"),
-                events : {
-                    'click a.createNote' : 'createNoteClicked',
-                    'click a.uploadFile' : 'createAttachmentClicked',
-                    'click a[href=showToolTips]' : 'showToolTips'
-                },
-                initialize : function() {
-                    this.render();
-                },
-                render : function() {
-                    var data = {};
-                    var compiledTemplate = _.template(toolbarTemplate, data);
-                    this.el.html(compiledTemplate);
-                },
-                unrender : function() {
-                    this.el.empty();
-                },
-                createNoteClicked : function(evt) {
-                    // prevent action if a dialog is open
-                    if($('#dialogs').css('display') === 'block') {
-                        return;
-                    }
-                    evt.preventDefault();
-                    window.app.eventDispatcher.trigger("note:create", null);
-                },
-                showToolTips : function(evt) {
-                    // prevent action if a dialog is open
-                    if($('#dialogs').css('display') === 'block') {
-                        return;
-                    }
-                    evt.preventDefault();
-                    window.app.eventDispatcher.trigger("toolbar:showToolTips", null);
-                },
-                createAttachmentClicked : function(evt) {
-                    // prevent action if a dialog is open
-                    if($('#dialogs').css('display') === 'block') {
-                        return;
-                    }
-                    evt.preventDefault();
-                    window.app.eventDispatcher.trigger("attachment:create", null);
-                }
+    var ToolbarView = Backbone.View.extend({
+        el : $("#bottomNavigation"),
+        events : {
+            'click a[href=showToolTips]' : 'showToolTips'
+        },
+        initialize : function(options) {
+            this.toolViews = options.tools;
+            this.render();
+        },
+        render : function() {
+            var data = {};
+            var compiledTemplate = _.template(toolbarTemplate, data);
+            this.el.html(compiledTemplate);
+            for (i in this.toolViews){
+                $(".tools").append(this.toolViews[i].render().el);
+            }
+        },
+        unrender : function() {
+            this.el.empty();
+        },
+        showToolTips : function(evt) {
+            // prevent action if a dialog is open
+            if($('#dialogs').css('display') === 'block') {
+                return;
+            }
+            evt.preventDefault();
+            window.app.eventDispatcher.trigger("toolbar:showToolTips", null);
+        },
+    });
 
-            });
-
-            return ToolbarView;
+    return ToolbarView;
         });

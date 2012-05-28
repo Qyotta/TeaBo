@@ -1,4 +1,4 @@
-define([ 'jquery', 'underscore', 'backbone', 'text!templates/whiteboard/sidebar.html' ],
+define([ 'jquery', 'underscore', 'backbone', 'text!/sidebar/templates/sidebar.html' ],
         function($, _, Backbone, sidebarTemplate) {
 
             var SidebarView = Backbone.View.extend({
