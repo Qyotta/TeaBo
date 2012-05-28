@@ -2,7 +2,7 @@ html {
     overflow: hidden;
 }
 body {
-    background: url("../images/whiteboard-background.gif") repeat;
+    background: url("/whiteboard/images/background.gif") repeat;
 }
 
 .registrationSuccess {

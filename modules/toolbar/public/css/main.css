@@ -46,7 +46,7 @@
 #bottomNavigation > ul:first-child > li:first-child {
     margin: 0 10px 0 0;
     padding: 4px 10px 0 4px;
-    background:url('../images/toolbox_background.gif') repeat-x;
+    background:url('/toolbar/images/background.gif') repeat-x;
     color:#c2c2c2;
     text-shadow: 1px 1px 1px #000000;
 }

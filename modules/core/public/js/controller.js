@@ -78,16 +78,6 @@ define([
         loadModules: function(name,module) {
             this.modules[name] = new module;
         },
-        startCometd : function() {
-            this.cometd.configure({
-                url : "cometd",
-                logLevel : 'info'
-            });
-            
-            this.cometd.addListener('/meta/handshake', this.onMetaHandshake);
-            this.cometd.addListener('/meta/connect', this.onMetaConnect);
-            this.cometd.handshake();
-        },
         onMetaHandshake : function() {
             window.app.eventDispatcher.trigger('handshakeComplete', null);
         },
