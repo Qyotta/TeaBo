@@ -1,13 +1,18 @@
+// define vars
 var application_root = __dirname,
     express          = require("express"),
     path             = require("path"),
     mongoose         = require('mongoose'),
     fs               = require('fs'),
+    faye             = require('faye')
     util             = require('./rest/utils'),
-    app              = express.createServer();
+    app              = express.createServer(),
+    bayeux           = new faye.NodeAdapter({mount: '/faye', timeout: 45});
 
+// connect to mongodb
 mongoose.connect('mongodb://localhost/lao');
 
+// configure express server
 app.configure(function(){
     app.use(express.bodyParser());
     app.use(express.cookieParser('lao'));
@@ -21,6 +26,7 @@ app.configure(function(){
 });
 
 
+// load lao modules
 var moduleTemplates = [],
     moduleStyles    = [],
     moduleNames     = [];
@@ -43,6 +49,7 @@ fs.readdirSync('./modules').forEach(function(file) {
     console.log(file + ' module loaded');
 })
 
+// generate index.html
 app.get('/', function(req,res) {
     var header = fs.readFileSync('./templates/header.tpl', 'utf8'),
         script = '<script>var modules = [\'' + moduleNames.join('\',\'') + '\']; </script>'
@@ -50,6 +57,7 @@ app.get('/', function(req,res) {
     res.send(header + script + '\n\n' + moduleStyles.join('\n') + '\n\n' + moduleTemplates.join('\n'));
 })
 
+// register rest services
 registerRestServices(util.rest);
 function registerRestServices(rest) {
     if(rest) {
@@ -77,4 +85,6 @@ function registerRestServices(rest) {
     }
 }
 
+// register modules to ports
+bayeux.attach(app);
 app.listen(3000);
