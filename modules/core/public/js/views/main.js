@@ -48,6 +48,8 @@ define([
         },
         render: function(){
             if(this.collection==null){
+                // whiteboards are not synced
+                window.app.eventDispatcher.trigger("whiteboard:sync");
                 return;
             }
             var data = { user:window.app.user, ownWhiteboards: this.getOwnWhiteboards(), assignedWhiteboards: this.getAssignedWhiteboards(), _: _ };
