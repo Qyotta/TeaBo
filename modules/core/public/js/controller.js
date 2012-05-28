@@ -96,16 +96,8 @@ define([
                 this._connected = false;
                 return;
             }
-            
             this._connected = true;
-            
             var self = this;
-            $(window).unload(function() {
-                self.stopCometd();
-            });
-        },
-        stopCometd : function() {
-            this.cometd.disconnect(true);
         }
     };
     

@@ -4,4 +4,5 @@ exports.init = function() {
 
 }
 
-exports.rest = service.rest;
+exports.rest  = service.rest;
+exports.style = 'css/main.css';

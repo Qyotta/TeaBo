@@ -8,10 +8,7 @@ define([
     '/core/js/utils/subscribe_command.js'
 ], function($, _, Backbone, WhiteboardCollection, WhiteboardView, ConfirmDeleteView,SubscribeCommand){
     var WhiteboardController = function(){
-        window.app.log('whiteboard load');
         _.bindAll(this,'open','close','subscribeChannels','userColorUpdated','sync','overview');
-        window.app.eventDispatcher.trigger("whiteboard:overview",this.overview);
-        
         window.app.eventDispatcher.bind("whiteboard:open",this.open);
         window.app.eventDispatcher.bind("whiteboard:close",this.close);
         window.app.eventDispatcher.bind('handshakeComplete',this.subscribeChannels);
@@ -24,7 +21,9 @@ define([
             window.app.log('whiteboard loaded');
             this.whiteboards = new WhiteboardCollection();
             this.confirmDeleteView = new ConfirmDeleteView();
-            // this.sync();
+            if(window.app.loggedIn()) {
+                this.sync();
+            }
         },
         subscribeChannels:function(){
             var commands = [];
@@ -78,7 +77,6 @@ define([
                 $(this.view.el).empty();
             }
             this.whiteboard = null;
-            window.app.stopCometd();
             window.app.eventDispatcher.trigger('whiteboard:closed');
         }
     };

@@ -34,6 +34,7 @@ define([
                         window.app.user.synced = true;
                         if(window.app.loggedIn()){
                             self.unrender();
+                            window.app.eventDispatcher.trigger("whiteboard:sync");
                             window.router.navigate("main", {trigger: true});
                         }
                     } else {

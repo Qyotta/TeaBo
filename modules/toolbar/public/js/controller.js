@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'core/views/toolbar'
+    '/toolbar/js/views/toolbar.js'
 ], function($, _, Backbone, ToolbarView){
     
     var ToolbarController = function(options){
