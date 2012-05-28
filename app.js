@@ -3,6 +3,7 @@ var application_root = __dirname,
     path             = require("path"),
     mongoose         = require('mongoose'),
     fs               = require('fs'),
+    util             = require('./rest/utils'),
     app              = express.createServer();
 
 mongoose.connect('mongodb://localhost/lao');
@@ -49,9 +50,10 @@ app.get('/', function(req,res) {
     res.send(header + script + '\n\n' + moduleStyles.join('\n') + '\n\n' + moduleTemplates.join('\n'));
 })
 
+registerRestServices(util.rest);
 function registerRestServices(rest) {
-    console.log(rest);
     if(rest) {
+        console.log(rest);
         for(var i = 0; i < rest.length; ++i) {
             var url = rest[i].url;
             var method = rest[i].type;

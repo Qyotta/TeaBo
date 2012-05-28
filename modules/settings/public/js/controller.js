@@ -4,7 +4,7 @@ define([
     'backbone',
     '/settings/js/collection/settings.js',
     '/settings/js/model/settings.js',
-    'core/utils/userSettings_command'
+    '/core/js/utils/settings_command.js'
 ], function($, _, Backbone, UserSettingsCollection, UserSettings, UserSettingsCommand){
     var UserSettingsController = function(options){
         

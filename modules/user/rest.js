@@ -57,7 +57,7 @@ var getSession = function(req,res) {
 exports.rest = [
     { url: '/user',         type: 'post',   callback: register},
     { url: '/user/login',   type: 'post',   callback: postLogin},
-    { url: '/user/logout',  type:'post',    callback: postLogout },
+    { url: '/user/logout',  type: 'post',   callback: postLogout },
     { url: '/user/session', type: 'get',    callback: getSession},
     { url: '/user',         type: 'get',    callback: getUser},
 ];

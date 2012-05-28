@@ -1,7 +1,7 @@
-var User            = require('../models/user').model,
-    Assignment      = require('../models/assignment').model,
-    Whiteboard      = require('../models/whiteboard').model,
-    Settings        = require('../models/settings').model,
+var User            = require('../modules/user/models/user').model,
+    Assignment      = require('../modules/assignment/models/assignment').model,
+    Whiteboard      = require('../modules/whiteboard/models/whiteboard').model,
+    Settings        = require('../modules/settings/models/settings').model,
     rest            = [];
 
 rest.push({
