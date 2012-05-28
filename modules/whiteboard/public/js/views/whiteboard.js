@@ -3,9 +3,9 @@ define([
     'underscore',
     'backbone',
     'jquerycollision',
-    'core/modus',
+    '/whiteboard/js/modus.js',
     '/core/js/utils/model_command.js',
-    'text!templates/whiteboard/whiteboard.html',
+    'text!/whiteboard/templates/whiteboard.html',
 ], function($, _, Backbone, collision,WhiteboardModus, ModelCommand, whiteboardTemplate){
     
     var WhiteboardView = Backbone.View.extend({
