@@ -2,8 +2,8 @@ define([
     'underscore',
     'backbone',
     '/user/js/model/user.js',
-    // '/core/js/utils/group_command.js',
-], function( _, Backbone, User) {//}, User, GroupCommand ){
+    '/core/js/utils/group_command.js',
+], function( _, Backbone, User, GroupCommand ){
         
     var Application = function() {
         _.bindAll(this,'onMetaConnect', 'setSettings','loggedIn');
@@ -17,7 +17,7 @@ define([
         this.eventDispatcher = {},
         this.cometd = $.cometd;
         this.commands = [];
-        // this.groupCommand = new GroupCommand();
+        this.groupCommand = new GroupCommand();
         
         this.initialize();
     };

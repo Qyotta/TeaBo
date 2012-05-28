@@ -1,4 +1,5 @@
-var Settings = require('../models/settings').model;
+var Settings = require('./models/settings').model,
+    User     = require('../../modules/user/models/user').model;
     
 var set = function(req,res) {
     if(!req.session.user) {
@@ -30,6 +31,6 @@ var get = function(req,res) {
 }
 
 exports.rest = [
-    { url: '/user/settings', type: 'post', callback: set },
-    { url: '/user/settings', type: 'get',  callback: get }
+    { url: '/settings', type: 'post', callback: set },
+    { url: '/settings', type: 'get',  callback: get }
 ];
