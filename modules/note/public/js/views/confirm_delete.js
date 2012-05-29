@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    '/core/js/views/dialogs/dialog',
+    '/core/js/views/dialogs/dialog.js',
     'text!/note/templates/confirm_delete.html'
 ], function($, _, Backbone, Dialog, confirmDeleteTemplate){
    

@@ -18,7 +18,6 @@ define([
             this.tools = [];
         },
         showTools: function() {
-            console.log(this.tools);
             this.view = new ToolbarView({tools:this.tools});
         },
         removeTools: function() {

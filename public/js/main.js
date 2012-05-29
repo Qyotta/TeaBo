@@ -6,14 +6,14 @@ require.config({
         jqueryui : 'libs/jquery/jquery-ui-1.8.17',
         jquerycollision : 'libs/jquery/jquery-collision-1.0.1',
         text : 'libs/require/text',
+        faye : 'libs/faye/faye-browser-min',
+        templates : '../templates',
         cometd : 'libs/org/cometd',
         jquerycometd : 'libs/jquery/jquery.cometd',
-        templates : '../templates'
     }
 });
 
 define(function(require) {
-
     var Router   = require('/js/router.js'),
         Backbone = require('backbone'),
         Application = require('/core/js/controller.js');
@@ -26,7 +26,6 @@ define(function(require) {
     for(var i = 0; i < window.modules.length;++i) {
         var name = window.modules[i],
             path = '/' + name + '/js/controller.js';
-
         loadModul(require,path,name);
     }    
 });

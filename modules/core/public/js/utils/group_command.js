@@ -1,8 +1,8 @@
 define([
     'underscore',
     'jquery',
-    'cometd'
-], function( _, $, cometd){
+    'faye'
+], function( _, $, faye){
     
     var GroupCommand = function(commands) {
         
@@ -10,7 +10,7 @@ define([
         
         this.commands = [];
         this.stack    = [];
-        this.cometd   = $.cometd;
+        // this.cometd   = $.cometd;
         
         // start push execution in an interval
         this.execTimer = setTimeout(this.startExecTimer,1000);

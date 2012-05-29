@@ -4,10 +4,10 @@ define([
     'backbone',
     '/core/js/utils/model_command.js',
     '/core/js/utils/subscribe_command.js',
-    '/note/collection/note.js',
-    '/note/views/note.js', 
-    '/note/model/note.js',
-    '/note/views/confirm_delete.js'
+    '/note/js/collection/note.js',
+    '/note/js/views/note.js', 
+    '/note/js/model/note.js',
+    '/note/js/views/confirm_delete.js'
 ], function($, _, Backbone, ModelCommand, SubscribeCommand, NoteCollection, NoteView, Note, ConfirmDeleteView) {
     var NoteController = function(options) {
         _.bindAll(this, 'getNotes', 'createNote','noteCreated', '_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote', '_reportElementOrder', 'handleForegroundWhiteboardItem');

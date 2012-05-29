@@ -3,7 +3,7 @@ define([
     'underscore',
     'backbone',
     'jquerycollision',
-    '/whiteboard/js/modus.js',
+    '/whiteboard/js/utils/modus.js',
     '/core/js/utils/model_command.js',
     'text!/whiteboard/templates/whiteboard.html',
 ], function($, _, Backbone, collision,WhiteboardModus, ModelCommand, whiteboardTemplate){

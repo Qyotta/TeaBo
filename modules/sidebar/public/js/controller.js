@@ -18,7 +18,6 @@ define([
             window.app.log('sidebar loaded');
         },
         showSidebar : function() {
-        	console.log("show sidebar");
             this.view = new SidebarView();
         },
         removeSidebar : function() {

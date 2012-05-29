@@ -7,7 +7,6 @@ define([
         
     var Application = function() {
         _.bindAll(this,'onMetaConnect', 'setSettings','loggedIn');
-        
         this.versionNumber = 0.2;
         this.versionType = 'beta';
         
@@ -15,7 +14,7 @@ define([
         this.user = {},
         this.modules = {},
         this.eventDispatcher = {},
-        this.cometd = $.cometd;
+        // this.cometd = $.cometd;
         this.commands = [];
         this.groupCommand = new GroupCommand();
         
@@ -88,25 +87,25 @@ define([
             // this.cometd.addListener('/meta/connect', this.onMetaConnect);
             // this.cometd.handshake();
         // },
-        // onMetaHandshake : function() {
-            // window.app.eventDispatcher.trigger('handshakeComplete', null);
-        // },
-        // onMetaConnect : function() {
-            // if (this.cometd.isDisconnected()) {
-                // this._connected = false;
-                // return;
-            // }
-//             
-            // this._connected = true;
-//             
-            // var self = this;
-            // $(window).unload(function() {
-                // self.stopCometd();
-            // });
-        // },
-        // stopCometd : function() {
-            // this.cometd.disconnect(true);
-        // }
+        onMetaHandshake : function() {
+            window.app.eventDispatcher.trigger('handshakeComplete', null);
+        },
+        onMetaConnect : function() {
+            if (this.cometd.isDisconnected()) {
+                this._connected = false;
+                return;
+            }
+            
+            this._connected = true;
+            
+            var self = this;
+            $(window).unload(function() {
+                self.stopCometd();
+            });
+        },
+        stopCometd : function() {
+            this.cometd.disconnect(true);
+        }
     };
     
     return Application;

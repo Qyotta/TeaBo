@@ -1,18 +1,18 @@
 define([
     'underscore',
     'jquery',
-    'cometd'
+    'faye'
 ], function( _, $, cometd){
     
     var ModelCommand = function(channel,obj) {
         this.channel = channel;
         this.obj     = obj;
-        this.cometd  = $.cometd;
+        // this.cometd  = $.cometd;
     };
     
     ModelCommand.prototype = {
         execute: function() {
-            this.cometd.publish(this.channel,this.obj);
+            // this.cometd.publish(this.channel,this.obj);
         }
     };
     

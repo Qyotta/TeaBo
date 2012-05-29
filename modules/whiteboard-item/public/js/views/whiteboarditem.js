@@ -3,8 +3,8 @@ define([
     'underscore',
     'backbone', 
     'jqueryui',
-    'core/utils/model_command',
-    'text!templates/whiteboard/whiteboard.html',
+    '/core/js/utils/model_command.js',
+    'text!/whiteboard/templates/whiteboard.html',
 ], function($, _, Backbone,jqueryui,ModelCommand, whiteboardTemplate){
     
     var WhiteboardView = Backbone.View.extend({
