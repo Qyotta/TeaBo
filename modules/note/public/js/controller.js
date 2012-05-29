@@ -11,7 +11,7 @@ define([
 ], function($, _, Backbone, ModelCommand, SubscribeCommand, NoteCollection, NoteView, Note, ConfirmDeleteView) {
     var NoteController = function(options) {
         _.bindAll(this, 'getNotes', 'createNote','noteCreated', '_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote', '_reportElementOrder', 'handleForegroundWhiteboardItem');
-        window.app.eventDispatcher.bind("note:create", this.createNote);
+        window.app.eventDispatcher.bind("toolbar:createNote", this.createNote);
         window.app.eventDispatcher.bind("whiteboard:opened",this.getNotes);
         window.app.eventDispatcher.bind('handshakeComplete',this.subscribeChannels);
         window.app.eventDispatcher.bind('note:delete', this.deleteNote);
@@ -24,6 +24,12 @@ define([
         initialize : function() {
             this.views    = [];
             this.confirmDeleteView = new ConfirmDeleteView();
+        },
+        toolbarTool: {
+            name: 'Notes',
+            action: 'createNote',
+            imageURL: '/note/images/new_note.png',
+            imageTitle: 'create a new note'
         },
         subscribeChannels : function() {
             var commands = [];

@@ -1,6 +1,11 @@
 <ul class="tools">
     <li><img src="/toolbar/images/tools.gif" alt="">Toolbox<img src="/toolbar/images/transition.gif" alt=""></li>
+    <% _.each(tools, function(tool) { %>
+        <li><div><a href="<%=tool.action%>"><img src="<%=tool.imageURL%>" alt="<%=tool.imageTitle%>" /><span><%=tool.name%></span></a></div></li>
+    <% }) %>
 </ul>
 <ul>
-    <li><div><a href="showToolTips"><img src="/toolbar/images/show-tooltips.png" alt="show tooltips" /><span>Tooltip</span></a></div></li>
+    <% _.each(links, function(link) { %>
+        <li><div><a href="<%=link.action%>"><img src="<%=link.imageURL%>" alt="<%=link.imageTitle%>" /><span><%=link.name%></span></a></div></li>
+    <% }) %>
 </ul>

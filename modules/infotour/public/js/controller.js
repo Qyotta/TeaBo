@@ -14,7 +14,12 @@ define([
     
     TooltipsController.prototype = {
         showDialogFlag : 'ToolTipFlag',
-        toolbarLink: '<a href="showToolTips"><img src="/images/showTooltips.png" alt="show tooltips" /><span>Tooltip</span></a>',
+        toolbarLink: {
+            name: 'Infotour',
+            action: 'showToolTips',
+            imageURL: '/infotour/images/show-infotour.png',
+            imageTitle: 'show tooltips'
+        },
         initialize: function() {
             window.app.eventDispatcher.trigger('toolbar:addElement', this.toolbarLink);
             window.app.log('tooltips loaded');
