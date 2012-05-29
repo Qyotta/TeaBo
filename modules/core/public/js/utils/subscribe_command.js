@@ -1,18 +1,14 @@
-define([
-    'underscore',
-    'jquery',
-    'faye'
-], function( _, $, faye){
+define([], function() {
     
     var SubscribeCommand = function(channel,callback) {
         this.channel  = channel;
         this.callback = callback;
-        // this.cometd   = $.cometd;
+        this.io       = window.app.io;
     }
     
     SubscribeCommand.prototype = {
         execute: function() {
-            // this.cometd.subscribe(this.channel,this.callback);
+            this.io.subscribe(this.channel,this.callback);
         }
     }
     

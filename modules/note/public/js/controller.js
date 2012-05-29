@@ -60,15 +60,15 @@ define([
             });
         },
         createNote : function() {
-            window.app.groupCommand.addCommands(new ModelCommand(
-                '/service/note/post/', 
+            //window.app.groupCommand.addCommands(new ModelCommand(
+                window.app.io.publish('/service/note/post/', 
                 {
                     x : 400,
                     y : 400,
                     creator : window.app.user.get('email'),
                     whiteboardid : this.whiteboard.id
                 }
-            ));
+            );
         },
         noteCreated : function(message) {
             var _note = new Note({

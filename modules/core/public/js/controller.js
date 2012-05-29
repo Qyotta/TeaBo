@@ -7,16 +7,16 @@ define([
         
     var Application = function() {
         _.bindAll(this,'onMetaConnect', 'setSettings','loggedIn');
-        this.versionNumber = 0.2;
-        this.versionType = 'beta';
         
-        this.debugMode = true,
-        this.user = {},
-        this.modules = {},
+        this.versionNumber   = 0.2,
+        this.versionType     = 'beta',
+        this.debugMode       = true,
+        this.user            = {},
+        this.modules         = {},
         this.eventDispatcher = {},
-        // this.cometd = $.cometd;
-        this.commands = [];
-        this.groupCommand = new GroupCommand();
+        this.io              = null;
+        this.commands        = [];
+        this.groupCommand    = new GroupCommand();
         
         this.initialize();
     };
@@ -77,16 +77,15 @@ define([
         loadModules: function(name,module) {
             this.modules[name] = new module;
         },
-        // startCometd : function() {
-            // this.cometd.configure({
-                // url : "cometd",
-                // logLevel : 'info'
-            // });
-//             
+        startClientIO: function() {
+            this.io = new Faye.Client('http://localhost:3000/rest', {
+                timeout: 120
+            });
+            this.io.connect();
             // this.cometd.addListener('/meta/handshake', this.onMetaHandshake);
             // this.cometd.addListener('/meta/connect', this.onMetaConnect);
             // this.cometd.handshake();
-        // },
+        },
         onMetaHandshake : function() {
             window.app.eventDispatcher.trigger('handshakeComplete', null);
         },

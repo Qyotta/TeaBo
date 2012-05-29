@@ -69,6 +69,7 @@ define([
                 return;
             }
             this.view = new WhiteboardView({model:this.whiteboard});
+            window.app.startClientIO();
             window.app.eventDispatcher.trigger('whiteboard:opened',this.whiteboard);
         },
         close:function(){

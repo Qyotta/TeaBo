@@ -7,7 +7,7 @@ var application_root = __dirname,
     faye             = require('faye')
     util             = require('./rest/utils'),
     app              = express.createServer(),
-    bayeux           = new faye.NodeAdapter({mount: '/faye', timeout: 45});
+    bayeux           = new faye.NodeAdapter({mount: '/rest', timeout: 120});
 
 // connect to mongodb
 mongoose.connect('mongodb://localhost/lao');
@@ -87,4 +87,7 @@ function registerRestServices(rest) {
 
 // register modules to ports
 bayeux.attach(app);
+bayeux.bind('handshake', function(clientId) {
+    console.log('user connected to faye');
+})
 app.listen(3000);
