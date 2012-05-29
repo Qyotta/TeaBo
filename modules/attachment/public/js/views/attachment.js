@@ -2,7 +2,7 @@ define([
     'jquery', 
     'underscore', 
     'backbone', 
-    '/whiteboard-item/js/views/whiteboarditem.js',
+    '/whiteboardItem/js/views/whiteboarditem.js',
     '/whiteboard/js/utils/modus.js',
     'text!/attachment/templates/attachment.html', ],
     function($, _, Backbone, WhiteboardItemView,WhiteboardModus, attachmentTemplate) {
