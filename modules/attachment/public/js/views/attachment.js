@@ -1,10 +1,11 @@
-define([ 'jquery', 
-         'underscore', 
-         'backbone', 
-         'core/views/whiteboarditem',
-         'core/modus',
-         'text!templates/modules/attachment/attachment.html', ],
-         function($, _, Backbone, WhiteboardItemView,WhiteboardModus, attachmentTemplate) {
+define([ 
+    'jquery', 
+    'underscore', 
+    'backbone', 
+    '/whiteboard-item/js/views/whiteboarditem.js',
+    '/whiteboard/js/utils/modus.js',
+    'text!/attachment/templates/attachment.html', ],
+    function($, _, Backbone, WhiteboardItemView,WhiteboardModus, attachmentTemplate) {
     var AttachmentView = WhiteboardItemView.extend({
         name : 'attachment',
         events : {

@@ -78,17 +78,35 @@ define([
         loadModules: function(name,module) {
             this.modules[name] = new module;
         },
-        onMetaHandshake : function() {
-            window.app.eventDispatcher.trigger('handshakeComplete', null);
-        },
-        onMetaConnect : function() {
-            if (this.cometd.isDisconnected()) {
-                this._connected = false;
-                return;
-            }
-            this._connected = true;
-            var self = this;
-        }
+        // startCometd : function() {
+            // this.cometd.configure({
+                // url : "cometd",
+                // logLevel : 'info'
+            // });
+//             
+            // this.cometd.addListener('/meta/handshake', this.onMetaHandshake);
+            // this.cometd.addListener('/meta/connect', this.onMetaConnect);
+            // this.cometd.handshake();
+        // },
+        // onMetaHandshake : function() {
+            // window.app.eventDispatcher.trigger('handshakeComplete', null);
+        // },
+        // onMetaConnect : function() {
+            // if (this.cometd.isDisconnected()) {
+                // this._connected = false;
+                // return;
+            // }
+//             
+            // this._connected = true;
+//             
+            // var self = this;
+            // $(window).unload(function() {
+                // self.stopCometd();
+            // });
+        // },
+        // stopCometd : function() {
+            // this.cometd.disconnect(true);
+        // }
     };
     
     return Application;

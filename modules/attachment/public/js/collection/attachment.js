@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'modules/attachment/model_attachment'
+    '/attachment/js/model/attachment.js'
 ], function($, _, Backbone, Attachment){
 
     var AttachmentCollection = Backbone.Collection.extend({

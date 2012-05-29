@@ -1,10 +1,10 @@
 define([ 'jquery', 
          'underscore', 
          'backbone',
-         'core/utils/model_command',
-         'core/views/whiteboarditem',
-         'text!templates/modules/note/note.html'], 
-         function($, _, Backbone, ModelCommand,WhiteboardItemView,noteTemplate) {
+         '/core/js/utils/model_command.js',
+         '/whiteboard-item/js/views/whiteboarditem.js',
+         'text!/note/templates/note.html'
+],function($, _, Backbone, ModelCommand,WhiteboardItemView,noteTemplate) {
     var NoteView = WhiteboardItemView.extend({
         name : 'note',
         events : {
