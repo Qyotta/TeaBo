@@ -5,9 +5,8 @@ define([
     '/core/js/views/register.js',
     '/core/js/views/main.js',
     '/core/js/views/login.js',
-    '/core/js/views/dialogs/logout.js',
-    '/core/js/views/colorchooser/colorchooser.js'
-], function($, _, Backbone, RegisterView,MainHomeView,LoginView,LogoutDialogView,ColorChooserDialogView){
+    '/core/js/views/dialogs/logout.js'
+], function($, _, Backbone, RegisterView,MainHomeView,LoginView,LogoutDialogView){
     var AppRouter = Backbone.Router.extend({
         initialize: function(){
             window.app.eventDispatcher.bind('application:loggedIn',this.loggedIn);
@@ -25,9 +24,6 @@ define([
             new RegisterView();
         },
         showWhiteboard: function(id){
-            if(!this.colorChooserDialogView) {
-                this.colorChooserDialogView = new ColorChooserDialogView();
-            }
             window.app.eventDispatcher.trigger("whiteboard:open", id);
         },
         showLogin: function(){

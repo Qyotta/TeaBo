@@ -16,8 +16,8 @@ define([
             this.render();
         },
         colorClicked : function(e){
-            if(this.model.get('user').get('id') != window.app.user.id)return;
-            window.app.eventDispatcher.trigger('topbar:choose_color',this.model);
+            if(this.model.get('user').id != window.app.user.id)return;
+            window.app.eventDispatcher.trigger('userlist:choose_color',this.model);
         },
         render:function(){
             var data = {

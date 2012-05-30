@@ -1,7 +1,8 @@
 define([
     'underscore',
-    '/userlist/js/views/UserListView.js'
-], function(_, UserListView){
+    '/userlist/js/views/UserListView.js',
+    '/userlist/js/views/colorchooser.js'
+], function(_, UserListView, ColorChooserView){
     
     var UserListController = function(options){
         _.bindAll(this,'createList');
@@ -15,6 +16,9 @@ define([
         },
         createList: function(assignmentCollection) {
             this.view = new UserListView({model: assignmentCollection});
+            if(!this.colorChooserView) {
+                this.colorChooserView = new ColorChooserView();
+            }
             window.app.eventDispatcher.trigger('userlist:initialized',this.view);
         }
     }

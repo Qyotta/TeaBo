@@ -11,7 +11,7 @@ define([
         el:$('#dialogs'),
         initialize:function(){
             _.bindAll(this,'showColorChooserDialog','saveClicked','setHexValue');
-            window.app.eventDispatcher.bind("topbar:choose_color",this.showColorChooserDialog);
+            window.app.eventDispatcher.bind("userlist:choose_color",this.showColorChooserDialog);
             this.menu      = $('div.left > div.invite > div');
             this.lastValue = 0;
         },
