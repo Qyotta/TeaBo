@@ -60,23 +60,16 @@ define([
             });
         },
         createNote : function() {
-            //window.app.groupCommand.addCommands(new ModelCommand(
-                window.app.io.publish('/service/note/post/', 
-                {
-                    x : 400,
-                    y : 400,
-                    creator : window.app.user.get('email'),
-                    whiteboardid : this.whiteboard.id
-                }
-            );
+            window.app.io.publish('/note/post', {
+                x : 400,
+                y : 400,
+                creator : window.app.user.get('email'),
+                whiteboardid : this.whiteboard.id
+            });
         },
         noteCreated : function(message) {
-            var _note = new Note({
-                creator : message.data.creator,
-                x : message.data.x,
-                y : message.data.y
-            });
-            _note.id = message.data.id;
+            var _note = new Note(message);
+            
             if (this.views[_note.id])
                 return;
             this.noteCollection.add(_note);

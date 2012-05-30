@@ -2,6 +2,8 @@ var User            = require('../modules/user/models/user').model,
     Assignment      = require('../modules/assignment/models/assignment').model,
     Whiteboard      = require('../modules/whiteboard/models/whiteboard').model,
     Settings        = require('../modules/settings/models/settings').model,
+    Notes           = require('../modules/note/models/note').model,
+    WhiteboardItem  = require('../modules/whiteboardItem/models/whiteboardItem').model,
     rest            = [];
 
 rest.push({
@@ -39,6 +41,26 @@ rest.push({
     url: '/see/settings',
     callback: function(req,res) {
         Settings.find(function(err,users) {
+            res.send(JSON.stringify(users));
+        })
+    }
+})
+
+rest.push({
+    type: 'get',
+    url: '/see/notes',
+    callback: function(req,res) {
+        Notes.find(function(err,users) {
+            res.send(JSON.stringify(users));
+        })
+    }
+})
+
+rest.push({
+    type: 'get',
+    url: '/see/whiteboardItem',
+    callback: function(req,res) {
+        WhiteboardItem.find(function(err,users) {
             res.send(JSON.stringify(users));
         })
     }

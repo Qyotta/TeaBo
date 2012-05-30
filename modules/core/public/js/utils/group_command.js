@@ -10,7 +10,6 @@ define([
         
         this.commands = [];
         this.stack    = [];
-        // this.cometd   = $.cometd;
         
         // start push execution in an interval
         this.execTimer = setTimeout(this.startExecTimer,1000);
@@ -19,11 +18,9 @@ define([
     GroupCommand.prototype = {
         execute: function() {
             var that = this;
-            // this.cometd.batch(function() {
-                // $.each(that.commands,function(i, command) {
-                    // command.execute();
-                // });
-            // });
+            $.each(that.commands,function(i, command) {
+                command.execute();
+            });
             this.stack.push(this.commands);
             this.commands = [];
         },

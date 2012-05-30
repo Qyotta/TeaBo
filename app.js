@@ -6,8 +6,9 @@ var application_root = __dirname,
     fs               = require('fs'),
     faye             = require('faye')
     util             = require('./rest/utils'),
-    app              = express.createServer(),
-    bayeux           = new faye.NodeAdapter({mount: '/rest', timeout: 120});
+    bayeux           = new faye.NodeAdapter({mount: '/rest', timeout: 120}),
+    client           = new faye.Client('http://localhost:3001/rest')
+    app              = express.createServer();
 
 // connect to mongodb
 mongoose.connect('mongodb://localhost/lao');
@@ -44,8 +45,9 @@ fs.readdirSync('./modules').forEach(function(file) {
     
     app.use('/'+file,express.static(application_root+'/modules/'+file+'/public'));
     module.init();
-    registerRestServices(module.rest);
     
+    registerRestServices(module.rest);
+    registerIOServices(module.io);
     console.log(file + ' module loaded');
 })
 
@@ -85,9 +87,23 @@ function registerRestServices(rest) {
     }
 }
 
-// register modules to ports
-bayeux.attach(app);
+// register IO services
+function registerIOServices(io) {
+    console.log(io);
+    if(io) {
+        bayeux.bind('publish', function(client_id,channel,obj) {
+            console.log('got message on ',channel, obj);
+            if(io[channel]) {
+                console.log('channel found');
+                io[channel](bayeux,channel,obj);
+            }
+        })
+    }
+}
+
 bayeux.bind('handshake', function(clientId) {
     console.log('user connected to faye');
 })
+
+bayeux.listen(3001);
 app.listen(3000);
