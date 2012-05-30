@@ -4,8 +4,14 @@ define([
     '/assignment/js/model/assignment.js'
 ], function(_, Backbone,Assignment) {
     var AssignmentCollection = Backbone.Collection.extend({
-        model: Assignment,
-        idAttribute: "_id",
+        model       : Assignment,
+        idAttribute : "_id",
+        initialize  : function(options) {
+            this.whiteboardId = options.whiteboardId;
+        },
+        url: function() {
+            return this.whiteboardId?'whiteboard/'+this.whiteboardId+'/assignments':null
+        },
         parse:function(response){
             return response;
         },

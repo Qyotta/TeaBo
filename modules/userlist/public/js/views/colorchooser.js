@@ -5,7 +5,7 @@ define([
     '/core/js/views/dialogs/dialog.js',
     '/core/js/utils/util.js',
     '/core/js/utils/model_command.js',
-    'text!templates/color_chooser/color_chooser_dialog.html',
+    'text!/userlist/templates/color_chooser_dialog.html',
 ], function($, _, Backbone, Dialog, Utils,ModelCommand,colorChooserDialogTemplate){
     var ColorChooserDialogView = Dialog.extend({
         el:$('#dialogs'),

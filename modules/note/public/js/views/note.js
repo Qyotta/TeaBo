@@ -23,7 +23,7 @@ define([ 'jquery',
             this.controller = options.controller;
             this.assignment = this.controller.whiteboard.getAssignmentByUser(this.model.creator());
 
-            this.assignment.bind('change',this.assignmentChanged);
+            // this.assignment.bind('change',this.assignmentChanged);
             this.editing    = false;
             this.render();
             this.delegateEvents();

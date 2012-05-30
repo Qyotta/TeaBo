@@ -12,6 +12,7 @@ define([
         window.app.eventDispatcher.bind("whiteboard:opened",this.openedWhiteboard);
         window.app.eventDispatcher.bind("topbar:refresh",this.changeTopbar);
         window.app.eventDispatcher.bind("logout",this.changeTopbar);
+        window.app.eventDispatcher.bind('userlist:initialized',this.changeTopbar);
         
         this.initialize();
     };

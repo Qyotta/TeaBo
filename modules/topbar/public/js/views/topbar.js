@@ -5,8 +5,7 @@ define([
     '/core/js/views/notice/notice.js',
     '/core/js/views/notice/error.js',
     'text!/topbar/templates/topbar.html',
-    '/core/js/views/AssignmentListView.js'
-], function($, _, Backbone, Notice, Error, topbarTemplate,AssignmentListView){
+], function($, _, Backbone, Notice, Error, topbarTemplate){
     
     var TopbarView = Backbone.View.extend({
         el: $("#topNavigation"),
@@ -31,20 +30,21 @@ define([
             
             if(this.whiteboard){
                 var view = 'whiteboard';
-                var color = this.whiteboard.getColorByUser(user.get('email'));
             }
             if(window.app.modules.whiteboard && window.app.modules.whiteboard.whiteboard) {
                 title = window.app.modules.whiteboard.whiteboard.attributes.name;
             }
             
-            var data = {user:user,title:title,view: view,versionNumber: window.app.versionNumber,versionType: window.app.versionType,color:color};
+            var data = {user:user,title:title,view: view,versionNumber: window.app.versionNumber,versionType: window.app.versionType};
             
             var compiledTemplate = _.template( topbarTemplate, data );
             this.el.html(compiledTemplate);
             
             if(this.whiteboard){
-                this.assignmentView = new AssignmentListView({model:this.whiteboard.get('assignments')});
-                $('#whiteboard-users-container').html(this.assignmentView.render().el);
+                var userlist = window.app.modules.userlist;
+                if(userlist.view) {
+                    $('#whiteboard-users-container').html(userlist.view.render().el);
+                }
             }
         },
         changedUser:function(){

@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/assignment/assignment_row.html'
+    'text!/userlist/templates/assignment_row.html'
 ], function($, _, Backbone, assignmentRowTemplate){
     
     var AssignmentListRow = Backbone.View.extend({
