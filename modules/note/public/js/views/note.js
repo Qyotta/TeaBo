@@ -21,9 +21,6 @@ define([ 'jquery',
             this.model.bind('change',this.changed,this);
             
             this.controller = options.controller;
-            this.assignment = this.controller.whiteboard.getAssignmentByUser(this.model.creator());
-
-            // this.assignment.bind('change',this.assignmentChanged);
             this.editing    = false;
             this.render();
             this.delegateEvents();
@@ -93,9 +90,8 @@ define([ 'jquery',
                 $(this.el).css('z-index', this.model.get('orderIndex'));
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
             }
-            var _color = this.assignment.get('color');
-            
-            $('.noteItems',$(this.el)).css('background',"rgb("+_color[0]*100+"%,"+_color[1]*100+"%,"+_color[2]*100+"%)");
+            var _color = window.app.modules.assignment.getColor(this.model.get('creator'));
+            $('.noteItems',$(this.el)).css('background',"rgb("+_color[0]+","+_color[1]+","+_color[2]+")");
             
             var textarea = $(this.el).find('textarea');
             textarea.css('height', textarea[0].scrollHeight / 2 + 'px');

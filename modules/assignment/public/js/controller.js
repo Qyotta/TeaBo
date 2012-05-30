@@ -20,6 +20,11 @@ define([
                 console.log('assignments synced');
                 window.app.eventDispatcher.trigger('assignment:synced',collection);
             }})
+        },
+        getColor: function(user) {
+            return this.assignments.filter(function(assignment) {
+                return assignment.get('user').get('email') == user;
+            })[0].get('color');
         }
     }
     
