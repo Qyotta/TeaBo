@@ -124,6 +124,11 @@ rest.push({
                 user[i].remove();
             }
         })
+        WhiteboardItem.find({}, function(err,user) {
+            for(var i = 0; i < user.length; ++i) {
+                user[i].remove();
+            }
+        })
         
         var user = new User({
             email:'max-mustermann@gmail.com',

@@ -18,7 +18,7 @@ io['/note/post'] = function(bayeux,channel,obj) {
             creator     : user._id,
             whiteboard  : obj.whiteboardid,
             item        : {
-                type    : 'note',
+                class   : 'note',
                 object  : note
             } 
         })

@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
         creator     : ObjectId,
         whiteboard  : ObjectId,
         item        : {
-            type    : String,
+            class   : String,
             object  : mongoose.Schema.Types.Mixed
         }
     }),
