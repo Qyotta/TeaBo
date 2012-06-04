@@ -57,6 +57,7 @@ define([
                             model : _note,
                             controller: self,
                         });
+                        console.log(_note);
                         self.views.push(view);
                     });
                     self.subscribeChannels();
@@ -66,7 +67,7 @@ define([
         },
         checkIfViewExists : function(model){
             _.each(this.views,function(view){
-                if(model.id == view.model.id){
+                if(model.id === view.model.id){
                     return true;
                 }
             });
@@ -86,10 +87,10 @@ define([
             this.assignmentSynced = false;
         },
         createNote : function() {
-            window.app.io.publish('/note/post', {
+            window.app.io.publish('/service/note/post', {
                 x : 400,
                 y : 400,
-                creator : window.app.user.get('email'),
+                creator : window.app.user.id,
                 whiteboardid : this.whiteboard.id
             });
         },
@@ -100,21 +101,21 @@ define([
             this.noteCollection.add(_note);
             
             var self = this;
-            this.views.push(new NoteView({
+            var view = new NoteView({
                 model : _note,
                 controller: self,
-            }));
+            });
+            view.render();
+            this.views.push(view);
         },
         _handleMovedWhiteboardItem : function(message) {
-            var _id = message.data.id;
-            var _x = message.data.x;
-            var _y = message.data.y;
-
+            var _id = message.id;
+            var _x = message.x;
+            var _y = message.y;
+            
             var _note = this.noteCollection.get(_id);
-            _note.set({
-                x : _x,
-                y : _y
-            });
+            _note.set({ x : _x, y : _y });
+            console.log(this.views);
         },
         handleForegroundWhiteboardItem : function(message) {
             var _id = message.data.id.split('-')[1];

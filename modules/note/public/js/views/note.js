@@ -18,7 +18,6 @@ define([ 'jquery',
         initialize : function(options) {
             WhiteboardItemView.prototype.initialize.apply( this );
             _.bindAll(this, 'isFocused', 'isBlured', 'edited','changed','assignmentChanged');
-            this.model.bind('change',this.changed,this);
             
             this.controller = options.controller;
             this.editing    = false;
@@ -28,7 +27,7 @@ define([ 'jquery',
             this.render();
         },
         changed:function(){
-            var textarea = $('#note-'+this.model.id).find('textarea');
+            var textarea = $(this.model.id).find('textarea');
             textarea.css('height', textarea[0].scrollHeight / 2 + 'px');
             textarea.css('height', textarea[0].scrollHeight + 'px');
             
@@ -68,21 +67,23 @@ define([ 'jquery',
             }
         },
         render : function() {
+            var _creator = window.app.modules.assignment.getUser(this.model.get('creator'));
             var data = {
                 note : this.model,
+                creator:_creator,
                 _ : _
             };
             var compiledTemplate = _.template(noteTemplate, data);
             
-            $(this.el).attr("id", "note-"+this.model.id);
+            $(this.el).attr("id", this.model.id);
             $(this.el).addClass("whiteboarditem note draggable hoverable");
             
             $(this.el).css('position', 'absolute');
-            if ($("#note-" + this.model.id).length > 0) {
-                $("#note-" + this.model.id).css('left', this.model.get('x') + 'px');
-                $("#note-" + this.model.id).css('top', this.model.get('y') + 'px');
-                $("#note-" + this.model.id).css('z-index', this.model.get('orderIndex'));
-                $("#note-" + this.model.id).html(compiledTemplate);
+            if ($(this.model.id).length > 0) {
+                $(this.model.id).css('left', this.model.get('x') + 'px');
+                $(this.model.id).css('top', this.model.get('y') + 'px');
+                $(this.model.id).css('z-index', this.model.get('orderIndex'));
+                $(this.model.id).html(compiledTemplate);
             } else {
                 $(this.el).css('left', this.model.get('x') + 'px');
                 $(this.el).css('top', this.model.get('y') + 'px');
@@ -93,7 +94,6 @@ define([ 'jquery',
             var textarea = $(this.el).find('textarea');
             textarea.css('height', textarea[0].scrollHeight / 2 + 'px');
             textarea.css('height', textarea[0].scrollHeight + 'px');
-            
             var _color = window.app.modules.assignment.getColor(this.model.get('creator'));
             if(_color){
                 $('.noteItems',$(this.el)).css('background',"rgb("+_color[0]+","+_color[1]+","+_color[2]+")");

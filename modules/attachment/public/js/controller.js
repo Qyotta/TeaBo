@@ -27,8 +27,6 @@ define([
         },
         subscribeChannels:function(){
             var commands = [];
-            commands.push(new SubscribeCommand('/whiteboardItem/move/'        +this.whiteboard.id,this.handleMovedWhiteboardItem));
-            commands.push(new SubscribeCommand('/whiteboardItem/delete/'      +this.whiteboard.id,this.handleDeletedWhiteboardItem));
             commands.push(new SubscribeCommand('/attachment/posted/'          +this.whiteboard.id,this.handlePostedAttachment));
             commands.push(new SubscribeCommand('/attachment/upload/complete/' +this.whiteboard.id,this.handleUploadCompleteAttachment));
             commands.push(new SubscribeCommand('/attachment/upload/remove/'   +this.whiteboard.id,this.handleUploadFailedAttachment));
@@ -64,9 +62,10 @@ define([
             }
         },
         handleMovedWhiteboardItem:function(message) {
-            var id     = message.data.id;
-            var x      = message.data.x;
-            var y      = message.data.y;
+            console.log(message);
+            var id     = message.id;
+            var x      = message.x;
+            var y      = message.y;
             
             var attachment   = this.attachmentCollection.get(id);
             attachment.set({x:x,y:y});

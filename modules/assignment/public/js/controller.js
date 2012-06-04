@@ -21,17 +21,25 @@ define([
                 window.app.eventDispatcher.trigger('assignment:synced',collection);
             }})
         },
-        getColor: function(user) {
-            var color = null;
+        getColor: function(userid) {
             var models = this.assignments.models;
             for(var i=0;i<models.length;i++){
                 var a = models[i];
-                if(a.get('user').id == user){
-                    color = a.get('color');
-                    break;
+                if(a.get('user').id == userid){
+                    return a.get('color');
                 }
             }
-            return color;
+            return null;
+        },
+        getUser: function(userid) {
+            var models = this.assignments.models;
+            for(var i=0;i<models.length;i++){
+                var a = models[i];
+                if(a.get('user').id == userid){
+                    return a.get('user');
+                }
+            }
+            return null;
         }
     }
     

@@ -13,8 +13,10 @@ define([
             'click ' : 'orderChange'
         },
         initialize:function(whiteboard){
-            _.bindAll(this, 'handleDragItem', 'persistPosition', 'orderChange', 'handleForegroundWhiteboardItem', 'deleteClicked');
-            
+            _.bindAll(this, 'handleDragItem', 'persistPosition', 'orderChange', 'handleForegroundWhiteboardItem', 'deleteClicked','changedPosition');
+            this.model.bind('change:x',this.changedPosition,this);
+            this.model.bind('change:y',this.changedPosition,this);
+
             window.app.eventDispatcher.bind("whiteboardItem:delete_clicked", this.deleteClicked);
             
             $(this.el).draggable({
@@ -22,6 +24,11 @@ define([
                 drag : this.handleDragItem,
                 stop : this.persistPosition
             });
+        },
+        changedPosition:function(){
+            if(!this.editing){
+                this.render();
+            }
         },
         handleDragItem: function(e) {
             // find all selected items
@@ -65,7 +72,7 @@ define([
             
             if($('div.whiteboard > div.selected').length > 1) {
                 // get all views
-                views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true;});
+                views = window.app.modules.note.views;  // TODO not modular
                 // persist views
                 var commands = [];
                 $.each(views,function(j,view) {
@@ -83,7 +90,6 @@ define([
                         ));
                     }
                 });
-                
                 window.app.groupCommand.addCommands(commands);
             } else {
                 window.app.groupCommand.addCommands(new ModelCommand(

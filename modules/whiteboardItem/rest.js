@@ -7,7 +7,7 @@ var getNotes = function(req,res) {
     Item.find({'whiteboard':id,'item.class':'note'}, function(err,items) {
         var notes = [];
         for(var i = 0; i < items.length; ++i) {
-            console.log(items[i].item.type);
+            console.log(items[i].item.class);
         }
         res.send(items);
     })

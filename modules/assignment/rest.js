@@ -5,7 +5,7 @@ var getAssignments = function(req,res) {
     
     Assignments.find({'whiteboard.id':id},function(err,assignments) {
         if(!err) {
-            res.send(assignments)
+            res.send(assignments);
         }
     })
 }
