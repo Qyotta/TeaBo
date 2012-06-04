@@ -6,7 +6,7 @@ define([
     var AssignmentCollection = Backbone.Collection.extend({
         model       : Assignment,
         idAttribute : "_id",
-        initialize  : function(options) {
+        initialize  : function(models,options) {
             this.whiteboardId = options.whiteboardId;
         },
         url: function() {

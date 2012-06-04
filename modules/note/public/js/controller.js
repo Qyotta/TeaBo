@@ -10,12 +10,14 @@ define([
     '/note/js/views/confirm_delete.js'
 ], function($, _, Backbone, ModelCommand, SubscribeCommand, NoteCollection, NoteView, Note, ConfirmDeleteView) {
     var NoteController = function(options) {
-        _.bindAll(this, 'getNotes', 'createNote','noteCreated', '_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote', '_reportElementOrder', 'handleForegroundWhiteboardItem');
+        _.bindAll(this, 'getNotes', 'createNote','noteCreated', '_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote', '_reportElementOrder', 'handleForegroundWhiteboardItem','assignmentSynced','whiteboardClosed');
         window.app.eventDispatcher.bind("toolbar:createNote", this.createNote);
         window.app.eventDispatcher.bind("whiteboard:opened",this.getNotes);
+        window.app.eventDispatcher.bind("whiteboard:closed",this.whiteboardClosed);
         window.app.eventDispatcher.bind('handshakeComplete',this.subscribeChannels);
         window.app.eventDispatcher.bind('note:delete', this.deleteNote);
         window.app.eventDispatcher.bind('note:order_change', this._reportElementOrder);
+        window.app.eventDispatcher.bind('assignment:synced', this.assignmentSynced);
 
         this.initialize();
     };
@@ -23,6 +25,7 @@ define([
     NoteController.prototype = {
         initialize : function() {
             this.views    = [];
+            this.assignmentSynced = false;
             this.confirmDeleteView = new ConfirmDeleteView();
         },
         toolbarTool: {
@@ -50,14 +53,37 @@ define([
             this.noteCollection.fetch({
                 success : function(collection, response) {
                     collection.each(function(_note) {
-                        self.views[_note.id] = new NoteView({
+                        var view = new NoteView({
                             model : _note,
                             controller: self,
                         });
+                        self.views.push(view);
                     });
                     self.subscribeChannels();
+                    self.renderNotes();
                 }
             });
+        },
+        checkIfViewExists : function(model){
+            _.each(this.views,function(view){
+                if(model.id == view.model.id){
+                    return true;
+                }
+            });
+            return false;
+        },
+        assignmentSynced : function(){
+            this.assignmentSynced = true;
+            this.renderNotes();
+        },
+        renderNotes : function(){
+            if(!this.assignmentSynced)return false;
+            _.each(this.views,function(view){
+                view.render();
+            });
+        },
+        whiteboardClosed:function(){
+            this.assignmentSynced = false;
         },
         createNote : function() {
             window.app.io.publish('/note/post', {
@@ -70,15 +96,14 @@ define([
         noteCreated : function(message) {
             var _note = new Note(message);
             
-            if (this.views[_note.id])
-                return;
+            if (this.checkIfViewExists(_note))return;
             this.noteCollection.add(_note);
             
             var self = this;
-            this.views[_note.id] = new NoteView({
+            this.views.push(new NoteView({
                 model : _note,
                 controller: self,
-            });
+            }));
         },
         _handleMovedWhiteboardItem : function(message) {
             var _id = message.data.id;

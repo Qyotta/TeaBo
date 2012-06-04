@@ -22,7 +22,6 @@ define([ 'jquery',
             
             this.controller = options.controller;
             this.editing    = false;
-            this.render();
             this.delegateEvents();
         },
         assignmentChanged:function(){
@@ -90,12 +89,15 @@ define([ 'jquery',
                 $(this.el).css('z-index', this.model.get('orderIndex'));
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
             }
-            var _color = window.app.modules.assignment.getColor(this.model.get('creator'));
-            $('.noteItems',$(this.el)).css('background',"rgb("+_color[0]+","+_color[1]+","+_color[2]+")");
             
             var textarea = $(this.el).find('textarea');
             textarea.css('height', textarea[0].scrollHeight / 2 + 'px');
             textarea.css('height', textarea[0].scrollHeight + 'px');
+            
+            var _color = window.app.modules.assignment.getColor(this.model.get('creator'));
+            if(_color){
+                $('.noteItems',$(this.el)).css('background',"rgb("+_color[0]+","+_color[1]+","+_color[2]+")");
+            }
         },
     });
 
