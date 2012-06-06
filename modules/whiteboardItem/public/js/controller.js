@@ -3,14 +3,20 @@ define([
         '/core/js/utils/subscribe_command.js',
         '/core/js/utils/model_command.js',
         '/whiteboardItem/js/collection/WhiteboardItemCollection.js',
-        '/whiteboardItem/js/models/WhiteboardItem.js'
-], function(_,SubscribeCommand,ModelCommand,WhiteboardItemCollection,WhiteboardItem){
+        '/whiteboardItem/js/models/WhiteboardItem.js',
+        '/whiteboard/js/utils/modus.js',
+], function(_,SubscribeCommand,ModelCommand,WhiteboardItemCollection,WhiteboardItem,WhiteboardModus){
     
     var WhiteboardItemController = function(options){
-        _.bindAll(this,'whiteboardOpened','whiteboardClosed','movedItem','deletedItem','deleteItem','postedItem');
+        _.bindAll(this,'whiteboardOpened','whiteboardClosed','movedItem','deletedItem','deleteItem','postedItem','startedEditing','stoppedEditing','stopEditing');
         window.app.eventDispatcher.bind("whiteboard:opened",this.whiteboardOpened);
         window.app.eventDispatcher.bind('whiteboard:closed',this.whiteboardClosed);
         window.app.eventDispatcher.bind('whiteboardItem:delete',this.deleteItem);
+        
+        window.app.eventDispatcher.bind('whiteboardItem:startedEditing',this.startedEditing);
+        window.app.eventDispatcher.bind('whiteboardItem:stoppedEditing',this.stoppedEditing);
+        window.app.eventDispatcher.bind('whiteboard:mouseup',this.stopEditing);
+        
         this.initialize();
     };
     
@@ -72,6 +78,16 @@ define([
             var item = new WhiteboardItem(message);
             this.collection.add(item);
             window.app.eventDispatcher.trigger('whiteboardItem:loaded:'+item.get('type'),item);
+        },
+        startedEditing:function(view){
+            if(this.editing)this.editing.stopEditing();
+            this.editing = view;
+        },
+        stopEditing:function(){
+            if(this.editing)this.editing.stopEditing();
+        },
+        stoppedEditing:function(){
+            this.editing = null;
         }
     };
     

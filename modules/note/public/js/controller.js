@@ -64,7 +64,6 @@ define([
         findViewById:function(id){
             var result=null;
             _.each(this.views,function(view){
-                console.log(id , view.model.id);
                 if(id === view.model.id){
                     result = view;
                     return;
