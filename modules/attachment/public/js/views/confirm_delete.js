@@ -7,7 +7,6 @@ define([
     ], function($, _, Backbone, Dialog, confirmDeleteTemplate) {
     var ConfirmDeleteView = Dialog
             .extend({
-                el : $('#dialogs'),
                 showDialogFlag:"DeleteConfirmFlag",
                 initialize : function() {
                     _.bindAll(this, 'showConfirmDialog', 'confirmed', 'hideConfirmDialog', 'shouldShowDialog');
@@ -19,7 +18,9 @@ define([
                 },
                 render : function() {
                     var compiledTemplate = _.template(confirmDeleteTemplate);
-                    this.el.html(compiledTemplate);
+                    $(this.el).attr('id','confirmDeleteNoteContainer');
+                    $(this.el).html(compiledTemplate);
+                    $('#dialogs').html(this.el);
                 },
                 showConfirmDialog : function(model) {
                     this.model = model;

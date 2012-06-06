@@ -10,9 +10,11 @@ define([
     '/note/js/views/confirm_delete.js'
 ], function($, _, Backbone, ModelCommand, SubscribeCommand, NoteCollection, NoteView, Note, ConfirmDeleteView) {
     var NoteController = function(options) {
-        _.bindAll(this, 'getNotes', 'createNote','noteCreated','loadedNote','_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote', '_reportElementOrder', 'handleForegroundWhiteboardItem','assignmentSynced','whiteboardClosed');
+        _.bindAll(this, 'getNotes', 'createNote','noteCreated','loadedNote','deletedNote', '_handleEditedNote', '_reportElementOrder', 'handleForegroundWhiteboardItem','assignmentSynced','whiteboardClosed');
         
         window.app.eventDispatcher.bind("whiteboardItem:loaded:note", this.loadedNote);
+        window.app.eventDispatcher.bind("whiteboardItem:deleted:note", this.deletedNote);
+        
         
         
         window.app.eventDispatcher.bind("toolbar:createNote", this.createNote);
@@ -22,7 +24,6 @@ define([
         window.app.eventDispatcher.bind('note:delete', this.deleteNote);
         window.app.eventDispatcher.bind('note:order_change', this._reportElementOrder);
         window.app.eventDispatcher.bind('assignment:synced', this.assignmentSynced);
-
         this.initialize();
     };
 
@@ -60,13 +61,20 @@ define([
             this.whiteboard = whiteboard;
             this.views = [];
         },
-        checkIfViewExists : function(model){
+        findViewById:function(id){
+            var result=null;
             _.each(this.views,function(view){
-                if(model.id === view.model.id){
-                    return true;
+                console.log(id , view.model.id);
+                if(id === view.model.id){
+                    result = view;
+                    return;
                 }
             });
-            return false;
+            return result;
+        },
+        checkIfViewExists : function(model){
+            var view = this.findViewById(model.id);
+            return view != null;
         },
         assignmentSynced : function(){
             this.assignmentSynced = true;
@@ -83,9 +91,10 @@ define([
             this.views = [];
         },
         createNote : function() {
-            window.app.io.publish('/service/note/post', {
+            window.app.io.publish('/service/whiteboardItem/post', {
                 x : 400,
                 y : 400,
+                type : 'note',
                 creator : window.app.user.id,
                 whiteboardid : this.whiteboard.id
             });
@@ -118,14 +127,6 @@ define([
             var _note = this.noteCollection.get(_id);
             this.views[_note.id].handleForegroundWhiteboardItem(message);
         },
-        _handleDeletedWhiteboardItem : function(message) {
-            var _id = message.data.id;
-            var _note = this.noteCollection.get(_id);
-            if (_note) {
-                this.noteCollection.remove(_note);
-                this.views[_note.id].remove();
-            }
-        },
         _handleEditedNote : function(message) {
             var _id = message.data.id;
             var _text = message.data.text;
@@ -144,18 +145,9 @@ define([
                 }
             ));
         },
-        deleteNote : function(model) {
-            if (typeof model == "undefined" || model == null) {
-                window.app.log('delete-event triggered multiple times');
-            } else {
-                window.app.groupCommand.addCommands(new ModelCommand(
-                    '/service/whiteboardItem/delete', 
-                    {
-                        id : model.id,
-                        whiteboardid : this.whiteboard.id
-                    }
-                ));
-            }
+        deletedNote : function(_note){
+            var view = this.findViewById(_note.id);
+            if(view)view.remove();
         }
     };
 

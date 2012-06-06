@@ -241,9 +241,10 @@
     text-align: left;
 }
 
-#dialogs{display:none;}
+#dialogs{}
 
 #confirmDeleteAttachmentContainer, #confirmDeleteNoteContainer, #confirmDeleteMultipleContainer, #logoutContainer{
+    display:none;
     width:320px;
     height:50px;
     position:absolute;
