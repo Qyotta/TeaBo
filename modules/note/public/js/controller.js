@@ -10,7 +10,11 @@ define([
     '/note/js/views/confirm_delete.js'
 ], function($, _, Backbone, ModelCommand, SubscribeCommand, NoteCollection, NoteView, Note, ConfirmDeleteView) {
     var NoteController = function(options) {
-        _.bindAll(this, 'getNotes', 'createNote','noteCreated', '_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote', '_reportElementOrder', 'handleForegroundWhiteboardItem','assignmentSynced','whiteboardClosed');
+        _.bindAll(this, 'getNotes', 'createNote','noteCreated','loadedNote','_handleMovedWhiteboardItem','_handleDeletedWhiteboardItem', '_handleEditedNote','deleteNote', '_reportElementOrder', 'handleForegroundWhiteboardItem','assignmentSynced','whiteboardClosed');
+        
+        window.app.eventDispatcher.bind("whiteboardItem:loaded:note", this.loadedNote);
+        
+        
         window.app.eventDispatcher.bind("toolbar:createNote", this.createNote);
         window.app.eventDispatcher.bind("whiteboard:opened",this.getNotes);
         window.app.eventDispatcher.bind("whiteboard:closed",this.whiteboardClosed);
@@ -36,34 +40,25 @@ define([
         },
         subscribeChannels : function() {
             var commands = [];
-            commands.push(new SubscribeCommand('/whiteboardItem/move/'   + this.whiteboard.id, this._handleMovedWhiteboardItem));
-            commands.push(new SubscribeCommand('/whiteboardItem/delete/' + this.whiteboard.id, this._handleDeletedWhiteboardItem));
             commands.push(new SubscribeCommand('/note/edited/'           + this.whiteboard.id, this._handleEditedNote));
             commands.push(new SubscribeCommand('/note/posted/'           + this.whiteboard.id, this.noteCreated));
             commands.push(new SubscribeCommand('/whiteboardItem/order/'  + this.whiteboard.id, this.handleForegroundWhiteboardItem));
             window.app.groupCommand.addCommands(commands);
         },
+        loadedNote:function(_note){
+            if (this.checkIfViewExists(_note))return;
+            
+            var view = new NoteView({
+                model : _note,
+                controller: this,
+            });
+            view.render();
+            
+            this.views.push(view);
+        },
         getNotes : function(whiteboard) {
             this.whiteboard = whiteboard;
-            this.noteCollection = new NoteCollection(null, {
-                id : this.whiteboard.id
-            });
-
-            var self = this;
-            this.noteCollection.fetch({
-                success : function(collection, response) {
-                    collection.each(function(_note) {
-                        var view = new NoteView({
-                            model : _note,
-                            controller: self,
-                        });
-                        console.log(_note);
-                        self.views.push(view);
-                    });
-                    self.subscribeChannels();
-                    self.renderNotes();
-                }
-            });
+            this.views = [];
         },
         checkIfViewExists : function(model){
             _.each(this.views,function(view){
@@ -85,7 +80,6 @@ define([
         },
         whiteboardClosed:function(){
             this.assignmentSynced = false;
-            this.noteCollection = null;
             this.views = [];
         },
         createNote : function() {

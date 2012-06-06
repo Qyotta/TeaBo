@@ -11,7 +11,6 @@ io['/service/whiteboardItem/move'] = function(bayeux,channel,obj) {
         whiteboardItem.y = obj.y;
         
         whiteboardItem.save();
-        
         bayeux.getClient().publish('/whiteboardItem/move/'+obj.whiteboardid, 
                 { x : obj.x, y : obj.y, id: obj.id });
     })
