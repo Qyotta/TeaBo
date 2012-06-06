@@ -85,6 +85,8 @@ define([
         },
         whiteboardClosed:function(){
             this.assignmentSynced = false;
+            this.noteCollection = null;
+            this.views = [];
         },
         createNote : function() {
             window.app.io.publish('/service/note/post', {
@@ -95,8 +97,9 @@ define([
             });
         },
         noteCreated : function(message) {
+            console.log("note created",message);
             var _note = new Note(message);
-            
+            console.log(_note);
             if (this.checkIfViewExists(_note))return;
             this.noteCollection.add(_note);
             
@@ -115,7 +118,6 @@ define([
             
             var _note = this.noteCollection.get(_id);
             _note.set({ x : _x, y : _y });
-            console.log(this.views);
         },
         handleForegroundWhiteboardItem : function(message) {
             var _id = message.data.id.split('-')[1];

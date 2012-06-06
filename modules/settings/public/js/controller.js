@@ -9,7 +9,7 @@ define([
     var UserSettingsController = function(options){
         
         _.bindAll(this,'sync','set', 'get');
-        window.app.eventDispatcher.bind('whiteboard:open',this.sync);
+//        window.app.eventDispatcher.bind('whiteboard:open',this.sync);
         window.app.eventDispatcher.bind("logout",this.unload);
         
         this.initialize();

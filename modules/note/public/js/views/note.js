@@ -68,6 +68,8 @@ define([ 'jquery',
         },
         render : function() {
             var _creator = window.app.modules.assignment.getUser(this.model.get('creator'));
+            if(!_creator)return false;
+
             var data = {
                 note : this.model,
                 creator:_creator,
