@@ -7,17 +7,7 @@
     </a>
 </h1>
 <div class="left">
-    <% if(view === "whiteboard") { %>
-    <div class="invite">
-        <a href="invite"><img src="/images/user.gif">Whiteboard users</a>
-        <div>
-	        <div id="whiteboard-users-container"></div>
-	        <form id="invite" action="/inviteUser" method="post">
-                <input class="mailaddress" type="text" name="address" placeholder="type email and press enter">
-            </form>
-        </div>
-    </div>
-    <% } %>
+    
 </div>
 <div class="right">
     <% if(Object.keys(window.app.user.attributes).length) { %>

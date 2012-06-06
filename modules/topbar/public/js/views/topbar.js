@@ -15,10 +15,9 @@ define([
             'click .right a[href="main"]' :'mainClicked',
             'click .logo a[href="main"]' : 'mainClicked',
             'click div.invite' : 'preventDefault',
-            'submit form#invite' : 'inviteUser',
         },
         initialize:function(){
-            _(this).bindAll('changedUser','inviteUser');
+            _(this).bindAll('changedUser','inviteUser','render');
             
             this.isInviteInProgress = false;
             
@@ -31,21 +30,46 @@ define([
             if(this.whiteboard){
                 var view = 'whiteboard';
             }
+
             if(window.app.modules.whiteboard && window.app.modules.whiteboard.whiteboard) {
                 title = window.app.modules.whiteboard.whiteboard.attributes.name;
             }
             
-            var data = {user:user,title:title,view: view,versionNumber: window.app.versionNumber,versionType: window.app.versionType};
-            
+            var data = {
+                user:          user,
+                title:         title,
+                view:          view,
+                versionNumber: window.app.versionNumber,
+                versionType:   window.app.versionType,
+            };
+
+            var that             = this;
+            var components       = this.getTopbarComponents();
             var compiledTemplate = _.template( topbarTemplate, data );
             this.el.html(compiledTemplate);
+
+            $.each(components,function(i, component) {
+                that.el.find('div.left').append(component);
+            });
             
-            if(this.whiteboard){
-                var userlist = window.app.modules.userlist;
-                if(userlist.view) {
-                    $('#whiteboard-users-container').html(userlist.view.render().el);
+            // if(this.whiteboard){
+            //     var userlist = window.app.modules.userlist;
+            //     if(userlist.view) {
+            //         $('#whiteboard-users-container').html(userlist.view.render().el);
+            //     }
+            // }
+        },
+        getTopbarComponents: function() {
+            var components = [],
+                modules    = window.app.modules;
+            
+            $.each(modules,function(module) {
+                if(modules[module].topbarComponent) {
+                    components.push(modules[module].topbarComponent());
                 }
-            }
+            });
+            
+            return components;
         },
         changedUser:function(){
             this.render();

@@ -122,7 +122,7 @@
     width: 261px;
 }
 #colorChooserContainer > a.close, #colorChooserContainer > a.accept {
-    background: url("../images/close.png") no-repeat;
+    background: url("/userlist/images/close.png") no-repeat;
     text-indent: -3000px; 
     font-size:0px;
     display:block;
@@ -133,7 +133,7 @@
     right:-16px;
 }
 #colorChooserContainer > a.accept {
-    background: url("../images/accept.png") no-repeat;
+    background: url("/userlist/images/accept.png") no-repeat;
     top: 17px;
 }
 #colorChooserContainer > img {
