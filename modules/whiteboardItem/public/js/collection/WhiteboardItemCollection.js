@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    '/whiteboardItem/js/models/whiteboarditem.js'
+    '/whiteboardItem/js/models/WhiteboardItem.js'
 ], function($, _, Backbone, WhiteboardItem){
 
     var WhiteboardItemCollection = Backbone.Collection.extend({

@@ -6,7 +6,6 @@ define([
     var WhiteboardItem = Backbone.Model.extend({
         idAttribute: "_id",
         set: function(attributes, options) {
-            console.log(attributes);
             if (attributes.content !== undefined && !(attributes.content instanceof Object)) {
                 attributes.content = new Object(attributes.content);
             }else{
@@ -15,7 +14,6 @@ define([
             return Backbone.Model.prototype.set.call(this, attributes, options);
         },
         parse: function(response) {
-            console.log(response);
             response.content = new Object(response.content);
             return response;
         }

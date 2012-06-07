@@ -36,7 +36,6 @@ define([
             imageTitle: 'create a new note'
         },
         subscribeChannels : function() {
-            console.log("subscribe");
             var commands = [];
             commands.push(new SubscribeCommand('/note/edited/'           + this.whiteboard.id, this._handleEditedNote));
             commands.push(new SubscribeCommand('/whiteboardItem/order/'  + this.whiteboard.id, this.handleForegroundWhiteboardItem));
