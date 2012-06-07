@@ -7,7 +7,6 @@ define([
 ], function($, _, Backbone, Dialog, confirmDeleteTemplate){
    
     var ConfirmDeleteView = Dialog.extend({
-        el:$('#dialogs'),
         showDialogFlag:"DeleteConfirmFlag",
         whiteboardId:0,
         initialize:function(){
@@ -19,8 +18,10 @@ define([
             'click #confirmDeleteMultipleContainer input[type=submit]': 'confirmed'
         },
         render: function(){
-            var compiledTemplate = _.template( confirmDeleteTemplate );
-            this.el.html(compiledTemplate);
+            var compiledTemplate = _.template(confirmDeleteTemplate);
+            $(this.el).attr('id','confirmDeleteMultipleContainer');
+            $(this.el).html(compiledTemplate);
+            $('#dialogs').html(this.el);
         },
         showConfirmDialog:function(wId){
             this.whiteboardId = wId;

@@ -3,7 +3,7 @@ var WhiteboardItem = require('../../modules/whiteboardItem/models/whiteboardItem
     io             = [];
 
 io['/service/whiteboardItem/post'] = function(bayeux,channel,obj) {
-    User.findOne({_id:obj.creator.id}, function(err,user) {
+    User.findOne({_id:obj.creator}, function(err,user) {
         var whiteboardItem = new WhiteboardItem({
             editing     : false,
             orderIndex  : 0, // TODO change this to the current number of items

@@ -241,7 +241,15 @@
     text-align: left;
 }
 
-#dialogs{}
+#dialogs{
+	display:none;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+    width:100%;
+    height:100%;
+    z-index: 1000;
+}
 
 #confirmDeleteAttachmentContainer, #confirmDeleteNoteContainer, #confirmDeleteMultipleContainer, #logoutContainer{
     display:none;

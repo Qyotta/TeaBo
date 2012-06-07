@@ -6,7 +6,6 @@ define([
     'text!/core/templates/dialogs/logout.html'
 ], function($, _, Backbone, Dialog, logoutDialogTemplate){
     var LogoutDialogView = Dialog.extend({
-        el:$('#dialogs'),
         initialize:function(){
             _.bindAll(this,'showLogoutDialog');
             window.app.eventDispatcher.bind("logoutClicked",this.showLogoutDialog);
@@ -16,8 +15,10 @@ define([
             'click #logoutContainer input[type=submit]': 'logout'
         },
         render: function(){
-            var compiledTemplate = _.template( logoutDialogTemplate );
-            this.el.html(compiledTemplate);
+            var compiledTemplate = _.template(logoutDialogTemplate);
+            $(this.el).attr('id','logoutContainer');
+            $(this.el).html(compiledTemplate);
+            $('#dialogs').html(this.el);
         },
         showLogoutDialog:function(){
             this.showDialog();
