@@ -140,7 +140,6 @@ define([
         },
         leavesWhiteboardItem:function(){
             window.app.eventDispatcher.trigger("whiteboardItem:left");
-//            this.stopEditing();
         }
     });
     

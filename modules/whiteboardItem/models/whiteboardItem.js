@@ -9,6 +9,7 @@ var mongoose = require('mongoose'),
         creator     : ObjectId,
         whiteboard  : ObjectId,
         type        : String,
+        content     : mongoose.Schema.Types.Mixed
     }),
     model  = mongoose.model('WhiteboardItem', schema);
 

@@ -19,6 +19,8 @@ define([ 'jquery',
             WhiteboardItemView.prototype.initialize.apply( this );
             _.bindAll(this, 'isFocused', 'isBlured', 'edited','changed','assignmentChanged');
             
+            this.model.get('content').bind('change:text',this.changed,this);
+            
             this.controller = options.controller;
             this.editing    = false;
             this.delegateEvents();
@@ -27,10 +29,10 @@ define([ 'jquery',
             this.render();
         },
         changed:function(){
-            var textarea = $(this.model.id).find('textarea');
-            textarea.css('height', textarea[0].scrollHeight / 2 + 'px');
-            textarea.css('height', textarea[0].scrollHeight + 'px');
-            
+//            var textarea = $(this.model.id).find('textarea');
+//            textarea.css('height', textarea[0].scrollHeight / 2 + 'px');
+//            textarea.css('height', textarea[0].scrollHeight + 'px');
+
             if(!this.editing){
                 this.render();
             }
@@ -38,20 +40,19 @@ define([ 'jquery',
         edited : function() {
             this.input = $('.noteItems textarea',this.el);
             var _text  = this.input.val();
-            var _oldText = this.model.get('text');
+            var _oldText = this.model.get('content').get('text');
 
             if(_text == _oldText) return;
             
-            this.model.set({text:_text});
+            this.model.get('content').set({text:_text});
             window.app.groupCommand.addCommands(new ModelCommand(
-                '/service/note/edit/',
+                '/service/note/edit',
                 {
                     id : this.model.id,
-                    text: this.model.get('text'),
+                    text: this.model.get('content').get('text'),
                     whiteboardid : this.controller.whiteboard.id
                 }
             ));
-            
         },
         isFocused : function() {
             this.editing = true;
@@ -69,7 +70,7 @@ define([ 'jquery',
         render : function() {
             var _creator = window.app.modules.assignment.getUser(this.model.get('creator'));
             if(!_creator)return false;
-
+            
             var data = {
                 note : this.model,
                 creator:_creator,

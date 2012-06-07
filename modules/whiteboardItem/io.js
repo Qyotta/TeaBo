@@ -3,7 +3,7 @@ var WhiteboardItem = require('../../modules/whiteboardItem/models/whiteboardItem
     io             = [];
 
 io['/service/whiteboardItem/post'] = function(bayeux,channel,obj) {
-    User.findOne(obj.creator.id, function(err,user) {
+    User.findOne({_id:obj.creator.id}, function(err,user) {
         var whiteboardItem = new WhiteboardItem({
             editing     : false,
             orderIndex  : 0, // TODO change this to the current number of items
@@ -11,7 +11,8 @@ io['/service/whiteboardItem/post'] = function(bayeux,channel,obj) {
             y           : obj.y,
             creator     : user._id,
             whiteboard  : obj.whiteboardid,
-            type        : obj.type 
+            type        : obj.type, 
+            content     : {}
         })
         
         whiteboardItem.save();
@@ -26,7 +27,8 @@ io['/service/whiteboardItem/post'] = function(bayeux,channel,obj) {
                   creator : obj.creator,
                   editing     : false,
                   orderIndex  : 0, // TODO change this to the current number of items
-                  type        : obj.type
+                  type        : obj.type,
+                  content     : {}
                 });
     })
 }

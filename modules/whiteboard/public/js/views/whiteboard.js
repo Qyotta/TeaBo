@@ -60,7 +60,6 @@ define([
                 this.endMove();
             }else{return;}
             window.app.eventDispatcher.trigger("whiteboard:mouseup");
-            console.log("whiteboard:mouseup");
         },
         keydown:function(event){
             var _modus=null;
@@ -129,7 +128,6 @@ define([
                 $(this.el).css('cursor', 'default');
             }
             window.app.eventDispatcher.trigger('whiteboard:changedModus',modus);
-            console.log(modus);
         },
         render:function(){
             $(this.el).attr('id','whiteboard');
