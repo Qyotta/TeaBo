@@ -4,7 +4,7 @@
         <span>Supported file types are JPG, PNG.</span>
     </h1>
     <iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
-    <form method="post" enctype="multipart/form-data" id="imageUpload" action="<%=config.contextPath%>/image/upload" target="uploadFrame">
+    <form method="post" enctype="multipart/form-data" id="imageUpload" action="/image/upload" target="uploadFrame">
         <span>Image</span>
         <input type="file" name="data">
         <input type="hidden" name="whiteboardId" id="whiteboardId" value="<%=whiteboard.id%>"/>

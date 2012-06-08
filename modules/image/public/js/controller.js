@@ -5,8 +5,9 @@ define([
             '/core/js/utils/model_command.js',
             '/core/js/utils/subscribe_command.js',
             '/image/js/views/image.js', 
-            '/image/js/views/confirm_delete.js'
-            ], function($, _, Backbone, ModelCommand, SubscribeCommand, ImageView,  ConfirmDeleteView){
+            '/image/js/views/confirm_delete.js',
+            '/image/js/views/upload.js'
+            ], function($, _, Backbone, ModelCommand, SubscribeCommand, ImageView,  ConfirmDeleteView, UploadDialogView){
     
     var ImageController = function(options){
 
@@ -15,15 +16,19 @@ define([
         window.app.eventDispatcher.bind("whiteboardItem:loaded:image", this.loadedImage);
         window.app.eventDispatcher.bind("whiteboardItem:deleted:image", this.deletedImage);
         
+        window.app.eventDispatcher.bind("toolbar:createImage", this.createImage);
+        
         window.app.eventDispatcher.bind("whiteboard:opened",this.getImages);
         window.app.eventDispatcher.bind("whiteboard:closed",this.whiteboardClosed);
         window.app.eventDispatcher.bind('assignment:synced', this.assignmentSynced);
+        this.initialize();
     };
     
     ImageController.prototype = {
             initialize : function() {
                 this.views    = [];
                 this.assignmentSynced = false;
+                this.uploadDialogView = new UploadDialogView(this);
                 //this.confirmDeleteView = new ConfirmDeleteView();
             },
             toolbarTool: {
@@ -82,6 +87,8 @@ define([
                 this.views = [];
             },
             createImage : function() {
+                this.uploadDialogView.showUploadDialog(this.whiteboard);
+                /*
                 window.app.io.publish('/service/whiteboardItem/post', {
                     x : 400,
                     y : 400,
@@ -90,6 +97,7 @@ define([
                     whiteboardid : this.whiteboard.id,
                     content : {extension: '.png', scale: 1.0}
                 });
+                */
             },
             _handleEditedImage : function(message) {
                 var _id = message.id;
