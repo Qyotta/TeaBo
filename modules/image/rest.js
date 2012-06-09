@@ -16,7 +16,7 @@ var imageUpload = function(req,res){
                 whiteboard  : req.body.whiteboardId,
                 type        : 'image', 
                 content     : {extension:imageFileExtension,scale:1.0}
-            })
+            });
             whiteboardItem.save();
 
             var id = whiteboardItem._id;

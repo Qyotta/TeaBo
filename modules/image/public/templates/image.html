@@ -1,5 +1,5 @@
 <div class="imageItems content">
-    <p class="image"><img src="image/files/<%=image.id%>.<%image.extension%>"></p>
+    <p class="image"><img src="image/files/<%=image.id%>.<%=image.get('content').get('extension')%>"></p>
 </div>
 <div class="imageMenu">
     <a class="file_mouseOverMenu_top"><img src="/images/file_mouseOverMenu_top.png"></a>
