@@ -34,7 +34,7 @@ define([ 'jquery',
                 this.render();
         },
         edited : function(_newScale) {
-            this.image = $('.imageItems img',this.el);
+            this. = $('.imageItems img',this.el);
             var _oldText = this.model.get('content').get('text');
 
             if(_newScale == _oldText) return;
@@ -60,7 +60,7 @@ define([ 'jquery',
             if(!_creator)return false;
             
             var data = {
-                note : this.model,
+                image : this.model,
                 creator:_creator,
                 _ : _
             };

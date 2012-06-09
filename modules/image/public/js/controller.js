@@ -44,7 +44,6 @@ define([
             },
             loadedImage:function(_image){
                 if (this.checkIfViewExists(_image))return;
-                
                 var view = new ImageView({
                     model : _image,
                     controller: this,
@@ -120,8 +119,8 @@ define([
                 var _id = message.id;
                 var _scale = message.scale;
                 var view = this.findViewById(_id);
-                var _note = view.model;
-                _note.get('content').set({ scale : _scale });
+                var _image = view.model;
+                _image.get('content').set({ scale : _scale });
             },
             deletedImage : function(_image){
                 var view = this.findViewById(_image.id);

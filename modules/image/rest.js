@@ -27,7 +27,7 @@ var imageUpload = function(req,res){
                 res.send({ x : whiteboardItem.x,
                       y : whiteboardItem.y,
                       _id: id,
-                      creator : whiteboardItem.creator,
+                      creator     : whiteboardItem.creator,
                       editing     : whiteboardItem.editing,
                       orderIndex  : whiteboardItem.orderIndex,
                       type        : whiteboardItem.type,
