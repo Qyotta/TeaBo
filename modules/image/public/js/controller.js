@@ -28,7 +28,7 @@ define([
             initialize : function() {
                 this.views    = [];
                 this.assignmentSynced = false;
-                this.uploadDialogView = new UploadDialogView(this);
+                this.uploadDialogView = new UploadDialogView({controller:this});
                 //this.confirmDeleteView = new ConfirmDeleteView();
             },
             toolbarTool: {
@@ -98,6 +98,23 @@ define([
                     content : {extension: '.png', scale: 1.0}
                 });
                 */
+            },
+            uploadImage:function(form){
+                form.submit();
+                $('input[type=file], textarea',form).val("");
+                var self = this;
+                $('#uploadFrame', top.document).load(function(){
+                    var image = eval("("+$(this).contents().text()+")");
+                    if(image['error'] != undefined){
+                        alert("Your File was not valid.");
+                    }
+                    else {
+                        window.app.log(self.whiteboard.id);
+                        window.app.groupCommand.addCommands(new ModelCommand(
+                            '/whiteboardItem/posted/'+self.whiteboard.id, image
+                        ));
+                    }
+                });
             },
             _handleEditedImage : function(message) {
                 var _id = message.id;
