@@ -34,7 +34,7 @@ define([ 'jquery',
                 this.render();
         },
         edited : function(_newScale) {
-            this. = $('.imageItems img',this.el);
+            this.image = $('.imageItems img',this.el);
             var _oldText = this.model.get('content').get('text');
 
             if(_newScale == _oldText) return;
@@ -60,8 +60,7 @@ define([ 'jquery',
             if(!_creator)return false;
             
             var data = {
-                image : this.model,
-                creator:_creator,
+                image :_creator,
                 _ : _
             };
             var compiledTemplate = _.template(imageTemplate, data);
