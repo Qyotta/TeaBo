@@ -10,7 +10,7 @@ define([ 'jquery',
         name : 'image',
         baseWidth : null,
         events : {
-            'dblclick .imageItems img' : 'openFancybox',
+            'dblclick .imageItems' : 'openFancybox',
             'click .imageItems' : 'isClicked'
             
         },
@@ -96,7 +96,8 @@ define([ 'jquery',
         },
         openFancybox : function(evt) {
             evt.preventDefault();
-            var imgSrc = "/"+$(this.el).find('.imageItems img').attr('src')+"?type=.png";
+            var imgSrc = $(this.el).find('.imageItems img').attr('src')+"?type=.png";
+            
             $.fancybox({
                 href: imgSrc
             });
