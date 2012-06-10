@@ -65,6 +65,7 @@ define([ 'jquery',
                 _ : _
             };
             var compiledTemplate = _.template(imageTemplate, data);
+            console.log(this.model.get('content'));
             $(this.el).attr("id", this.model.id);
             $(this.el).addClass("whiteboarditem image draggable hoverable");
             
@@ -77,10 +78,8 @@ define([ 'jquery',
                 $('#'+this.model.id).html(compiledTemplate);
                 if (this.baseWidth != null) {
                     imageWidth = this.model.get('content').get('scale') * this.baseWidth;
-                    $("#" + this.model.id).find(".image img").attr(
+                    $("#" + this.model.id).find(".imageItems img").attr(
                             'width', imageWidth);
-                    $("#" + this.model.id).find(".imageMenu").css(
-                            'padding-left', imageWidth + 1 + 'px');
                 }
 
                 //
@@ -91,9 +90,7 @@ define([ 'jquery',
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
                 if (this.baseWidth != null) {
                     imageWidth = this.model.get('content').get('scale') * this.baseWidth;
-                    $(this.el).find('.image img').attr('width', imageWidth);
-                    $(this.el).find('.imageMenu').css('padding-left',
-                            imageWidth + 1 + 'px');
+                    $(this.el).find('.imageItems img').attr('width', imageWidth);
                 }
 
             }
@@ -101,13 +98,11 @@ define([ 'jquery',
             var model = this.model;
             var id = model.id;
             if (this.baseWidth == null) {
-                $("#" + id + ' .image').find('img').load(
+                $("#" + id + ' .imageItems').find('img').load(
                         function() {
                             self.baseWidth = this.width;
                             imageWidth = model.get('content').get('scale') * this.width;
                             $(this).attr('width', imageWidth);
-                            $("#" + id + ' .imageMenu').css(
-                                    'padding-left', imageWidth + 1 + 'px');
                         });
             }
         },
@@ -117,7 +112,7 @@ define([ 'jquery',
         },
         openFancybox : function(evt) {
             evt.preventDefault();
-            var imgSrc = config.contextPath+"/"+$(this.el).find('.image img').attr('src')+"?type=.png";
+            var imgSrc = config.contextPath+"/"+$(this.el).find('.imageItems img').attr('src')+"?type=.png";
             $.fancybox({
                 href: imgSrc
             });

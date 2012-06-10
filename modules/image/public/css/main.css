@@ -70,8 +70,8 @@
      margin:  0px;
 }
 
-.whiteboard .image {
-    position:absolute;
+.whiteboard .imageItems.content{
+    float:left;
 }
 
 .imageMenu{
