@@ -20,7 +20,7 @@ var imageUpload = function(req,res){
             whiteboardItem.save();
 
             var id = whiteboardItem._id;
-            var newPath = __dirname + "/uploads/"+id+"."+imageFileExtension;
+            var newPath = __dirname + "/uploads/"+id;
             
             fs.rename(req.files.data.path, newPath, function (err) {
                 if (err) console.log("error in imageUpload: "+err);

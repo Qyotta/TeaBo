@@ -20,7 +20,7 @@ define([ 'jquery',
          },
         initialize : function(options) {
             WhiteboardItemView.prototype.initialize.apply( this );
-            _.bindAll(this, 'isBlured', 'edited','changed','assignmentChanged', 'isClicked', 'openFancybox');
+            _.bindAll(this, 'isBlured', 'edited','changed','assignmentChanged', 'isClicked', 'openFancybox', 'render');
             
             this.model.get('content').bind('change:scale',this.changed,this);
             
