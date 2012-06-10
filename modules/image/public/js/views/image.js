@@ -35,9 +35,9 @@ define([ 'jquery',
         },
         edited : function(_newScale) {
 //            this.image = $('.imageItems img',this.el);
-            var _oldText = this.model.get('content').get('text');
+            var _oldText = this.model.get('content').get('scale');
 
-            if(_newScale == _oldText) return;
+            if(_newScale == _oldScale) return;
             
             this.model.get('content').set({scale:_newScale});
             window.app.groupCommand.addCommands(new ModelCommand(
@@ -65,7 +65,7 @@ define([ 'jquery',
                 _ : _
             };
             var compiledTemplate = _.template(imageTemplate, data);
-            console.log(this.model.get('content'));
+            //console.log(this.model.get('content'));
             $(this.el).attr("id", this.model.id);
             $(this.el).addClass("whiteboarditem image draggable hoverable");
             
@@ -108,7 +108,7 @@ define([ 'jquery',
         },
         isClicked : function(evt) {
             evt.preventDefault();
-            //window.app.eventDispatcher.trigger("image:isClicked", this.model);
+            window.app.eventDispatcher.trigger("image:isClicked", this.model);
         },
         openFancybox : function(evt) {
             evt.preventDefault();

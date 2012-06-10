@@ -11,10 +11,12 @@ define([
     
     var ImageController = function(options){
 
-        _.bindAll(this, 'getImages', 'createImage','loadedImage','deletedImage', '_handleEditedImage', 'assignmentSynced','whiteboardClosed','subscribeChannels');
+        _.bindAll(this, 'getImages', 'createImage','loadedImage','deletedImage', '_handleEditedImage', 'assignmentSynced','whiteboardClosed','subscribeChannels', 'resizedImage');
         
         window.app.eventDispatcher.bind("whiteboardItem:loaded:image", this.loadedImage);
         window.app.eventDispatcher.bind("whiteboardItem:deleted:image", this.deletedImage);
+        
+        window.app.eventDispatcher.bind('image:resized', this.resizedImage);
         
         window.app.eventDispatcher.bind("toolbar:createImage", this.createImage);
         
@@ -39,7 +41,7 @@ define([
             },
             subscribeChannels : function() {
                 var commands = [];
-                commands.push(new SubscribeCommand('/image/edited/'           + this.whiteboard.id, this._handleEditedImage));
+                commands.push(new SubscribeCommand('/image/change/scale/'         +this.whiteboard.id,this.handleScaledImage))
                 window.app.groupCommand.addCommands(commands);
             },
             loadedImage:function(_image){
@@ -125,7 +127,21 @@ define([
             deletedImage : function(_image){
                 var view = this.findViewById(_image.id);
                 if(view)view.remove();
-            }
+            },
+            resizedImage : function(model) {
+                if (typeof model == "undefined" || model == null) {
+                    window.app.log('resize-event triggered multiple times');
+                } else {
+                    window.app.groupCommand.addCommands(new ModelCommand(
+                        '/service/image/edit', 
+                        {
+                            id : model.id,
+                            scale : model.get('content').get('scale'),
+                            whiteboardId : this.whiteboard.id
+                        }
+                    ));
+                }
+            },
     }
     
     return ImageController;
