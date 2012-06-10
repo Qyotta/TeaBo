@@ -17,6 +17,7 @@ define([
         window.app.eventDispatcher.bind("whiteboardItem:deleted:image", this.deletedImage);
         
         window.app.eventDispatcher.bind('image:resized', this.resizedImage);
+        window.app.eventDispatcher.bind('image:delete', this.deleteImage);
         
         window.app.eventDispatcher.bind("toolbar:createImage", this.createImage);
         
@@ -31,7 +32,7 @@ define([
                 this.views    = [];
                 this.assignmentSynced = false;
                 this.uploadDialogView = new UploadDialogView({controller:this});
-                //this.confirmDeleteView = new ConfirmDeleteView();
+                this.confirmDeleteView = new ConfirmDeleteView();
             },
             toolbarTool: {
                 name: 'Images',
@@ -144,6 +145,12 @@ define([
                     ));
                 }
             },
+            deleteImage : function(message) {
+                //delete physical file
+                $.ajax({
+                    url : '/image/delete/'+message.id
+                });
+            }
     }
     
     return ImageController;

@@ -53,7 +53,16 @@ var imageDownload = function(req,res){
     });
 };
 
+var imageDelete = function(req,res){
+    fs.unlink(__dirname+'/uploads/'+req.params.id, function (err) {
+        if (err) console.log("error in imageDelete: "+err);
+        else console.log('successfully deleted '+__dirname+'/uploads/'+req.params.id);
+        res.end();
+    });
+};
+
 exports.rest = [
     { url: '/image/upload', type: 'post', callback: imageUpload  },
     { url: '/image/:id', type: 'get', callback: imageDownload  },
+    { url: '/image/delete/:id', type: 'get', callback: imageDelete  },
 ];

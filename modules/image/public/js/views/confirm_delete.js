@@ -3,14 +3,14 @@ define([
     'underscore',
     'backbone',
     '/core/js/views/dialogs/dialog.js',
-    'text!/note/templates/confirm_delete.html'
+    'text!/image/templates/confirm_delete.html'
 ], function($, _, Backbone, Dialog, confirmDeleteTemplate){
    
     var ConfirmDeleteView = Dialog.extend({
         showDialogFlag:"DeleteConfirmFlag",
         initialize:function(){
             _.bindAll(this,'showConfirmDialog', 'confirmed', 'hideConfirmDialog', 'shouldShowDialog');
-            window.app.eventDispatcher.bind("note:delete_clicked",this.showConfirmDialog);
+            window.app.eventDispatcher.bind("image:delete_clicked",this.showConfirmDialog);
         },
         events:{
             'click #confirmDeleteNoteContainer button.cancel' : 'hideConfirmDialog',
@@ -28,7 +28,7 @@ define([
                 this.showDialog();
             }
             else {
-                window.app.eventDispatcher.trigger('note:delete',this.model);
+                window.app.eventDispatcher.trigger('image:delete',this.model);
             }
         },
         shouldShowDialog : function(){
@@ -48,6 +48,7 @@ define([
             evt.preventDefault();
 //            window.app.modules.userSettings.set(this.showDialogFlag,!$('#dialogs :checkbox').is(':checked'));
             this.hideDialog();
+            window.app.eventDispatcher.trigger('image:delete',this.model);
             window.app.eventDispatcher.trigger('whiteboardItem:delete',this.model);
         }
     });    
