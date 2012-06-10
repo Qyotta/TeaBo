@@ -65,18 +65,21 @@ define([ 'jquery',
                 _ : _
             };
             var compiledTemplate = _.template(imageTemplate, data);
+            $(this.el).attr("id", this.model.id);
+            $(this.el).addClass("whiteboarditem image draggable hoverable");
+            
             var imageWidth;
-            if ($("#image-" + this.model.id).length > 0) {
-                $("#image-" + this.model.id).css('left',
+            if ($('#'+this.model.id).length > 0) {
+                $('#'+this.model.id).css('left',
                         this.model.get('x') + 'px');
-                $("#image-" + this.model.id).css('top',
+                $('#'+this.model.id).css('top',
                         this.model.get('y') + 'px');
-                $("#image-" + this.model.id).html(compiledTemplate);
+                $('#'+this.model.id).html(compiledTemplate);
                 if (this.baseWidth != null) {
                     imageWidth = this.model.get('content').get('scale') * this.baseWidth;
-                    $("#image-" + this.model.id).find(".image img").attr(
+                    $("#" + this.model.id).find(".image img").attr(
                             'width', imageWidth);
-                    $("#image-" + this.model.id).find(".imageMenu").css(
+                    $("#" + this.model.id).find(".imageMenu").css(
                             'padding-left', imageWidth + 1 + 'px');
                 }
 
@@ -98,12 +101,12 @@ define([ 'jquery',
             var model = this.model;
             var id = model.id;
             if (this.baseWidth == null) {
-                $("#image-" + id + ' .image').find('img').load(
+                $("#" + id + ' .image').find('img').load(
                         function() {
                             self.baseWidth = this.width;
                             imageWidth = model.get('content').get('scale') * this.width;
                             $(this).attr('width', imageWidth);
-                            $("#image-" + id + ' .imageMenu').css(
+                            $("#" + id + ' .imageMenu').css(
                                     'padding-left', imageWidth + 1 + 'px');
                         });
             }

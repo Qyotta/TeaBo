@@ -69,3 +69,19 @@
      padding: 0px;
      margin:  0px;
 }
+
+.whiteboard .image {
+    position:absolute;
+}
+
+.imageMenu{
+    float:left;
+    width:13px;
+    display:none;
+    padding: 12px 0 0;
+    font-size:0px; /* to avoid whitespace underneath each picture*/
+}
+
+.whiteboard .image.hoverable:hover .imageMenu {
+    display:block;
+}
