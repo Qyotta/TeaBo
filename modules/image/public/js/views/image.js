@@ -73,7 +73,7 @@ define([ 'jquery',
                         this.model.get('y') + 'px');
                 $("#image-" + this.model.id).html(compiledTemplate);
                 if (this.baseWidth != null) {
-                    imageWidth = this.model.get('scale') * this.baseWidth;
+                    imageWidth = this.model.get('content').get('scale') * this.baseWidth;
                     $("#image-" + this.model.id).find(".image img").attr(
                             'width', imageWidth);
                     $("#image-" + this.model.id).find(".imageMenu").css(
@@ -87,7 +87,7 @@ define([ 'jquery',
                 $(this.el).css('top', this.model.get('y') + 'px');
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
                 if (this.baseWidth != null) {
-                    imageWidth = this.model.get('scale') * this.baseWidth;
+                    imageWidth = this.model.get('content').get('scale') * this.baseWidth;
                     $(this.el).find('.image img').attr('width', imageWidth);
                     $(this.el).find('.imageMenu').css('padding-left',
                             imageWidth + 1 + 'px');
@@ -101,7 +101,7 @@ define([ 'jquery',
                 $("#image-" + id + ' .image').find('img').load(
                         function() {
                             self.baseWidth = this.width;
-                            imageWidth = model.get('scale') * this.width;
+                            imageWidth = model.get('content').get('scale') * this.width;
                             $(this).attr('width', imageWidth);
                             $("#image-" + id + ' .imageMenu').css(
                                     'padding-left', imageWidth + 1 + 'px');
