@@ -1,16 +1,16 @@
 define([ 'jquery', 
+         'jqueryfancy',
          'underscore', 
          'backbone',
          '/core/js/utils/model_command.js',
          '/whiteboardItem/js/views/whiteboarditem.js',
          'text!/image/templates/image.html'
-],function($, _, Backbone, ModelCommand,WhiteboardItemView,imageTemplate) {
+],function($, JQueryFancy, _, Backbone, ModelCommand,WhiteboardItemView,imageTemplate) {
     var ImageView = WhiteboardItemView.extend({
         name : 'image',
         baseWidth : null,
         events : {
-            'blur input[type=text],  textarea' : 'isBlured',
-            'dblclick .imageItems' : 'openFancybox',
+            'dblclick .imageItems img' : 'openFancybox',
             'click .imageItems' : 'isClicked'
             
         },
@@ -20,8 +20,7 @@ define([ 'jquery',
          },
         initialize : function(options) {
             WhiteboardItemView.prototype.initialize.apply( this );
-            _.bindAll(this, 'isBlured', 'edited','changed','assignmentChanged', 'isClicked', 'openFancybox', 'render');
-            
+            _.bindAll(this, 'isBlured','changed','assignmentChanged', 'isClicked', 'openFancybox', 'render');
             this.model.get('content').bind('change:scale',this.changed,this);
             
             this.controller = options.controller;
@@ -31,23 +30,8 @@ define([ 'jquery',
             this.render();
         },
         changed:function(){
+            console.log('changed');
                 this.render();
-        },
-        edited : function(_newScale) {
-//            this.image = $('.imageItems img',this.el);
-            var _oldText = this.model.get('content').get('scale');
-
-            if(_newScale == _oldScale) return;
-            
-            this.model.get('content').set({scale:_newScale});
-            window.app.groupCommand.addCommands(new ModelCommand(
-                '/service/image/edit',
-                {
-                    id : this.model.id,
-                    scale: this.model.get('content').get('scale'),
-                    whiteboardid : this.controller.whiteboard.id
-                }
-            ));
         },
         isFocused : function() {
             $(this.el).addClass(".edited");
@@ -56,6 +40,7 @@ define([ 'jquery',
             $(this.el).removeClass(".edited");
         },
         render : function() {
+            console.log("render image");
             var _creator = window.app.modules.assignment.getUser(this.model.get('creator'));
             if(!_creator)return false;
             
@@ -65,7 +50,6 @@ define([ 'jquery',
                 _ : _
             };
             var compiledTemplate = _.template(imageTemplate, data);
-            //console.log(this.model.get('content'));
             $(this.el).attr("id", this.model.id);
             $(this.el).addClass("whiteboarditem image draggable hoverable");
             
@@ -112,7 +96,7 @@ define([ 'jquery',
         },
         openFancybox : function(evt) {
             evt.preventDefault();
-            var imgSrc = config.contextPath+"/"+$(this.el).find('.imageItems img').attr('src')+"?type=.png";
+            var imgSrc = "/"+$(this.el).find('.imageItems img').attr('src')+"?type=.png";
             $.fancybox({
                 href: imgSrc
             });

@@ -63,7 +63,9 @@ define([
             $(".rightNavigation").stop(true, false).animate({
                 right: "0px"
             }, 200);
-            
+           
+            var value = model.get('content').get("scale")*100;
+            if(isNaN(model.get('content').get("scale"))) console.log('NaN: '+model.get('content').get("scale"));
             $("#slider").slider({
                 min: 1, 
                 max: 200,
@@ -72,8 +74,7 @@ define([
                     $('#statusText').text("Resize: " + ui.value + "%");
                     }, //for preview
                 change: function(event, ui) { 
-                    model.get('content').set({scale: ui.value/100});
-                    window.app.eventDispatcher.trigger('image:resized',model); 
+                    window.app.eventDispatcher.trigger('image:resized',{id : model.id, scale : ui.value/100}); 
                     } // for save
                 });
         }

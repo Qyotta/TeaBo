@@ -41,7 +41,7 @@ define([
             },
             subscribeChannels : function() {
                 var commands = [];
-                commands.push(new SubscribeCommand('/image/change/scale/'         +this.whiteboard.id,this.handleScaledImage))
+                commands.push(new SubscribeCommand('/image/edited/'         +this.whiteboard.id,this._handleEditedImage))
                 window.app.groupCommand.addCommands(commands);
             },
             loadedImage:function(_image){
@@ -120,6 +120,8 @@ define([
             _handleEditedImage : function(message) {
                 var _id = message.id;
                 var _scale = message.scale;
+                console.log(parseFloat(_scale));
+                if(parseFloat(_scale) == 0) return;
                 var view = this.findViewById(_id);
                 var _image = view.model;
                 _image.get('content').set({ scale : _scale });
@@ -128,16 +130,16 @@ define([
                 var view = this.findViewById(_image.id);
                 if(view)view.remove();
             },
-            resizedImage : function(model) {
-                if (typeof model == "undefined" || model == null) {
+            resizedImage : function(message) {
+                if (typeof message == "undefined" || message == null) {
                     window.app.log('resize-event triggered multiple times');
                 } else {
                     window.app.groupCommand.addCommands(new ModelCommand(
                         '/service/image/edit', 
                         {
-                            id : model.id,
-                            scale : model.get('content').get('scale'),
-                            whiteboardId : this.whiteboard.id
+                            id : message.id,
+                            scale : message.scale,
+                            whiteboardid : this.whiteboard.id
                         }
                     ));
                 }

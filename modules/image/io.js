@@ -5,11 +5,11 @@ var WhiteboardItem = require('../../modules/whiteboardItem/models/whiteboardItem
 io['/service/image/edit'] = function(bayeux,channel,obj) {
     WhiteboardItem.findOne({_id:obj.id}, function(err,image) {
         image.content = image.content? image.content : {};
-        image.content.text = obj.text;
+        image.content.scale = obj.scale;
         image.markModified('content');
         image.save();
         
-        bayeux.getClient().publish('/image/edited/'+obj.whiteboardid, { id: obj.id, text: obj.text });
+        bayeux.getClient().publish('/image/edited/'+obj.whiteboardid, { id: obj.id, scale: obj.scale });
     })
 }
 

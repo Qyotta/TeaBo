@@ -5,6 +5,7 @@ require.config({
         backbone : 'libs/backbone/backbone-optamd3-min',
         jqueryui : 'libs/jquery/jquery-ui-1.8.17',
         jquerycollision : 'libs/jquery/jquery-collision-1.0.1',
+        jqueryfancy : 'libs/jquery/jquery.fancybox.pack',
         text : 'libs/require/text',
         faye : 'libs/faye/faye-browser-min',
         templates : '../templates',

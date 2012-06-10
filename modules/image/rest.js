@@ -38,7 +38,6 @@ var imageUpload = function(req,res){
 };
 
 var imageDownload = function(req,res){
-    console.log(__dirname+'/uploads/'+req.params.id);
     fs.readFile( __dirname+'/uploads/'+req.params.id,"binary", function( error, file ) {
         if( error ){
             res.writeHead( 500, { "Content-Type" : "text/plain" } );

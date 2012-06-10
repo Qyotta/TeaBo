@@ -8,8 +8,6 @@ define([
         set: function(attributes, options) {
             if (attributes.content !== undefined && !(attributes.content instanceof Object)) {
                 attributes.content = new Object(attributes.content);
-            }else{
-                attributes.content = new Object();
             }
             return Backbone.Model.prototype.set.call(this, attributes, options);
         },

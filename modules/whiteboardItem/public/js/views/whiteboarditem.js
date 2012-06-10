@@ -106,6 +106,16 @@ define([
                     }
                 });
                 window.app.groupCommand.addCommands(commands);
+            } else {
+                window.app.groupCommand.addCommands(new ModelCommand(
+                    '/service/whiteboardItem/move',
+                    {
+                        id: self.model.id,
+                        x : parseInt($(self.el).css('left'),10),
+                        y : parseInt($(self.el).css('top'),10),
+                        whiteboardid : self.controller.whiteboard.id
+                    }
+                ));
             }
         },
         deleteClicked : function() {
