@@ -117,6 +117,7 @@ define([
         deletedNote : function(_note){
             var view = this.findViewById(_note.id);
             if(view)view.remove();
+            this.confirmDeleteView = new ConfirmDeleteView();
         }
     };
 

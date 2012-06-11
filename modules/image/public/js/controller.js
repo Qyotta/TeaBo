@@ -130,6 +130,7 @@ define([
             deletedImage : function(_image){
                 var view = this.findViewById(_image.id);
                 if(view)view.remove();
+                this.confirmDeleteView = new ConfirmDeleteView();
             },
             resizedImage : function(message) {
                 if (typeof message == "undefined" || message == null) {
