@@ -10,17 +10,17 @@ define([
     
     var WhiteboardView = Backbone.View.extend({
         events:{
-            'mouseenter .whiteboarditem': 'entersWhiteboardItem',
-            'mouseleave .whiteboarditem': 'leavesWhiteboardItem',
             'mousedown' : 'mouseDown',
             'mousemove' : 'mouseMove',
             'mouseup'   : 'mouseUp',
         },
         initialize:function(){
-            _.bindAll(this,'modusChanged','keydown','keyup','mouseDown','mouseUp','mouseMove','startMove','move','endMove','render');
+            _.bindAll(this,'modusChanged','keydown','keyup','mouseDown','mouseUp','mouseMove','startMove','move','endMove','render','entersWhiteboardItem','leavesWhiteboardItem');
 
             this.model.bind('change', this.render, this);
             
+            window.app.eventDispatcher.bind('whiteboardItem:left',this.leavesWhiteboardItem);
+            window.app.eventDispatcher.bind('whiteboardItem:entered',this.entersWhiteboardItem);
             window.app.eventDispatcher.bind('whiteboard:changed_modus',this.modusChanged);
             window.app.eventDispatcher.bind("whiteboard:delete_multiple_items",this.deleteMultipleWhiteboardItems);
             
@@ -58,7 +58,8 @@ define([
                this.modusChanged(WhiteboardModus.MULTISELECT);
             }else if(this.modus==WhiteboardModus.HAND){
                 this.endMove();
-            }
+            }else{return;}
+            window.app.eventDispatcher.trigger("whiteboard:mouseup");
         },
         keydown:function(event){
             var _modus=null;
@@ -69,16 +70,16 @@ define([
                 _modus = WhiteboardModus.MULTISELECT;
                 if(this.modus==WhiteboardModus.MULTISELECTING){return;}
             }
-            if(this.modus!=_modus)window.app.eventDispatcher.trigger('whiteboard:changed_modus',_modus);
+            if(this.modus!=_modus)this.modusChanged(_modus);
         },
         keyup:function(event){
             // 18 == ALT KEY
             if(event.keyCode==18){
                 event.preventDefault();
-                window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.SELECT);
+                this.modusChanged(WhiteboardModus.SELECT);
             }else if(event.shiftKey){
                 event.preventDefault();
-                window.app.eventDispatcher.trigger('whiteboard:changed_modus',WhiteboardModus.SELECT);
+                this.modusChanged(WhiteboardModus.SELECT);
             }
             // [DEL]
             else if(event.keyCode==46){
@@ -93,7 +94,6 @@ define([
         },
         leavesWhiteboardItem:function(event){
             if(this.modus==WhiteboardModus.EDIT){
-                $(event.currentTarget.id+"input[type=text], textarea").trigger('blur');//workaround to trigger blur
                 this.modusChanged(WhiteboardModus.SELECT);
             }
         },
@@ -127,6 +127,7 @@ define([
             }else if(this.modus == WhiteboardModus.SELECT){
                 $(this.el).css('cursor', 'default');
             }
+            window.app.eventDispatcher.trigger('whiteboard:changedModus',modus);
         },
         render:function(){
             $(this.el).attr('id','whiteboard');
@@ -230,7 +231,7 @@ define([
         },
         currentSelectedWhiteboardItems:function(){
             return $(this.el).find('.whiteboarditem.selected');
-        }
+        },
     });
     
     return WhiteboardView;

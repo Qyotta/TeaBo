@@ -8,10 +8,8 @@ var mongoose = require('mongoose'),
         y           : Number,
         creator     : ObjectId,
         whiteboard  : ObjectId,
-        item        : {
-            class   : String,
-            object  : mongoose.Schema.Types.Mixed
-        }
+        type        : String,
+        content     : mongoose.Schema.Types.Mixed
     }),
     model  = mongoose.model('WhiteboardItem', schema);
 

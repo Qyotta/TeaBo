@@ -7,7 +7,6 @@ define([
 ], function($, _, Backbone, Dialog, confirmDeleteTemplate){
    
     var ConfirmDeleteView = Dialog.extend({
-        el:$('#dialogs'),
         showDialogFlag:"DeleteConfirmFlag",
         initialize:function(){
             _.bindAll(this,'showConfirmDialog', 'confirmed', 'hideConfirmDialog', 'shouldShowDialog');
@@ -18,8 +17,10 @@ define([
             'click #confirmDeleteNoteContainer input[type=submit]': 'confirmed'
         },
         render: function(){
-            var compiledTemplate = _.template( confirmDeleteTemplate );
-            this.el.html(compiledTemplate);
+            var compiledTemplate = _.template(confirmDeleteTemplate);
+            $(this.el).attr('id','confirmDeleteNoteContainer');
+            $(this.el).html(compiledTemplate);
+            $('#dialogs').html(this.el);
         },
         showConfirmDialog:function(model){
             this.model = model;
@@ -29,14 +30,14 @@ define([
             else {
                 window.app.eventDispatcher.trigger('note:delete',this.model);
             }
-        	
         },
         shouldShowDialog : function(){
-            if(typeof window.app.user.get("settings").where(this.showDialogFlag)[0] == "undefined" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == "true" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == true){
-                return true;
-            } else {
-                return false;
-            }   
+//            if(typeof window.app.user.get("settings").where(this.showDialogFlag)[0] == "undefined" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == "true" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == true){
+//                return true;
+//            } else {
+//                return false;
+//            }   
+            return true;
         },
         hideConfirmDialog:function(evt){
             evt.preventDefault();
@@ -45,9 +46,9 @@ define([
         },
         confirmed:function(evt){
             evt.preventDefault();
-            window.app.modules.userSettings.set(this.showDialogFlag,!$('#dialogs :checkbox').is(':checked'));
+//            window.app.modules.userSettings.set(this.showDialogFlag,!$('#dialogs :checkbox').is(':checked'));
             this.hideDialog();
-            window.app.eventDispatcher.trigger('note:delete',this.model);
+            window.app.eventDispatcher.trigger('whiteboardItem:delete',this.model);
         }
     });    
     

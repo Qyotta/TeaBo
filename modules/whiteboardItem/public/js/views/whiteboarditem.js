@@ -10,10 +10,12 @@ define([
     var WhiteboardView = Backbone.View.extend({
         events:{
             'click .file_mouseOverMenu_bottom' : 'deleteClicked',
-            'click ' : 'orderChange'
+            'click ' : 'clicked',
+            'mouseenter' : 'entersWhiteboardItem',
+            'mouseleave' : 'leavesWhiteboardItem'
         },
         initialize:function(whiteboard){
-            _.bindAll(this, 'handleDragItem', 'persistPosition', 'orderChange', 'handleForegroundWhiteboardItem', 'deleteClicked','changedPosition');
+            _.bindAll(this, 'handleDragItem', 'persistPosition', 'handleForegroundWhiteboardItem', 'deleteClicked','changedPosition','clicked');
             this.model.bind('change:x',this.changedPosition,this);
             this.model.bind('change:y',this.changedPosition,this);
 
@@ -24,6 +26,19 @@ define([
                 drag : this.handleDragItem,
                 stop : this.persistPosition
             });
+        },
+        clicked:function(){
+            this.startEditing();
+        },
+        startEditing:function(){
+            window.app.eventDispatcher.trigger('whiteboardItem:startedEditing',this);
+            $(this.el).addClass('edited');
+            this.orderChange();
+        },
+        stopEditing:function(){
+            window.app.eventDispatcher.trigger('whiteboardItem:stoppedEditing',this);
+            $(this.el).removeClass('edited');
+            $("input[type=text], textarea",$(this.el)).trigger('blur');//workaround to trigger blur
         },
         changedPosition:function(){
             if(!this.editing){
@@ -108,17 +123,23 @@ define([
             var elem = $('div.whiteboard > div.selected');
             // do it only if more than two are selected and elem itself is selected
             if(elem.length > 1) {
-                
                 window.app.eventDispatcher.trigger("whiteboardItem:delete_multiple", self.controller.whiteboard.id);
             }else {
+                console.log(this.name);
                 window.app.eventDispatcher.trigger(this.name+":delete_clicked", this.model);
             }
         },
-        orderChange : function (evt) {
+        orderChange : function () {
             window.app.eventDispatcher.trigger(this.name+":order_change", this.model);
         },
         handleForegroundWhiteboardItem : function(message){
             $(this.el).css('z-index', message.data.newIndex);
+        },
+        entersWhiteboardItem:function(){
+            window.app.eventDispatcher.trigger("whiteboardItem:entered");
+        },
+        leavesWhiteboardItem:function(){
+            window.app.eventDispatcher.trigger("whiteboardItem:left");
         }
     });
     

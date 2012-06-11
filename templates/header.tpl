@@ -10,4 +10,4 @@
 <title>[lao] - Startseite</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<script data-main="/js/main"src="/js/libs/require/require.js"></script>
+<script data-main="/js/main" src="/js/libs/require/require.js"></script>

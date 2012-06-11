@@ -7,12 +7,12 @@ define([
     var ModelCommand = function(channel,obj) {
         this.channel = channel;
         this.obj     = obj;
-        this.comet  = $.faye;
+        this.io = window.app.io;
     };
     
     ModelCommand.prototype = {
         execute: function() {
-            window.app.io.publish(this.channel,this.obj);
+            this.io.publish(this.channel,this.obj);
         }
     };
     

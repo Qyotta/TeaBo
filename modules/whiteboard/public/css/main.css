@@ -42,9 +42,6 @@
     position:absolute;
 }
 
-.whiteboard .whiteboarditem.selected .content {
-    box-shadow: 0 0 15px #4B99CE;
-}
 .whiteboard .whiteboarditem.attachment.selected .content{
     background: none repeat scroll 0 0 rgba(75, 153, 206, 0.3);
 }

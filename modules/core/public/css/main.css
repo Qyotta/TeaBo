@@ -13,3 +13,8 @@
 
 /* styles for buttons, headings and ui specific stuff */
 @import url('ui.css') screen;
+
+/* styles for jquery-ui elements */
+@import url('jquery.ui.css') screen;
+/* styles for jquery-fancybox */
+@import url('jquery.fancybox.css') screen;
