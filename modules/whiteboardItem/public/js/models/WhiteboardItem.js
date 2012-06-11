@@ -5,6 +5,9 @@ define([
 ], function(_, Backbone,Object) {
     var WhiteboardItem = Backbone.Model.extend({
         idAttribute: "_id",
+        defaults: {
+            content: new Object(),
+        },
         set: function(attributes, options) {
             if (attributes.content !== undefined && !(attributes.content instanceof Object)) {
                 attributes.content = new Object(attributes.content);
