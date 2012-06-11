@@ -90,23 +90,22 @@ define([
             },
             createImage : function() {
                 this.uploadDialogView.showUploadDialog(this.whiteboard);
-                /*
-                window.app.io.publish('/service/whiteboardItem/post', {
-                    x : 400,
-                    y : 400,
-                    type : 'image',
-                    creator : window.app.user.id,
-                    whiteboardid : this.whiteboard.id,
-                    content : {extension: '.png', scale: 1.0}
-                });
-                */
             },
             uploadImage:function(form){
+                var imgLoading = $('<img/>').attr('src', '/image/images/loading.gif');
+                var imgDescription = $('<span/>').text("image upload in progress");
+                var imgContainer = $('<div/>').addClass('tmpImg').css('top', '200px').css('left', '200px').css('position', 'absolute');
+                imgContainer.append(imgLoading);
+                imgContainer.append(imgDescription);
+                
+                $('#whiteboard').append(imgContainer);
                 form.submit();
                 $('input[type=file], textarea',form).val("");
+                
                 var self = this;
                 $('#uploadFrame', top.document).load(function(){
                     var image = eval("("+$(this).contents().text()+")");
+                    imgContainer.remove();
                     if(image['error'] != undefined){
                         alert("Your File was not valid.");
                     }
