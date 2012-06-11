@@ -4,18 +4,14 @@ define([
     'backbone',
     '/core/js/utils/subscribe_command.js',
     '/core/js/utils/model_command.js',
-    '/attachment/js/collection/attachment.js',
     '/attachment/js/views/attachment.js',
-    '/attachment/js/model/attachment.js',
     '/attachment/js/views/upload_dialog.js',
     '/attachment/js/views/confirm_delete.js'
-], function($, _, Backbone, SubscribeCommand, ModelCommand, AttachmentCollection, AttachmentView, Attachment, UploadDialog, ConfirmDeleteView){
+], function($, _, Backbone, SubscribeCommand, ModelCommand,AttachmentView, UploadDialog, ConfirmDeleteView){
     
     var AttachmentController = function(options){
-        _.bindAll(this,'getAttachments','createAttachment','deleteAttachment', 'handleDeletedWhiteboardItem', 'handlePostedAttachment','handleUploadCompleteAttachment','handleUploadFailedAttachment');
-        window.app.eventDispatcher.bind("attachment:create",this.createAttachment);
+        _.bindAll(this,'handleUploadCompleteAttachment','handleUploadFailedAttachment');
         window.app.eventDispatcher.bind("whiteboard:opened",this.getAttachments);
-        window.app.eventDispatcher.bind('attachment:delete',this.deleteAttachment);
         this.initialize();
     };
     
@@ -32,51 +28,8 @@ define([
             commands.push(new SubscribeCommand('/attachment/upload/remove/'   +this.whiteboard.id,this.handleUploadFailedAttachment));
             window.app.groupCommand.addCommands(commands);
         },
-        getAttachments:function(whiteboard){
-            this.whiteboard = whiteboard;
-            this.attachmentCollection = new AttachmentCollection(null,{id:this.whiteboard.id});
-            var self = this;
-            this.attachmentCollection.fetch({
-                success:function(collection, response){
-                    collection.each(function(attachment) {
-                        self.views[attachment.id] = new AttachmentView({ model:attachment, controller:this});
-                    });
-                    self.subscribeChannels();
-                }
-            });
-        },
         createAttachment:function(){
             window.app.eventDispatcher.trigger("attachment:view_upload_dialog",this.whiteboard);
-        },
-        deleteAttachment:function(model) {
-            if (typeof model == "undefined" || model == null) {
-                window.app.log('delete-event triggered multiple times');
-            } else {
-                window.app.groupCommand.addCommands(new ModelCommand(
-                    '/service/whiteboardItem/delete', 
-                    {
-                        id : model.id,
-                        whiteboardid : this.whiteboard.id
-                    }
-                ));
-            }
-        },
-        handleMovedWhiteboardItem:function(message) {
-            console.log(message);
-            var id     = message.id;
-            var x      = message.x;
-            var y      = message.y;
-            
-            var attachment   = this.attachmentCollection.get(id);
-            attachment.set({x:x,y:y});
-        },
-        handleDeletedWhiteboardItem:function(message){
-            var id = message.data.id;
-            var attachment = this.attachmentCollection.get(id);
-            if(attachment){
-                this.attachmentCollection.remove(attachment);
-                this.views[attachment.id].remove();
-            }
         },
         handlePostedAttachment:function(message){
                 var id          = message.data.id,

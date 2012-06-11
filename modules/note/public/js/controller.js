@@ -4,11 +4,9 @@ define([
     'backbone',
     '/core/js/utils/model_command.js',
     '/core/js/utils/subscribe_command.js',
-    '/note/js/collection/note.js',
     '/note/js/views/note.js', 
-    '/note/js/model/note.js',
     '/note/js/views/confirm_delete.js'
-], function($, _, Backbone, ModelCommand, SubscribeCommand, NoteCollection, NoteView, Note, ConfirmDeleteView) {
+], function($, _, Backbone, ModelCommand, SubscribeCommand, NoteView, ConfirmDeleteView) {
     var NoteController = function(options) {
         _.bindAll(this, 'getNotes', 'createNote','loadedNote','deletedNote', '_handleEditedNote', '_reportElementOrder', 'handleForegroundWhiteboardItem','assignmentSynced','whiteboardClosed','subscribeChannels');
         window.app.eventDispatcher.bind("whiteboardItem:loaded:note", this.loadedNote);
