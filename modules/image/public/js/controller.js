@@ -90,6 +90,7 @@ define([
             },
             createImage : function() {
                 this.uploadDialogView.showUploadDialog(this.whiteboard);
+                this.uploadDialogView = new UploadDialogView({controller:this});
             },
             uploadImage:function(form){
                 var imgLoading = $('<img/>').attr('src', '/image/images/loading.gif');
