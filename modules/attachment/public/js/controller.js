@@ -119,7 +119,7 @@ define([
                 _attachment.get('content').set({ shortDescription : _shortDescription });
             },
             deletedAttachment : function(_attachment){
-                var view = this.findViewById(_image.id);
+                var view = this.findViewById(_attachment.id);
                 if(view)view.remove();
                 this.confirmDeleteView = new ConfirmDeleteView();
             },

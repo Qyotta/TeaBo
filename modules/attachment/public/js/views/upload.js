@@ -8,7 +8,7 @@ define([
 ], function($, _, Backbone, ModelCommand, Dialog, attachmentUploadDialogTemplate) {
     var AttachmentUploadDialog = Dialog.extend({
         initialize : function(options) {
-            _.bindAll(this, 'showUploadDialog');
+            _.bindAll(this, 'showUploadDialog', 'postAttachment');
             window.app.eventDispatcher.bind("attachment:view_upload_dialog", this.showUploadDialog);
             this.controller = options.controller;
         },
@@ -40,7 +40,7 @@ define([
         fileChanged:function(){
             var input = $('#attachmentUploadContainer #attachmentUpload input[type="file"]');
             var filename = input.val();
-            var fileExtensions = [".png",".jpg",".gif"];
+            var fileExtensions = ['.pdf', '.doc', 'docx', '.xls', '.ppt', '.pptx', '.odp', '.odf'];
             
             var found = false;
             for( var index in fileExtensions ){

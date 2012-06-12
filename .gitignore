@@ -9,3 +9,4 @@ de.bht.swp.lao.ocp/WebContent/*
 .metadata
 node_modules/*
 modules/image/uploads/*
+modules/attachment/uploads/*

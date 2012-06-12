@@ -4,7 +4,9 @@ var     fs             = require('fs'),
         mime           = require( "mime" );
 
 var fileUpload = function(req,res){
+    var _filename = req.files.data.name;
     var fileExtension = req.files.data.type.split("/").pop();
+    var _shortDescription = req.body.shortDescription;
     User.findOne({_id:req.session.user._id}, function(err,foundUser) {
             if(err)console.log(err);
             var whiteboardItem = new WhiteboardItem({
@@ -15,7 +17,7 @@ var fileUpload = function(req,res){
                 creator     : foundUser._id,
                 whiteboard  : req.body.whiteboardId,
                 type        : 'attachment', 
-                content     : {filename:'',shortDescription:'',extension:fileExtension, complete:true}
+                content     : {filename:_filename,shortDescription:_shortDescription,extension:fileExtension, complete:true}
             });
             whiteboardItem.save();
 
