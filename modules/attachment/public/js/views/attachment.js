@@ -42,9 +42,22 @@ define([ 'jquery',
             var _creator = window.app.modules.assignment.getUser(this.model.get('creator'));
             if(!_creator)return false;
             
+            
+            var filename = this.model.get('content').get('filename');
+            var ext = this.model.get('content').get('extension');
+            var _shortName = filename.substr(0, filename.length - (ext.length + 1));
+            var _img;
+            if(!this.model.get('content').get('complete')){
+                _img = '/image/images/extensions/_blank.png';
+            }else {
+                _img = '/image/images/extensions/'+ext+'.png';
+            }
+            
             var data = {
                 attachment : this.model,
                 creator:_creator,
+                img : _img,
+                shortName : _shortName,
                 _ : _
             };
             var compiledTemplate = _.template(attachmentTemplate, data);
@@ -72,6 +85,8 @@ define([ 'jquery',
         },
         downloadAttachment : function(evt) {
             evt.preventDefault();
+            var url = '/image/download'+this.model.id;
+            window.open(url,'_blank');
         },
     });
 

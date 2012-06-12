@@ -15,7 +15,7 @@ var fileUpload = function(req,res){
                 creator     : foundUser._id,
                 whiteboard  : req.body.whiteboardId,
                 type        : 'attachment', 
-                content     : {filename:'',shortDescription:'',extension:fileExtension}
+                content     : {filename:'',shortDescription:'',extension:fileExtension, complete:true}
             });
             whiteboardItem.save();
 
