@@ -4,18 +4,18 @@ define([
     'backbone', 
     'jqueryui',
     '/core/js/utils/model_command.js',
-    'text!/whiteboard/templates/whiteboard.html',
+    'text!/whiteboard/templates/whiteboard.html'
 ], function($, _, Backbone,jqueryui,ModelCommand, whiteboardTemplate){
     
     var WhiteboardView = Backbone.View.extend({
         events:{
             'click .file_mouseOverMenu_bottom' : 'deleteClicked',
-            'click ' : 'clicked',
+            'click ' : 'startEditing',
             'mouseenter' : 'entersWhiteboardItem',
             'mouseleave' : 'leavesWhiteboardItem'
         },
         initialize:function(whiteboard){
-            _.bindAll(this, 'handleDragItem', 'persistPosition', 'handleForegroundWhiteboardItem', 'deleteClicked','changedPosition','clicked');
+            _.bindAll(this, 'handleDragItem', 'persistPosition', 'handleForegroundWhiteboardItem', 'deleteClicked','changedPosition');
             this.model.bind('change:x',this.changedPosition,this);
             this.model.bind('change:y',this.changedPosition,this);
 
@@ -26,9 +26,6 @@ define([
                 drag : this.handleDragItem,
                 stop : this.persistPosition
             });
-        },
-        clicked:function(){
-            this.startEditing();
         },
         startEditing:function(){
             window.app.eventDispatcher.trigger('whiteboardItem:startedEditing',this);
@@ -53,10 +50,11 @@ define([
                 $.each(elem,function(i,element) {
                     // dont move current element - it moves by itself
                     if($(e.target).attr('id') != $(element).attr('id')) {
-                        var posX = parseInt($(element).css('left')),
-                            posY = parseInt($(element).css('top')),
+                        var posX    = parseInt($(element).css('left'),10),
+                            posY    = parseInt($(element).css('top'),10),
                             targetX = parseInt($(e.target).css('left'),10)-7,
                             targetY = parseInt($(e.target).css('top'),10)+16;
+
                         // save start pos to get the offset
                         if(!$(element).data('oldPosX')) {
                             $(element).data('oldPosX',posX);
@@ -64,6 +62,7 @@ define([
                             $(e.target).data('oldPosX',targetX);
                             $(e.target).data('oldPosY',targetY);
                         }
+
                         // change position
                         $(element).css('left',$(element).data('oldPosX') - ($(e.target).data('oldPosX')+$(e.target).width()-e.clientX));
                         $(element).css('top',$(element).data('oldPosY') - ($(e.target).data('oldPosY')-e.clientY));

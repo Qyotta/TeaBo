@@ -4,10 +4,10 @@ var application_root = __dirname,
     path             = require("path"),
     mongoose         = require('mongoose'),
     fs               = require('fs'),
-    faye             = require('faye')
+    faye             = require('faye'),
     util             = require('./rest/utils'),
     bayeux           = new faye.NodeAdapter({mount: '/rest', timeout: 120}),
-    client           = new faye.Client('http://localhost:3001/rest')
+    client           = new faye.Client('http://localhost:3001/rest'),
     app              = express.createServer();
 
 // connect to mongodb
@@ -23,7 +23,7 @@ app.configure(function(){
     app.use(express.static(path.join(application_root, "public")));
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     app.set('views', path.join(application_root, "views"));
-    app.set('view engine', 'jade')
+    app.set('view engine', 'jade');
 });
 
 
@@ -35,9 +35,9 @@ var moduleTemplates = [],
 fs.readdirSync('./modules').forEach(function(file) {
     var module = require('./modules/'+file+'/module.js');
     
-    moduleTemplates = moduleTemplates.filter(function(e){return e});
+    moduleTemplates = moduleTemplates.filter(function(e){return e;});
     moduleTemplates.push(module.template);
-    moduleStyles    = moduleStyles.filter(function(e){return e});
+    moduleStyles    = moduleStyles.filter(function(e){return e;});
     if(module.style) {
         moduleStyles.push('<link rel="stylesheet" href="'+file+'/'+module.style+'">');
     }
@@ -49,15 +49,15 @@ fs.readdirSync('./modules').forEach(function(file) {
     registerRestServices(module.rest);
     registerIOServices(module.io);
     console.log(file + ' module loaded');
-})
+});
 
 // generate index.html
 app.get('/', function(req,res) {
     var header = fs.readFileSync('./templates/header.tpl', 'utf8'),
-        script = '<script>var modules = [\'' + moduleNames.join('\',\'') + '\']; </script>'
+        script = '<script>var modules = [\'' + moduleNames.join('\',\'') + '\']; </script>';
     
     res.send(header + script + '\n\n' + moduleStyles.join('\n') + '\n\n' + moduleTemplates.join('\n'));
-})
+});
 
 // register rest services
 registerRestServices(util.rest);
@@ -82,7 +82,7 @@ function registerRestServices(rest) {
                 case 'put':
                     app.put(url,callback);
                     break;
-            }    
+            }
         }
     }
 }
@@ -97,13 +97,13 @@ function registerIOServices(io) {
                 console.log('channel found');
                 io[channel](bayeux,channel,obj);
             }
-        })
+        });
     }
 }
 
 bayeux.bind('handshake', function(clientId) {
     console.log('user connected to faye');
-})
+});
 
 bayeux.listen(3001);
 app.listen(3000);

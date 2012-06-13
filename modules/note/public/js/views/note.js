@@ -1,5 +1,5 @@
-define([ 'jquery', 
-         'underscore', 
+define([ 'jquery',
+         'underscore',
          'backbone',
          '/core/js/utils/model_command.js',
          '/whiteboardItem/js/views/whiteboarditem.js',
@@ -9,7 +9,7 @@ define([ 'jquery',
         name : 'note',
         events : {
             'focus input[type=text], textarea' : 'isFocused',
-            'blur input[type=text],  textarea' : 'isBlured',
+            'blur input[type=text],  textarea' : 'isBlured'
         },
         constructor: function(){
             this.events = _.extend( {}, WhiteboardItemView.prototype.events, this.events );
@@ -29,9 +29,9 @@ define([ 'jquery',
             this.render();
         },
         changed:function(){
-//            var textarea = $(this.model.id).find('textarea');
-//            textarea.css('height', textarea[0].scrollHeight / 2 + 'px');
-//            textarea.css('height', textarea[0].scrollHeight + 'px');
+           var textarea = $(this.model.id).find('textarea');
+           textarea.css('height', textarea.scrollHeight / 2 + 'px');
+           textarea.css('height', textarea.scrollHeight + 'px');
             if(!this.editing){
                 this.render();
             }
@@ -100,7 +100,7 @@ define([ 'jquery',
             if(_color){
                 $('.noteItems',$(this.el)).css('background',"rgb("+_color[0]+","+_color[1]+","+_color[2]+")");
             }
-        },
+        }
     });
 
     return NoteView;

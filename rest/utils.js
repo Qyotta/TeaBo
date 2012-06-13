@@ -12,9 +12,9 @@ rest.push({
     callback: function(req,res) {
         Assignment.find({},function(err,users) {
             res.send(JSON.stringify(users));
-        })
+        });
     }
-})
+});
 
 rest.push({
     type: 'get',
@@ -22,9 +22,9 @@ rest.push({
     callback: function(req,res) {
         Whiteboard.find(function(err,users) {
             res.send(JSON.stringify(users));
-        })
+        });
     }
-})
+});
 
 rest.push({
     type: 'get',
@@ -32,9 +32,9 @@ rest.push({
     callback: function(req,res) {
         User.find(function(err,users) {
             res.send(JSON.stringify(users));
-        })
+        });
     }
-})
+});
 
 rest.push({
     type: 'get',
@@ -42,9 +42,9 @@ rest.push({
     callback: function(req,res) {
         Settings.find(function(err,users) {
             res.send(JSON.stringify(users));
-        })
+        });
     }
-})
+});
 
 rest.push({
     type: 'get',
@@ -52,9 +52,9 @@ rest.push({
     callback: function(req,res) {
         Notes.find(function(err,users) {
             res.send(JSON.stringify(users));
-        })
+        });
     }
-})
+});
 
 rest.push({
     type: 'get',
@@ -62,9 +62,9 @@ rest.push({
     callback: function(req,res) {
         WhiteboardItem.find(function(err,users) {
             res.send(JSON.stringify(users));
-        })
+        });
     }
-})
+});
 
 rest.push({
     type: 'get',
@@ -75,9 +75,9 @@ rest.push({
                 user[i].remove();
             }
             res.send('All whiteboards removed!');
-        })
+        });
     }
-})
+});
 
 rest.push({
     type: 'get',
@@ -88,9 +88,9 @@ rest.push({
                 user[i].remove();
             }
             res.send('All Assignments removed!');
-        })
+        });
     }
-})
+});
 
 rest.push({
     type: 'get',
@@ -101,9 +101,9 @@ rest.push({
                 user[i].remove();
             }
             res.send('All users removed!');
-        })
+        });
     }
-})
+});
 
 rest.push({
     type: 'get',
@@ -113,32 +113,34 @@ rest.push({
             for(var i = 0; i < user.length; ++i) {
                 user[i].remove();
             }
-        })
+        });
         Assignment.find({}, function(err,user) {
             for(var i = 0; i < user.length; ++i) {
                 user[i].remove();
             }
-        })
+        });
         User.find({}, function(err,user) {
             for(var i = 0; i < user.length; ++i) {
                 user[i].remove();
             }
-        })
+        });
         WhiteboardItem.find({}, function(err,user) {
             for(var i = 0; i < user.length; ++i) {
                 user[i].remove();
             }
-        })
+        });
         
         var user = new User({
             email:'max-mustermann@gmail.com',
-            password:'testtest'
+            password:'testtest',
+            firstname: 'Max',
+            lastname: 'Mustermann'
         });
         user.save();
     
         res.send('DB cleared!');
         
     }
-})
+});
 
 exports.rest = rest;
