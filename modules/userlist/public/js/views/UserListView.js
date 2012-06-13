@@ -51,7 +51,13 @@ define([
                 }
                 
                 var view = new UserListRow({model: assignment});
-                $(that.userlist).append(view.render().el);
+                
+                if(assignment.get('user').get('email') === window.app.user.get('email')) {
+                    $(that.userlist).prepend(view.render().el);
+                } else {
+                    $(that.userlist).append(view.render().el);
+                }
+                
                 that.views[assignment.id] = view;
             });
 
