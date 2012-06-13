@@ -5,7 +5,7 @@ var     fs             = require('fs'),
 
 var fileUpload = function(req,res){
     var _filename = req.files.data.name;
-    var fileExtension = req.files.data.type.split("/").pop();
+    var fileExtension = req.files.data.name.split('.').pop();
     var _shortDescription = req.body.shortDescription;
     User.findOne({_id:req.session.user._id}, function(err,foundUser) {
             if(err)console.log(err);
