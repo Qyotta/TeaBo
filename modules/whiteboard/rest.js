@@ -19,12 +19,12 @@ var get = function(req,res) {
             }
             res.header('Transfer-Encoding','chunked');
             res.header('Content-Type','application/json');
-            res.send(whiteboards);            
-        })
+            res.send(whiteboards);
+        });
     } else {
         res.send('');
     }
-}
+};
 
 var create = function(req,res) {
     var whiteboard = new Whiteboard({
@@ -35,7 +35,7 @@ var create = function(req,res) {
     whiteboard.save(function(err) {
         User.findById(req.session.user._id, function(err,user) {
             var assignment = new Assignment({
-                color      : [100,100,100],
+                color      : [Math.floor(Math.random()*200),Math.floor(Math.random()*200),Math.floor(Math.random()*200)],
                 user       : [user],
                 isOwner    : true,
                 whiteboard : [whiteboard]
@@ -51,7 +51,7 @@ var create = function(req,res) {
             console.log('whiteboard "'+req.body.name+'" created!');
         });
     });
-}
+};
 
 var remove = function(req,res) {
     Whiteboard.findById(req.params.id, function(err, whiteboard) {
@@ -62,19 +62,14 @@ var remove = function(req,res) {
                     console.log('whiteboard and assignments removed');
                 }
                 whiteboard.remove();
-            })
+            });
         }
     });
     return res.send('');
-}
-
-var open = function(req,res) {
-    res.send('req.params.id');
-}
+};
 
 exports.rest = [
     { url: '/whiteboard',     type: 'get',    callback: get },
     { url: '/whiteboard',     type: 'post',   callback: create },
-    { url: '/whiteboard/:id', type: 'delete', callback: remove },
-    { url: '/whiteboard/:id', type: 'get',    callback: open }
+    { url: '/whiteboard/:id', type: 'delete', callback: remove }
 ];

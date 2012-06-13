@@ -4,7 +4,7 @@ define([
     'backbone',
     '/core/js/views/notice/notice.js',
     '/core/js/views/notice/error.js',
-    'text!/topbar/templates/topbar.html',
+    'text!/topbar/templates/topbar.html'
 ], function($, _, Backbone, Notice, Error, topbarTemplate){
     
     var TopbarView = Backbone.View.extend({
@@ -13,11 +13,10 @@ define([
             'click .right a[href="logout"]' :'logoutClicked',
             'click .right a[href="invite"]' :'inviteClicked',
             'click .right a[href="main"]' :'mainClicked',
-            'click .logo a[href="main"]' : 'mainClicked',
-            'click div.invite' : 'preventDefault',
+            'click .logo a[href="main"]' : 'mainClicked'
         },
         initialize:function(){
-            _(this).bindAll('changedUser','inviteUser','render');
+            _(this).bindAll('changedUser','render');
             
             this.isInviteInProgress = false;
             
@@ -25,10 +24,11 @@ define([
         },
         render: function(){
             var user  = window.app.user,
-                title = null;
+                title = null,
+                view  = null;
             
             if(this.whiteboard){
-                var view = 'whiteboard';
+                view = 'whiteboard';
             }
 
             if(window.app.modules.whiteboard && window.app.modules.whiteboard.whiteboard) {
@@ -40,7 +40,7 @@ define([
                 title:         title,
                 view:          view,
                 versionNumber: window.app.versionNumber,
-                versionType:   window.app.versionType,
+                versionType:   window.app.versionType
             };
 
             var that             = this;
@@ -49,15 +49,12 @@ define([
             this.el.html(compiledTemplate);
 
             $.each(components,function(i, component) {
-                that.el.find('div.left').append(component);
+                // append view to the topbar
+                that.el.find('div.left').append(component.el);
+                // delegate events to the module view
+                // note: events don't fire, if the view isn't in the dom
+                component.delegateEvents(component.events);
             });
-            
-            // if(this.whiteboard){
-            //     var userlist = window.app.modules.userlist;
-            //     if(userlist.view) {
-            //         $('#whiteboard-users-container').html(userlist.view.render().el);
-            //     }
-            // }
         },
         getTopbarComponents: function() {
             var components = [],
@@ -86,33 +83,6 @@ define([
             e.preventDefault();
             window.app.eventDispatcher.trigger('whiteboard:close',null);
             window.router.navigate("main", {trigger: true});
-        },
-        inviteUser:function(e) {
-            e.preventDefault();
-            alert("invite");
-            if(this.isInviteInProgress == true){
-                return false;
-            }
-            this.isInviteInProgress = true;
-            
-            var self = this;
-            $.ajax({
-                url: 'whiteboard/invite',
-                type: 'post',
-                contentType: 'application/json',
-                data: '{"email":"'+$('input[name=address]').val()+'", "whiteboardId":'+window.app.modules.whiteboard.whiteboard.attributes.id+'}',
-                success: function(data){ 
-                    new Notice({message:"Invitation was sent"});
-                    self.isInviteInProgress = false;
-                },
-                error: function(err){
-                    window.app.log(err.statusText);
-                    self.isInviteInProgress = false;
-                }
-            });
-        },
-        preventDefault:function(e) {
-            e.preventDefault();
         }
     });
     

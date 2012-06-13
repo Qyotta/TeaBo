@@ -16,7 +16,7 @@ define([
             this.colorChooserView = new ColorChooserView();
         },
         topbarComponent: function() {
-            return this.view.el;
+            return this.view;
         },
         createList: function(assignmentCollection) {
             this.view.addUser(assignmentCollection);
