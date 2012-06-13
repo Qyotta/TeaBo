@@ -1,114 +1,135 @@
-define([
-    'jquery',
-    'underscore',
-    'backbone',
-    '/core/js/utils/subscribe_command.js',
-    '/core/js/utils/model_command.js',
-    '/attachment/js/views/attachment.js',
-    '/attachment/js/views/upload_dialog.js',
-    '/attachment/js/views/confirm_delete.js'
-], function($, _, Backbone, SubscribeCommand, ModelCommand,AttachmentView, UploadDialog, ConfirmDeleteView){
+define([    
+            'jquery', 
+            'underscore', 
+            'backbone',
+            '/core/js/utils/model_command.js',
+            '/core/js/utils/subscribe_command.js',
+            '/attachment/js/views/attachment.js', 
+            '/attachment/js/views/confirm_delete.js',
+            '/attachment/js/views/upload.js'
+            ], function($, _, Backbone, ModelCommand, SubscribeCommand, AttachmentView,  ConfirmDeleteView, UploadDialogView){
     
     var AttachmentController = function(options){
-        _.bindAll(this,'handleUploadCompleteAttachment','handleUploadFailedAttachment');
+
+        _.bindAll(this, 'getAttachments', 'createAttachment','loadedAttachment','deletedAttachment', '_handleEditedAttachment', 'assignmentSynced','whiteboardClosed','subscribeChannels');
+        
+        window.app.eventDispatcher.bind("whiteboardItem:loaded:attachment", this.loadedAttachment);
+        window.app.eventDispatcher.bind("whiteboardItem:deleted:attachment", this.deletedAttachment);
+        
+        window.app.eventDispatcher.bind('attachment:delete', this.deleteAttachment);
+        
+        window.app.eventDispatcher.bind("toolbar:createAttachment", this.createAttachment);
+        
         window.app.eventDispatcher.bind("whiteboard:opened",this.getAttachments);
+        window.app.eventDispatcher.bind("whiteboard:closed",this.whiteboardClosed);
+        window.app.eventDispatcher.bind('assignment:synced', this.assignmentSynced);
         this.initialize();
     };
     
     AttachmentController.prototype = {
-        initialize: function() {
-            this.views    = [];
-            this.confirmDeleteView = new ConfirmDeleteView();
-            this.uploadDialog = new UploadDialog({controller:this});
-        },
-        subscribeChannels:function(){
-            var commands = [];
-            commands.push(new SubscribeCommand('/attachment/posted/'          +this.whiteboard.id,this.handlePostedAttachment));
-            commands.push(new SubscribeCommand('/attachment/upload/complete/' +this.whiteboard.id,this.handleUploadCompleteAttachment));
-            commands.push(new SubscribeCommand('/attachment/upload/remove/'   +this.whiteboard.id,this.handleUploadFailedAttachment));
-            window.app.groupCommand.addCommands(commands);
-        },
-        createAttachment:function(){
-            window.app.eventDispatcher.trigger("attachment:view_upload_dialog",this.whiteboard);
-        },
-        handlePostedAttachment:function(message){
-                var id          = message.data.id,
-                    creator     = message.data.creator,
-                    description = message.data.text,
-                    filename    = message.data.filename,
-                    x           = message.data.x,
-                    y           = message.data.y,
-                    uid         = message.data.uid,
-                    image       = config.contextPath;
-                    
-                var attachment = new Attachment({
-                    id          : id,
-                    creator     : creator,
-                    description : description,
-                    filename    : filename,
-                    x           : x,
-                    y           : y,
-                    image       : image,
-                    uid         : uid,
-                    complete    : false
+            initialize : function() {
+                this.views    = [];
+                this.assignmentSynced = false;
+                this.uploadDialogView = new UploadDialogView({controller:this});
+                this.confirmDeleteView = new ConfirmDeleteView();
+            },
+            toolbarTool: {
+                name: 'Attachments',
+                action: 'createAttachment',
+                imageURL: '/attachment/images/new_file.png',
+                imageTitle: 'create a new attachment'
+            },
+            subscribeChannels : function() {
+                var commands = [];
+                commands.push(new SubscribeCommand('/attachment/edited/'         +this.whiteboard.id,this._handleEditedAttachment))
+                window.app.groupCommand.addCommands(commands);
+            },
+            loadedAttachment:function(_attachment){
+                if (this.checkIfViewExists(_attachment))return;
+                var view = new AttachmentView({
+                    model : _attachment,
+                    controller: this,
                 });
-                if(this.views[attachment.id]!=null){
-                    window.app.log("attachment already exists");
-                    return;
-                }
-                this.attachmentCollection.add(attachment);
-                this.views[attachment.id] = new AttachmentView({ model: attachment,controller:this });
-                if (this.activeUpload != null && uid === this.activeUpload[1]){
-                    this.uploadFile(id);
-                }
-        },
-        handleUploadCompleteAttachment:function(message){
-            var id = message.data.id;
-            var attachment = this.attachmentCollection.get(id);
-            attachment.set({complete:true});
-        },
-        handleUploadFailedAttachment:function(message){
-            var id = message.data.id;
-            var attachment = this.attachmentCollection.get(id);
-            if(attachment){
-                this.noteCollection.remove(attachment);
-                this.views[attachment.id].remove();
+                view.render();
+                
+                this.views.push(view);
+            },
+            getAttachments : function(whiteboard) {
+                this.whiteboard = whiteboard;
+                this.views = [];
+                this.subscribeChannels();
+            },
+            findViewById:function(id){
+                var result=null;
+                _.each(this.views,function(view){
+                    if(id === view.model.id){
+                        result = view;
+                        return;
+                    }
+                });
+                return result;
+            },
+            checkIfViewExists : function(model){
+                var view = this.findViewById(model.id);
+                return view != null;
+            },
+            assignmentSynced : function(){
+                this.assignmentSynced = true;
+                this.renderAttachments();
+            },
+            renderAttachments : function(){
+                if(!this.assignmentSynced)return false;
+                _.each(this.views,function(view){
+                    view.render();
+                });
+            },
+            whiteboardClosed:function(){
+                this.assignmentSynced = false;
+                this.views = [];
+            },
+            createAttachment : function() {
+                this.uploadDialogView.showUploadDialog(this.whiteboard);
+                this.uploadDialogView = new UploadDialogView({controller:this});
+            },
+            uploadAttachment:function(form){
+                
+                form.submit();
+                $('input[type=file], textarea',form).val("");
+                
+                var self = this;
+                $('#uploadFrame', top.document).load(function(){
+                    var attachment = eval("("+$(this).contents().text()+")");
+                    
+                    if(attachment['error'] != undefined){
+                        alert("Your File was not valid.");
+                    }
+                    else {
+                        window.app.log(self.whiteboard.id);
+                        window.app.groupCommand.addCommands(new ModelCommand(
+                            '/whiteboardItem/posted/'+self.whiteboard.id, attachment
+                        ));
+                    }
+                });
+            },
+            _handleEditedAttachment : function(message) {
+                var _id = message.id;
+                var _shortDescription = message.shortDescription;
+                var view = this.findViewById(_id);
+                var _attachment = view.model;
+                _attachment.get('content').set({ shortDescription : _shortDescription });
+            },
+            deletedAttachment : function(_attachment){
+                var view = this.findViewById(_attachment.id);
+                if(view)view.remove();
+                this.confirmDeleteView = new ConfirmDeleteView();
+            },
+            deleteAttachment : function(message) {
+                //delete physical file
+                $.ajax({
+                    url : '/attachment/delete/'+message.id
+                });
             }
-        },
-        uploadFile:function(id){
-            var form = this.activeUpload[0];
-            $('#uploadId',form).val(id);
-            form.submit();
-            $('input[type=file], textarea',form).val("");
-            var self = this;
-            $('#uploadFrame', top.document).load(function(){
-                var attachment = eval("("+$(this).contents().text()+")");
-                if(attachment['error'] != undefined){
-                    alert("Your File was not valid.");
-                    window.app.groupCommand.addCommands(new ModelCommand(
-                        '/service/attachment/remove', 
-                        {
-                            id : parseInt(attachment['id']),
-                            whiteboardid : self.whiteboard.id
-                        }
-                    ));
-                }
-                else {
-                    window.app.log("attachment upload complete");
-                    window.app.log(self.whiteboard.id);
-                    window.app.groupCommand.addCommands(new ModelCommand(
-                        '/service/attachment/complete', 
-                        {
-                            id : parseInt(attachment['id']),
-                            whiteboardid : self.whiteboard.id
-                        }
-                    ));
-                }
-            });
-            activeUpload = null;
-        }
-
-    };
+    }
     
     return AttachmentController;
 });

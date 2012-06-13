@@ -27,14 +27,18 @@ define([
             }
         },
         fillAttachmentDataSidebar : function(model){
+            var _creator = window.app.modules.assignment.getUser(model.get('creator'));
+            if(!_creator)return false;
             var rightNavigation = this.view.el.find('.wrapper');
             
             rightNavigation.empty();
-            
-            var full_name = $('<h2/>').attr('class','full_filename').html(model.get('filename')),
-                creator = $('<div/>').attr('class','creator').html('uploded by '+model.get('creator')),
-                description = $('<textarea/>').attr('class','description').attr('readonly','readonly').html(model.get('description')),
-                download = $('<a/>').attr('href','/attachment/'+model.id+'/'+model.get('filename')+'/download.htm').html('Download'),
+            var _username;
+            if(_creator.get('firstname').length > 0 || _creator.get('lastname').length > 0) _username = _creator.get('firstname')+' '._creator.get('lastname');
+            else _username = _creator.get('email');
+            var full_name = $('<h2/>').attr('class','full_filename').html(model.get('content').get('filename')),
+                creator = $('<div/>').attr('class','creator').html('uploaded by '+_username),
+                description = $('<textarea/>').attr('class','description').attr('readonly','readonly').html(model.get('content').get('shortDescription')),
+                download = $('<a/>').attr('href','/attachment/'+model.id).html('Download'),
                 fileinfo = $('<div/>')
                     .attr('class','fileinfo')
                     .append(full_name)

@@ -1,0 +1,87 @@
+#attachmentUploadContainer,#uploadContainer{
+    width:430px;
+    height:220px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin:-76px 0 0 -195px;
+    background: none repeat scroll 0 0 #494949;
+    color: #B2B2B2;
+    padding:15px;
+    text-align: left;
+    border: 1px solid #B2B2B2;
+    font-size: 16px;
+    -webkit-box-shadow: 4px 4px 8px #222;
+    -moz-box-shadow: 4px 4px 8px #222;
+    -o-box-shadow: 4px 4px 8px #222;
+    box-shadow: 4px 4px 8px #222;
+    z-index:101;
+}
+
+#uploadContainer form {
+
+}
+#attachmentUploadContainer form{
+    padding: 3px 0 0 0;
+}
+
+#attachmentUploadContainer form div,#uploadContainer form div{
+    text-align: right;
+    padding: 18px 0 0 0;
+}
+#uploadContainer form span {
+    float:left;
+    display:block;
+    width:80px;
+    text-align: left;
+}
+
+#attachmentUploadContainer form span{
+    width:60px;
+    text-align: left;
+}
+
+#attachmentUploadContainer form textarea,#uploadContainer form textarea {
+    width:360px;
+    margin-left: 15px;
+    height: 55px;
+}
+#attachmentUploadContainer > form > input {
+    margin: 0 0 0 6px;
+}
+#uploadContainer > form > input {
+    margin: 0 0 0 14px;
+
+}
+
+#attachmentUploadContainer h1, #uploadContainer h1 {
+    color: #B2B2B2;
+    font-size: 19px;
+    height: 45px;
+    margin: 0 ;
+    padding-bottom: 12px;
+    width: 100%;
+    text-align: left;
+}
+
+#attachmentUploadContainer h1{
+     height: 48px;
+     padding: 0px;
+     margin:  0px;
+}
+
+.whiteboard .imageItems.content{
+    float:left;
+}
+
+.imageMenu{
+    float:left;
+    width:13px;
+    display:none;
+    padding: 12px 0 0;
+    font-size:0px; /* to avoid whitespace underneath each picture*/
+}
+
+.whiteboard .image.hoverable:hover .imageMenu {
+    display:block;
+}
