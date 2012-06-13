@@ -4,7 +4,7 @@ define([
         '/core/js/utils/model_command.js',
         '/whiteboardItem/js/collection/WhiteboardItemCollection.js',
         '/whiteboardItem/js/models/WhiteboardItem.js',
-        '/whiteboard/js/utils/modus.js',
+        '/whiteboard/js/utils/modus.js'
 ], function(_,SubscribeCommand,ModelCommand,WhiteboardItemCollection,WhiteboardItem,WhiteboardModus){
     
     var WhiteboardItemController = function(options){
@@ -54,7 +54,7 @@ define([
             var y = message.y;
             var item = this.collection.get(id);
             item.set({x:x,y:y});
-            console.log("Whiteboard item moved")
+            console.log("Whiteboard item moved");
         },
         deletedItem : function(message){
             var _id = message.id;
@@ -65,11 +65,11 @@ define([
             }
         },
         deleteItem : function(model) {
-            if (typeof model == "undefined" || model == null) {
+            if (typeof model === 'undefined' || model === null) {
                 window.app.log('delete-event triggered multiple times');
             } else {
                 window.app.groupCommand.addCommands(new ModelCommand(
-                    '/service/whiteboardItem/delete', 
+                    '/service/whiteboardItem/delete',
                     { id : model.id, whiteboardid : this.whiteboard.id }
                 ));
             }
