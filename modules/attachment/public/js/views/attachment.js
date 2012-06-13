@@ -85,7 +85,7 @@ define([ 'jquery',
         },
         downloadAttachment : function(evt) {
             evt.preventDefault();
-            var url = '/image/download'+this.model.id;
+            var url = '/attachment/'+this.model.id;
             window.open(url,'_blank');
         },
     });

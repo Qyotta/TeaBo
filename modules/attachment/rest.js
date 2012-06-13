@@ -40,19 +40,27 @@ var fileUpload = function(req,res){
 };
 
 var fileDownload = function(req,res){
-    fs.readFile( __dirname+'/uploads/'+req.params.id,"binary", function( error, file ) {
-        if( error ){
-            res.writeHead( 500, { "Content-Type" : "text/plain" } );
-            res.end( error + "\n" );
-            return;
-         }
+    
+        WhiteboardItem.findOne({_id:req.params.id}, function(err, attachment){
+            if( err ){
+                res.writeHead( 500, { "Content-Type" : "text/plain" } );
+                res.end( error + "\n" );
+                return;
+             }
+            fs.readFile( __dirname+'/uploads/'+req.params.id,"binary", function( error, file ) {
+                if( error ){
+                    res.writeHead( 500, { "Content-Type" : "text/plain" } );
+                    res.end( error + "\n" );
+                    return;
+                }
+                var type = mime.lookup( file );
 
-        var type = mime.lookup( file );
+                res.writeHead( 200, { "Content-Type" : type, "Content-Disposition" : "attachment; filename="
+                   + attachment.content.filename } );
+                res.end( file, "binary" );
+            });
+        });
 
-        res.writeHead( 200, { "Content-Type" : type } );
-        res.end( file, "binary" );
-
-    });
 };
 
 var fileDelete = function(req,res){
