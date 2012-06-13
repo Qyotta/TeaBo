@@ -4,9 +4,38 @@ var     fs             = require('fs'),
         mime           = require( "mime" );
 
 var fileUpload = function(req,res){
+    var allowedTypes = ["application/pdf",
+                        "application/msword",
+                        "application/x-tika-ooxml",
+                        "application/vnd.ms-excel",
+                        "application/x-tika-ooxml",
+                        "application/vnd.ms-powerpoint",
+                        "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                        "application/vnd.oasis.opendocument.text",
+                        "application/x-vnd.oasis.opendocument.text",
+                        "application/vnd.oasis.opendocument.presentation",
+                        "application/x-vnd.oasis.opendocument.presentation",
+                        "application/vnd.oasis.opendocument.formula",
+                        "application/x-vnd.oasis.opendocument.formula"];
+   
+    
     var _filename = req.files.data.name;
     var fileExtension = req.files.data.name.split('.').pop();
+    var mimeType = req.files.data.type;
     var _shortDescription = req.body.shortDescription;
+    
+    var allowed = false;
+    for(index in allowedTypes){
+        if(mimeType == allowedTypes[index]){ 
+            allowed = true;
+            break;
+        }
+    }
+    if(allowed == false){
+        console.log("fileType not allowed:"+mimeType);
+        //TODO notify user
+        res.end();
+    }
     User.findOne({_id:req.session.user._id}, function(err,foundUser) {
             if(err)console.log(err);
             var whiteboardItem = new WhiteboardItem({
