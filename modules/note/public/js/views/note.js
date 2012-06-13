@@ -55,12 +55,12 @@ define([ 'jquery',
         },
         isFocused : function() {
             this.editing = true;
-            $(this.el).addClass(".edited");
+            $(this.el).addClass("edited");
             this.timer = setInterval(this.edited, 500);
         },
         isBlured : function() {
             this.editing = false;
-            $(this.el).removeClass(".edited");
+            $(this.el).removeClass("edited");
 
             if (this.timer) {
                 clearInterval(this.timer);

@@ -86,6 +86,7 @@ define([ 'jquery',
         },
         isClicked : function(evt) {
             evt.preventDefault();
+            $(this.el).addClass('edited');
             window.app.eventDispatcher.trigger("attachment:isClicked", this.model);
         },
         downloadAttachment : function(evt) {
