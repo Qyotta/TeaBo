@@ -38,32 +38,32 @@ var fileUpload = function(req,res){
     }
     User.findOne({_id:req.session.user._id}, function(err,foundUser) {
             if(err)console.log(err);
-            var whiteboardItem = new WhiteboardItem({
-                editing     : false,
-                orderIndex  : 0, // TODO change this to the current number of items
-                x           : req.body.x,
-                y           : req.body.y,
-                creator     : foundUser._id,
-                whiteboard  : req.body.whiteboardId,
-                type        : 'attachment', 
-                content     : {filename:_filename,shortDescription:_shortDescription,extension:fileExtension, complete:true}
-            });
-            whiteboardItem.save();
-
-            var id = whiteboardItem._id;
-            var newPath = __dirname + "/uploads/"+id;
             
-            fs.rename(req.files.data.path, newPath, function (err) {
-                if (err) console.log("error in fileUpload: "+err);
-                res.send({ x : whiteboardItem.x,
-                      y : whiteboardItem.y,
-                      _id: id,
-                      creator     : whiteboardItem.creator,
-                      editing     : whiteboardItem.editing,
-                      orderIndex  : whiteboardItem.orderIndex,
-                      type        : whiteboardItem.type,
-                      content     : whiteboardItem.content
-                    });
+            WhiteboardItem.findOne({_id:req.body.id}, function(err, whiteboardItem){
+                if(err)console.log(err);
+                whiteboardItem.set({content:{
+                    filename:_filename,
+                    extension:fileExtension,
+                    complete:true
+                }});
+                whiteboardItem.save();
+            
+
+                var id = whiteboardItem._id;
+                var newPath = __dirname + "/uploads/"+id;
+                
+                fs.rename(req.files.data.path, newPath, function (err) {
+                    if (err) console.log("error in fileUpload: "+err);
+                    res.send({ x : whiteboardItem.x,
+                          y : whiteboardItem.y,
+                          _id: id,
+                          creator     : whiteboardItem.creator,
+                          editing     : whiteboardItem.editing,
+                          orderIndex  : whiteboardItem.orderIndex,
+                          type        : whiteboardItem.type,
+                          content     : whiteboardItem.content
+                        });
+                });
             });
         })
 };

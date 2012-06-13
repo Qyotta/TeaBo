@@ -15,7 +15,7 @@ define([
         events : {
             'click #attachmentUploadContainer button.cancel' : 'hideConfirmDialog',
             'change #attachmentUploadContainer input[type="file"]':'fileChanged',
-            'click #attachmentUploadContainer #attachmenUpload input[type=submit]':'postAttachment',
+            'click #attachmentUploadContainer #attachmentUpload input[type=submit]':'postAttachment',
         },
         render : function() {
             var data = {
@@ -54,7 +54,7 @@ define([
         },
         postAttachment : function(event) {
             event.preventDefault();
-            this.controller.uploadAttachment($('#attachmentUploadContainer #attachmentUpload'));
+            this.controller.generateUploadAttachment($('#attachmentUploadContainer #attachmentUpload'));
             this.hideDialog();
         }
     });

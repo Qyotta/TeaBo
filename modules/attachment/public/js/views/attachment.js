@@ -47,7 +47,7 @@ define([ 'jquery',
             var ext = this.model.get('content').get('extension');
             var _shortName = filename.substr(0, filename.length - (ext.length + 1));
             var _img;
-            if(!this.model.get('content').get('complete')){
+            if(this.model.get('content').get('complete') == false){
                 _img = '/attachment/images/extensions/_blank.png';
             }else {
                 _img = '/attachment/images/extensions/'+ext+'.png';

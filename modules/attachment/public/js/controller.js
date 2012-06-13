@@ -6,7 +6,7 @@ define([
             '/core/js/utils/subscribe_command.js',
             '/attachment/js/views/attachment.js', 
             '/attachment/js/views/confirm_delete.js',
-            '/attachment/js/views/upload.js'
+            '/attachment/js/views/upload.js',
             ], function($, _, Backbone, ModelCommand, SubscribeCommand, AttachmentView,  ConfirmDeleteView, UploadDialogView){
     
     var AttachmentController = function(options){
@@ -27,6 +27,7 @@ define([
     };
     
     AttachmentController.prototype = {
+            activeForm:null,
             initialize : function() {
                 this.views    = [];
                 this.assignmentSynced = false;
@@ -41,10 +42,13 @@ define([
             },
             subscribeChannels : function() {
                 var commands = [];
-                commands.push(new SubscribeCommand('/attachment/edited/'         +this.whiteboard.id,this._handleEditedAttachment))
+                commands.push(new SubscribeCommand('/attachment/edited/'         +this.whiteboard.id,this._handleEditedAttachment));
                 window.app.groupCommand.addCommands(commands);
             },
             loadedAttachment:function(_attachment){
+                if(this.activeForm != null && _attachment.get('content').get('uid') == this.activeForm[0]){
+                    this.uploadAttachment(_attachment.id);
+                }
                 if (this.checkIfViewExists(_attachment))return;
                 var view = new AttachmentView({
                     model : _attachment,
@@ -91,32 +95,57 @@ define([
                 this.uploadDialogView.showUploadDialog(this.whiteboard);
                 this.uploadDialogView = new UploadDialogView({controller:this});
             },
-            uploadAttachment:function(form){
+            generateUploadAttachment:function(form){
+                var _uid = new Date().getTime();
+                window.app.groupCommand.addCommands(new ModelCommand(
+                        '/service/whiteboardItem/post', {
+                            creator     : window.app.user.id,
+                            whiteboardid : this.whiteboard.id,
+                            content     : {shortDescription: $('textarea',form).val(), filename:'', extension:'', complete:false, uid: _uid},
+                            type        : 'attachment', 
+                            x           : 400,
+                            y           : 400,
+                            }
+                    ));
                 
+                this.activeForm = [_uid, form];
+            },
+            uploadAttachment:function(_id){
+                var form = this.activeForm[1];
+                $('input[name=id]',form).val(_id);
+                this.activeForm = null;
+                //trigger upload
                 form.submit();
                 $('input[type=file], textarea',form).val("");
                 
                 var self = this;
                 $('#uploadFrame', top.document).load(function(){
                     var attachment = eval("("+$(this).contents().text()+")");
-                    
                     if(attachment['error'] != undefined){
                         alert("Your File was not valid.");
                     }
                     else {
                         window.app.log(self.whiteboard.id);
                         window.app.groupCommand.addCommands(new ModelCommand(
-                            '/whiteboardItem/posted/'+self.whiteboard.id, attachment
+                            '/service/attachment/edit', {
+                                id : _id,
+                                complete : true,
+                                whiteboardid : self.whiteboard.id
+                            }
                         ));
                     }
                 });
             },
             _handleEditedAttachment : function(message) {
                 var _id = message.id;
-                var _shortDescription = message.shortDescription;
                 var view = this.findViewById(_id);
                 var _attachment = view.model;
-                _attachment.get('content').set({ shortDescription : _shortDescription });
+                _attachment.get('content').set({
+                    filename : message.filename, 
+                    extension : message.extension, 
+                    complete:message.complete
+                    });
+                view.changed();
             },
             deletedAttachment : function(_attachment){
                 var view = this.findViewById(_attachment.id);
