@@ -48,7 +48,12 @@ define([ 'jquery',
             var _shortName = filename.substr(0, filename.length - (ext.length + 1));
             var _img;
             if(this.model.get('content').get('complete') == false){
-                _img = '/attachment/images/extensions/_blank.png';
+                if(window.app.user.id == _creator.id){
+                    _img = '/attachment/images/loading.gif';
+                } else {
+                    _img = '/attachment/images/stop.gif';
+                }
+                
             }else {
                 _img = '/attachment/images/extensions/'+ext+'.png';
             }

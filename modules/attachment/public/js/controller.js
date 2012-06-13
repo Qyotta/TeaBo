@@ -113,7 +113,7 @@ define([
             uploadAttachment:function(_id){
                 var form = this.activeForm[1];
                 $('input[name=id]',form).val(_id);
-                this.activeForm = null;
+                
                 //trigger upload
                 form.submit();
                 $('input[type=file], textarea',form).val("");
@@ -135,6 +135,7 @@ define([
                         ));
                     }
                 });
+                this.activeForm = null;
             },
             _handleEditedAttachment : function(message) {
                 var _id = message.id;
