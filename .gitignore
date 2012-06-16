@@ -10,3 +10,4 @@ de.bht.swp.lao.ocp/WebContent/*
 node_modules/*
 modules/image/uploads/*
 modules/attachment/uploads/*
+modules/lao-logger/*
