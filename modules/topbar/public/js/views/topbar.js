@@ -65,7 +65,6 @@ define([
                     components.push(modules[module].topbarComponent());
                 }
             });
-            
             return components;
         },
         changedUser:function(){

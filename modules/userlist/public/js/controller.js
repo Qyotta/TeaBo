@@ -1,8 +1,9 @@
 define([
     'underscore',
+    '/userlist/js/views/WhiteboardUsersView.js',
     '/userlist/js/views/UserListView.js',
     '/userlist/js/views/colorchooser.js'
-], function(_, UserListView, ColorChooserView){
+], function(_, WhiteboardUsersView, UserListView, ColorChooserView){
     
     var UserListController = function(options){
         _.bindAll(this,'createList','topbarComponent');
@@ -12,14 +13,15 @@ define([
     
     UserListController.prototype = {
         initialize: function() {
-            this.view             = new UserListView();
+            this.view             = new WhiteboardUsersView();
+            this.view.render();
             this.colorChooserView = new ColorChooserView();
         },
         topbarComponent: function() {
             return this.view;
         },
         createList: function(assignmentCollection) {
-            this.view.addUser(assignmentCollection);
+            this.view.setUserListView(new UserListView({model:assignmentCollection}));
             window.app.eventDispatcher.trigger('userlist:initialized',this.view);
         }
     };
