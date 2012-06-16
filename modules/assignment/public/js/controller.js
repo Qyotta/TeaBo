@@ -19,11 +19,15 @@ define([
             $(window).unload( this.whiteboardClosed );
         },
         subscribeChannels:function(){
-            var commands = [];
-            commands.push(new SubscribeCommand('/assignment/change/color/'+ this.whiteboard.id, this.userColorUpdated));
-            commands.push(new SubscribeCommand('/assignment/change/onlineStatus/'+ this.whiteboard.id, this.userOnlineStatusUpdated));
-            commands.push(new SubscribeCommand('/assignment/added/'+ this.whiteboard.id, this.assignmentAdded));
-            window.app.groupCommand.addCommands(commands);
+            this.subscriptions = [];
+            this.subscriptions.push(window.app.io.subscribe('/assignment/change/color/'+ this.whiteboard.id, this.userColorUpdated));
+            this.subscriptions.push(window.app.io.subscribe('/assignment/change/onlineStatus/'+ this.whiteboard.id, this.userOnlineStatusUpdated));
+            this.subscriptions.push(window.app.io.subscribe('/assignment/added/'+ this.whiteboard.id, this.assignmentAdded));
+        },
+        unsubscribeChannels:function(){
+            _.each(this.subscriptions,function(subscription){
+                subscription.cancel();
+            })
         },
         assignmentCreated:function(assignment){
             new ModelCommand('/assignment/added/'+this.whiteboard.id,assignment).execute();
@@ -32,44 +36,50 @@ define([
             this.assignments.add(new Assignment(assignment));
         },
         userColorUpdated:function(message){
+            console.log(message);
             //var _assignmentId = message.data.id;
             //var assignment = this.assignments.get(_assignmentId);
             //assignment.set({color:[message.data.color_r/255,message.data.color_g/255,message.data.color_b/255]});
         },
         userOnlineStatusUpdated:function(message){
-            //var _assignmentId = message.data.id;
-            //var assignment = this.assignments.get(_assignmentId);
-            //assignment.set({onWhiteboard : message.data.onWhiteboard});
-            //this.assignments.sort();
+            var _assignmentId = message.id;
+            var assignment = this.assignments.get(_assignmentId);
+            assignment.set({onWhiteboard : message.onWhiteboard});
+            this.assignments.sort();
         },
         whiteboardOpened:function(whiteboard){
             this.whiteboard = whiteboard;
             this.assignments = new AssignmentCollection(null,{whiteboardId: whiteboard.id});
+            var self = this;
             this.assignments.fetch({success: function(collection,response) {
+                self.setOnlineStatus(true);
+                self.subscribeChannels();
                 window.app.eventDispatcher.trigger('assignment:synced',collection);
             }});
-            this.setOnlineStatus(true);
-            this.subscribeChannels();
+            
         },
         whiteboardClosed:function(){
+            this.unsubscribeChannels();
             this.setOnlineStatus(false);
             this.whiteboard = null;
             this.assignments = null;
         },
         setOnlineStatus:function(online){
-            //var assignments = this.assignments;
-            //_.each(assignments.models,function(assignment){
-            //   if(assignment.get('user').id === window.app.user.id){
-            //       var data = {
-            //           assignmentId : assignment.id,
-            //           value : online
-            //       };
-            //       // TODO: Timeout is necessary because cometD subscription needs some Time, otherwise the state would not be registered by own client
-            //       window.setTimeout(function (){
-            //           new ModelCommand('/service/assignment/changeOnlineStatus/',data).execute();
-            //           }, 1000);
-            //   }
-            //});
+            var assignments = this.assignments;
+            var models = assignments.models;
+
+            _.each(assignments.models,function(assignment){
+               if(assignment.get('user').id === window.app.user.id){
+                   var data = {
+                       assignmentId : assignment.id,
+                       value : online
+                   };
+                   // TODO: Timeout is necessary because cometD subscription needs some Time, otherwise the state would not be registered by own client
+                   window.setTimeout(function (){
+                       new ModelCommand('/service/assignment/changeOnlineStatus',data).execute();
+                       }, 1000);
+               }
+            });
         },
         getColor: function(userid) {
             var models = this.assignments.models;

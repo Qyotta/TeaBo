@@ -24,12 +24,16 @@ define([
         initialize : function(){
             
         },
-        subscribeChannels : function(){
-            var commands = [];
-            commands.push(new SubscribeCommand('/whiteboardItem/posted/'          +this.whiteboard.id,this.postedItem));
-            commands.push(new SubscribeCommand('/whiteboardItem/move/'          +this.whiteboard.id,this.movedItem));
-            commands.push(new SubscribeCommand('/whiteboardItem/delete/'        +this.whiteboard.id,this.deletedItem));
-            window.app.groupCommand.addCommands(commands);
+        subscribeChannels:function(){
+            this.subscriptions = [];
+            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/posted/'          +this.whiteboard.id,this.postedItem));
+            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/move/'          +this.whiteboard.id,this.movedItem));
+            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/delete/'        +this.whiteboard.id,this.deletedItem));
+        },
+        unsubscribeChannels:function(){
+            _.each(this.subscriptions,function(subscription){
+                subscription.cancel();
+            })
         },
         whiteboardOpened : function(whiteboard){
             this.whiteboard = whiteboard;
@@ -47,6 +51,7 @@ define([
         whiteboardClosed : function(){
             this.whiteboard = null;
             this.collection = null;
+            this.unsubscribeChannels();
         },
         movedItem : function(message){
             var id = message.id;

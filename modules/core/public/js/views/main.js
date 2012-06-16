@@ -6,7 +6,6 @@ define([
 ], function($, _, Backbone, mainHomeTemplate){
     
     var MainHomeView = Backbone.View.extend({
-        el: $("#page"),
         events:{
             'click .mainPanel input[type=submit]' : 'submitClicked',
             'click .mainPanel a.delete' :'deleteWhiteboard',
@@ -47,6 +46,7 @@ define([
             this.render();
         },
         render: function(){
+            $(this.el).addClass("mainPanel");
             if(this.collection==null){
                 // whiteboards are not synced
                 window.app.eventDispatcher.trigger("whiteboard:sync");
@@ -54,8 +54,8 @@ define([
             }
             var data = { user:window.app.user, ownWhiteboards: this.getOwnWhiteboards(), assignedWhiteboards: this.getAssignedWhiteboards(), _: _ };
             var compiledTemplate = _.template( mainHomeTemplate, data );
-            this.el.append(compiledTemplate);
-            $('body').append(this.el);
+            this.el.innerHTML = compiledTemplate;
+            $("#page").html(this.el);
         },
         getOwnWhiteboards: function() {
             var ownWhiteboards = [];

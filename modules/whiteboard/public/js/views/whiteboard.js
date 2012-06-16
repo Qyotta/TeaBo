@@ -134,9 +134,9 @@ define([
             $(this.el).addClass("whiteboard draggable");
             $(this.el).css('left', this.model.get('x') + 'px');
             $(this.el).css('top', this.model.get('y') + 'px');
- 
-            if ($("#whiteboard").length >= 0) {
-                $("#page").append($(this.el));
+
+            if ($("#whiteboard").length == 0) {
+                $("#page").html($(this.el));
             }
         },
         startMove:function(event){
