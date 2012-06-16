@@ -89,7 +89,6 @@ function registerRestServices(rest) {
 
 // register IO services
 function registerIOServices(io) {
-    console.log(io);
     if(io) {
         bayeux.bind('publish', function(client_id,channel,obj) {
             console.log('got message on ',channel, obj);
@@ -103,6 +102,7 @@ function registerIOServices(io) {
 
 bayeux.bind('handshake', function(clientId) {
     console.log('user connected to faye');
+    client.publish(clientId,'meta/handshake',true);
 });
 
 bayeux.listen(3001);

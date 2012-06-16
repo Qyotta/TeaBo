@@ -2,7 +2,7 @@ define([
     'underscore',
     'backbone',
     '/user/js/model/user.js',
-    '/core/js/utils/group_command.js',
+    '/core/js/utils/group_command.js'
 ], function( _, Backbone, User, GroupCommand ){
         
     var Application = function() {
@@ -78,16 +78,14 @@ define([
             this.modules[name] = new module;
         },
         startClientIO: function() {
+            if(this.io) {
+                return;
+            }
+
             this.io = new Faye.Client('http://localhost:3001/rest', {
                 timeout: 120
             });
             this.io.connect();
-            
-            // this.cometd.addListener('/meta/handshake', this.onMetaHandshake);
-            // this.cometd.addListener('/meta/connect', this.onMetaConnect);
-            // this.cometd.handshake();
-        },
-        onMetaHandshake : function() {
             window.app.eventDispatcher.trigger('handshakeComplete', null);
         },
         onMetaConnect : function() {

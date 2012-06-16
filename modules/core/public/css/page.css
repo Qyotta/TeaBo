@@ -5,6 +5,10 @@ body {
     background: url("/whiteboard/images/background.gif") repeat;
 }
 
+#page > div {
+    z-index: 3;
+}
+
 .registrationSuccess {
     background:#494949;
     position: absolute;

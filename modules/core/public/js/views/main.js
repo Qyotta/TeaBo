@@ -54,7 +54,7 @@ define([
             }
             var data = { user:window.app.user, ownWhiteboards: this.getOwnWhiteboards(), assignedWhiteboards: this.getAssignedWhiteboards(), _: _ };
             var compiledTemplate = _.template( mainHomeTemplate, data );
-            this.el.html(compiledTemplate);
+            this.el.append(compiledTemplate);
             $('body').append(this.el);
         },
         getOwnWhiteboards: function() {
