@@ -15,44 +15,25 @@ clone repository to TARGET_DIR using
 
 Prerequesits
 ------------
-* install [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) v1.6 or higher
-* install [Apache Maven](http://maven.apache.org/download.html) v3.0.3 or higher
+* get [node.js](http://nodejs.org/)
+* get [mongoDB](http://www.mongodb.org/)
 
-Develop in Eclipse
-------------------
-add M2_REPO variable to your Eclipse workspace using
-
-    $ mvn -Declipse.workspace=PATH_TO_ECLIPSE_WORKSPACE eclipse:add-maven-repo
-
-create Eclipse project (.classpath and .project files) using
-
-    $ cd TARGET_DIR/lao-Online-Collaboration-Platform/de.bht.swp.lao.ocp
-    $ mvn eclipse:clean && mvn eclipse:eclipse
-
-now you can import the project in Eclipse
+Develop
+-------
+The [lao-logger](https://github.com/christian-bromann/lao-logger) is an example module which describes how a module can be build.
 
 Install
 -------
 In a console, type
 
-    $ cd TARGET_DIR/lao-Online-Collaboration-Platform/de.bht.swp.lao.ocp/
-    $ mvn install
-
-You'll find the WAR file in _TARGET_DIR/lao-Online-Collaboration-Platform/de.bht.swp.lao.ocp/target/ocp.war_
+    $ cd TARGET_DIR/lao-Online-Collaboration-Platform/
+    $ sh install.sh
 
 Deployment
 ----------
-
-### In Jetty using Maven ###
 In a console, type
 
-    $ cd TARGET_DIR/lao-Online-Collaboration-Platform/de.bht.swp.lao.ocp
-    $ mvn clean jetty:run
+    $ cd TARGET_DIR/lao-Online-Collaboration-Platform/
+    $ node app.js
 
-### In Tomcat using Maven ###
-In a console, type
-
-    $ cd TARGET_DIR/lao-Online-Collaboration-Platform/de.bht.swp.lao.ocp
-    $ mvn clean tomcat:run
-
-Open your browser and navigate to http://localhost:8080/de.bht.swp.lao.ocp
+Open your browser and navigate to http://localhost:3000/
