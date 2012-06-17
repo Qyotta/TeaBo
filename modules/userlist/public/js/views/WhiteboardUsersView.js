@@ -34,10 +34,15 @@ define([
                 contentType: 'application/json',
                 data: '{"email":"'+input.val()+'", "whiteboardId":"'+window.app.modules.whiteboard.whiteboard.get('_id')+'"}',
                 success: function(data){
-                    new Notice({ message: input.val()+" was invited." });
-                    window.app.eventDispatcher.trigger('assignment:created',data);                 
-                    self.isInviteInProgress = false;
-                    input.val("");
+                    if(data.error){
+                        new Error({message:data.error});
+                        input.val("");
+                    }else{
+                        new Notice({ message: input.val()+" was invited." });
+                        window.app.eventDispatcher.trigger('assignment:created',data);                 
+                        self.isInviteInProgress = false;
+                        input.val("");
+                    }
                 },
                 error: function(err){
                     new Notice({ message: err.statusText });

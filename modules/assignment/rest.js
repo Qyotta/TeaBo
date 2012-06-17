@@ -32,7 +32,10 @@ var inviteUser = function(req,res) {
         whiteboardId = QueryObjectId(req.body.whiteboardId);
 
     Assignments.find({'user.email':email,'whiteboard._id':whiteboardId}, function(err,assignments) {
-        if(!err && assignments) {
+        if(assignments.length>0){
+            res.send({'error': 'user already assigned'});
+        }
+        else if(!err) {
             User.findOne({'email':email}, function(err,user) {
                 if(!err && user) {
                     // assign existing user to whiteboard
