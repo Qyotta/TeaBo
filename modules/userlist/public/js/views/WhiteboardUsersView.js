@@ -51,7 +51,6 @@ define([
             this.el.innerHTML    = whiteboardusersTemplate;
             this.delegateEvents();
         },
-        
         // removes all html stuff, clears assignment list - gets called when whiteboard is closed
         unrender:function() {
             this.el.innerHTML = '';
