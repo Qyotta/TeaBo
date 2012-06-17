@@ -32,6 +32,8 @@ In a console, type
 
 Deployment
 ----------
+* start mongodb
+
 In a console, type
 
     $ cd TARGET_DIR/lao-Online-Collaboration-Platform/
