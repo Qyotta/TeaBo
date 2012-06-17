@@ -16,6 +16,7 @@ clone repository to TARGET_DIR using
 Prerequesits
 ------------
 * get [node.js](http://nodejs.org/)
+* get [npm](http://npmjs.org/)
 * get [mongoDB](http://www.mongodb.org/)
 
 Develop
