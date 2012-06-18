@@ -4,20 +4,21 @@ define([
     'backbone',
     '/settings/js/collection/settings.js',
     '/settings/js/model/settings.js',
-    '/core/js/utils/settings_command.js'
-], function($, _, Backbone, UserSettingsCollection, UserSettings, UserSettingsCommand){
+    '/core/js/utils/settings_command.js',
+    '/settings/js/views/UserPreferencesDialog.js'
+], function($, _, Backbone, UserSettingsCollection, UserSettings, UserSettingsCommand,UserPreferencesDialog){
     var UserSettingsController = function(options){
         
         _.bindAll(this,'sync','set', 'get');
 //        window.app.eventDispatcher.bind('whiteboard:open',this.sync);
         window.app.eventDispatcher.bind("logout",this.unload);
-        
         this.initialize();
     };
     
     UserSettingsController.prototype = {
         initialize:function(){
             this.userSettings = new UserSettingsCollection();
+            this.userPreferencesDialog = new UserPreferencesDialog();
         },
         sync:function(){
             if(!window.app.loggedIn()){

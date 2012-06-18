@@ -4,8 +4,9 @@ define([
     'backbone',
     '/core/js/views/notice/notice.js',
     '/core/js/views/notice/error.js',
+    '/settings/js/views/SettingsMenuView.js',
     'text!/topbar/templates/topbar.html'
-], function($, _, Backbone, Notice, Error, topbarTemplate){
+], function($, _, Backbone, Notice, Error, SettingsMenuView, topbarTemplate){
     
     var TopbarView = Backbone.View.extend({
         el: $("#topNavigation"),
@@ -19,6 +20,8 @@ define([
             _(this).bindAll('changedUser','render');
             
             this.isInviteInProgress = false;
+
+            this.settingsMenuView = new SettingsMenuView();
             
             window.app.user.bind("change", this.changedUser);
         },
@@ -47,6 +50,8 @@ define([
             var components       = this.getTopbarComponents();
             var compiledTemplate = _.template( topbarTemplate, data );
             this.el.html(compiledTemplate);
+
+            $(".right",this.el).append(this.settingsMenuView.render().el);
 
             $.each(components,function(i, component) {
                 // append view to the topbar
