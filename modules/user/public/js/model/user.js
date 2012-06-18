@@ -3,12 +3,12 @@ define([
     'underscore',
     'backbone',
     '/settings/js/collection/settings.js'
-], function($, _, Backbone, UserSettings){
+], function($, _, Backbone, UserSettingsCollection){
     
     var User = Backbone.Model.extend({
         url:'user/',
         idAttribute: "_id",
-        settings : UserSettings,
+        settings : UserSettingsCollection,
         
     });
     return User;

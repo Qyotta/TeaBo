@@ -13,6 +13,7 @@ var set = function(req,res) {
                 value: req.body.value
             })
             user.settings.push(setting);
+            user.save();
             res.send('');
         }
     })

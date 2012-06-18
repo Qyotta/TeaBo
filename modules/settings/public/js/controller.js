@@ -10,22 +10,21 @@ define([
     var UserSettingsController = function(options){
         
         _.bindAll(this,'sync','set', 'get');
-//        window.app.eventDispatcher.bind('whiteboard:open',this.sync);
+        window.app.eventDispatcher.bind('whiteboard:open',this.sync);
         window.app.eventDispatcher.bind("logout",this.unload);
         this.initialize();
     };
     
     UserSettingsController.prototype = {
         initialize:function(){
-            this.userSettings = new UserSettingsCollection();
             this.userPreferencesDialog = new UserPreferencesDialog();
         },
         sync:function(){
             if(!window.app.loggedIn()){
                 return false;
             }
-            window.app.log('userSettings:startSync');
-            this.userSettings.fetch({success: function(collection, response){
+            this.collection = new UserSettingsCollection();
+            this.collection.fetch({success: function(collection, response){
                 window.app.eventDispatcher.trigger("userSettings:synced",collection);
                 window.app.log('userSettings:synced');
             }, error: function() {
@@ -35,20 +34,20 @@ define([
             
         },
         get:function(_key){
-            return this.userSettings.where({key : _key});
+            return this.collection.where({key : _key});
         },
         set:function(_key, _value){
-          var settings = this.userSettings.where(_key)[0];
+          var settings = this.collection.where(_key)[0];
           if(!settings){
               settings = new UserSettings();
-              this.userSettings.add(settings);
+              this.collection.add(settings);
           }
           settings.set({
               key : _key, 
               value : _value
           });
           window.app.groupCommand.addCommands(new UserSettingsCommand(
-                  '/user/settings', 
+                  '/settings', 
                   {
                       key : _key,
                       value : _value
@@ -56,7 +55,7 @@ define([
               ));
         },
         unload:function(){
-            this.userSettings = null;
+            this.collection = null;
         }
     };
     
