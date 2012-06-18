@@ -20,7 +20,7 @@ define([
         
         window.app.eventDispatcher.bind("toolbar:createAttachment", this.createAttachment);
         
-        window.app.eventDispatcher.bind("whiteboard:opened",this.getAttachments);
+        window.app.eventDispatcher.bind("whiteboard:opened",this.whiteboardOpened);
         window.app.eventDispatcher.bind("whiteboard:closed",this.whiteboardClosed);
         window.app.eventDispatcher.bind('assignment:synced', this.assignmentSynced);
         this.initialize();
@@ -98,7 +98,7 @@ define([
                 this.unsubscribeChannels();
             },
             createAttachment : function() {
-                this.uploadDialogView.showUploadDialog(this.whiteboard);
+                this.uploadDialogView.showUploadDialog();
                 this.uploadDialogView = new UploadDialogView({controller:this});
             },
             generateUploadAttachment:function(form){

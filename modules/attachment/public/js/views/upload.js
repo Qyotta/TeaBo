@@ -19,7 +19,7 @@ define([
         },
         render : function() {
             var data = {
-                whiteboard : this.whiteboard,
+                whiteboard : this.controller.whiteboard,
                 x : Math.floor(Math.random() * 700),
                 y : Math.floor(Math.random() * 400),
                 _ : _,
@@ -28,9 +28,8 @@ define([
             $(this.el).html(compiledTemplate);
             $('#dialogs').html(this.el);
         },
-        showUploadDialog : function(whiteboard) {
+        showUploadDialog : function() {
             console.log("show upload dialog");
-            this.whiteboard = whiteboard;
             this.showDialog();
         },
         hideConfirmDialog : function(evt) {
