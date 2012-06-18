@@ -2,8 +2,9 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!/core/templates/main.html'
-], function($, _, Backbone, mainHomeTemplate){
+    'text!/core/templates/main.html',
+    '/core/js/views/notice/error.js',
+], function($, _, Backbone, mainHomeTemplate, Error){
     
     var MainHomeView = Backbone.View.extend({
         events:{
@@ -25,12 +26,17 @@ define([
             evt.preventDefault();
             var self = this;
             var name = $('.mainPanel input[name=name]').val();
+            if(name.length == 0){
+                new Error({message:"Please insert a name for the whiteboard."});
+                return false;
+            }
             window.app.modules.whiteboard.whiteboards.create({name:name},
             {success: function(model, resp) {
                     self.render();
                 },
                 error: function() {
-                    alert('error create whiteboard');
+                    new Error({message:"Unknown error while creating whiteboard. Please try again"});
+                    return false;
                 }
             });
         },
