@@ -66,6 +66,8 @@ define([
         },
         setOnlineStatus:function(online){
             var assignments = this.assignments;
+            if(!assignments)return;
+
             var models = assignments.models;
 
             _.each(assignments.models,function(assignment){
