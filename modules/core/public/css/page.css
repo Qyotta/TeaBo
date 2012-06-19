@@ -48,8 +48,14 @@ body {
 
 div.registerContainer > form > dl > dd > input {
     width:185px;
+    border: 1px solid #000000;
+    height: 20px;
 }
-div.loginContainer    > form > dl > dd > input {
+div.registerContainer > form > dl > dd > input.error {
+    border-color:#ff0000;
+    background:#FFD8D8;
+}
+div.loginContainer > form > dl > dd > input {
     width:210px;
 }
 

@@ -1,8 +1,8 @@
-var Assignments   = require('../../modules/assignment/models/assignment').model,
-    User          = require('../../modules/user/models/user').model,
-    Whiteboard    = require('../../modules/whiteboard/models/whiteboard').model,
+var Assignments   = require('../assignment/models/assignment').model,
+    User          = require('../user/models/user').model,
+    Whiteboard    = require('../whiteboard/models/whiteboard').model,
     mongoose      = require('mongoose'),
-    mailer        = require('mailer'),
+    mailer        = require('../../utils/laoMailer'),
     QueryObjectId = mongoose.Types.ObjectId;
 
 // util functions
@@ -66,26 +66,23 @@ var inviteUser = function(req,res) {
 
                             assignment.save(function() {
                                 mailer.send({
-                                    host : "smtp.googlemail.com",       // smtp server hostname
-                                    port : "587",                       // smtp server port
-                                    domain : "localhost",               // domain used by client to identify itself to server
-                                    to : email,
-                                    from : "swplao@googlemail.com",
+                                    receiver: email,
                                     subject : "[lao] Invitation to Whiteboard "+whiteboard.name,
-                                    body: "Hello,\n"+
-                                          'you were invited to' + whiteboard.name + ' Whiteboard\n'+
-                                          'You may login at <a href="http://localhost:3000">Online Collaboration Platform</a>...\n'+
-                                          'User: ' + email + ' Password: ' + newUser.password + '\n\n' +
-                                          'With Regards,\n\n' +
-                                          '[l]ook [a]head [o]nline',
-                                    authentication : "login",           // auth login is supported; anything else is no auth
-                                    username : "swplao@googlemail.com", // Base64 encoded username
-                                    password : "qwertz123"              // Base64 encoded password
-                                }, function(err, result){
-                                    if(!err) {
-                                        res.send({type: 'notice', message: email+' was invited to this whiteboard!'});
-                                    } else {
-                                        res.send({type: 'error', message: email+' was invited to this whiteboard but email wasn\'t send!'});
+                                    text: '<body style="font-size:12px; font-family:Helvetiva, sans serif;">'+
+                                          '<h1 style="margin-bottom:10px;">Hello</h1><br>'+
+                                          'you were invited to <b>' + whiteboard.name + '</b> Whiteboard<br>'+
+                                          'You may login at <a href="http://localhost:3000">Online Collaboration Platform</a> ...<br><br>'+
+                                          'User: ' + email + '<br>'+
+                                          'Password: ' + newUser.password + '<br><br>' +
+                                          'With Regards,<br>' +
+                                          '<h2>[l]ook [a]head [o]nline</h2>'+
+                                          '</body>',
+                                    callback: function(err, result){
+                                        if(!err) {
+                                            res.send({type: 'notice', message: email+' was invited to this whiteboard!'});
+                                        } else {
+                                            res.send({type: 'error', message: email+' was invited to this whiteboard but email wasn\'t send!'});
+                                        }
                                     }
                                 });
                             });
