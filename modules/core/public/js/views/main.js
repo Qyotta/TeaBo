@@ -52,6 +52,8 @@ define([
             this.render();
         },
         render: function(){
+            $('#page').empty();
+            this.delegateEvents();
             $(this.el).addClass("mainPanel");
             if(this.collection==null){
                 // whiteboards are not synced

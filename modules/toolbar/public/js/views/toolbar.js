@@ -16,6 +16,7 @@ define([ 'jquery',
             var data             = {_: _, tools: this.getTools(), links: this.getLinks()},
                 compiledTemplate = _.template(toolbarTemplate, data);
             this.el.html(compiledTemplate);
+            this.delegateEvents();
         },
         unrender : function() {
             this.el.empty();

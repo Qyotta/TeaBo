@@ -130,12 +130,15 @@ define([
             window.app.eventDispatcher.trigger('whiteboard:changedModus',modus);
         },
         render:function(){
+            this.delegateEvents();
             $(this.el).attr('id','whiteboard');
             $(this.el).addClass("whiteboard draggable");
             $(this.el).css('left', this.model.get('x') + 'px');
             $(this.el).css('top', this.model.get('y') + 'px');
 
             if ($("#whiteboard").length == 0) {
+                $('#page').empty();
+                this.delegateEvents();
                 $("#page").html($(this.el));
             }
         },

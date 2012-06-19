@@ -26,6 +26,7 @@ define([
                 var item = this.menuItems[i];
                 $(".settingsMenuContainer ul",this.el).append('<li><a class="'+item.css+'" href="">'+item.display+'</a></li>');
             }
+            this.delegateEvents();
             return this;
         },
         menuItemClicked:function(e){
