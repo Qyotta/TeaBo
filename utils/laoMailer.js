@@ -13,6 +13,11 @@ var smtpTransport = nodemailer.createTransport('SMTP',{
 
 var mail = function(config) {
 
+    // return if a mandatory field is missing
+    if(!config || !config.receiver || !config.subject || !config.text) {
+        return false;
+    }
+
     // setup e-mail data with unicode symbols
     var mailOptions = {
         from:    "LaoTeam <swplao@googlemail.com>", // sender address
@@ -28,7 +33,10 @@ var mail = function(config) {
             console.log(error);
         }else{
             console.log("Message sent: " + response.message);
-            config.callback(error, response);
+            
+            if(config.callback) {
+                config.callback(error, response);
+            }
         }
 
         // if you don't want to use this transport object anymore, uncomment following line
