@@ -20,6 +20,8 @@ define([
             this.render();
         },
         render:function(){
+            this.unrender();
+            this.delegateEvents();
             this.registerInProgress = false;
             var data = {email:this.email,firstname:this.firstname,lastname:this.lastname,position:this.position,errors:this.errors};
             var compiledTemplate = _.template( registerTemplate , data);
@@ -72,9 +74,11 @@ define([
                         new Notice({message:"Registration was successful. You're now logged in!"});
                     } else {
                         new Error({message:"An user with this email address is already registered!"});
+                        self.render();
                     }
                 },error:function(model, response){
                      new Error({message:"Registration was not successful. Try again."});
+                     self.render();
                 }
             });
         },
