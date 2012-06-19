@@ -74,7 +74,7 @@ var inviteUser = function(req,res) {
                                     text: '<body style="font-size:12px; font-family:Helvetiva, sans serif;">'+
                                           '<h1 style="margin-bottom:10px;">Hello</h1><br>'+
                                           'you were invited to <b>' + whiteboard.name + '</b> Whiteboard<br>'+
-                                          'You may login at <a href="http://localhost:3000">Online Collaboration Platform</a> ...<br><br>'+
+                                          'You may login at <a href="http://localhost:3000">Online Collaboration Platform</a>.<br><br>'+
                                           'User: ' + email + '<br>'+
                                           'Password: ' + newUser.password + '<br><br>' +
                                           'With Regards,<br>' +
@@ -82,9 +82,24 @@ var inviteUser = function(req,res) {
                                           '</body>',
                                     callback: function(err, result){
                                         if(!err) {
-                                            res.send({color:assignment.color,user:assignment.user,isOwner:assignment.isOwner,onWhiteboard:false});
+                                            res.send({
+                                                assignment: {
+                                                    _id: assignment._id,
+                                                    color: assignment.color,
+                                                    user :assignment.user,
+                                                    isOwner: assignment.isOwner,
+                                                    onWhiteboard: false
+                                                },
+                                                res: {
+                                                    type: 'notice',
+                                                    message: email+' was invited to this whiteboard!'
+                                                }
+                                            });
                                         } else {
-                                            res.send({color:assignment.color,user:assignment.user,isOwner:assignment.isOwner,onWhiteboard:false});
+                                            res.send({
+                                                type: 'error',
+                                                message: email+' was invited to this whiteboard but email wasn\'t send!'}
+                                            );
                                         }
                                     }
                                 });
