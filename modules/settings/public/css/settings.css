@@ -18,3 +18,31 @@
 #settingsMenu .settingsMenuContainer ul li{
     text-align:left;
 }
+
+.dialog {
+    background: #494949;
+    width: 434px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin:-130px 0 0 -217px;
+    -webkit-box-shadow: 0px 0px 5px #AAA;
+    -moz-box-shadow: 0px 0px 5px #AAA;
+    -o-box-shadow: 0px 0px 5px #AAA;
+    box-shadow: 0 0 5px #AAAAAA;
+    text-align: center;
+    padding: 10px 0px 5px;
+}
+.dialog h1 {
+    /*background: url("../images/lao_register.png") no-repeat scroll 0 0 transparent;*/
+    bottom: 3px;
+    color: #B2B2B2;
+    font-size: 16px;
+    height: 45px;
+    position: relative;
+    width: 100%;
+}
+
+.dialog > form > input {
+    margin: 0 0 0 15px;
+}

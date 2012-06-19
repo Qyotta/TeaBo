@@ -9,6 +9,7 @@ define([
         },
         showDialog:function(args){
             $("#dialogs").css("display","block");
+            $(this.el).addClass("dialog");
             this.render(args);
             this.containerFadeIn();
         },

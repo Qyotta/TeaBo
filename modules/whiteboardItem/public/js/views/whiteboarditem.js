@@ -28,6 +28,7 @@ define([
             });
         },
         startEditing:function(){
+            console.log("startEditing")
             window.app.eventDispatcher.trigger('whiteboardItem:startedEditing',this);
             $(this.el).addClass('edited');
             this.orderChange();

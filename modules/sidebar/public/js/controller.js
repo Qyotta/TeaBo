@@ -33,8 +33,10 @@ define([
             
             rightNavigation.empty();
             var _username;
-            if(_creator.get('firstname').length > 0 || _creator.get('lastname').length > 0) _username = _creator.get('firstname')+' '._creator.get('lastname');
-            else _username = _creator.get('email');
+            if(_creator.get('firstname').length > 0 || _creator.get('lastname').length > 0){
+              _username = _creator.get('firstname')+' '+_creator.get('lastname');  
+            } else _username = _creator.get('email');
+            
             var full_name = $('<h2/>').attr('class','full_filename').html(model.get('content').get('filename')),
                 creator = $('<div/>').attr('class','creator').html('uploaded by '+_username),
                 description = $('<textarea/>').attr('class','description').attr('readonly','readonly').html(model.get('content').get('shortDescription')),

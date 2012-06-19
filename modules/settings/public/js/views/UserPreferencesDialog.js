@@ -12,20 +12,26 @@ define([
             window.app.eventDispatcher.bind("settingsMenu:userPreferences", this.showPreferencesDialog);
         },
         events : {
+            'click button.cancel' : 'canceled',
+            'click input[type=submit]': 'submited'
+        },
+        submited:function(){
+
+        },
+        canceled:function(e){
+            e.preventDefault();
+            this.hideDialog();
         },
         render : function() {
             var data = {};
             var compiledTemplate = _.template(userPreferencesDialogTemplate, data);
-            //$(this.el).html(compiledTemplate);
-            //$('#dialogs').html(this.el);
+            $(this.el).html(compiledTemplate);
+            $('#dialogs').html(this.el);
+            this.delegateEvents();
         },
         showPreferencesDialog : function() {
             console.log("show user preferences dialog");
-            //this.showDialog();
-        },
-        hideConfirmDialog : function(evt) {
-            evt.preventDefault();
-            this.hideDialog();
+            this.showDialog();
         }
     });
 
