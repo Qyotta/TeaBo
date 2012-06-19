@@ -16,7 +16,7 @@ define([
             'click input[type=submit]': 'submited'
         },
         submited:function(){
-
+            
         },
         canceled:function(e){
             e.preventDefault();

@@ -6,9 +6,10 @@ define([
 ], function($, _, Backbone, TooltipsView){
     
     var TooltipsController = function(options){
-        _.bindAll(this,'isShowTooltips','showTooltips','openTooltips');
+        _.bindAll(this,'isShowTooltips','showTooltips','openTooltips','whiteboardClosed');
         window.app.eventDispatcher.bind("userSettings:synced",this.isShowTooltips);
         window.app.eventDispatcher.bind("toolbar:showToolTips",this.openTooltips);
+        window.app.eventDispatcher.bind("whiteboard:closed",this.whiteboardClosed);
         this.initialize();
     };
     
@@ -24,6 +25,9 @@ define([
             window.app.eventDispatcher.trigger('toolbar:addElement', this.toolbarLink);
             window.app.log('tooltips loaded');
             this.view = new TooltipsView();
+        },
+        whiteboardClosed:function(){
+            this.view.closeToolTip();
         },
         isShowTooltips: function() {
             if(this.shouldShowDialog()){
