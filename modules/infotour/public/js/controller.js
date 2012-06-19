@@ -22,7 +22,6 @@ define([
         },
         initialize: function() {
             window.app.eventDispatcher.trigger('toolbar:addElement', this.toolbarLink);
-            window.app.log('tooltips loaded');
             this.view = new TooltipsView();
         },
         isShowTooltips: function() {
@@ -34,11 +33,11 @@ define([
             }
         },
         shouldShowDialog : function(){
-            if(typeof window.app.user.get("settings").where(this.showDialogFlag)[0] == "undefined" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == "true" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == true){
+            if(typeof window.app.user.get("settings").where(this.showDialogFlag)[0] === "undefined" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") === "true" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") === true){
                 return true;
             } else {
                 return false;
-            }   
+            }
         },
         showTooltips: function() {
             this.view.startTour();

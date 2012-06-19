@@ -1,7 +1,7 @@
-define([ 'jquery', 
-         'underscore', 
-         'backbone', 
-         'text!/toolbar/templates/toolbar.html' 
+define([ 'jquery',
+         'underscore',
+         'backbone',
+         'text!/toolbar/templates/toolbar.html'
 ], function($, _, Backbone, toolbarTemplate) {
 
     var ToolbarView = Backbone.View.extend({
@@ -45,6 +45,7 @@ define([ 'jquery',
             var action = $(e.target).parent().attr('href');
             e.preventDefault();
             window.app.eventDispatcher.trigger('toolbar:'+action, e.target);
+            window.app.eventDispatcher.trigger('toolbar:openDialog');
         }
     });
 
