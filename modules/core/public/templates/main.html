@@ -1,37 +1,35 @@
-<div class="mainPanel">
-    <h2>Create Whiteboard</h2>
-    <form method="post">
-        Name: <br />
-        <input name="name" />
-        <br />
-        <input type="submit" value="Submit"/>
-    </form>
-    
-    <h2>Whiteboards List</h2>
-    <% if(_.isEmpty(ownWhiteboards)) { %>
-        <p>No whiteboard yet.</p>
-    <% } else{%>
-        <ul>
-            <% _.each(ownWhiteboards, function(whiteboard){ %>
-                <li id="<%= whiteboard._id %>">
-                    <a href="#whiteboard/<%= whiteboard._id %>"><%= whiteboard.name %></a> 
-                    <a href="#!/" class="delete">
-                        <img src="/images/cross.png" alt="delete" title="Delete Whiteboard"/>
-                    </a>
-                </li> 
-            <% }); %>
-        </ul>
-    <% } %>
-    <h2>assigned Whiteboards</h2>
-    <% if(_.isEmpty(assignedWhiteboards)) { %>
-        <p>No whiteboard yet.</p>
-    <% } else{%>
-        <ul>
-            <% _.each(assignedWhiteboards, function(whiteboard){ %>
-                <li id="<%= whiteboard._id %>">
-                    <a href="#whiteboard/<%= whiteboard._id %>"><%= whiteboard.name %></a> 
-                </li> 
-            <% }); %>
-        </ul>
-    <% } %>
-</div>
+<h2>Create Whiteboard</h2>
+<form method="post">
+    Name: <br />
+    <input name="name" />
+    <br />
+    <input type="submit" value="Submit"/>
+</form>
+
+<h2>Whiteboards List</h2>
+<% if(_.isEmpty(ownWhiteboards)) { %>
+    <p>No whiteboard yet.</p>
+<% } else{%>
+    <ul>
+        <% _.each(ownWhiteboards, function(whiteboard){ %>
+            <li id="<%= whiteboard._id %>">
+                <a href="#whiteboard/<%= whiteboard._id %>"><%= whiteboard.name %></a> 
+                <a href="#!/" class="delete">
+                    <img src="/images/cross.png" alt="delete" title="Delete Whiteboard"/>
+                </a>
+            </li> 
+        <% }); %>
+    </ul>
+<% } %>
+<h2>assigned Whiteboards</h2>
+<% if(_.isEmpty(assignedWhiteboards)) { %>
+    <p>No whiteboard yet.</p>
+<% } else{%>
+    <ul>
+        <% _.each(assignedWhiteboards, function(whiteboard){ %>
+            <li id="<%= whiteboard._id %>">
+                <a href="#whiteboard/<%= whiteboard._id %>"><%= whiteboard.name %></a> 
+            </li> 
+        <% }); %>
+    </ul>
+<% } %>

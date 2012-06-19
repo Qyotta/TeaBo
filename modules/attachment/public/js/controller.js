@@ -11,7 +11,7 @@ define([
     
     var AttachmentController = function(options){
 
-        _.bindAll(this, 'getAttachments', 'createAttachment','loadedAttachment','deletedAttachment', '_handleEditedAttachment', 'assignmentSynced','whiteboardClosed','subscribeChannels');
+        _.bindAll(this, 'whiteboardOpened', 'createAttachment','loadedAttachment','deletedAttachment', '_handleEditedAttachment', 'assignmentSynced','whiteboardClosed','subscribeChannels');
         
         window.app.eventDispatcher.bind("whiteboardItem:loaded:attachment", this.loadedAttachment);
         window.app.eventDispatcher.bind("whiteboardItem:deleted:attachment", this.deletedAttachment);
@@ -20,7 +20,7 @@ define([
         
         window.app.eventDispatcher.bind("toolbar:createAttachment", this.createAttachment);
         
-        window.app.eventDispatcher.bind("whiteboard:opened",this.getAttachments);
+        window.app.eventDispatcher.bind("whiteboard:opened",this.whiteboardOpened);
         window.app.eventDispatcher.bind("whiteboard:closed",this.whiteboardClosed);
         window.app.eventDispatcher.bind('assignment:synced', this.assignmentSynced);
         this.initialize();
@@ -40,10 +40,15 @@ define([
                 imageURL: '/attachment/images/new_file.png',
                 imageTitle: 'create a new attachment'
             },
-            subscribeChannels : function() {
-                var commands = [];
-                commands.push(new SubscribeCommand('/attachment/edited/'         +this.whiteboard.id,this._handleEditedAttachment));
-                window.app.groupCommand.addCommands(commands);
+            subscribeChannels:function(){
+                this.subscriptions = [];
+                this.subscriptions.push(window.app.io.subscribe('/attachment/edited/'         +this.whiteboard.id,this._handleEditedAttachment));
+                this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/order/'  + this.whiteboard.id, this.handleForegroundWhiteboardItem));
+            },
+            unsubscribeChannels:function(){
+                _.each(this.subscriptions,function(subscription){
+                    subscription.cancel();
+                })
             },
             loadedAttachment:function(_attachment){
                 if(this.activeForm != null && _attachment.get('content').get('uid') == this.activeForm[0]){
@@ -58,7 +63,7 @@ define([
                 
                 this.views.push(view);
             },
-            getAttachments : function(whiteboard) {
+            whiteboardOpened : function(whiteboard) {
                 this.whiteboard = whiteboard;
                 this.views = [];
                 this.subscribeChannels();
@@ -90,9 +95,10 @@ define([
             whiteboardClosed:function(){
                 this.assignmentSynced = false;
                 this.views = [];
+                this.unsubscribeChannels();
             },
             createAttachment : function() {
-                this.uploadDialogView.showUploadDialog(this.whiteboard);
+                this.uploadDialogView.showUploadDialog();
                 this.uploadDialogView = new UploadDialogView({controller:this});
             },
             generateUploadAttachment:function(form){

@@ -6,19 +6,19 @@ define([
     '/core/js/views/notice/error.js',
 ], function($, _, Backbone, loginTemplate,Error){
     var LoginDialogView = Backbone.View.extend({
-        el:$('#page'),
         initialize:function(){
-
+            
         },
         events:{
             'click .loginContainer input[type=submit]' : 'loginBtnClicked',
         },
         render: function(){
             var compiledTemplate = _.template( loginTemplate );
-            this.el.html(compiledTemplate);
+            $(this.el).html(compiledTemplate);
+            $('#page').html(this.el);
         },
         unrender: function(){
-            this.el.remove();
+            $(this.el).remove();
         },
         loginBtnClicked:function(evt){
             evt.preventDefault();

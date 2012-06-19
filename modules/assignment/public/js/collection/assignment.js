@@ -12,8 +12,9 @@ define([
         url: function() {
             return this.whiteboardId?'whiteboard/'+this.whiteboardId+'/assignments':null
         },
-        parse:function(response){
-            return response;
+        comparator:function(assignment){
+            //sorting by online status
+            return !assignment.get('onWhiteboard');
         },
         getColorByUser:function(user){
             for(var i=0;i<this.length;i++){

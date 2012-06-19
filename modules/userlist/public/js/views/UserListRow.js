@@ -22,7 +22,8 @@ define([
         render:function(){
             var data = {
                 user : this.model.get('user'),
-                color: this.model.get('color')
+                color: this.model.get('color'),
+                online: (this.model.get('onWhiteboard')) ? "online" : "offline",
             };
             var compiledTemplate = _.template( assignmentRowTemplate, data );
             this.el.innerHTML=compiledTemplate;

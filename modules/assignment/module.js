@@ -1,7 +1,6 @@
-var service = require('./rest');
-
 exports.init = function() {
 
 }
 
-exports.rest = service.rest;
+exports.io    = require('./io').io;
+exports.rest  = require('./rest').rest;

@@ -1,0 +1,20 @@
+#settingsMenu div{
+    display:block;
+    float:none!important;
+}
+
+#settingsMenu:hover .settingsMenuContainer ul{
+    display:block;
+}
+
+#settingsMenu .settingsMenuContainer ul{
+    display:none;
+    background: none repeat scroll 0 0 #494949;
+    padding: 10px ;
+    position:absolute;
+    margin: 0px 0 0 -10px;
+}
+
+#settingsMenu .settingsMenuContainer ul li{
+    text-align:left;
+}

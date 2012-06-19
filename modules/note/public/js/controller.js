@@ -8,12 +8,12 @@ define([
     '/note/js/views/confirm_delete.js'
 ], function($, _, Backbone, ModelCommand, SubscribeCommand, NoteView, ConfirmDeleteView) {
     var NoteController = function(options) {
-        _.bindAll(this, 'getNotes', 'createNote','loadedNote','deletedNote', '_handleEditedNote', '_reportElementOrder', 'handleForegroundWhiteboardItem','assignmentSynced','whiteboardClosed','subscribeChannels');
+        _.bindAll(this, 'whiteboardOpened', 'createNote','loadedNote','deletedNote', '_handleEditedNote', '_reportElementOrder', 'handleForegroundWhiteboardItem','assignmentSynced','whiteboardClosed','subscribeChannels');
         window.app.eventDispatcher.bind("whiteboardItem:loaded:note", this.loadedNote);
         window.app.eventDispatcher.bind("whiteboardItem:deleted:note", this.deletedNote);
         
         window.app.eventDispatcher.bind("toolbar:createNote", this.createNote);
-        window.app.eventDispatcher.bind("whiteboard:opened",this.getNotes);
+        window.app.eventDispatcher.bind("whiteboard:opened",this.whiteboardOpened);
         window.app.eventDispatcher.bind("whiteboard:closed",this.whiteboardClosed);
         window.app.eventDispatcher.bind('note:delete', this.deleteNote);
         window.app.eventDispatcher.bind('note:order_change', this._reportElementOrder);
@@ -35,9 +35,19 @@ define([
         },
         subscribeChannels : function() {
             var commands = [];
-            commands.push(new SubscribeCommand('/note/edited/'           + this.whiteboard.id, this._handleEditedNote));
-            commands.push(new SubscribeCommand('/whiteboardItem/order/'  + this.whiteboard.id, this.handleForegroundWhiteboardItem));
+            commands.push(new SubscribeCommand());
+            commands.push(new SubscribeCommand());
             window.app.groupCommand.addCommands(commands);
+        },
+        subscribeChannels:function(){
+            this.subscriptions = [];
+            this.subscriptions.push(window.app.io.subscribe('/note/edited/'           + this.whiteboard.id, this._handleEditedNote));
+            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/order/'  + this.whiteboard.id, this.handleForegroundWhiteboardItem));
+        },
+        unsubscribeChannels:function(){
+            _.each(this.subscriptions,function(subscription){
+                subscription.cancel();
+            })
         },
         loadedNote:function(_note){
             if (this.checkIfViewExists(_note))return;
@@ -50,7 +60,7 @@ define([
             
             this.views.push(view);
         },
-        getNotes : function(whiteboard) {
+        whiteboardOpened : function(whiteboard) {
             this.whiteboard = whiteboard;
             this.views = [];
             this.subscribeChannels();
@@ -82,6 +92,7 @@ define([
         whiteboardClosed:function(){
             this.assignmentSynced = false;
             this.views = [];
+            this.unsubscribeChannels();
         },
         createNote : function() {
             window.app.io.publish('/service/whiteboardItem/post', {

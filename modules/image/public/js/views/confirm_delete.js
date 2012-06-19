@@ -28,15 +28,16 @@ define([
                 this.showDialog();
             }
             else {
+                window.app.eventDispatcher.trigger('whiteboardItem:delete',this.model);
                 window.app.eventDispatcher.trigger('image:delete',this.model);
             }
         },
         shouldShowDialog : function(){
-//            if(typeof window.app.user.get("settings").where(this.showDialogFlag)[0] == "undefined" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == "true" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == true){
-//                return true;
-//            } else {
-//                return false;
-//            }   
+            if(typeof window.app.user.get("settings").where(this.showDialogFlag)[0] == "undefined" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == "true" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == true){
+                return true;
+            } else {
+                return false;
+            }   
             return true;
         },
         hideConfirmDialog:function(evt){
@@ -46,7 +47,7 @@ define([
         },
         confirmed:function(evt){
             evt.preventDefault();
-//            window.app.modules.userSettings.set(this.showDialogFlag,!$('#dialogs :checkbox').is(':checked'));
+            window.app.modules.settings.set(this.showDialogFlag,!$('#dialogs :checkbox').is(':checked'));
             this.hideDialog();
             window.app.eventDispatcher.trigger('image:delete',this.model);
             window.app.eventDispatcher.trigger('whiteboardItem:delete',this.model);

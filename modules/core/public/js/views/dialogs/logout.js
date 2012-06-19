@@ -15,6 +15,8 @@ define([
             'click #logoutContainer input[type=submit]': 'logout'
         },
         render: function(){
+            $('#dialogs').empty();
+            this.delegateEvents();
             var compiledTemplate = _.template(logoutDialogTemplate);
             $(this.el).attr('id','logoutContainer');
             $(this.el).html(compiledTemplate);

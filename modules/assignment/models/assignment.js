@@ -6,7 +6,8 @@ var mongoose         = require('mongoose'),
         color      : [Number],
         user       : [UserSchema],
         isOwner    : Boolean,
-        whiteboard : [WhiteboardSchema]
+        whiteboard : [WhiteboardSchema],
+        onWhiteboard: Boolean
     }),
     model  = mongoose.model('Assignment', schema);
 

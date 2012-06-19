@@ -5,6 +5,9 @@ define([
     '/assignment/js/model/assignment.js'
 ], function(_, Backbone,User) {
     var Assignment = Backbone.Model.extend({
+        defaults:{
+            onWhiteboard:false
+        },
         set: function(attributes, options) {
             if (attributes.user !== undefined && !(attributes.user instanceof User)) {
                 attributes.user = new User(attributes.user[0]);
