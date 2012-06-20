@@ -20,7 +20,7 @@ var register = function(req,res) {
                     subject : 'Welcome to [lao]!',
                     text: '<body style="font-size:12px; font-family:Helvetiva, sans serif;">'+
                           '<h1 style="margin-bottom:10px;">Hello'+username+'</h1><br>'+
-                          'we are glad to welcome you to our [lao] project. Your registration was successful!<br>'+
+                          'we are glad to welcome you to our <a href="http://localhost:3000">[lao]</a> project. Your registration was successful!<br>'+
                           'Now you can create your first whiteboard and develop amazing ideas!<br>'+
                           'Have fun and enjoy this tool!<br><br>'+
                           'Here are your login credentials:<br><br>'+
