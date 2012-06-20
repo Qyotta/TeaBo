@@ -18,7 +18,6 @@ define([
     
     WhiteboardController.prototype = {
         initialize:function(){
-            window.app.log('whiteboard loaded');
             this.whiteboards = new WhiteboardCollection();
             this.confirmDeleteView = new ConfirmDeleteView();
             if(window.app.loggedIn()) {

@@ -11,13 +11,9 @@ define([
         window.app.eventDispatcher.bind("whiteboard:close",this.removeSidebar);
         window.app.eventDispatcher.bind("attachment:isClicked", this.fillAttachmentDataSidebar);
         window.app.eventDispatcher.bind("image:isClicked", this.fillImageDataSidebar);
-        this.initialize();
     };
     
     SidebarController.prototype = {
-        initialize: function() {
-            window.app.log('sidebar loaded');
-        },
         showSidebar : function() {
             this.view = new SidebarView();
         },

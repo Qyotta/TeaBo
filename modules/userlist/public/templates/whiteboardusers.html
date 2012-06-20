@@ -2,6 +2,10 @@
 <div>
     <div id="whiteboard-users-container"></div>
     <form id="invite" action="/inviteUser" method="post">
-        <input class="mailaddress" type="text" name="address" placeholder="type email and press enter">
+        <input class="mailaddress" type="text" name="address" placeholder="invite user">
+        <a href="/userlist/invite">
+            <img src="/userlist/images/inviteButton.gif" alt="submit invitation" class="inviteButton">
+            <img src="/userlist/images/busyIndicator.gif" alt="please wait" class="busy">
+        </a>
     </form>
 </div>

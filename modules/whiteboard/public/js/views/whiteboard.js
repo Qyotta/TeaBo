@@ -5,14 +5,14 @@ define([
     'jquerycollision',
     '/whiteboard/js/utils/modus.js',
     '/core/js/utils/model_command.js',
-    'text!/whiteboard/templates/whiteboard.html',
+    'text!/whiteboard/templates/whiteboard.html'
 ], function($, _, Backbone, collision,WhiteboardModus, ModelCommand, whiteboardTemplate){
     
     var WhiteboardView = Backbone.View.extend({
         events:{
             'mousedown' : 'mouseDown',
             'mousemove' : 'mouseMove',
-            'mouseup'   : 'mouseUp',
+            'mouseup'   : 'mouseUp'
         },
         initialize:function(){
             _.bindAll(this,'modusChanged','keydown','keyup','mouseDown','mouseUp','mouseMove','startMove','move','endMove','render','entersWhiteboardItem','leavesWhiteboardItem');
@@ -73,6 +73,9 @@ define([
             if(this.modus!=_modus)this.modusChanged(_modus);
         },
         keyup:function(event){
+
+            var selectedItems = this.currentSelectedWhiteboardItems();
+
             // 18 == ALT KEY
             if(event.keyCode==18){
                 event.preventDefault();
@@ -81,8 +84,8 @@ define([
                 event.preventDefault();
                 this.modusChanged(WhiteboardModus.SELECT);
             }
-            // [DEL]
-            else if(event.keyCode==46){
+            // [DEL] - only if some items are selected
+            else if(event.keyCode==46 && selectedItems.length){
                 event.preventDefault();
                 window.app.eventDispatcher.trigger('whiteboardItem:delete_clicked', null);
             }
@@ -118,7 +121,7 @@ define([
                 });
                 
                 window.app.groupCommand.addCommands(commands);
-            }  
+            }
         },
         modusChanged:function(modus){
             this.modus = modus;
@@ -136,29 +139,29 @@ define([
             $(this.el).css('left', this.model.get('x') + 'px');
             $(this.el).css('top', this.model.get('y') + 'px');
 
-            if ($("#whiteboard").length == 0) {
+            if ($("#whiteboard").length === 0) {
                 $('#page').empty();
                 this.delegateEvents();
                 $("#page").html($(this.el));
             }
         },
         startMove:function(event){
-            this.startX = parseInt(event.pageX);
-            this.startY = parseInt(event.pageY);
+            this.startX = parseInt(event.pageX,10);
+            this.startY = parseInt(event.pageY,10);
         },
         move:function(e){
             if(!this.startX || !this.startY)return;
             
-            var xMove = this.startX - parseInt(e.pageX);
-            var yMove = this.startY - parseInt(e.pageY);
+            var xMove = this.startX - parseInt(e.pageX,10);
+            var yMove = this.startY - parseInt(e.pageY,10);
             
             var _x = this.model.get('x')-xMove;
             var _y = this.model.get('y')-yMove;
             
             this.model.set({x:_x,y:_y});
 
-            this.startX = parseInt(e.pageX);
-            this.startY = parseInt(e.pageY);
+            this.startX = parseInt(e.pageX,10);
+            this.startY = parseInt(e.pageY,10);
         },
         endMove:function(){
             var _x = this.model.get('x');
@@ -171,7 +174,7 @@ define([
                 $(this.el).animate({top: yJump+'px', left: xJump+'px'},200,function(){self.model.set({x:xJump,y:yJump});});
             }
             this.startX = null;
-            this.startY = null;  
+            this.startY = null;
         },
         startSelection: function(e) {
             e.preventDefault();
@@ -234,7 +237,7 @@ define([
         },
         currentSelectedWhiteboardItems:function(){
             return $(this.el).find('.whiteboarditem.selected');
-        },
+        }
     });
     
     return WhiteboardView;
