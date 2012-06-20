@@ -19,17 +19,14 @@
     text-align:left;
 }
 
-.dialog {
-    
-}
 .dialog h1 {
     /*background: url("../images/lao_register.png") no-repeat scroll 0 0 transparent;*/
     bottom: 3px;
     color: #B2B2B2;
     font-size: 16px;
     height: 45px;
-    position: relative;
     width: 100%;
+    margin: 0px;
 }
 
 .dialog > form > input {
@@ -48,4 +45,33 @@
     -o-box-shadow: 0px 0px 5px #AAA;
     box-shadow: 0 0 5px #AAAAAA;
     text-align:center;
+    padding: 15px;
+}
+
+.userPreferencesDialog h1 span {
+    display: block;
+    font-size: 11px;
+    
+}
+
+.userPreferencesDialog dl dt {
+    color: #B2B2B2;
+    float: left;
+    height: 18px;
+    margin-right: 10px;
+    padding-top: 4px;
+    text-align: right;
+    width: 133px;
+    clear:both;
+}
+.userPreferencesDialog dl dt a {
+    color: #B2B2B2
+}
+.userPreferencesDialog dl dd {
+    margin-bottom:5px;
+}
+
+.sumbitCancelButtons {
+    margin: 20px 0 10px 102px;  
+    float: right;
 }

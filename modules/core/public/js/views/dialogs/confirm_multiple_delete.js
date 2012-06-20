@@ -14,12 +14,12 @@ define([
             window.app.eventDispatcher.bind("whiteboardItem:delete_multiple",this.showConfirmDialog);
         },
         events:{
-            'click #confirmDeleteMultipleContainer button.cancel' : 'hideConfirmDialog',
-            'click #confirmDeleteMultipleContainer input[type=submit]': 'confirmed'
+            'click .dialogContainer button.cancel' : 'hideConfirmDialog',
+            'click .dialogContainer input[type=submit]': 'confirmed'
         },
         render: function(){
             var compiledTemplate = _.template(confirmDeleteTemplate);
-            $(this.el).attr('id','confirmDeleteMultipleContainer');
+            $(this.el).attr('class','dialogContainer');
             $(this.el).html(compiledTemplate);
             $('#dialogs').html(this.el);
         },

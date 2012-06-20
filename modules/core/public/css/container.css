@@ -251,7 +251,7 @@
     z-index: 1000;
 }
 
-#confirmDeleteAttachmentContainer, #confirmDeleteNoteContainer, #confirmDeleteMultipleContainer, #logoutContainer{
+.dialogContainer{
     display:none;
     width:320px;
     height:50px;
@@ -272,10 +272,10 @@
     z-index:101;
 }
 
-#confirmDeleteAttachmentContainer .delete-attachment-button form,#confirmDeleteNoteContainer .delete-note-button form {margin:10px 0 0 0;}
-#confirmDeleteAttachmentContainer,#confirmDeleteNoteContainer{height:80px;}
+#confirmDeleteAttachmentContainer .delete-attachment-button form, #dialogContainer .delete-note-button form {margin:10px 0 0 0;}
+#confirmDeleteAttachmentContainer,#dialogContainer{height:80px;}
 
-#confirmDeleteMultipleContainer{
+.dialogContainer{
     height:100px;
 }
 
