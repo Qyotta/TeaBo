@@ -3,7 +3,7 @@ define([
     'underscore',
     'backbone',
     '/core/js/views/dialogs/dialog.js',
-    'text!/core/templates/dialogs/logout.html'
+    'text!/user/templates/logoutDialog.html'
 ], function($, _, Backbone, Dialog, logoutDialogTemplate){
     var LogoutDialogView = Dialog.extend({
         initialize:function(){
@@ -35,7 +35,7 @@ define([
             $.ajax({
                 url: 'user/logout',
                 type: 'post',
-                success: function(data){ 
+                success: function(data){
                     window.app.logout();
                     if(!window.app.loggedIn()){
                         self.hideDialog();
