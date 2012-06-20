@@ -9,6 +9,7 @@ define([
         initialize:function(){
             _.bindAll(this,'showLogoutDialog');
             window.app.eventDispatcher.bind("logoutClicked",this.showLogoutDialog);
+            $(this.el).attr("id","logoutContainer");
         },
         events:{
             'click button.cancel' : 'hideLogoutDialog',
