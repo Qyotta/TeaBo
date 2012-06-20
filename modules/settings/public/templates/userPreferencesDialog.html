@@ -1,38 +1,34 @@
-<div class="userPreferencesDialog">
+<h1>
+    Change your settings
+    <span>Fields with * are required.</span>
+</h1>
 
-    <h1>
-        User Settings
-        <span>Fields with * are required.</span>
-    </h1>
+<form method="post" action="">
+    <dl>
+        <dt>Firstname:*</dt>
+        <dd> 
+            <input  id="firstNameField" type="text">
+        </dd>
 
-    <form method="post" action="">
-        <dl>
-            <dt>Firstname:*</dt>
-            <dd> 
-                <input id="firstNameField" type="text" placeholder="firstname" value="name">
-            </dd>
+        <dt>Lastname:*</dt>
+        <dd>
+             <input id="lasteNameField" type="text">
+        </dd>
 
-            <dt>Lastname:*</dt>
-            <dd>
-                 <input id="lasteNameField" type="text" placeholder="lastname" value="lastname">
-            </dd>
+        <dt>Email Address:*</dt>
+        <dd> 
+             <input id="emailField" type="email">
+        </dd>
 
-            <dt>Email Address:*</dt>
-            <dd> 
-                 <input id="emailField" type="email" placeholder="email" value="email">
-            </dd>
+        <dt>Position:</dt>
+        <dd>
+             <input id="positionField" type="text">
+        </dd>
+    </dl>
 
-            <dt>Position:</dt>
-            <dd>
-                 <input id="positionField" type="text" placeholder="position" value="position">
-            </dd>
-        </dl>
-   
-       <div id="sumbitCancelButtons">
-            <input type="submit" value="Submit">
-            <button type="button" class="cancel">Cancel</button>
-       </div>
-              
-    </form>
-
-</div>
+   <div id="sumbitCancelButtons">
+        <input type="submit" value="Submit">
+        <button type="button" class="cancel">Cancel</button>
+   </div>
+          
+</form>

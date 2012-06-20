@@ -13,12 +13,12 @@ define([
             window.app.eventDispatcher.bind("attachment:delete_clicked",this.showConfirmDialog);
         },
         events:{
-            'click .dialogContainer button.cancel' : 'hideConfirmDialog',
-            'click .dialogContainer input[type=submit]': 'confirmed'
+            'click .dialog button.cancel' : 'hideConfirmDialog',
+            'click .dialog input[type=submit]': 'confirmed'
         },
         render: function(){
             var compiledTemplate = _.template(confirmDeleteTemplate);
-            $(this.el).attr('class','dialogContainer');
+            $(this.el).attr('class','dialog');
             $(this.el).html(compiledTemplate);
             $('#dialogs').html(this.el);
         },

@@ -10,6 +10,8 @@ define([
         initialize : function(options) {
             _.bindAll(this, 'showPreferencesDialog');
             window.app.eventDispatcher.bind("settingsMenu:userPreferences", this.showPreferencesDialog);
+             $(this.el).attr("id","userPreferencesDialog");
+            
         },
         events : {
             'click button.cancel' : 'canceled',

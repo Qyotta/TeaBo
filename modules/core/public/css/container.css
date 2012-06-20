@@ -251,17 +251,18 @@
     z-index: 1000;
 }
 
-.dialogContainer{
+.dialog{
+    padding: 15px;
     display:none;
     width:320px;
-    height:50px;
     position:absolute;
     top:50%;
     left:50%;
-    margin: -25px 0 0 -160px;
+    -moz-transform:translate(-50%, -50%);
+    -webkit-transform:translate(-50%, -50%);
+    transform:translate(-50%, -50%);
     background: none repeat scroll 0 0 #494949;
     color: #B2B2B2;
-    padding:10px 0 5px 0;
     text-align: center;
     border: 1px solid #B2B2B2;
     font-size: 16px;
@@ -272,11 +273,8 @@
     z-index:101;
 }
 
-#confirmDeleteAttachmentContainer .delete-attachment-button form, #dialogContainer .delete-note-button form {margin:10px 0 0 0;}
-#confirmDeleteAttachmentContainer,#dialogContainer{height:80px;}
-
-.dialogContainer{
-    height:100px;
+.delete-attachment-button form, .dialog .delete-note-button form {
+    margin:10px 0 0 0;
 }
 
 .hide-confirm-container{

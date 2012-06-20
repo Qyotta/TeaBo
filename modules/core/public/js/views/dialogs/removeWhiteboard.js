@@ -13,14 +13,13 @@ define([
             this.whiteboardID = undefined;
         },
         events:{
-            'click .dialog button.cancel' : 'hideDialog',
-            'click .dialog input[type=submit]': 'removeWhiteboard'
+            'click button.cancel' : 'hideDialog',
+            'click input[type=submit]': 'removeWhiteboard'
         },
         render: function(){
             $('#dialogs').empty();
             this.delegateEvents();
             var compiledTemplate = _.template(removeWhiteboardDialogTemplate);
-            $(this.el).addClass('dialog');
             $(this.el).html(compiledTemplate);
             $('#dialogs').html(this.el);
         },
