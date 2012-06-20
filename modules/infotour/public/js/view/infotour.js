@@ -17,7 +17,7 @@ define([
             _.bindAll(this,'startTour','nextToolTip','prevToolTip','closeToolTip');
             this.toolTipCnt = 0;
             this.toolTips   = null;
-            
+            this.isVisible  = false;
             this.render();
         },
         render : function() {
@@ -28,6 +28,7 @@ define([
         },
         startTour : function() {
             this.toolTipCnt = 0;
+            this.isVisible  = true;
             this.nextToolTip();
             return false;
         },
@@ -41,7 +42,7 @@ define([
                     $(that.toolTips[that.toolTipCnt]).fadeIn(500);
                     that.toolTipCnt++;
                 });
-            }   
+            }
         },
         prevToolTip: function() {
             var that = this;
@@ -56,8 +57,15 @@ define([
             });
         },
         closeToolTip: function() {
-            window.app.modules.settings.set(this.showDialogFlag,!$('#showAgain').is(':checked'));
-            $(this.toolTips[this.toolTipCnt-1]).fadeOut(500);
+
+            if(this.isVisible) {
+                window.app.modules.settings.set(this.showDialogFlag,!$('#showAgain').is(':checked'));
+            }
+
+            $(this.toolTips[this.toolTipCnt-1]).fadeOut(500, function() {
+                this.isVisible = false;
+            });
+            
         },
         setCheckbox: function(value){
             this.el.find(':checkbox').attr('checked', value);

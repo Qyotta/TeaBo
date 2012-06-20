@@ -78,9 +78,8 @@ define([ 'jquery',
             var compiledTemplate = _.template(noteTemplate, data);
             
             $(this.el).attr("id", this.model.id);
-            $(this.el).addClass("whiteboarditem note draggable hoverable");
+            $(this.el).addClass("note");
             
-            $(this.el).css('position', 'absolute');
             if ($('#'+this.model.id).length > 0) {
                 $('#'+this.model.id).css('left', this.model.get('x') + 'px');
                 $('#'+this.model.id).css('top', this.model.get('y') + 'px');
