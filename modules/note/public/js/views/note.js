@@ -81,11 +81,11 @@ define([ 'jquery',
             $(this.el).addClass("whiteboarditem note draggable hoverable");
             
             $(this.el).css('position', 'absolute');
-            if ($(this.model.id).length > 0) {
-                $(this.model.id).css('left', this.model.get('x') + 'px');
-                $(this.model.id).css('top', this.model.get('y') + 'px');
-                $(this.model.id).css('z-index', this.model.get('orderIndex'));
-                $(this.model.id).html(compiledTemplate);
+            if ($('#'+this.model.id).length > 0) {
+                $('#'+this.model.id).css('left', this.model.get('x') + 'px');
+                $('#'+this.model.id).css('top', this.model.get('y') + 'px');
+                $('#'+this.model.id).css('z-index', this.model.get('orderIndex'));
+                $('#'+this.model.id).html(compiledTemplate);
             } else {
                 $(this.el).css('left', this.model.get('x') + 'px');
                 $(this.el).css('top', this.model.get('y') + 'px');

@@ -11,6 +11,7 @@ define([
         events:{
             'click .file_mouseOverMenu_bottom' : 'deleteClicked',
             'click ' : 'startEditing',
+            'mousedown ' : 'orderChange',
             'mouseenter' : 'entersWhiteboardItem',
             'mouseleave' : 'leavesWhiteboardItem'
         },
@@ -28,7 +29,7 @@ define([
             });
         },
         startEditing:function(){
-            console.log("startEditing")
+            console.log("startEditing");
             window.app.eventDispatcher.trigger('whiteboardItem:startedEditing',this);
             $(this.el).addClass('edited');
             this.orderChange();
@@ -130,7 +131,7 @@ define([
             }
         },
         orderChange : function () {
-            window.app.eventDispatcher.trigger(this.name+":order_change", this.model);
+            window.app.eventDispatcher.trigger("whiteboardItem:order_change", this.model);
         },
         handleForegroundWhiteboardItem : function(message){
             $(this.el).css('z-index', message.data.newIndex);

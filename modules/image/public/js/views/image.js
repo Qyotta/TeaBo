@@ -59,6 +59,7 @@ define([ 'jquery',
                         this.model.get('x') + 'px');
                 $('#'+this.model.id).css('top',
                         this.model.get('y') + 'px');
+                $('#'+this.model.id).css('z-index', this.model.get('orderIndex'));
                 $('#'+this.model.id).html(compiledTemplate);
                 if (this.baseWidth != null) {
                     imageWidth = this.model.get('content').get('scale') * this.baseWidth;
@@ -71,6 +72,7 @@ define([ 'jquery',
             } else {
                 $(this.el).css('left', this.model.get('x') + 'px');
                 $(this.el).css('top', this.model.get('y') + 'px');
+                $(this.el).css('z-index', this.model.get('orderIndex'));
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
                 if (this.baseWidth != null) {
                     imageWidth = this.model.get('content').get('scale') * this.baseWidth;

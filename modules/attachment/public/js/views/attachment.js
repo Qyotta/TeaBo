@@ -74,12 +74,14 @@ define([ 'jquery',
                         this.model.get('x') + 'px');
                 $('#'+this.model.id).css('top',
                         this.model.get('y') + 'px');
+                $('#'+this.model.id).css('z-index', this.model.get('orderIndex'));
                 $('#'+this.model.id).html(compiledTemplate);
                 
 
             } else {
                 $(this.el).css('left', this.model.get('x') + 'px');
                 $(this.el).css('top', this.model.get('y') + 'px');
+                $(this.el).css('z-index', this.model.get('orderIndex'));
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
 
             }
