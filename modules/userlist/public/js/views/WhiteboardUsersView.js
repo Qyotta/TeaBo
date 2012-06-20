@@ -13,7 +13,8 @@ define([
             'click a' : 'preventDefault',
             'submit form#invite' : 'inviteUser',
             'focus .mailaddress' : 'freezeUserlist',
-            'blur .mailaddress' : 'freezeUserlist'
+            'blur .mailaddress' : 'freezeUserlist',
+            'click a[href="/userlist/invite"]' : 'inviteUser'
         },
         preventDefault:function(e) {
             e.preventDefault();
@@ -21,13 +22,15 @@ define([
         inviteUser:function(e) {
             e.preventDefault();
 
-            var input = $(this.el).find('input.mailaddress');
+            var input  = $(this.el).find('input.mailaddress'),
+                button = $(this.el).find('img.inviteButton');
 
             if(this.isInviteInProgress === true){
                 return false;
             }
 
             this.isInviteInProgress = true;
+            button.css('display','none');
             
             var self = this;
             $.ajax({
@@ -47,6 +50,7 @@ define([
                     
                     self.isInviteInProgress = false;
                     input.val("");
+                    button.removeAttr('style');
                 },
                 error: function(err){
                     new Notice({ message: err.statusText });

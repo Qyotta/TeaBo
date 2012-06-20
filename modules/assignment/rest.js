@@ -29,13 +29,35 @@ var getAssignments = function(req,res) {
 
 var inviteUser = function(req,res) {
     var email        = req.body.email,
-        whiteboardId = QueryObjectId(req.body.whiteboardId);
+        whiteboardId = QueryObjectId(req.body.whiteboardId),
+        // matches <anystring>@<anystring>.<anystring>
+        // the length of the last part gets unrelevant in near future because of the new TLD e.g. *.hamburg etc.
+        regex        = /\S+@\S+\.\S+/;
+
+    // validate mail adress
+    if(!regex.test(email)) {
+        res.send({
+            res: {
+                type: 'error',
+                message: 'email adress is not valid'
+            }
+        });
+        return false;
+    }
 
     Assignments.find({'user.email':email,'whiteboard._id':whiteboardId}, function(err,assignments) {
-        if(assignments.length>0){
-            res.send({'error': 'user already assigned'});
-        }
-        else if(!err) {
+        
+        if(assignments.length > 0){
+        
+            res.send({
+                res: {
+                    type: 'error',
+                    message: 'user already assigned'
+                }
+            });
+            return false;
+        
+        } else if(!err) {
             User.findOne({'email':email}, function(err,user) {
                 if(!err && user) {
                     // assign existing user to whiteboard
@@ -97,9 +119,12 @@ var inviteUser = function(req,res) {
                                             });
                                         } else {
                                             res.send({
-                                                type: 'error',
-                                                message: email+' was invited to this whiteboard but email wasn\'t send!'}
+                                                res: {
+                                                    type: 'error',
+                                                    message: email+' was invited to this whiteboard but email wasn\'t send!'}
+                                                }
                                             );
+                                            return false;
                                         }
                                     }
                                 });
@@ -109,7 +134,13 @@ var inviteUser = function(req,res) {
                 }
             });
         } else {
-            res.send({'error': 'whiteboard not found'});
+            res.send({
+                res: {
+                    type: 'error',
+                    message: 'whiteboard not found'
+                }
+            });
+            return false;
         }
     });
 };
