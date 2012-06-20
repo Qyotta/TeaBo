@@ -251,7 +251,7 @@
     z-index: 1000;
 }
 
-#confirmDeleteAttachmentContainer, #confirmDeleteNoteContainer, #confirmDeleteMultipleContainer, #logoutContainer{
+#confirmDeleteAttachmentContainer, #confirmDeleteNoteContainer, #confirmDeleteMultipleContainer, #logoutContainer, .dialog{
     display:none;
     width:320px;
     height:50px;
