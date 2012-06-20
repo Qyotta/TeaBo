@@ -5,8 +5,9 @@ define([
     '/settings/js/collection/settings.js',
     '/settings/js/model/settings.js',
     '/core/js/utils/settings_command.js',
-    '/settings/js/views/UserPreferencesDialog.js'
-], function($, _, Backbone, UserSettingsCollection, UserSettings, UserSettingsCommand,UserPreferencesDialog){
+    '/settings/js/views/UserPreferencesDialog.js',
+    '/settings/js/views/ChangePasswordDialog.js'
+], function($, _, Backbone, UserSettingsCollection, UserSettings, UserSettingsCommand,UserPreferencesDialog, ChangePasswordDialog){
     var UserSettingsController = function(options){
         
         _.bindAll(this,'sync','set', 'get');
@@ -18,6 +19,7 @@ define([
     UserSettingsController.prototype = {
         initialize:function(){
             this.userPreferencesDialog = new UserPreferencesDialog();
+            this.changePasswordDialog = new ChangePasswordDialog();
         },
         sync:function(){
             if(!window.app.loggedIn()){

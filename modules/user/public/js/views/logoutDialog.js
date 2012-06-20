@@ -11,14 +11,13 @@ define([
             window.app.eventDispatcher.bind("logoutClicked",this.showLogoutDialog);
         },
         events:{
-            'click #logoutContainer button.cancel' : 'hideLogoutDialog',
-            'click #logoutContainer input[type=submit]': 'logout'
+            'click button.cancel' : 'hideLogoutDialog',
+            'click input[type=submit]': 'logout'
         },
         render: function(){
             $('#dialogs').empty();
             this.delegateEvents();
             var compiledTemplate = _.template(logoutDialogTemplate);
-            $(this.el).attr('id','logoutContainer');
             $(this.el).html(compiledTemplate);
             $('#dialogs').html(this.el);
         },

@@ -1,7 +1,34 @@
-<div class="userPreferencesDialog">
-	<h1>User Preferences</h1>
-    <form method="post" action="">
+<h1>
+    Change your settings
+    <span>Fields with * are required.</span>
+</h1>
+
+<form method="post" action="">
+    <dl>
+        <dt>Firstname:*</dt>
+        <dd> 
+            <input  id="firstNameField" type="text">
+        </dd>
+
+        <dt>Lastname:*</dt>
+        <dd>
+             <input id="lasteNameField" type="text">
+        </dd>
+
+        <dt>Email Address:*</dt>
+        <dd> 
+             <input id="emailField" type="email">
+        </dd>
+
+        <dt>Position:</dt>
+        <dd>
+             <input id="positionField" type="text">
+        </dd>
+    </dl>
+
+   <div id="sumbitCancelButtons">
         <input type="submit" value="Submit">
         <button type="button" class="cancel">Cancel</button>
-    </form>
-</div>
+   </div>
+          
+</form>

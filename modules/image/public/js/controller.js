@@ -109,7 +109,6 @@ define([
                         alert("Your File was not valid.");
                     }
                     else {
-                        window.app.log(self.whiteboard.id);
                         window.app.groupCommand.addCommands(new ModelCommand(
                             '/whiteboardItem/posted/'+self.whiteboard.id, image
                         ));

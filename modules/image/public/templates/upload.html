@@ -1,18 +1,16 @@
-<div id="imageUploadContainer">
-    <h1>
-        Upload an Image
-        <span>Supported file types are JPG, PNG and GIF.</span>
-    </h1>
-    <iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
-    <form method="post" enctype="multipart/form-data" id="imageUpload" action="/image/upload" target="uploadFrame">
-        <span>Image</span>
-        <input type="file" name="data">
-        <input type="hidden" name="whiteboardId" id="whiteboardId" value="<%=whiteboard.id%>"/>
-        <input type="hidden" name="x" id="x" value="<%=x%>"/>
-        <input type="hidden" name="y" id="y" value="<%=y%>"/>
-        <div>
-            <input type="submit" value="Submit">
-            <button type="button" class="cancel">Cancel</button>
-        </div> 
-    </form>
-</div>
+<h1>
+    Upload an Image
+    <span>Supported file types are JPG, PNG and GIF.</span>
+</h1>
+<iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
+<form method="post" enctype="multipart/form-data" id="imageUpload" action="/image/upload" target="uploadFrame">
+    <span>Image</span>
+    <input type="file" name="data">
+    <input type="hidden" name="whiteboardId" id="whiteboardId" value="<%=whiteboard.id%>"/>
+    <input type="hidden" name="x" id="x" value="<%=x%>"/>
+    <input type="hidden" name="y" id="y" value="<%=y%>"/>
+    <div>
+        <input type="submit" value="Submit">
+        <button type="button" class="cancel">Cancel</button>
+    </div> 
+</form>

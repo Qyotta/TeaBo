@@ -5,36 +5,43 @@ var     fs             = require('fs'),
 
 var imageUpload = function(req,res){
     var imageFileExtension = req.files.data.type.split("/").pop();
+    var maxOrder = 0;
+    WhiteboardItem.findOne({whiteboard:req.body.whiteboardId}).sort('orderIndex', -1).run(function(err,maxWhiteboardItem) {
+        if(maxWhiteboardItem){
+            maxOrder = maxWhiteboardItem.orderIndex;
+        }
+    });
     User.findOne({_id:req.session.user._id}, function(err,foundUser) {
-            if(err)console.log(err);
-            var whiteboardItem = new WhiteboardItem({
-                editing     : false,
-                orderIndex  : 0, // TODO change this to the current number of items
-                x           : req.body.x,
-                y           : req.body.y,
-                creator     : foundUser._id,
-                whiteboard  : req.body.whiteboardId,
-                type        : 'image', 
-                content     : {extension:imageFileExtension,scale:1.0}
-            });
-            whiteboardItem.save();
+        maxOrder++;
+        if(err)console.log(err);
+        var whiteboardItem = new WhiteboardItem({
+            editing     : false,
+            orderIndex  : maxOrder,
+            x           : req.body.x,
+            y           : req.body.y,
+            creator     : foundUser._id,
+            whiteboard  : req.body.whiteboardId,
+            type        : 'image', 
+            content     : {extension:imageFileExtension,scale:1.0}
+        });
+        whiteboardItem.save();
 
-            var id = whiteboardItem._id;
-            var newPath = __dirname + "/uploads/"+id;
-            
-            fs.rename(req.files.data.path, newPath, function (err) {
-                if (err) console.log("error in imageUpload: "+err);
-                res.send({ x : whiteboardItem.x,
-                      y : whiteboardItem.y,
-                      _id: id,
-                      creator     : whiteboardItem.creator,
-                      editing     : whiteboardItem.editing,
-                      orderIndex  : whiteboardItem.orderIndex,
-                      type        : whiteboardItem.type,
-                      content     : whiteboardItem.content
-                    });
-            });
-        })
+        var id = whiteboardItem._id;
+        var newPath = __dirname + "/uploads/"+id;
+        
+        fs.rename(req.files.data.path, newPath, function (err) {
+            if (err) console.log("error in imageUpload: "+err);
+            res.send({ x : whiteboardItem.x,
+                  y : whiteboardItem.y,
+                  _id: id,
+                  creator     : whiteboardItem.creator,
+                  editing     : whiteboardItem.editing,
+                  orderIndex  : whiteboardItem.orderIndex,
+                  type        : whiteboardItem.type,
+                  content     : whiteboardItem.content
+                });
+        });
+    });
 };
 
 var imageDownload = function(req,res){

@@ -4,14 +4,12 @@ define([
     'backbone', 
     '/core/js/utils/model_command.js',
     '/core/js/views/dialogs/dialog.js',
-    'text!/settings/templates/userPreferencesDialog.html'
-], function($, _, Backbone, ModelCommand, Dialog, userPreferencesDialogTemplate) {
-    var UserPreferencesDialog = Dialog.extend({
+    'text!/settings/templates/changePasswordDialog.html'
+], function($, _, Backbone, ModelCommand, Dialog, changePasswordDialogTemplate) {
+    var ChangePasswordDialog = Dialog.extend({
         initialize : function(options) {
-            _.bindAll(this, 'showPreferencesDialog');
-            window.app.eventDispatcher.bind("settingsMenu:userPreferences", this.showPreferencesDialog);
-             $(this.el).attr("id","userPreferencesDialog");
-            
+            _.bindAll(this, 'showChangePasswordDialog');
+            window.app.eventDispatcher.bind("settingsMenu:changePassword", this.showChangePasswordDialog);
         },
         events : {
             'click button.cancel' : 'canceled',
@@ -26,16 +24,16 @@ define([
         },
         render : function() {
             var data = {};
-            var compiledTemplate = _.template(userPreferencesDialogTemplate, data);
+            var compiledTemplate = _.template(changePasswordDialogTemplate, data);
             $(this.el).html(compiledTemplate);
             $('#dialogs').html(this.el);
             this.delegateEvents();
         },
-        showPreferencesDialog : function() {
-            console.log("show user preferences dialog");
+        showChangePasswordDialog : function() {
+            console.log("show change password dialog");
             this.showDialog();
         }
     });
 
-    return UserPreferencesDialog;
+    return ChangePasswordDialog;
 });
