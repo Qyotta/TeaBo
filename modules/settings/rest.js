@@ -8,11 +8,21 @@ var set = function(req,res) {
     }
     User.findById(req.session.user._id, function(err, user) {
         if(user) {
-            var setting = new Settings({
-                key: req.body.key,
-                value: req.body.value
-            })
-            user.settings.push(setting);
+            if(!user.settings.length){
+                var setting = new Settings({
+                    key: req.body.key,
+                    value: req.body.value
+                });
+                user.settings.push(setting);
+            }
+            else {
+                for(var i = 0; i < user.settings.length;i++){
+                    if(user.settings[i].key === req.body.key){
+                        user.settings[i].value = req.body.value;
+                    }
+                }
+            }
+            
             user.save();
             res.send('');
         }
