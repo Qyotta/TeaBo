@@ -12,7 +12,6 @@ define([ 'jquery',
         events : {
             'dblclick .imageItems' : 'openFancybox',
             'click .imageItems' : 'isClicked'
-            
         },
         constructor: function(){
             this.events = _.extend( {}, WhiteboardItemView.prototype.events, this.events );
@@ -20,7 +19,7 @@ define([ 'jquery',
          },
         initialize : function(options) {
             WhiteboardItemView.prototype.initialize.apply( this );
-            _.bindAll(this, 'isBlured','changed','assignmentChanged', 'isClicked', 'openFancybox', 'render');
+            _.bindAll(this, 'changed','assignmentChanged', 'isClicked', 'openFancybox', 'render');
             this.model.get('content').bind('change:scale',this.changed,this);
             
             this.controller = options.controller;
@@ -30,17 +29,9 @@ define([ 'jquery',
             this.render();
         },
         changed:function(){
-            console.log('changed');
-                this.render();
-        },
-        isFocused : function() {
-            $(this.el).addClass(".edited");
-        },
-        isBlured : function() {
-            $(this.el).removeClass(".edited");
+            this.render();
         },
         render : function() {
-            console.log("render image");
             var _creator = window.app.modules.assignment.getUser(this.model.get('creator'));
             if(!_creator)return false;
             
@@ -51,7 +42,7 @@ define([ 'jquery',
             };
             var compiledTemplate = _.template(imageTemplate, data);
             $(this.el).attr("id", this.model.id);
-            $(this.el).addClass("whiteboarditem image draggable hoverable");
+            $(this.el).addClass("image");
             
             var imageWidth;
             if ($('#'+this.model.id).length > 0) {
@@ -65,10 +56,8 @@ define([ 'jquery',
                     $("#" + this.model.id).find(".imageItems img").attr(
                             'width', imageWidth);
                 }
-
-                //
-
-            } else {
+            } 
+            else {
                 $(this.el).css('left', this.model.get('x') + 'px');
                 $(this.el).css('top', this.model.get('y') + 'px');
                 $("#whiteboard").append($(this.el).html(compiledTemplate));
@@ -76,7 +65,6 @@ define([ 'jquery',
                     imageWidth = this.model.get('content').get('scale') * this.baseWidth;
                     $(this.el).find('.imageItems img').attr('width', imageWidth);
                 }
-
             }
             var self = this;
             var model = this.model;

@@ -19,6 +19,10 @@ define([
             this.model.bind('change:x',this.changedPosition,this);
             this.model.bind('change:y',this.changedPosition,this);
 
+            $(this.el).addClass("whiteboarditem draggable hoverable");
+            $(this.el).css('position', 'absolute');
+            
+
             window.app.eventDispatcher.bind("whiteboardItem:delete_clicked", this.deleteClicked);
             
             $(this.el).draggable({
@@ -28,7 +32,6 @@ define([
             });
         },
         startEditing:function(){
-            console.log("startEditing")
             window.app.eventDispatcher.trigger('whiteboardItem:startedEditing',this);
             $(this.el).addClass('edited');
             this.orderChange();
