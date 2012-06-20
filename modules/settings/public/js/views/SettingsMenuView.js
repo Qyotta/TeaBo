@@ -14,7 +14,11 @@ define([
             {display:"Change Password",css:"changePassword"}
         ],
         initialize : function(options) {
-            _.bindAll(this,'menuItemClicked');
+            _.bindAll(this,'menuItemClicked','unrender');
+            window.app.eventDispatcher.bind("logout",this.unrender);
+        },
+        unrender:function(){
+            $(this.el).empty();
         },
         render : function() {
             var data = {
