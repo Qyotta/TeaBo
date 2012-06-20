@@ -7,22 +7,22 @@
     <dl>
         <dt>Firstname:*</dt>
         <dd> 
-            <input  id="firstNameField" type="text">
+            <input  id="firstNameField" type="text" value="<%=user.get('firstname')%>">
         </dd>
 
         <dt>Lastname:*</dt>
         <dd>
-             <input id="lasteNameField" type="text">
+             <input id="lastNameField" type="text" value="<%=user.get('lastname')%>">
         </dd>
 
         <dt>Email Address:*</dt>
         <dd> 
-             <input id="emailField" type="email">
+             <input id="emailField" type="email" value="<%=user.get('email')%>">
         </dd>
 
         <dt>Position:</dt>
         <dd>
-             <input id="positionField" type="text">
+             <input id="positionField" type="text" value="<%=user.get('position')%>">
         </dd>
     </dl>
 

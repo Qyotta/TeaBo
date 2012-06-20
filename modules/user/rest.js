@@ -1,6 +1,18 @@
 var User   = require('./models/user').model,
     mailer = require('../../utils/laoMailer');
 
+var changePreferences = function(req,res){
+    User.findOne({'_id':req.body._id},function(err,foundUser){
+        foundUser.email = req.body.email;
+        foundUser.firstname = req.body.firstname;
+        foundUser.lastname = req.body.lastname;
+        foundUser.position = req.body.position;
+        foundUser.save(function(err) {
+            res.send({success:true});
+        });
+    })
+}
+
 var register = function(req,res) {
     var username = req.body.firstname.length && req.body.lastname.length ? ' ' + req.body.firstname + ' ' + req.body.lastname : '';
 
@@ -79,6 +91,7 @@ var getSession = function(req,res) {
 };
 
 exports.rest = [
+    { url: '/user',         type: 'put',   callback: changePreferences},
     { url: '/user',         type: 'post',   callback: register},
     { url: '/user/login',   type: 'post',   callback: postLogin},
     { url: '/user/logout',  type: 'post',   callback: postLogout },
