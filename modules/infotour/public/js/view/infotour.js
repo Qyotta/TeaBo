@@ -1,9 +1,8 @@
-define([ 
-    'jquery', 
-    'underscore', 
-    'backbone',
-    'text!/infotour/templates/infotour.html'
-], function($, _, Backbone, TooltipsTemplate) {
+define([
+    'jquery',
+    'underscore',
+    'backbone'
+], function($, _, Backbone) {
     
     var TooltipsView = Backbone.View.extend({
         el: $('#tooltips'),
@@ -14,19 +13,21 @@ define([
             'click .prevToolTip' :'prevToolTip'
         },
         initialize : function(options) {
-            _.bindAll(this,'startTour','nextToolTip','prevToolTip','closeToolTip');
+            _.bindAll(this,'startTour','nextToolTip','prevToolTip','closeToolTip','getInfoTourTemplates');
+            window.app.eventDispatcher.bind('application:modulesLoaded',this.getInfoTourTemplates);
             this.toolTipCnt = 0;
             this.toolTips   = null;
             this.isVisible  = false;
-            this.render();
+            this.templates  = [];
         },
         render : function() {
             var data = {};
-            var compiledTemplate = _.template( TooltipsTemplate, data );
+            var compiledTemplate = _.template( this.templates, data );
             this.el.html(compiledTemplate);
             this.toolTips = $('#tooltips div[data-type="tooltip"]');
         },
         startTour : function() {
+            this.render();
             this.toolTipCnt = 0;
             this.isVisible  = true;
             this.nextToolTip();
@@ -69,6 +70,32 @@ define([
         },
         setCheckbox: function(value){
             this.el.find(':checkbox').attr('checked', value);
+        },
+        getInfoTourTemplates: function() {
+            var i    = 0,
+                that = this;
+
+            _.each(window.app.modules, function(module,key) {
+                if(typeof module.index === 'number') {
+                    require(['text!/'+key+'/templates/infotour.html'],function(template) {
+                        if(module.index === 0) {
+                            that.templates[0] += template;
+                        } else {
+                            that.templates[module.index] = template;
+                        }
+                        
+                        ++i;
+                        if(i === window.modules.length) {
+                            var unrelevantElements = that.templates[0];
+                            that.templates.shift();
+                            that.templates = that.templates.join('\n') + unrelevantElements;
+                            that.render();
+                        }
+                    });
+                } else {
+                    ++i;
+                }
+            });
         }
     });
 

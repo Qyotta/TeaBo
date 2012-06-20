@@ -25,17 +25,18 @@ define([
         initialize : function(){
             
         },
+        index: 5,
         subscribeChannels:function(){
             this.subscriptions = [];
-            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/posted/'        +this.whiteboard.id,this.postedItem));
-            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/move/'          +this.whiteboard.id,this.movedItem));
-            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/delete/'        +this.whiteboard.id,this.deletedItem));
-            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/changeOrder/'   +this.whiteboard.id,this.changedOrder));
+            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/posted/'+this.whiteboard.id,      this.postedItem));
+            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/move/'+this.whiteboard.id,        this.movedItem));
+            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/delete/'+this.whiteboard.id,      this.deletedItem));
+            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/changeOrder/'+this.whiteboard.id, this.changedOrder));
         },
         unsubscribeChannels:function(){
             _.each(this.subscriptions,function(subscription){
                 subscription.cancel();
-            })
+            });
         },
         whiteboardOpened : function(whiteboard){
             this.whiteboard = whiteboard;
