@@ -10,13 +10,13 @@ require.config({
         faye : 'libs/faye/faye-browser-min',
         templates : '../templates',
         cometd : 'libs/org/cometd',
-        jquerycometd : 'libs/jquery/jquery.cometd',
+        jquerycometd : 'libs/jquery/jquery.cometd'
     }
 });
 
 define(function(require) {
-    var Router   = require('/js/router.js'),
-        Backbone = require('backbone'),
+    var Router      = require('/js/router.js'),
+        Backbone    = require('backbone'),
         Application = require('/core/js/controller.js');
 
     window.app = new Application();
@@ -28,12 +28,22 @@ define(function(require) {
         var name = window.modules[i],
             path = '/' + name + '/js/controller.js';
         loadModul(require,path,name);
-    }    
+    }
 });
 
-var loadedModules = new Object();
+var loadedModules = 0;
 var loadModul = function(require,path,name) {
+
+    function compareIndex(a,b) {
+        return a.index < b.index;
+    }
+
     require([path],function(module) {
         window.app.loadModules(name,module);
-    })
-}
+        ++loadedModules;
+        if(window.modules.length === loadedModules) {
+            window.modules.sort(compareIndex);
+            window.app.eventDispatcher.trigger('application:modulesLoaded');
+        }
+    });
+};

@@ -33,7 +33,7 @@ define([
             $.ajax({
                 url: 'user/session',
                 type: 'get',
-                success: function(data){ 
+                success: function(data){
                     that.user = that.user.set(data);
                     that.user.synced = true;
                     if(that.loggedIn()) {
@@ -50,6 +50,7 @@ define([
                 }
             });
         },
+        index: 1,
         setSettings : function(_settings){
             this.user.set({settings : _settings});
         },

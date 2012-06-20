@@ -10,6 +10,7 @@ define([ 'jquery',
             'click a' : 'callToolAction'
         },
         initialize : function() {
+            _.bindAll(this,'compareIndex');
             this.render();
         },
         render : function() {
@@ -21,14 +22,26 @@ define([ 'jquery',
         unrender : function() {
             this.el.empty();
         },
+        compareIndex: function(a,b) {
+            if(a.index === undefined) {
+                return true;
+            } else if(b.index === undefined) {
+                return false;
+            } else {
+                return a.index > b.index;
+            }
+        },
         getTools: function() {
             var tools = [],
                 modules = window.app.modules;
             $.each(modules,function(module) {
                 if(modules[module].toolbarTool) {
+                    modules[module].toolbarTool.index = modules[module].index;
                     tools.push(modules[module].toolbarTool);
                 }
             });
+
+            tools.sort(this.compareIndex);
             return tools;
         },
         getLinks: function() {
