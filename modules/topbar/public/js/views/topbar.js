@@ -50,9 +50,11 @@ define([
             var components       = this.getTopbarComponents();
             var compiledTemplate = _.template( topbarTemplate, data );
             this.el.html(compiledTemplate);
-
-            $(".right",this.el).append(this.settingsMenuView.render().el);
-
+            
+            if(window.app.loggedIn()){
+                $(".right",this.el).append(this.settingsMenuView.render().el);
+            }
+            
             $.each(components,function(i, component) {
                 // append view to the topbar
                 that.el.find('div.left').append(component.el);
