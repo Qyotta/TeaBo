@@ -78,10 +78,25 @@ var getSession = function(req,res) {
     }
 };
 
+var changePreferences = function(req,res){
+    var query = {'email':req.body._id,'password':req.body.password};
+    console.log('check auth for ',query);
+    User.findOne({'_id':req.body._id},function(err,user) {
+        if(req.body.password){
+            console.log("User: ",user);
+            user.password = query.password;
+            user.save(function(err) {
+                res.send({success:true});
+            });
+        }
+    });
+};
+
 exports.rest = [
-    { url: '/user',         type: 'post',   callback: register},
-    { url: '/user/login',   type: 'post',   callback: postLogin},
-    { url: '/user/logout',  type: 'post',   callback: postLogout },
-    { url: '/user/session', type: 'get',    callback: getSession},
-    { url: '/user',         type: 'get',    callback: getUser}
+    { url: '/user',                type: 'post',   callback: register},
+    { url: '/user/login',          type: 'post',   callback: postLogin},
+    { url: '/user/logout',         type: 'post',   callback: postLogout },
+    { url: '/user/session',        type: 'get',    callback: getSession},
+    { url: '/user',                type: 'get',    callback: getUser},
+    { url: '/user',                type: 'put',    callback: changePreferences}
 ];

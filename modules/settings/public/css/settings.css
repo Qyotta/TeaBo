@@ -64,12 +64,12 @@
     text-align:center;
 }
 
-.changePasswordDialog p{
+.changePasswordDialog dd{
     text-align:left;
     padding:0px 10px;
 }
 
-.changePasswordDialog label{
+.changePasswordDialog dt{
     width:150px;
     display:block;
     float:left;
