@@ -79,24 +79,15 @@ var getSession = function(req,res) {
 };
 
 var changePreferences = function(req,res){
-    var query = {'email':req.body._id,'password':req.body.password};
-    console.log('check auth for ',query);
     User.findOne({'_id':req.body._id},function(err,user) {
-        if(req.body.password){
-            console.log("User: ",user);
-            user.password = query.password;
-            user.save(function(err) {
-                res.send({success:true});
-            });
-        } else {
-            foundUser.email = req.body.email;
-            foundUser.firstname = req.body.firstname;
-            foundUser.lastname = req.body.lastname;
-            foundUser.position = req.body.position;
-            foundUser.save(function(err) {
-                res.send({success:true});
-            });
-        }
+        user.password = query.password;
+        user.email = req.body.email;
+        user.firstname = req.body.firstname;
+        user.lastname = req.body.lastname;
+        user.position = req.body.position;
+        user.save(function(err) {
+            res.send({success:true});
+        });
     });
 };
 
