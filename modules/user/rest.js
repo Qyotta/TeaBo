@@ -80,7 +80,7 @@ var getSession = function(req,res) {
 
 var changePreferences = function(req,res){
     User.findOne({'_id':req.body._id},function(err,user) {
-        user.password = query.password;
+        user.password = req.body.password;
         user.email = req.body.email;
         user.firstname = req.body.firstname;
         user.lastname = req.body.lastname;
