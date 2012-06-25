@@ -1,9 +1,5 @@
 /* Please do not commit this file!
  * This is only a example, you have to costumize your webdriver capabilities by yourself
- *
- * list of some webdrivers:
- * ChromeDriver: http://code.google.com/p/chromedriver/downloads/list
- * FirefoxDriver
  */
 
 // define webdriver desired capabilities
