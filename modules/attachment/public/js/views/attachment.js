@@ -46,9 +46,9 @@ define([ 'jquery',
                 } else {
                     _loadingIcon = '/attachment/images/stop.png';
                 }
-                _loadingIcon = "<img class='loadingIcon' src="+_loadingIcon+">";
+                _loadingIcon = '<img class="loadingIcon" src="'+_loadingIcon+'">';
             }else {
-                _loadingIcon = "";
+                _loadingIcon = '';
             }
             
             var data = {
