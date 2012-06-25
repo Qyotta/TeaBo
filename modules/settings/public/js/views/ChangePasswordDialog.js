@@ -32,6 +32,7 @@ define([
         },
         showChangePasswordDialog : function() {
             console.log("show change password dialog");
+            $('.lightbox').hide();
             this.showDialog();
         }
     });

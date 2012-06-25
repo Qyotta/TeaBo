@@ -5,19 +5,25 @@
 
 <form method="post" action="">
     <dl>
-        <dt>Firstname:*</dt>
+        <dt>Firstname:</dt>
         <dd> 
             <input  id="firstNameField" type="text" value="<%=user.get('firstname')%>">
         </dd>
 
-        <dt>Lastname:*</dt>
+        <dt>Lastname:</dt>
         <dd>
              <input id="lastNameField" type="text" value="<%=user.get('lastname')%>">
         </dd>
 
         <dt>Email Address:*</dt>
         <dd> 
-             <input id="emailField" type="email" value="<%=user.get('email')%>">
+            <input id="emailField" value="<%=user.get('email')%>">
+            <% if(errors&& errors.email){ %>
+                <div class="exclamation">
+                    <img src="/images/exclamation_mark.png">
+                    <div class="errors"><%= errors.email%></div>
+                </div>
+            <% } %>
         </dd>
 
         <dt>Position:</dt>

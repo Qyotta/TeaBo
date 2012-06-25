@@ -9,7 +9,8 @@
 
 #imageUploadContainer form div{
     text-align: right;
-    padding: 18px 0 0 0;
+    padding: 19px 0 0 0;
+    font-size:15px;
 }
 
 #imageUploadContainer form span{
