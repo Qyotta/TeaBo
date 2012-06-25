@@ -9,6 +9,7 @@ define([
         initialize:function(){
             _.bindAll(this,'showThisDialog','removeWhiteboard');
             window.app.eventDispatcher.bind("whiteboard:openRemoveDialog",this.showThisDialog);
+             $(this.el).attr("id","removeWhiteboardContainer");
 
             this.whiteboardID = undefined;
         },
@@ -31,7 +32,7 @@ define([
             e.preventDefault();
             window.app.eventDispatcher.trigger('whiteboard:remove',this.whiteboardID);
             this.hideDialog();
-        }
+        },
     });
     return RemoveWhiteboardDialogView;
 });
