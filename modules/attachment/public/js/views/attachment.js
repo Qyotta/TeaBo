@@ -49,9 +49,9 @@ define([ 'jquery',
             var _img;
             if(this.model.get('content').get('complete') == false){
                 if(window.app.user.id == _creator.id){
-                    _img = '/attachment/images/loading.gif';
+                    _img = '/attachment/images/loading.png';
                 } else {
-                    _img = '/attachment/images/stop.gif';
+                    _img = '/attachment/images/stop.png';
                 }
                 
             }else {
