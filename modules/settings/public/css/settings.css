@@ -19,7 +19,6 @@
     text-align:left;
 }
 
-
 .dialog {
     color: #B2B2B2;
 }
@@ -37,7 +36,6 @@
 .dialog > form > input {
     margin: 0 0 0 15px;
 }
-
 
 #userPreferencesDialog, #changePasswordDialog{
     width: 360px;
@@ -96,4 +94,3 @@
     background: none repeat scroll 0 0 #FFD8D8;
     border: 1px solid #FF0000;
 }
-

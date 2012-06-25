@@ -38,21 +38,24 @@ define([ 'jquery',
             var ext = this.model.get('content').get('extension');
             var _shortName = filename.substr(0, filename.length - (ext.length + 1));
             var _img;
+            var _loadingIcon;
+            _img = '/attachment/images/extensions/'+ext+'.png';
             if(this.model.get('content').get('complete') == false){
                 if(window.app.user.id == _creator.id){
-                    _img = '/attachment/images/loading.gif';
+                    _loadingIcon = '/attachment/images/loading.png';
                 } else {
-                    _img = '/attachment/images/stop.gif';
+                    _loadingIcon = '/attachment/images/stop.png';
                 }
-                
+                _loadingIcon = "<img class='loadingIcon' src="+_loadingIcon+">";
             }else {
-                _img = '/attachment/images/extensions/'+ext+'.png';
+                _loadingIcon = "";
             }
             
             var data = {
                 attachment : this.model,
                 creator:_creator,
                 img : _img,
+                loadingIcon : _loadingIcon,
                 shortName : _shortName,
                 _ : _
             };

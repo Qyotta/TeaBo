@@ -1,18 +1,6 @@
 var User   = require('./models/user').model,
     mailer = require('../../utils/laoMailer');
 
-var changePreferences = function(req,res){
-    User.findOne({'_id':req.body._id},function(err,foundUser){
-        foundUser.email = req.body.email;
-        foundUser.firstname = req.body.firstname;
-        foundUser.lastname = req.body.lastname;
-        foundUser.position = req.body.position;
-        foundUser.save(function(err) {
-            res.send({success:true});
-        });
-    })
-}
-
 var register = function(req,res) {
     var username = req.body.firstname.length && req.body.lastname.length ? ' ' + req.body.firstname + ' ' + req.body.lastname : '';
 
@@ -90,11 +78,24 @@ var getSession = function(req,res) {
     }
 };
 
+var changePreferences = function(req,res){
+    User.findOne({'_id':req.body._id},function(err,user) {
+        user.password = req.body.password;
+        user.email = req.body.email;
+        user.firstname = req.body.firstname;
+        user.lastname = req.body.lastname;
+        user.position = req.body.position;
+        user.save(function(err) {
+            res.send({success:true});
+        });
+    });
+};
+
 exports.rest = [
-    { url: '/user',         type: 'put',   callback: changePreferences},
-    { url: '/user',         type: 'post',   callback: register},
-    { url: '/user/login',   type: 'post',   callback: postLogin},
-    { url: '/user/logout',  type: 'post',   callback: postLogout },
-    { url: '/user/session', type: 'get',    callback: getSession},
-    { url: '/user',         type: 'get',    callback: getUser}
+    { url: '/user',                type: 'post',   callback: register},
+    { url: '/user/login',          type: 'post',   callback: postLogin},
+    { url: '/user/logout',         type: 'post',   callback: postLogout },
+    { url: '/user/session',        type: 'get',    callback: getSession},
+    { url: '/user',                type: 'get',    callback: getUser},
+    { url: '/user',                type: 'put',    callback: changePreferences}
 ];

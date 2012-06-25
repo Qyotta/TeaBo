@@ -88,4 +88,8 @@
     display:block;
 }
 
+.loadingIcon{
+	position: absolute;
+	z-index: 10;
+}
 
