@@ -4,9 +4,8 @@ define([
     'backbone',
     '/core/js/views/register.js',
     '/core/js/views/main.js',
-    '/core/js/views/login.js',
-    '/core/js/views/dialogs/logout.js'
-], function($, _, Backbone, RegisterView,MainHomeView,LoginView,LogoutDialogView){
+    '/core/js/views/login.js'
+], function($, _, Backbone, RegisterView,MainHomeView,LoginView){
     var AppRouter = Backbone.Router.extend({
         initialize: function(){
             window.app.eventDispatcher.bind('application:loggedIn',this.loggedIn);
@@ -16,7 +15,7 @@ define([
             'register':'loadRegister',
             'whiteboard/:id': 'showWhiteboard',
             'login':'showLogin',
-            'main':'showMainPanel',
+            'main':'showMainPanel'
             // Default
             // '*actions': 'defaultAction'
         },
@@ -45,10 +44,6 @@ define([
             if(!window.app.loggedIn()){
                 this.navigate("login", {trigger: true});
                 return;
-            }
-            
-            if(!window.app.logoutDialogView){
-                window.app.logoutDialogView = new LogoutDialogView();
             }
             
             if(!this.mainHomeView) {

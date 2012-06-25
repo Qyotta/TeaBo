@@ -1,10 +1,10 @@
 define([
-    'jquery', 
-    'underscore', 
+    'jquery',
+    'underscore',
     'backbone',
     '/core/js/utils/model_command.js',
     '/core/js/utils/subscribe_command.js',
-    '/note/js/views/note.js', 
+    '/note/js/views/note.js',
     '/note/js/views/confirm_delete.js'
 ], function($, _, Backbone, ModelCommand, SubscribeCommand, NoteView, ConfirmDeleteView) {
     var NoteController = function(options) {
@@ -27,17 +27,12 @@ define([
             this.assignmentSynced = false;
             this.confirmDeleteView = new ConfirmDeleteView();
         },
+        index: 2,
         toolbarTool: {
             name: 'Notes',
             action: 'createNote',
             imageURL: '/note/images/new_note.png',
             imageTitle: 'create a new note'
-        },
-        subscribeChannels : function() {
-            var commands = [];
-            commands.push(new SubscribeCommand());
-            commands.push(new SubscribeCommand());
-            window.app.groupCommand.addCommands(commands);
         },
         subscribeChannels:function(){
             this.subscriptions = [];
@@ -47,14 +42,14 @@ define([
         unsubscribeChannels:function(){
             _.each(this.subscriptions,function(subscription){
                 subscription.cancel();
-            })
+            });
         },
         loadedNote:function(_note){
             if (this.checkIfViewExists(_note))return;
             
             var view = new NoteView({
                 model : _note,
-                controller: this,
+                controller: this
             });
             view.render();
             
@@ -77,7 +72,7 @@ define([
         },
         checkIfViewExists : function(model){
             var view = this.findViewById(model.id);
-            return view != null;
+            return view !== null;
         },
         assignmentSynced : function(){
             this.assignmentSynced = true;
@@ -118,10 +113,10 @@ define([
         },
         _reportElementOrder : function (model) {
             window.app.groupCommand.addCommands(new ModelCommand(
-                '/service/whiteboardItem/order', 
+                '/service/whiteboardItem/order',
                 {
-                    id : parseInt(model.id),
-                    whiteboardid : parseInt(this.whiteboard.id)
+                    id : parseInt(model.id,10),
+                    whiteboardid : parseInt(this.whiteboard.id,10)
                 }
             ));
         },

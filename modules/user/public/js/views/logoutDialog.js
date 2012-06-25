@@ -3,22 +3,22 @@ define([
     'underscore',
     'backbone',
     '/core/js/views/dialogs/dialog.js',
-    'text!/core/templates/dialogs/logout.html'
+    'text!/user/templates/logoutDialog.html'
 ], function($, _, Backbone, Dialog, logoutDialogTemplate){
     var LogoutDialogView = Dialog.extend({
         initialize:function(){
             _.bindAll(this,'showLogoutDialog');
             window.app.eventDispatcher.bind("logoutClicked",this.showLogoutDialog);
+            $(this.el).attr("id","logoutContainer");
         },
         events:{
-            'click #logoutContainer button.cancel' : 'hideLogoutDialog',
-            'click #logoutContainer input[type=submit]': 'logout'
+            'click button.cancel' : 'hideLogoutDialog',
+            'click input[type=submit]': 'logout'
         },
         render: function(){
             $('#dialogs').empty();
             this.delegateEvents();
             var compiledTemplate = _.template(logoutDialogTemplate);
-            $(this.el).attr('id','logoutContainer');
             $(this.el).html(compiledTemplate);
             $('#dialogs').html(this.el);
         },
@@ -35,7 +35,7 @@ define([
             $.ajax({
                 url: 'user/logout',
                 type: 'post',
-                success: function(data){ 
+                success: function(data){
                     window.app.logout();
                     if(!window.app.loggedIn()){
                         self.hideDialog();

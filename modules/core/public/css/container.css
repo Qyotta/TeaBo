@@ -251,17 +251,18 @@
     z-index: 1000;
 }
 
-#confirmDeleteAttachmentContainer, #confirmDeleteNoteContainer, #confirmDeleteMultipleContainer, #logoutContainer{
+.dialog{
+    padding: 15px;
     display:none;
     width:320px;
-    height:50px;
     position:absolute;
     top:50%;
     left:50%;
-    margin: -25px 0 0 -160px;
+    -moz-transform:translate(-50%, -50%);
+    -webkit-transform:translate(-50%, -50%);
+    transform:translate(-50%, -50%);
     background: none repeat scroll 0 0 #494949;
     color: #B2B2B2;
-    padding:10px 0 5px 0;
     text-align: center;
     border: 1px solid #B2B2B2;
     font-size: 16px;
@@ -272,11 +273,8 @@
     z-index:101;
 }
 
-#confirmDeleteAttachmentContainer .delete-attachment-button form,#confirmDeleteNoteContainer .delete-note-button form {margin:10px 0 0 0;}
-#confirmDeleteAttachmentContainer,#confirmDeleteNoteContainer{height:80px;}
-
-#confirmDeleteMultipleContainer{
-    height:100px;
+.delete-attachment-button form, .dialog .delete-note-button form {
+    margin:10px 0 0 0;
 }
 
 .hide-confirm-container{
@@ -290,30 +288,45 @@
 .blurBox .attachmentMenu, .blurBox .noteMenu {
     display:none!important;
 }
-.blurBox .noteItems {
-    box-shadow:0 0 10px #F8F7B6!important;
-    background-color:rgba(248, 247, 187, 0.5)!important;
-}
+
 .blurText {
     text-shadow:0 0 5px rgba(50, 50, 50, 0.7);
     color:rgba(94, 94, 94, 0);
 }
 .blurTextarea {
     background:transparent!important;
+    border:none;
 }
 .blurBox .creator {
     display:none!important;
 }
-.blurBox .attachmentItems p.image {
+.blurBox .attachmentItems p.image,  {
     background: none repeat scroll 0 0 rgba(85, 85, 85, 0.5);
     box-shadow: 0 0 10px #555555 !important;
     margin: 12px 0 12px 18px;
     width: 32px;
 }
-.blurBox .attachmentItems p.image img {
+.blurBox .imageItems {
+    background: none repeat scroll 0 0 rgba(85, 85, 85, 0.5);
+    box-shadow: 0 0 10px #555555
+
+}
+.blurBox .attachmentItems p.image img, 
+.blurBox .imageItems img, .mainPanelBlur ul li a.delete img {
     visibility:hidden;
 }
 .blurBox .attachmentItems p.filename {
     text-shadow:0 0 5px rgba(50, 50, 50, 0.7);
     color:rgba(94, 94, 94, 0);
+}
+
+#removeWhiteboardContainer span{
+    font-size:16px;
+}
+.mainPanelBlur{
+    background-color:rgba(50, 50, 50, 0.7)!important;
+}
+
+.mainPanelBlur h2, .mainPanelBlur a, .mainPanelBlur p, .mainPanelBlur span{
+    color:rgba(50, 50, 50, 0.7)!important;
 }

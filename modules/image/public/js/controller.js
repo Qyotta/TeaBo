@@ -1,13 +1,13 @@
-define([    
-            'jquery', 
-            'underscore', 
-            'backbone',
-            '/core/js/utils/model_command.js',
-            '/core/js/utils/subscribe_command.js',
-            '/image/js/views/image.js', 
-            '/image/js/views/confirm_delete.js',
-            '/image/js/views/upload.js'
-            ], function($, _, Backbone, ModelCommand, SubscribeCommand, ImageView,  ConfirmDeleteView, UploadDialogView){
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    '/core/js/utils/model_command.js',
+    '/core/js/utils/subscribe_command.js',
+    '/image/js/views/image.js',
+    '/image/js/views/confirm_delete.js',
+    '/image/js/views/upload.js'
+], function($, _, Backbone, ModelCommand, SubscribeCommand, ImageView,  ConfirmDeleteView, UploadDialogView){
     
     var ImageController = function(options){
 
@@ -15,12 +15,9 @@ define([
         
         window.app.eventDispatcher.bind("whiteboardItem:loaded:image", this.loadedImage);
         window.app.eventDispatcher.bind("whiteboardItem:deleted:image", this.deletedImage);
-        
         window.app.eventDispatcher.bind('image:resized', this.resizedImage);
         window.app.eventDispatcher.bind('image:delete', this.deleteImage);
-        
         window.app.eventDispatcher.bind("toolbar:createImage", this.createImage);
-        
         window.app.eventDispatcher.bind("whiteboard:opened",this.getImages);
         window.app.eventDispatcher.bind("whiteboard:closed",this.whiteboardClosed);
         window.app.eventDispatcher.bind('assignment:synced', this.assignmentSynced);
@@ -34,6 +31,7 @@ define([
                 this.uploadDialogView = new UploadDialogView({controller:this});
                 this.confirmDeleteView = new ConfirmDeleteView();
             },
+            // index: 4,
             toolbarTool: {
                 name: 'Images',
                 action: 'createImage',
@@ -42,14 +40,14 @@ define([
             },
             subscribeChannels : function() {
                 var commands = [];
-                commands.push(new SubscribeCommand('/image/edited/'         +this.whiteboard.id,this._handleEditedImage))
+                commands.push(new SubscribeCommand('/image/edited/'+this.whiteboard.id,this._handleEditedImage));
                 window.app.groupCommand.addCommands(commands);
             },
             loadedImage:function(_image){
                 if (this.checkIfViewExists(_image))return;
                 var view = new ImageView({
                     model : _image,
-                    controller: this,
+                    controller: this
                 });
                 view.render();
                 
@@ -72,7 +70,7 @@ define([
             },
             checkIfViewExists : function(model){
                 var view = this.findViewById(model.id);
-                return view != null;
+                return view !== null;
             },
             assignmentSynced : function(){
                 this.assignmentSynced = true;
@@ -107,11 +105,10 @@ define([
                 $('#uploadFrame', top.document).load(function(){
                     var image = eval("("+$(this).contents().text()+")");
                     imgContainer.remove();
-                    if(image['error'] != undefined){
+                    if(image['error'] !== undefined){
                         alert("Your File was not valid.");
                     }
                     else {
-                        window.app.log(self.whiteboard.id);
                         window.app.groupCommand.addCommands(new ModelCommand(
                             '/whiteboardItem/posted/'+self.whiteboard.id, image
                         ));
@@ -122,7 +119,7 @@ define([
                 var _id = message.id;
                 var _scale = message.scale;
                 console.log(parseFloat(_scale));
-                if(parseFloat(_scale) == 0) return;
+                if(parseFloat(_scale) === 0) return;
                 var view = this.findViewById(_id);
                 var _image = view.model;
                 _image.get('content').set({ scale : _scale });
@@ -133,11 +130,11 @@ define([
                 this.confirmDeleteView = new ConfirmDeleteView();
             },
             resizedImage : function(message) {
-                if (typeof message == "undefined" || message == null) {
+                if (typeof message === undefined || message === null) {
                     window.app.log('resize-event triggered multiple times');
                 } else {
                     window.app.groupCommand.addCommands(new ModelCommand(
-                        '/service/image/edit', 
+                        '/service/image/edit',
                         {
                             id : message.id,
                             scale : message.scale,
@@ -152,7 +149,7 @@ define([
                     url : '/image/delete/'+message.id
                 });
             }
-    }
+    };
     
     return ImageController;
 });

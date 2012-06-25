@@ -20,7 +20,7 @@ var register = function(req,res) {
                     subject : 'Welcome to [lao]!',
                     text: '<body style="font-size:12px; font-family:Helvetiva, sans serif;">'+
                           '<h1 style="margin-bottom:10px;">Hello'+username+'</h1><br>'+
-                          'we are glad to welcome you to our [lao] project. Your registration was successful!<br>'+
+                          'we are glad to welcome you to our <a href="http://localhost:3000">[lao]</a> project. Your registration was successful!<br>'+
                           'Now you can create your first whiteboard and develop amazing ideas!<br>'+
                           'Have fun and enjoy this tool!<br><br>'+
                           'Here are your login credentials:<br><br>'+
@@ -78,10 +78,24 @@ var getSession = function(req,res) {
     }
 };
 
+var changePreferences = function(req,res){
+    User.findOne({'_id':req.body._id},function(err,user) {
+        user.password = req.body.password;
+        user.email = req.body.email;
+        user.firstname = req.body.firstname;
+        user.lastname = req.body.lastname;
+        user.position = req.body.position;
+        user.save(function(err) {
+            res.send({success:true});
+        });
+    });
+};
+
 exports.rest = [
-    { url: '/user',         type: 'post',   callback: register},
-    { url: '/user/login',   type: 'post',   callback: postLogin},
-    { url: '/user/logout',  type: 'post',   callback: postLogout },
-    { url: '/user/session', type: 'get',    callback: getSession},
-    { url: '/user',         type: 'get',    callback: getUser}
+    { url: '/user',                type: 'post',   callback: register},
+    { url: '/user/login',          type: 'post',   callback: postLogin},
+    { url: '/user/logout',         type: 'post',   callback: postLogout },
+    { url: '/user/session',        type: 'get',    callback: getSession},
+    { url: '/user',                type: 'get',    callback: getUser},
+    { url: '/user',                type: 'put',    callback: changePreferences}
 ];

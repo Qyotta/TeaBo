@@ -8,7 +8,7 @@ define([
 ], function(_,SubscribeCommand,ModelCommand,WhiteboardItemCollection,WhiteboardItem,WhiteboardModus){
     
     var WhiteboardItemController = function(options){
-        _.bindAll(this,'whiteboardOpened','whiteboardClosed','movedItem','deletedItem','deleteItem','postedItem','startedEditing','stoppedEditing','stopEditing');
+        _.bindAll(this,'whiteboardOpened','whiteboardClosed','movedItem','deletedItem','deleteItem','postedItem','startedEditing','stoppedEditing','stopEditing','changeOrder','changedOrder');
         window.app.eventDispatcher.bind("whiteboard:opened",this.whiteboardOpened);
         window.app.eventDispatcher.bind('whiteboard:closed',this.whiteboardClosed);
         window.app.eventDispatcher.bind('whiteboardItem:delete',this.deleteItem);
@@ -16,6 +16,7 @@ define([
         window.app.eventDispatcher.bind('whiteboardItem:startedEditing',this.startedEditing);
         window.app.eventDispatcher.bind('whiteboardItem:stoppedEditing',this.stoppedEditing);
         window.app.eventDispatcher.bind('whiteboard:mouseup',this.stopEditing);
+        window.app.eventDispatcher.bind('whiteboardItem:order_change', this.changeOrder);
         
         this.initialize();
     };
@@ -24,16 +25,18 @@ define([
         initialize : function(){
             
         },
+        index: 5,
         subscribeChannels:function(){
             this.subscriptions = [];
-            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/posted/'          +this.whiteboard.id,this.postedItem));
-            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/move/'          +this.whiteboard.id,this.movedItem));
-            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/delete/'        +this.whiteboard.id,this.deletedItem));
+            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/posted/'+this.whiteboard.id,      this.postedItem));
+            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/move/'+this.whiteboard.id,        this.movedItem));
+            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/delete/'+this.whiteboard.id,      this.deletedItem));
+            this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/changeOrder/'+this.whiteboard.id, this.changedOrder));
         },
         unsubscribeChannels:function(){
             _.each(this.subscriptions,function(subscription){
                 subscription.cancel();
-            })
+            });
         },
         whiteboardOpened : function(whiteboard){
             this.whiteboard = whiteboard;
@@ -93,6 +96,18 @@ define([
         },
         stoppedEditing:function(){
             this.editing = null;
+        },
+        changeOrder:function(model){
+            window.app.groupCommand.addCommands(new ModelCommand(
+                    '/service/whiteboardItem/order',
+                    { id : model.id, whiteboardid : this.whiteboard.id }
+                ));
+        },
+        changedOrder:function(message){
+            var id = message.id;
+            var order = message.order;
+            var item = this.collection.get(id);
+            item.set({orderIndex:order});
         }
     };
     
