@@ -32,8 +32,8 @@
 #bottomNavigation ul li a span {
     display: none;
     color: #C2C2C2;
-    position:relative;
-    bottom:4px;
+    position:absolute;
+    bottom: -27px;
     font-size:11px;
     text-align:center;
 }

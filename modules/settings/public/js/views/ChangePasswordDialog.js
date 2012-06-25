@@ -12,6 +12,7 @@ define([
         initialize : function(options) {
             _.bindAll(this, 'showChangePasswordDialog');
             window.app.eventDispatcher.bind("settingsMenu:changePassword", this.showChangePasswordDialog);
+            $(this.el).attr("id","changePasswordDialog");            
         },
         events : {
             'click button.cancel' : 'canceled',

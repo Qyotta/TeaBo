@@ -11,11 +11,12 @@ define([
             _.bindAll(this, 'showUploadDialog', 'postAttachment');
             window.app.eventDispatcher.bind("attachment:view_upload_dialog", this.showUploadDialog);
             this.controller = options.controller;
+            $(this.el).attr("id","attachmentUploadContainer");
         },
         events : {
-            'click #attachmentUploadContainer button.cancel' : 'hideConfirmDialog',
-            'change #attachmentUploadContainer input[type="file"]':'fileChanged',
-            'click #attachmentUploadContainer #attachmentUpload input[type=submit]':'postAttachment',
+            'click button.cancel' : 'hideConfirmDialog',
+            'change input[type="file"]':'fileChanged',
+            'click #attachmentUpload input[type=submit]':'postAttachment',
         },
         render : function() {
             var data = {

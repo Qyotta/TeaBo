@@ -1,22 +1,37 @@
-<div id="attachmentUploadContainer">
-    <h1>
-        Upload an Attachment
-        <span>Supported file types are PDF, DOC, DOCx, XLS, PPT, PPTx, ODP, ODF</span>
-    </h1>
-    <iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
-    <form method="post" enctype="multipart/form-data" id="attachmentUpload" action="/attachment/upload" target="uploadFrame">
-        <span>Attachment</span>
-        <input type="file" name="data"><br />
-        <span>Description</span><textarea name="shortDescription" maxlength="170"></textarea>
-        <br />
-        <input type="hidden" name="whiteboardid" id="whiteboardid" value="<%=whiteboard.id%>"/>
-        <input type="hidden" name="x" id="x" value="<%=x%>"/>
-        <input type="hidden" name="y" id="y" value="<%=y%>"/>
-        <input type="hidden" name="id" id="id" value=""/>
-        <input type="hidden" name="complete" id="complete" value="true" />
-        <div>
-            <input type="submit" value="Submit">
-            <button type="button" class="cancel">Cancel</button>
-        </div> 
-    </form>
-</div>
+<h1>
+    Upload an Attachment
+    <span>Supported file types are PDF, DOC, DOCx, XLS, PPT, PPTx, ODP, ODF</span>
+</h1>
+<iframe name="uploadFrame" id="uploadFrame" style="display:none"></iframe>
+<form method="post" enctype="multipart/form-data" id="attachmentUpload" action="/attachment/upload" target="uploadFrame">
+    
+    <dl>
+        <dt>
+            File:
+        </dt>
+        <dd>
+            <input type="file" name="data"><br />
+        </dd>
+
+        <dt>
+            Description:
+        </dt>
+
+        <dd>
+            <textarea name="shortDescription" maxlength="170"></textarea>
+        </dd>
+    </dl>
+    
+    
+    <br />
+    <input type="hidden" name="whiteboardid" id="whiteboardid" value="<%=whiteboard.id%>"/>
+    <input type="hidden" name="x" id="x" value="<%=x%>"/>
+    <input type="hidden" name="y" id="y" value="<%=y%>"/>
+    <input type="hidden" name="id" id="id" value=""/>
+    <input type="hidden" name="complete" id="complete" value="true" />
+    
+    <div id="sumbitCancelButtons">
+        <input type="submit" value="Submit">
+        <button type="button" class="cancel">Cancel</button>
+    </div> 
+</form>

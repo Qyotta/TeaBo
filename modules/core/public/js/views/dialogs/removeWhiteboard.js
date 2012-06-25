@@ -9,18 +9,18 @@ define([
         initialize:function(){
             _.bindAll(this,'showThisDialog','removeWhiteboard');
             window.app.eventDispatcher.bind("whiteboard:openRemoveDialog",this.showThisDialog);
+             $(this.el).attr("id","removeWhiteboardContainer");
 
             this.whiteboardID = undefined;
         },
         events:{
-            'click .dialog button.cancel' : 'hideDialog',
-            'click .dialog input[type=submit]': 'removeWhiteboard'
+            'click button.cancel' : 'hideDialog',
+            'click input[type=submit]': 'removeWhiteboard'
         },
         render: function(){
             $('#dialogs').empty();
             this.delegateEvents();
             var compiledTemplate = _.template(removeWhiteboardDialogTemplate);
-            $(this.el).addClass('dialog');
             $(this.el).html(compiledTemplate);
             $('#dialogs').html(this.el);
         },
@@ -32,7 +32,7 @@ define([
             e.preventDefault();
             window.app.eventDispatcher.trigger('whiteboard:remove',this.whiteboardID);
             this.hideDialog();
-        }
+        },
     });
     return RemoveWhiteboardDialogView;
 });

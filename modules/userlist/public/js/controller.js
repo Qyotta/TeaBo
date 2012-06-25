@@ -18,6 +18,7 @@ define([
             this.view             = new WhiteboardUsersView();
             this.colorChooserView = new ColorChooserView();
         },
+        index: 6,
         topbarComponent: function() {
             return this.view;
         },

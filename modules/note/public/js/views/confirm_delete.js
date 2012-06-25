@@ -13,12 +13,12 @@ define([
             window.app.eventDispatcher.bind("note:delete_clicked",this.showConfirmDialog);
         },
         events:{
-            'click #confirmDeleteNoteContainer button.cancel' : 'hideConfirmDialog',
-            'click #confirmDeleteNoteContainer input[type=submit]': 'confirmed'
+            'click .dialog button.cancel' : 'hideConfirmDialog',
+            'click .dialog input[type=submit]': 'confirmed'
         },
         render: function(){
             var compiledTemplate = _.template(confirmDeleteTemplate);
-            $(this.el).attr('id','confirmDeleteNoteContainer');
+            $(this.el).attr('class','dialog');
             $(this.el).html(compiledTemplate);
             $('#dialogs').html(this.el);
         },

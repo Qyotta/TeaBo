@@ -88,6 +88,14 @@ var changePreferences = function(req,res){
             user.save(function(err) {
                 res.send({success:true});
             });
+        } else {
+            foundUser.email = req.body.email;
+            foundUser.firstname = req.body.firstname;
+            foundUser.lastname = req.body.lastname;
+            foundUser.position = req.body.position;
+            foundUser.save(function(err) {
+                res.send({success:true});
+            });
         }
     });
 };

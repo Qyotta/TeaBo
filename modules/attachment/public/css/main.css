@@ -1,73 +1,74 @@
 #attachmentUploadContainer,#uploadContainer{
-    width:430px;
-    height:220px;
-    position:absolute;
-    top:50%;
-    left:50%;
-    margin:-76px 0 0 -195px;
-    background: none repeat scroll 0 0 #494949;
-    color: #B2B2B2;
-    padding:15px;
-    text-align: left;
-    border: 1px solid #B2B2B2;
-    font-size: 16px;
-    -webkit-box-shadow: 4px 4px 8px #222;
-    -moz-box-shadow: 4px 4px 8px #222;
-    -o-box-shadow: 4px 4px 8px #222;
-    box-shadow: 4px 4px 8px #222;
-    z-index:101;
+    width:390px;
+    height:180px;
 }
 
-#uploadContainer form {
 
-}
+
 #attachmentUploadContainer form{
     padding: 3px 0 0 0;
 }
 
+
 #attachmentUploadContainer form div,#uploadContainer form div{
     text-align: right;
-    padding: 18px 0 0 0;
-}
-#uploadContainer form span {
-    float:left;
-    display:block;
-    width:80px;
-    text-align: left;
+    float: right;git
+    padding: 0;
+    margin: 12px 0 0
 }
 
 #attachmentUploadContainer form span{
     width:60px;
     text-align: left;
-}
+}git
 
-#attachmentUploadContainer form textarea,#uploadContainer form textarea {
-    width:360px;
-    margin-left: 15px;
-    height: 55px;
-}
-#attachmentUploadContainer > form > input {
-    margin: 0 0 0 6px;
-}
-#uploadContainer > form > input {
-    margin: 0 0 0 14px;
 
-}
-
-#attachmentUploadContainer h1, #uploadContainer h1 {
+#attachmentUploadContainer h1 {
+    bottom: 3px;
     color: #B2B2B2;
-    font-size: 19px;
+    float: left;
+    font-size: 16px;
     height: 45px;
-    margin: 0 ;
-    padding-bottom: 12px;
-    width: 100%;
     text-align: left;
+    width: 100%;
+    margin-bottom:5px;
 }
 
-#attachmentUploadContainer h1{
-     height: 48px;
-     padding: 0px;
-     margin:  0px;
+#attachmentUploadContainer h1 span {
+  font-size: 11px;
+  float: left;
+}
+
+
+#attachmentUploadContainer dl dt {
+    clear: both;
+    color: #B2B2B2;
+    float: left;
+    height: 18px;
+    margin-right: 10px;
+    padding-top: 4px;
+    text-align: right;
+    width: 95px;
+    font-size:13px;
+}
+
+#attachmentUploadContainer dl dd {
+    float: left;
+    margin-bottom:6px;
+    margin: 5px 0 0 0;
+}
+
+#attachmentUploadContainer dl dd  input{
+    font-size:13px;
+}
+
+#attachmentUploadContainer dl  {
+    margin-bottom:5px;
+}
+
+#attachmentUploadContainer dl dd textarea {
+   width:260px;
+   height:48px;
 }
 
 .whiteboard .imageItems.content{
@@ -85,3 +86,5 @@
 .whiteboard .image.hoverable:hover .imageMenu {
     display:block;
 }
+
+
