@@ -1,10 +1,10 @@
 // define vars
 var application_root = __dirname,
-    configs          = require("package.json"),
     express          = require("express"),
     path             = require("path"),
     mongoose         = require('mongoose'),
     fs               = require('fs'),
+    configs          = JSON.parse(fs.readFileSync('package.json', 'utf8')),
     faye             = require('faye'),
     util             = require('./rest/utils'),
     bayeux           = new faye.NodeAdapter({mount: '/rest', timeout: 120}),

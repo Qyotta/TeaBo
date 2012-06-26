@@ -5,41 +5,42 @@
     "description": "[lao] (Acronym for \"look ahead online\") is an online collaboration platform for collecting ideas and brainstorming. This is a project of students of the Beuth Hochschule für Technik Berlin, University of Applied Sciences and still under development.",
     "engines": {"node": ">= 0.6.15"},
     "help": {
-        "web": "https://github.com/Softwareprojekt-BHT-Berlin/lao-Online-Collaboration-Platform/blob/backend-migration/README.md",
-    }
+        "web": "https://github.com/Softwareprojekt-BHT-Berlin/lao-Online-Collaboration-Platform/blob/backend-migration/README.md"
+    },
     "contributors": [ 
-    {
-        "name": "Christian Bromann",
-        "email": "contact@christian-bromann.com"
-    },
-    {
-        "name": "Benjamin Kuhn",
-        "email": "b.kuhn@hotmail.de"
-    },
-    {
-        "name": "Andreas Sattler",
-        "email": "andreas@sattler-berlin.de"
-    },
-    {
-        "name": "Christoph Nützel",
-        "email": "christoph_nuetzel@web.de"
-    },
-    {
-        "name": "Marcus Fabarius",
-        "email": "marcus.froede@gmx.de"
-    },
-    {
-        "name": "Marcus Rabe",
-        "email": "marcus_berlin@gmx.net"
-    },
-    {
-        "name": "Martin Schmidt",
-        "email": "swp@schmidthappens.de"
-    },
-    {
-        "name": "Siamak Haschemi",
-        "email": "siamak@haschemi.org"
-    }
+        {
+            "name": "Christian Bromann",
+            "email": "contact@christian-bromann.com"
+        },
+        {
+            "name": "Benjamin Kuhn",
+            "email": "b.kuhn@hotmail.de"
+        },
+        {
+            "name": "Andreas Sattler",
+            "email": "andreas@sattler-berlin.de"
+        },
+        {
+            "name": "Christoph Nützel",
+            "email": "christoph_nuetzel@web.de"
+        },
+        {
+            "name": "Marcus Fabarius",
+            "email": "marcus.froede@gmx.de"
+        },
+        {
+            "name": "Marcus Rabe",
+            "email": "marcus_berlin@gmx.net"
+        },
+        {
+            "name": "Martin Schmidt",
+            "email": "swp@schmidthappens.de"
+        },
+        {
+            "name": "Siamak Haschemi",
+            "email": "siamak@haschemi.org"
+        }
+    ],
     "server": {
         "express": {
             "host": "http://localhost",
@@ -52,8 +53,7 @@
         "mongo": {
             "host": "mongodb://localhost/lao"
         }
-    }
-    ],
+    },
     "scripts": {
         "start": "node app",
         "install": "sh install.sh",
@@ -66,7 +66,7 @@
 
         "mongodb": "1.0.2",
         "mongoose": "3.0.x",
-        "mime": "1.2.6",
+        "mime": "1.2.6"
     },
     "devDependencies": {
         "webdriverjs": "x"

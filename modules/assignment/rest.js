@@ -3,7 +3,8 @@ var Assignments   = require('../assignment/models/assignment').model,
     Whiteboard    = require('../whiteboard/models/whiteboard').model,
     mongoose      = require('mongoose'),
     mailer        = require('../../utils/laoMailer'),
-    configs       = require('../../package.json'),
+    fs            = require('fs'),
+    configs       = JSON.parse(fs.readFileSync('package.json', 'utf8')),
     QueryObjectId = mongoose.Types.ObjectId;
 
 // util functions

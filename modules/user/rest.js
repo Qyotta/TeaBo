@@ -1,6 +1,7 @@
 var User    = require('./models/user').model,
     mailer  = require('../../utils/laoMailer'),
-    configs = require('../../package.json');
+    fs      = require('fs'),
+    configs = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 
 var register = function(req,res) {
     var username = req.body.firstname.length && req.body.lastname.length ? ' ' + req.body.firstname + ' ' + req.body.lastname : '';

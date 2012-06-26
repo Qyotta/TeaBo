@@ -2,7 +2,8 @@
  * This is only a example, you have to costumize your webdriver capabilities by yourself
  */
 
-configs = require('../package.json');
+var fs      = require('fs'),
+    configs = JSON.parse(fs.readFileSync('../package.json', 'utf8'));
 
 // define webdriver desired capabilities
 var capabilities = {
