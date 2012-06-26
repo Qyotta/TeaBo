@@ -51,6 +51,10 @@ define([
 
             document.title = "[lao] look ahead online - main view";
             
+            if($('#whiteboard').length) {
+                window.app.eventDispatcher.trigger("whiteboard:close",this.closedWhiteboard);
+            }
+
             if(!this.mainHomeView) {
                 this.mainHomeView = new MainHomeView();
             }
