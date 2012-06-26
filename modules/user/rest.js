@@ -1,5 +1,6 @@
-var User   = require('./models/user').model,
-    mailer = require('../../utils/laoMailer');
+var User    = require('./models/user').model,
+    mailer  = require('../../utils/laoMailer'),
+    configs = require('../../package.json');
 
 var register = function(req,res) {
     var username = req.body.firstname.length && req.body.lastname.length ? ' ' + req.body.firstname + ' ' + req.body.lastname : '';
@@ -20,7 +21,7 @@ var register = function(req,res) {
                     subject : 'Welcome to [lao]!',
                     text: '<body style="font-size:12px; font-family:Helvetiva, sans serif;">'+
                           '<h1 style="margin-bottom:10px;">Hello'+username+'</h1><br>'+
-                          'we are glad to welcome you to our <a href="http://localhost:3000">[lao]</a> project. Your registration was successful!<br>'+
+                          'we are glad to welcome you to our <a href="'+configs.server.express.host+':'+configs.server.express.port+'">[lao]</a> project. Your registration was successful!<br>'+
                           'Now you can create your first whiteboard and develop amazing ideas!<br>'+
                           'Have fun and enjoy this tool!<br><br>'+
                           'Here are your login credentials:<br><br>'+

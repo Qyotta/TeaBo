@@ -3,6 +3,7 @@ var Assignments   = require('../assignment/models/assignment').model,
     Whiteboard    = require('../whiteboard/models/whiteboard').model,
     mongoose      = require('mongoose'),
     mailer        = require('../../utils/laoMailer'),
+    configs       = require('../../package.json'),
     QueryObjectId = mongoose.Types.ObjectId;
 
 // util functions
@@ -96,7 +97,7 @@ var inviteUser = function(req,res) {
                                     text: '<body style="font-size:12px; font-family:Helvetiva, sans serif;">'+
                                           '<h1 style="margin-bottom:10px;">Hello</h1><br>'+
                                           'you were invited to <b>' + whiteboard.name + '</b> Whiteboard<br>'+
-                                          'You may login at <a href="http://localhost:3000">Online Collaboration Platform</a>.<br><br>'+
+                                          'You may login at <a href="'+configs.server.express.host+':'+configs.server.express.port+'">Online Collaboration Platform</a>.<br><br>'+
                                           'User: ' + email + '<br>'+
                                           'Password: ' + newUser.password + '<br><br>' +
                                           'With Regards,<br>' +
