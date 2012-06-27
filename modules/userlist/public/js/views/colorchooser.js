@@ -8,12 +8,12 @@ define([
     'text!/userlist/templates/color_chooser_dialog.html',
 ], function($, _, Backbone, Dialog, Utils,ModelCommand,colorChooserDialogTemplate){
     var ColorChooserDialogView = Dialog.extend({
-        el:$('#dialogs'),
         initialize:function(){
             _.bindAll(this,'showColorChooserDialog','saveClicked','setHexValue');
             window.app.eventDispatcher.bind("userlist:choose_color",this.showColorChooserDialog);
             this.menu      = $('div.left > div.invite > div');
             this.lastValue = 0;
+            $(this.el).attr("id","colorChooserContainer");
         },
         events:{
             'click a.accept':'saveClicked',
@@ -24,19 +24,21 @@ define([
         },
         render: function(){
             var color = this.color,
-                r     = Math.floor(color[0]*100),
-                g     = Math.floor(color[1]*100),
-                b     = Math.floor(color[2]*100);
+                r     = Math.floor(color[0]),
+                g     = Math.floor(color[1]),
+                b     = Math.floor(color[2]);
                 hex   = "#"+this.RGBtoHEX(r)+this.RGBtoHEX(g)+this.RGBtoHEX(b);
             var data = {
-                   color : "rgb("+r+"%,"+g+"%,"+b+"%)",
+                   color : this.color,
                    r:r,
                    g:g,
                    b:b,
                    hex:hex
             };
             var compiledTemplate = _.template( colorChooserDialogTemplate,data);
-            this.el.html(compiledTemplate);
+            $(this.el).html(compiledTemplate);
+            $('#dialogs').html(this.el);
+            this.delegateEvents();
         },
         colorChoosen:function(e){
             var yPos = e.offsetY || e.pageY - $(e.target).offset().top;
@@ -68,6 +70,7 @@ define([
         },
         showColorChooserDialog:function(data){
             this.assignment = data;
+            console.log(this);
             this.color = this.assignment.get('color');
             $('div.left > div.invite > div').css('display','block');
             this.showDialog();
