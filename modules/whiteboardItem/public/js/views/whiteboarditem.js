@@ -11,7 +11,7 @@ define([
         events:{
             'click .file_mouseOverMenu_bottom' : 'deleteClicked',
             'click ' : 'startEditing',
-            'mousedown ' : 'orderChange',
+            'mousedown' : 'orderChange',
             'mouseenter' : 'entersWhiteboardItem',
             'mouseleave' : 'leavesWhiteboardItem'
         },
@@ -19,6 +19,7 @@ define([
             _.bindAll(this, 'handleDragItem', 'persistPosition', 'handleForegroundWhiteboardItem', 'deleteClicked','changedPosition');
             this.model.bind('change:x',this.changedPosition,this);
             this.model.bind('change:y',this.changedPosition,this);
+            this.model.bind('change:orderIndex', this.changedOrderIndex, this);
 
             $(this.el).addClass("whiteboarditem draggable hoverable");
             $(this.el).css('position', 'absolute');
@@ -142,6 +143,9 @@ define([
             }else {
                 window.app.eventDispatcher.trigger(this.name+":delete_clicked", this.model);
             }
+        },
+        changedOrderIndex : function(){
+            $(this.el).css('z-index', this.model.get('orderIndex'));
         },
         orderChange : function () {
             window.app.eventDispatcher.trigger("whiteboardItem:order_change", this.model);

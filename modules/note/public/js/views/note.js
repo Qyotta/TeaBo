@@ -32,6 +32,9 @@ define([ 'jquery',
            var textarea = $('#'+this.model.id).find('textarea');
            textarea.css('height', textarea[0].scrollHeight / 2 + 'px');
            textarea.css('height', textarea[0].scrollHeight + 'px');
+           var order = this.model.get('orderIndex');
+           console.log(order);
+           $('#'+this.model.id).css('z-index', order);
             if(!this.editing){
                 this.render();
             }
