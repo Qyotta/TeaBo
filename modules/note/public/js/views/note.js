@@ -29,9 +29,9 @@ define([ 'jquery',
             this.render();
         },
         changed:function(){
-           var textarea = $(this.model.id).find('textarea');
-           textarea.css('height', textarea.scrollHeight / 2 + 'px');
-           textarea.css('height', textarea.scrollHeight + 'px');
+           var textarea = $('#'+this.model.id).find('textarea');
+           textarea.css('height', textarea[0].scrollHeight / 2 + 'px');
+           textarea.css('height', textarea[0].scrollHeight + 'px');
             if(!this.editing){
                 this.render();
             }
