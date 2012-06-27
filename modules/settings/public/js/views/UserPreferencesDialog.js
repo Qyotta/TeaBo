@@ -72,6 +72,7 @@ define([
         },
         canceled:function(e){
             e.preventDefault();
+            this.errors = '';
             this.hideDialog();
         },
         render : function() {
