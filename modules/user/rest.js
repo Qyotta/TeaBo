@@ -88,6 +88,7 @@ var changePreferences = function(req,res){
         user.save(function(err) {
             res.send({success:true});
         });
+        req.session.user = user;
     });
 };
 

@@ -13,7 +13,6 @@ define([
             _.bindAll(this, 'showPreferencesDialog');
             window.app.eventDispatcher.bind("settingsMenu:userPreferences", this.showPreferencesDialog);
              $(this.el).attr("id","userPreferencesDialog");
-            
         },
         events : {
             'click button.cancel' : 'canceled',
@@ -29,8 +28,7 @@ define([
                 position:$("#positionField",this.el).val(),
             }
 
-            window.app.user.set(data);
-            window.app.user.save(null, {success : function(){
+            window.app.user.save(data, {success : function(){
                 new Notice({message:"User preferences saved successfully."});
             }, 
             error : function(){
@@ -47,12 +45,12 @@ define([
                 user : window.app.user
             };
             var compiledTemplate = _.template(userPreferencesDialogTemplate, data);
+            $(this.el).empty();
             $(this.el).html(compiledTemplate);
             $('#dialogs').html(this.el);
             this.delegateEvents();
         },
         showPreferencesDialog : function() {
-            console.log("show user preferences dialog");
             this.showDialog();
         }
     });
