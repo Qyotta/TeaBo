@@ -47,6 +47,23 @@
     position: relative;
 }
 
+#userPreferencesDialog > a.close, #changePasswordDialog > a.close, #userPreferencesDialog > a.accept, #changePasswordDialog > a.accept {
+    background: url("/settings/images/close.png") no-repeat;
+    text-indent: -3000px; 
+    font-size:0px;
+    display:block;
+    width: 22px;
+    height:22px;
+    position:absolute;
+    top:-7px;
+    right:-16px;
+}
+
+#userPreferencesDialog > a.accept, #changePasswordDialog > a.accept{
+    background: url("/settings/images/accept.png") no-repeat;
+    top: 17px;
+}
+
 #userPreferencesDialog h1 span {
     display: block;
     font-size: 11px;
