@@ -53,7 +53,7 @@ define([
             
             var h = xPos/180;
             var rgb = Utils.hsvToRgb(h*360,s*100,v*100);
-            this.color = [rgb[0]/255,rgb[1]/255,rgb[2]/255];
+            this.color = [rgb[0],rgb[1],rgb[2]];
             this.render();
         },
         saveClicked:function(evt){
@@ -61,11 +61,11 @@ define([
             var _color = this.color;
             var data = {
                     assignmentId : this.assignment.id,
-                    color_r : Math.floor(_color[0]*255),
-                    color_g : Math.floor(_color[1]*255),
-                    color_b : Math.floor(_color[2]*255)
+                    color_r : Math.floor(_color[0]),
+                    color_g : Math.floor(_color[1]),
+                    color_b : Math.floor(_color[2])
             };
-            window.app.groupCommand.addCommands(new ModelCommand('/service/assignment/changeColor/',data));
+            window.app.groupCommand.addCommands(new ModelCommand('/service/assignment/changeColor',data));
             this.hideColorChooserDialog(evt);
         },
         showColorChooserDialog:function(data){
