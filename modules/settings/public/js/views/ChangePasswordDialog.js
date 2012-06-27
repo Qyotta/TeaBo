@@ -25,6 +25,9 @@ define([
             $(this.el).html(compiledTemplate);
             $('#dialogs').html(this.el);
             this.delegateEvents();
+            if(this.oldpassword){
+                $(this.el).find('#oldpw').val(this.oldpassword);
+            }
         },
         submited:function(e){
             e.preventDefault();
@@ -35,6 +38,8 @@ define([
                 this.render();
                 return;
             }
+            
+            this.oldpassword = null;
             
             var newpassword = $(this.el).find('#newpw').val();
             window.app.user.set({password : newpassword});
@@ -67,6 +72,8 @@ define([
             if(window.app.user.get("password") != oldpassword){
                 errors = errors || {};
                 errors.oldpw = "Password was not correct!";
+            } else {
+                this.oldpassword = oldpassword;
             }
             
             if(newpass_len<6){
