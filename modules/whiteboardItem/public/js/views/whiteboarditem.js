@@ -1,7 +1,7 @@
 define([
     'jquery',
     'underscore',
-    'backbone', 
+    'backbone',
     'jqueryui',
     '/core/js/utils/model_command.js',
     'text!/whiteboard/templates/whiteboard.html'
@@ -122,14 +122,24 @@ define([
                 ));
             }
         },
-        deleteClicked : function() {
+        deleteClicked : function(e) {
             var self = this;
             var elem = $('div.whiteboard > div.selected');
+
+            if(e !== undefined && elem.length) {
+                elem.removeClass('selected');
+                elem = [];
+            }
+
+            // return false if function call is from [DEL] and item is note selected
+            if(e === undefined && !$(this.el).hasClass('selected')) {
+                return false;
+            }
+
             // do it only if more than two are selected and elem itself is selected
             if(elem.length > 1) {
                 window.app.eventDispatcher.trigger("whiteboardItem:delete_multiple", self.controller.whiteboard.id);
             }else {
-                console.log(this.name);
                 window.app.eventDispatcher.trigger(this.name+":delete_clicked", this.model);
             }
         },

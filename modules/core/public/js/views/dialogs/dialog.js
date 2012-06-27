@@ -22,18 +22,18 @@ define([
         },
 
         containerFadeIn:function(callback) {
-            $('body, .whiteboard').css('background', 'url("/images/whiteboard-background-blured.gif")');
+            $('body, .whiteboard').css('background', 'url("/whiteboard/images/background-blured.gif")');
             $('.whiteboard *').addClass('blurBox');
             $('.whiteboard textarea, .whiteboard input, .mainPanel form input').addClass('blurTextarea').attr('readonly', 'readonly');
             $('.whiteboard textarea, .whiteboard .creator').addClass('blurText');
-            $(this.el).fadeIn(500,callback);            
+            $(this.el).fadeIn(500,callback);
             $('.mainPanel').addClass('mainPanelBlur');
             
         },
 
         containerFadeOut:function(callback) {
 
-            $('.whiteboard').css('background', 'url("/images/whiteboard-background.gif")');
+            $('.whiteboard').css('background', 'url("/whiteboard/images/background.gif")');
             $('.whiteboard *').removeClass('blurBox');
             $('.whiteboard * textarea, .mainPanel form input').removeClass('blurTextarea').removeAttr('readonly');
             $('.whiteboard * textarea, .whiteboard .creator').removeClass('blurText');

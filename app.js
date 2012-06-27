@@ -4,14 +4,15 @@ var application_root = __dirname,
     path             = require("path"),
     mongoose         = require('mongoose'),
     fs               = require('fs'),
+    configs          = JSON.parse(fs.readFileSync('package.json', 'utf8')),
     faye             = require('faye'),
     util             = require('./rest/utils'),
     bayeux           = new faye.NodeAdapter({mount: '/rest', timeout: 120}),
-    client           = new faye.Client('http://localhost:3001/rest'),
+    client           = new faye.Client(configs.server.faye.host + ':' + configs.server.faye.port + '/rest'),
     app              = express.createServer();
 
 // connect to mongodb
-mongoose.connect('mongodb://localhost/lao');
+mongoose.connect(configs.server.mongo.host);
 
 // configure express server
 app.configure(function(){
@@ -105,5 +106,5 @@ bayeux.bind('handshake', function(clientId) {
     client.publish(clientId,'meta/handshake',true);
 });
 
-bayeux.listen(3001);
-app.listen(3000);
+bayeux.listen(configs.server.faye.port);
+app.listen(configs.server.express.port);

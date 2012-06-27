@@ -4,7 +4,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    margin:-130px 0 0 -217px;
+    margin:-138px 0 0 -217px;
     -webkit-box-shadow: 0px 0px 5px #AAA;
     -moz-box-shadow: 0px 0px 5px #AAA;
     -o-box-shadow: 0px 0px 5px #AAA;
@@ -30,7 +30,8 @@
     font-weight:normal;
 }
 .registerCancelButtons {
-    margin: 20px 0 10px 102px;  
+    margin: 12px 0 0 215px;
+    font-size: 15px;
 }
 
 .registerContainer dl dt span {
@@ -86,6 +87,7 @@
 .loginContainer > form > dl > dd > input.button {
     margin:3px 0 0 0;
     width:70px;
+    font-size: 15px;
 }
 .loginContainer form span {
     color:#FF0000;
@@ -285,6 +287,7 @@
     font-size:12px;
 }
 
+
 .blurBox .attachmentMenu, .blurBox .noteMenu {
     display:none!important;
 }
@@ -300,12 +303,20 @@
 .blurBox .creator {
     display:none!important;
 }
-.blurBox .attachmentItems p.image,  {
+
+.blurBox .noteItems {
+    box-shadow:0 0 10px #F8F7B6!important;
+    background-color:rgba(248, 247, 187, 0.5)!important;
+}
+
+.blurBox .attachmentItems p.image {
     background: none repeat scroll 0 0 rgba(85, 85, 85, 0.5);
     box-shadow: 0 0 10px #555555 !important;
     margin: 12px 0 12px 18px;
     width: 32px;
 }
+
+
 .blurBox .imageItems {
     background: none repeat scroll 0 0 rgba(85, 85, 85, 0.5);
     box-shadow: 0 0 10px #555555

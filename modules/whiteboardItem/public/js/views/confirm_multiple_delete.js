@@ -3,7 +3,7 @@ define([
     'underscore',
     'backbone',
     '/core/js/views/dialogs/dialog.js',
-    'text!/core/templates/dialogs/confirm_multiple_delete.html'
+    'text!/whiteboardItem/templates/confirm_multiple_delete.html'
 ], function($, _, Backbone, Dialog, confirmDeleteTemplate){
    
     var ConfirmDeleteView = Dialog.extend({
@@ -14,14 +14,15 @@ define([
             window.app.eventDispatcher.bind("whiteboardItem:delete_multiple",this.showConfirmDialog);
         },
         events:{
-            'click .dialog button.cancel' : 'hideConfirmDialog',
-            'click .dialog input[type=submit]': 'confirmed'
+            'click button.cancel' : 'hideConfirmDialog',
+            'submit form': 'confirmed'
         },
         render: function(){
             var compiledTemplate = _.template(confirmDeleteTemplate);
             $(this.el).attr('class','dialog');
             $(this.el).html(compiledTemplate);
             $('#dialogs').html(this.el);
+            this.delegateEvents();
         },
         showConfirmDialog:function(wId){
             this.whiteboardId = wId;
@@ -34,11 +35,11 @@ define([
             
         },
         shouldShowDialog : function(){
-            if(typeof window.app.user.get("settings").where(this.showDialogFlag)[0] == "undefined" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == "true" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == true){
+            if(window.app.user.get("settings").where(this.showDialogFlag)[0] === undefined || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") === true || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") === true){
                 return true;
             } else {
                 return false;
-            }   
+            }
         },
         hideConfirmDialog:function(evt){
             evt.preventDefault();
@@ -50,7 +51,7 @@ define([
             this.hideDialog();
             window.app.eventDispatcher.trigger('whiteboard:delete_multiple_items', this.whiteboardId);
         }
-    });    
+    });
     
     return ConfirmDeleteView;
 });

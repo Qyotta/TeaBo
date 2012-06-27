@@ -57,6 +57,7 @@ define([ 'jquery',
         callToolAction: function(e) {
             var action = $(e.target).parent().attr('href');
             e.preventDefault();
+            $('.lightbox').hide();
             window.app.eventDispatcher.trigger('toolbar:'+action, e.target);
             window.app.eventDispatcher.trigger('toolbar:openDialog');
         }

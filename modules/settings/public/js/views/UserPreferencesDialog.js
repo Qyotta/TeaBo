@@ -16,11 +16,20 @@ define([
         },
         events : {
             'click button.cancel' : 'canceled',
-            'click input[type=submit]': 'submited'
+            'click input[type=submit]': 'submited',
+            'hover .exclamation' : 'showError',
+            'keyup #emailField' : 'validateEmailInput'
         },
         submited:function(e){
             e.preventDefault();
             
+            this.errors = this.validateInput();
+            
+            if(this.errors){
+                this.render();
+                return;
+            };
+
             var data = {
                 firstname:$("#firstNameField",this.el).val(),
                 email:$("#emailField",this.el).val(),
@@ -33,8 +42,33 @@ define([
             }, 
             error : function(){
                 new Error({message:"Error saving user preferences!"});
+
             }});
             this.hideDialog();
+        },
+        validateInput:function(e){
+            var errors = null;
+            var email = $('#emailField').val();
+            if(!this.validateEmail(email)){
+                errors = errors || {};
+                errors.email = "Enter a valid email.";
+            }
+            return errors;
+        },
+         validateEmail:function(email){
+            // matches <anystring>@<anystring>.<anystring>
+            // the length of the last part gets unrelevant in near future because of the new TLD e.g. *.hamburg etc.
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        },
+        validateEmailInput: function(e) {
+            email = e.target.value;
+            
+            if(!this.validateEmail(email)) {
+                $(e.target).addClass('error');
+            } else {
+                $(e.target).removeClass('error');
+            }
         },
         canceled:function(e){
             e.preventDefault();
@@ -42,16 +76,27 @@ define([
         },
         render : function() {
             var data = {
-                user : window.app.user
+                user : window.app.user,
+                errors:this.errors
             };
             var compiledTemplate = _.template(userPreferencesDialogTemplate, data);
             $(this.el).empty();
             $(this.el).html(compiledTemplate);
             $('#dialogs').html(this.el);
-            this.delegateEvents();
+            this.delegateEvents();   
         },
         showPreferencesDialog : function() {
+            $('.lightbox').hide();
             this.showDialog();
+        },
+        showError:function(e) {
+            var errors = $(e.currentTarget).find('div.errors');
+
+            if(e.type === 'mouseenter') {
+                errors.show();
+            } else {
+                errors.hide();
+            }
         }
     });
 

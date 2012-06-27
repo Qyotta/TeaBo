@@ -20,12 +20,15 @@ define([
             // '*actions': 'defaultAction'
         },
         loadRegister:function(){
+            document.title = "[lao] look ahead online - register";
             new RegisterView();
         },
         showWhiteboard: function(id){
+            document.title = "[lao] look ahead online - whiteboard view";
             window.app.eventDispatcher.trigger("whiteboard:open", id);
         },
         showLogin: function(){
+            document.title = "[lao] look ahead online - login";
             if(!window.app.loggedIn()){
                 this.loginView = new LoginView();
                 this.loginView.render();
@@ -45,7 +48,13 @@ define([
                 this.navigate("login", {trigger: true});
                 return;
             }
+
+            document.title = "[lao] look ahead online - main view";
             
+            if($('#whiteboard').length) {
+                window.app.eventDispatcher.trigger("whiteboard:close",this.closedWhiteboard);
+            }
+
             if(!this.mainHomeView) {
                 this.mainHomeView = new MainHomeView();
             }

@@ -101,11 +101,12 @@ define([
             },
             generateUploadAttachment:function(form){
                 var _uid = new Date().getTime();
+                var _ext = $('input[type=file]', form).val().split('.').pop();
                 window.app.groupCommand.addCommands(new ModelCommand(
                     '/service/whiteboardItem/post', {
                         creator     : window.app.user.id,
                         whiteboardid : this.whiteboard.id,
-                        content     : {shortDescription: $('textarea',form).val(), filename:'', extension:'', complete:false, uid: _uid},
+                        content     : {shortDescription: $('textarea',form).val(), filename:'', extension:_ext, complete:false, uid: _uid},
                         type        : 'attachment',
                         x           : 400,
                         y           : 400

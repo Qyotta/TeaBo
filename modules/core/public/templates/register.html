@@ -11,7 +11,7 @@
             <dd>
                 <input name="email" value="<%=email%>" />
                 <% if(errors && errors.email){ %>
-                    <div class="exclamation">
+                    <div class="exclamation emailerror">
                         <img src="/images/exclamation_mark.png">
                         <div class="errors"><%= errors.email%></div>
                     </div>
@@ -21,7 +21,7 @@
             <dd>
                 <input type="password" name="password"/>
                 <% if(errors && errors.password){ %>
-                    <div class="exclamation">
+                    <div class="exclamation pwerror">
                         <img src="/images/exclamation_mark.png">
                         <div class="errors"><%= errors.password %></div>
                     </div>
@@ -31,7 +31,7 @@
             <dd>
                 <input type="password" name="passwordvalidate" />
                 <% if(errors && errors.verify){ %>
-                    <div class="exclamation">
+                    <div class="exclamation verifyerror">
                         <img src="/images/exclamation_mark.png">
                         <div class="errors"><%= errors.verify%></div>
                     </div>

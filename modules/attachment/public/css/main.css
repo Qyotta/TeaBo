@@ -12,9 +12,10 @@
 
 #attachmentUploadContainer form div,#uploadContainer form div{
     text-align: right;
-    float: right;git
+    float: right;
     padding: 0;
-    margin: 12px 0 0
+    margin-top: 20px;
+    font-size:15px;
 }
 
 #attachmentUploadContainer form span{
@@ -87,4 +88,14 @@
     display:block;
 }
 
+.attachmentItems p.image {
+    position:relative;
+}
+
+.loadingIcon{
+	position: absolute;
+	z-index: 10;
+	bottom:0;
+	right:20px;
+}
 

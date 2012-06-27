@@ -79,6 +79,7 @@ define([
         },
         logoutClicked:function(e){
             e.preventDefault();
+            $('.lightbox').hide();
             window.app.eventDispatcher.trigger('logoutClicked', null);
         },
         inviteClicked:function(e){

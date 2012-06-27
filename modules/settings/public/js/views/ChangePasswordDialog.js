@@ -51,6 +51,7 @@ define([
             this.hideDialog();
         },
         showChangePasswordDialog : function() {
+            $('.lightbox').hide();
             this.showDialog();
         },
         validateInput:function(){

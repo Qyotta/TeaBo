@@ -21,7 +21,7 @@ io['/service/whiteboardItem/post'] = function(bayeux,channel,obj) {
                 y           : obj.y,
                 creator     : user._id,
                 whiteboard  : obj.whiteboardid,
-                type        : obj.type, 
+                type        : obj.type,
                 content     : obj.content
             });
             
@@ -30,13 +30,13 @@ io['/service/whiteboardItem/post'] = function(bayeux,channel,obj) {
             
             var id = whiteboardItem._id;
             obj.creator.password = null;
-            bayeux.getClient().publish('/whiteboardItem/posted/'+obj.whiteboardid, 
+            bayeux.getClient().publish('/whiteboardItem/posted/'+obj.whiteboardid,
                     { x : obj.x,
                       y : obj.y,
                       _id: id,
                       creator : obj.creator,
                       editing     : false,
-                      orderIndex  : maxOrder, 
+                      orderIndex  : maxOrder,
                       type        : obj.type,
                       content     : obj.content
                     });
@@ -45,7 +45,17 @@ io['/service/whiteboardItem/post'] = function(bayeux,channel,obj) {
 };
 
 io['/service/whiteboardItem/delete'] = function(bayeux,channel,obj) {
+    
+    if(!obj.id) {
+        return false;
+    }
+
     WhiteboardItem.findOne({_id:obj.id}, function(err,whiteboardItem) {
+
+        if(err || whiteboardItem === null) {
+            return false;
+        }
+
         whiteboardItem.remove();
         bayeux.getClient().publish('/whiteboardItem/delete/'+obj.whiteboardid, { id: obj.id });
     });
@@ -57,7 +67,7 @@ io['/service/whiteboardItem/move'] = function(bayeux,channel,obj) {
         whiteboardItem.y = obj.y;
         
         whiteboardItem.save();
-        bayeux.getClient().publish('/whiteboardItem/move/'+obj.whiteboardid, 
+        bayeux.getClient().publish('/whiteboardItem/move/'+obj.whiteboardid,
                 { x : obj.x, y : obj.y, id: obj.id });
     });
 };
@@ -75,7 +85,7 @@ io['/service/whiteboardItem/order'] = function(bayeux,channel,obj) {
             whiteboardItem.orderIndex = maxOrder;
             
             whiteboardItem.save();
-            bayeux.getClient().publish('/whiteboardItem/changeOrder/'+obj.whiteboardid, 
+            bayeux.getClient().publish('/whiteboardItem/changeOrder/'+obj.whiteboardid,
                     { id: obj.id, order : maxOrder });
         }
     });

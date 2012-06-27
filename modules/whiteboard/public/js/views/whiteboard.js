@@ -87,7 +87,7 @@ define([
             // [DEL] - only if some items are selected
             else if(event.keyCode==46 && selectedItems.length){
                 event.preventDefault();
-                window.app.eventDispatcher.trigger('whiteboardItem:delete_clicked', null);
+                window.app.eventDispatcher.trigger('whiteboardItem:delete_clicked');
             }
         },
         entersWhiteboardItem:function(){
