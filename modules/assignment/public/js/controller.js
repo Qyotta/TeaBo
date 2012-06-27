@@ -36,10 +36,9 @@ define([
             this.assignments.add(new Assignment(assignment));
         },
         userColorUpdated:function(message){
-            console.log(message);
-            //var _assignmentId = message.data.id;
-            //var assignment = this.assignments.get(_assignmentId);
-            //assignment.set({color:[message.data.color_r/255,message.data.color_g/255,message.data.color_b/255]});
+            var _assignmentId = message.id;
+            var assignment = this.assignments.get(_assignmentId);
+            assignment.set({color:[message.color_r,message.color_g,message.color_b]});
         },
         userOnlineStatusUpdated:function(message){
             var _assignmentId = message.id;

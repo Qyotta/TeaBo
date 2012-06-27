@@ -70,7 +70,6 @@ define([
         },
         showColorChooserDialog:function(data){
             this.assignment = data;
-            console.log(this);
             this.color = this.assignment.get('color');
             $('div.left > div.invite > div').css('display','block');
             this.showDialog();

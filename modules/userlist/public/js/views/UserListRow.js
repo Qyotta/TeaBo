@@ -16,7 +16,6 @@ define([
             this.render();
         },
         colorClicked : function(e){
-            console.log("color")
             if(this.model.get('user').id != window.app.user.id)return;
             window.app.eventDispatcher.trigger('userlist:choose_color',this.model);
         },

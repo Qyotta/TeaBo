@@ -25,7 +25,6 @@ define([
             return this;
         },
         assignmentsChanged:function(){
-            console.log("change or add");
             $(this.el).empty();
             this.views = [];
             this.model.sort();
