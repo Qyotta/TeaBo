@@ -6,7 +6,7 @@ var User            = require('../../modules/user/models/user').model,
 
 var get = function(req,res) {
     if(req.session.user) {
-        Assignment.find({'user._id':req.session.user._id},function(err,assignedWhiteboards) {
+        Assignment.find({'user':req.session.user._id},function(err,assignedWhiteboards) {
             var whiteboards = [];
             for(var i = 0; i < assignedWhiteboards.length; ++i) {
                 whiteboards.push({
@@ -33,10 +33,10 @@ var create = function(req,res) {
         y: 0
     });
     whiteboard.save(function(err) {
-        User.findById(req.session.user._id, function(err,user) {
+        User.findById(req.session.user._id, function(err,foundUser) {
             var assignment = new Assignment({
                 color      : [Math.floor(Math.random()*200),Math.floor(Math.random()*200),Math.floor(Math.random()*200)],
-                user       : [user],
+                user       : foundUser._id,
                 isOwner    : true,
                 whiteboard : [whiteboard]
             });

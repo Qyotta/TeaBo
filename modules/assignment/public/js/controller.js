@@ -82,6 +82,16 @@ define([
                }
             });
         },
+        getAssignment:function(userid){
+            var models = this.assignments.models;
+            for(var i=0;i<models.length;i++){
+                var a = models[i];
+                if(a.get('user').id === userid){
+                    return a;
+                }
+            }
+            return null;
+        },
         getColor: function(userid) {
             var models = this.assignments.models;
             for(var i=0;i<models.length;i++){

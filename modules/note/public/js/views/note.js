@@ -17,13 +17,19 @@ define([ 'jquery',
          },
         initialize : function(options) {
             WhiteboardItemView.prototype.initialize.apply( this );
-            _.bindAll(this, 'isFocused', 'isBlured', 'edited','changed','assignmentChanged');
+            _.bindAll(this, 'isFocused', 'isBlured', 'edited','changed','assignmentChanged','assignmentsSynced');
             
             this.model.get('content').bind('change:text',this.changed,this);
-            
+            window.app.eventDispatcher.bind('assignment:synced',this.assignmentsSynced);
+
             this.controller = options.controller;
             this.editing    = false;
             this.delegateEvents();
+        },
+        assignmentsSynced:function(){
+            this.assignment = window.app.modules.assignment.getAssignment(this.model.get('creator'));
+            this.assignment.bind('change',this.assignmentChanged);
+            this.render();
         },
         assignmentChanged:function(){
             this.render();

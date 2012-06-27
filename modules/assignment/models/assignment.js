@@ -1,10 +1,10 @@
 var mongoose         = require('mongoose'),
-    UserSchema       = require('./../../../modules/user/models/user').schema,
     WhiteboardSchema = require('./../../../modules/whiteboard/models/whiteboard').schema,
-    
+    ObjectId = mongoose.Schema.ObjectId,
+
     schema = new mongoose.Schema({
         color      : [Number],
-        user       : [UserSchema],
+        user       : ObjectId,
         isOwner    : Boolean,
         whiteboard : [WhiteboardSchema],
         onWhiteboard: Boolean

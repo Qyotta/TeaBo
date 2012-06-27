@@ -22,9 +22,29 @@ function generatePassword() {
 var getAssignments = function(req,res) {
     var id = new QueryObjectId(req.params.id);
 
-    Assignments.find({'whiteboard._id':id},function(err,assignments) {
+    Assignments.find({'whiteboard._id':id},function(err,foundAssignments) {
+        var changedAssignments = foundAssignments.length;
+        var assignments = [];
         if(!err) {
-            res.send(assignments);
+            for(var i=0;i<foundAssignments.length;i++){
+                var assignment = foundAssignments[i];
+
+                User.findOne({'_id':assignment.user},function(err,foundUser){
+                    assignments.push({
+                        _id : assignment._id,
+                        user: foundUser,
+                        isOwner: assignment.isOwner,
+                        onWhiteboard: assignment.onWhiteboard,
+                        whiteboard: assignment.whiteboard,
+                        color: assignment.color
+                    });
+                    changedAssignments--;
+
+                    if(changedAssignments==0){
+                        res.send(assignments);
+                    }
+                });
+            }
         }
     });
 };
@@ -60,19 +80,19 @@ var inviteUser = function(req,res) {
             return false;
         
         } else if(!err) {
-            User.findOne({'email':email}, function(err,user) {
+            User.findOne({'email':email}, function(err,foundUser) {
                 if(!err && user) {
                     // assign existing user to whiteboard
                     Whiteboard.findById(whiteboardId, function(err, whiteboard) {
                         var assignment = new Assignments({
                             color:      [Math.floor(Math.random()*200),Math.floor(Math.random()*200),Math.floor(Math.random()*200)],
-                            user:       user,
+                            user:       foundUser._id,
                             isOwner:    false,
                             whiteboard: whiteboard
                         });
 
                         assignment.save(function() {
-                            res.send({color:assignment.color,user:assignment.user,isOwner:assignment.isOwner,onWhiteboard:false});
+                            res.send({color:assignment.color,user:foundUser,isOwner:assignment.isOwner,onWhiteboard:false});
                         });
                     });
                 } else {
@@ -86,7 +106,7 @@ var inviteUser = function(req,res) {
                         Whiteboard.findById(whiteboardId, function(err, whiteboard) {
                             var assignment = new Assignments({
                                 color:      [Math.floor(Math.random()*200),Math.floor(Math.random()*200),Math.floor(Math.random()*200)],
-                                user:       newUser,
+                                user:       newUser._id,
                                 isOwner:    false,
                                 whiteboard: whiteboard
                             });
@@ -110,7 +130,7 @@ var inviteUser = function(req,res) {
                                                 assignment: {
                                                     _id: assignment._id,
                                                     color: assignment.color,
-                                                    user :assignment.user,
+                                                    user : newUser,
                                                     isOwner: assignment.isOwner,
                                                     onWhiteboard: false
                                                 },
