@@ -3,7 +3,7 @@
  */
 
 var fs      = require('fs'),
-    configs = JSON.parse(fs.readFileSync('../package.json', 'utf8'));
+    configs = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 
 // define webdriver desired capabilities
 var capabilities = {
