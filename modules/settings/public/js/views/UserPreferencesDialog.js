@@ -15,8 +15,8 @@ define([
              $(this.el).attr("id","userPreferencesDialog");
         },
         events : {
-            'click button.cancel' : 'canceled',
-            'click input[type=submit]': 'submited',
+            'click a.accept':'submited',
+            'click a.close':'canceled',
             'hover .exclamation' : 'showError',
             'keyup #emailField' : 'validateEmailInput'
         },

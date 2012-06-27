@@ -15,8 +15,8 @@ define([
             $(this.el).attr("id","changePasswordDialog");            
         },
         events : {
-            'click button.cancel' : 'canceled',
-            'click input[type=submit]': 'submited',
+            'click a.accept':'submited',
+            'click a.close':'canceled',
             'hover .exclamation' : 'showError'
         },
         render : function() {
@@ -53,6 +53,7 @@ define([
         },
         canceled:function(e){
             e.preventDefault();
+            this.errors = '';
             this.hideDialog();
         },
         showChangePasswordDialog : function() {
