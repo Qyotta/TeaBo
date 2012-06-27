@@ -1,6 +1,7 @@
 var User    = require('./models/user').model,
     mailer  = require('../../utils/laoMailer'),
     fs      = require('fs'),
+    bcrypt  = require('bcrypt'),
     configs = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 
 var register = function(req,res) {
@@ -8,12 +9,14 @@ var register = function(req,res) {
 
     User.find({'email':req.body.email}, function(err,users) {
         if(!users.length) {
+            var genSalt = bcrypt.genSaltSync(); //generate different salt per user
             var user = new User({
                 email: req.body.email,
-                password: req.body.password,
+                password: bcrypt.hashSync(req.body.password, genSalt),
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
-                position: req.body.position
+                position: req.body.position,
+                salt: genSalt
             });
 
             user.save(function(err) {
@@ -52,13 +55,21 @@ var getUser = function(req,res) {
 };
 
 var postLogin = function(req,res) {
-    var query = {'email':req.body.email,'password':req.body.password};
+    var query = {'email':req.body.email};
     console.log('check auth for ',query);
     User.findOne(query,function(err,user) {
         if(!err && user) {
-            console.log('login successful for ',user.email);
-            req.session.user = user;
-            res.send(user);
+            console.log(user);
+            var curPW = bcrypt.hashSync(req.body.password, user.salt);
+            if(user.password === curPW){
+                console.log('login successful for ',user.email);
+                req.session.user = user;
+                res.send(user);
+            }
+            else {
+                console.log('access denied!');
+                res.send('');
+            }
         } else {
             console.log('access denied!');
             res.send('');
@@ -71,6 +82,17 @@ var postLogout = function(req,res) {
     res.send('true');
 };
 
+var checkPassword = function(req, res){
+    User.findOne({'_id':req.body._id},function(err,user) {
+        if(user.password === bcrypt.hashSync(req.body.password, user.salt)){
+            res.send(true);
+        } 
+        else{
+            res.send(false)
+        }
+    });
+}
+
 var getSession = function(req,res) {
     if(req.session.user){
         res.header('Content-Type','application/json');
@@ -82,7 +104,7 @@ var getSession = function(req,res) {
 
 var changePreferences = function(req,res){
     User.findOne({'_id':req.body._id},function(err,user) {
-        user.password = req.body.password;
+        user.password = bcrypt.hashSync(req.body.password, user.salt);
         user.email = req.body.email;
         user.firstname = req.body.firstname;
         user.lastname = req.body.lastname;
@@ -95,10 +117,11 @@ var changePreferences = function(req,res){
 };
 
 exports.rest = [
-    { url: '/user',                type: 'post',   callback: register},
-    { url: '/user/login',          type: 'post',   callback: postLogin},
-    { url: '/user/logout',         type: 'post',   callback: postLogout },
-    { url: '/user/session',        type: 'get',    callback: getSession},
-    { url: '/user',                type: 'get',    callback: getUser},
-    { url: '/user',                type: 'put',    callback: changePreferences}
+    { url: '/user',                     type: 'post',   callback: register},
+    { url: '/user/login',               type: 'post',   callback: postLogin},
+    { url: '/user/logout',              type: 'post',   callback: postLogout },
+    { url: '/user/session',             type: 'get',    callback: getSession},
+    { url: '/user',                     type: 'get',    callback: getUser},
+    { url: '/user',                     type: 'put',    callback: changePreferences},
+    { url: '/user/validatePassword',    type: 'post',   callback: checkPassword}
 ];

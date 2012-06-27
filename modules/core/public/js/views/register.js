@@ -91,7 +91,6 @@ define([
                 errors = errors || {};
                 errors.email = "Enter a valid email.";
             }
-            console.log(this.password+' != '+this.passwordvalidate, pass_len);
             if(pass_len<6){
                 errors = errors || {};
                 errors.password = "Password too short. Minimum length is 6.";
