@@ -4,7 +4,7 @@ define([
     'backbone',
     '/whiteboard/js/collection/whiteboard.js',
     '/whiteboard/js/views/whiteboard.js',
-    '/core/js/views/dialogs/confirm_multiple_delete.js',
+    '/whiteboardItem/js/views/confirm_multiple_delete.js',
     '/core/js/utils/subscribe_command.js'
 ], function($, _, Backbone, WhiteboardCollection, WhiteboardView, ConfirmDeleteView,SubscribeCommand){
     var WhiteboardController = function(){
