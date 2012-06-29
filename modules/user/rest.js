@@ -83,7 +83,8 @@ var postLogout = function(req,res) {
 };
 
 var checkPassword = function(req, res){
-    User.findOne({'_id':req.body._id},function(err,user) {
+    console.log(req.session.user._id);
+    User.findOne({'_id':req.session.user._id},function(err,user) {
         if(user.password === bcrypt.hashSync(req.body.password, user.salt)){
             res.send(true);
         } 

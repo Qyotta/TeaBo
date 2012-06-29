@@ -60,17 +60,33 @@ define([
             $('.lightbox').hide();
             this.showDialog();
         },
+        validateOldPassword:function(){
+            var oldpassword = $(this.el).find('#oldpw').val();
+            var ret;
+            $.ajax({
+               async: false,
+               type:'post',
+               url: '/user/validatePassword',
+               data: "password="+oldpassword,
+               success: function(data){
+                   if(data === true) ret = true;
+                   else ret = false;
+               }
+            });
+            return ret;
+        },
         validateInput:function(){
             var errors = null;
             
             var newpassword = $(this.el).find('#newpw').val();
             var confirmpassword = $(this.el).find('#confirmpw').val();
             var oldpassword = $(this.el).find('#oldpw').val();
+            var oldValid = this.validateOldPassword();
             
             var newpass_len = newpassword.length;
             var confirmpass_len = confirmpassword.length;   
             
-            if(window.app.user.get("password") != oldpassword){
+            if(!oldValid){
                 errors = errors || {};
                 errors.oldpw = "Password was not correct!";
             } else {
