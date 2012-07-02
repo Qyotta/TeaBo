@@ -39,6 +39,7 @@ define([
 
             window.app.user.save(data, {success : function(){
                 new Notice({message:"User preferences saved successfully."});
+                new ModelCommand('/user/changed',window.app.user).execute();
             }, 
             error : function(){
                 new Error({message:"Error saving user preferences!"});

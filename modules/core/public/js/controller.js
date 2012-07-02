@@ -87,7 +87,7 @@ define([
                 timeout: 120
             });
             this.io.connect();
-            window.app.eventDispatcher.trigger('handshakeComplete', null);
+            this.eventDispatcher.trigger('handshakeComplete', null);
         },
         onMetaConnect : function() {
             if (this.cometd.isDisconnected()) {
@@ -103,7 +103,7 @@ define([
             });
         },
         stopCometd : function() {
-            this.cometd.disconnect(true);
+            this.io.disconnect(true);
         }
     };
     

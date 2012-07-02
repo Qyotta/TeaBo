@@ -7,7 +7,7 @@ define([
 ], function(_,AssignmentCollection,Assignment,ModelCommand,SubscribeCommand){
     
     var AssignmentController = function(options){
-        _.bindAll(this,'assignmentCreated','whiteboardOpened','whiteboardClosed','userColorUpdated','userOnlineStatusUpdated','assignmentAdded');
+        _.bindAll(this,'assignmentCreated','whiteboardOpened','whiteboardClosed','userColorUpdated','userOnlineStatusUpdated','userChanged','assignmentAdded');
         window.app.eventDispatcher.bind('assignment:created',this.assignmentCreated);
         window.app.eventDispatcher.bind('whiteboard:opened',this.whiteboardOpened);
         window.app.eventDispatcher.bind('whiteboard:close',this.whiteboardClosed);
@@ -23,11 +23,21 @@ define([
             this.subscriptions.push(window.app.io.subscribe('/assignment/change/color/'+ this.whiteboard.id, this.userColorUpdated));
             this.subscriptions.push(window.app.io.subscribe('/assignment/change/onlineStatus/'+ this.whiteboard.id, this.userOnlineStatusUpdated));
             this.subscriptions.push(window.app.io.subscribe('/assignment/added/'+ this.whiteboard.id, this.assignmentAdded));
+            this.subscriptions.push(window.app.io.subscribe('/user/changed', this.userChanged));
         },
         unsubscribeChannels:function(){
             _.each(this.subscriptions,function(subscription){
                 subscription.cancel();
             })
+        },
+        userChanged:function(message){
+            var assignments = this.assignments;
+            if(!assignments)return;
+            _.each(assignments.models,function(assignment){
+               if(assignment.get('user').id === message._id){
+                   assignment.get('user').set(message);
+               }
+            });
         },
         assignmentCreated:function(assignment){
             new ModelCommand('/assignment/added/'+this.whiteboard.id,assignment).execute();

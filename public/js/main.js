@@ -20,7 +20,7 @@ define(function(require) {
         Application = require('/core/js/controller.js');
 
     window.app = new Application();
-    
+    window.app.startClientIO();
     window.router = new Router();
     Backbone.history.start();
 

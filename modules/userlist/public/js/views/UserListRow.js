@@ -13,6 +13,7 @@ define([
         initialize:function(){
             _.bindAll(this,'render');
             this.model.bind("change",this.render);
+            this.model.get('user').bind("change",this.render);
             this.render();
         },
         colorClicked : function(e){
