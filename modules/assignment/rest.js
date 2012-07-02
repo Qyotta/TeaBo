@@ -4,6 +4,7 @@ var Assignments   = require('../assignment/models/assignment').model,
     mongoose      = require('mongoose'),
     mailer        = require('../../utils/laoMailer'),
     fs            = require('fs'),
+    bcrypt        = require('bcrypt'),
     configs       = JSON.parse(fs.readFileSync('package.json', 'utf8')),
     QueryObjectId = mongoose.Types.ObjectId;
 
@@ -81,7 +82,7 @@ var inviteUser = function(req,res) {
         
         } else if(!err) {
             User.findOne({'email':email}, function(err,foundUser) {
-                if(!err && user) {
+                if(!err && foundUser) {
                     // assign existing user to whiteboard
                     Whiteboard.findById(whiteboardId, function(err, whiteboard) {
                         var assignment = new Assignments({
@@ -97,9 +98,12 @@ var inviteUser = function(req,res) {
                     });
                 } else {
                     // create a new user and assign him to the whiteboard
+                    var genSalt = bcrypt.genSaltSync(); //generate different salt per user
+                    var genPassword = generatePassword();
                     var newUser = new User({
                         email: email,
-                        password: generatePassword()
+                        password: bcrypt.hashSync(genPassword, genSalt),
+                        salt: genSalt,
                     });
 
                     newUser.save(function() {
@@ -120,7 +124,7 @@ var inviteUser = function(req,res) {
                                           'you were invited to <b>' + whiteboard.name + '</b> Whiteboard<br>'+
                                           'You may login at <a href="'+configs.server.express.host+':'+configs.server.express.port+'">Online Collaboration Platform</a>.<br><br>'+
                                           'User: ' + email + '<br>'+
-                                          'Password: ' + newUser.password + '<br><br>' +
+                                          'Password: ' + genPassword + '<br><br>' +
                                           'With Regards,<br>' +
                                           '<h2>[l]ook [a]head [o]nline</h2>'+
                                           '</body>',
