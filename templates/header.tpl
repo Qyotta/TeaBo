@@ -11,11 +11,3 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <script data-main="/js/main" src="/js/libs/require/require.js"></script>
-<!--[if IE]>
-<style type="text/css">
-#dialogs {
-    background:#a4a4a4;
-    filter: alpha(opacity=75);
-}
-</style>
-<![endif]-->

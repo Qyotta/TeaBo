@@ -1,5 +1,6 @@
 // define vars
-var application_root = __dirname,
+var startInDevMode   = process.argv[2] !== 'prod',
+    application_root = __dirname,
     express          = require("express"),
     path             = require("path"),
     mongoose         = require('mongoose'),
@@ -35,23 +36,36 @@ var moduleTemplates = [],
     moduleNames     = [];
 
 fs.readdirSync('./modules').forEach(function(file) {
-    var module = require('./modules/'+file+'/module.js'),
-        name   = file;
+    var name   = file,
+        module = require('./modules/'+name+'/module.js'),
+        cssDir = application_root+'/modules/'+name+'/public/css';
     
     moduleTemplates = moduleTemplates.filter(function(e){return e;});
     moduleTemplates.push(module.template);
 
-    if(module.style) {
-        // read file content of all css files
-        fs.readdirSync('./modules/'+name+'/public/css').forEach(function(file) {
-            fs.readFile('./modules/'+name+'/public/css/'+file, 'utf8', function (err,data) {
-                if (err) {
-                    console.log(err);
-                    return false;
-                }
-                moduleStyles.push(minfier.compressCSS(data));
+    if(startInDevMode) {
+        moduleStyles = moduleStyles.filter(function(e){return e;});
+        
+        // get all css files
+        if(path.existsSync(cssDir)) {
+            fs.readdirSync(cssDir).forEach(function(file) {
+                moduleStyles.push('<link rel="stylesheet" href="/'+name+'/css/'+file+'">\n');
             });
-        });
+        }
+    } else {
+
+        // read file content of all css files and compress it
+        if(path.existsSync(cssDir)) {
+            fs.readdirSync(cssDir).forEach(function(file) {
+                fs.readFile(cssDir+'/'+file, 'utf8', function (err,data) {
+                    if (err) {
+                        console.log(err);
+                        return false;
+                    }
+                    moduleStyles.push(minfier.compressCSS(data));
+                });
+            });
+        }
     }
     moduleNames.push(name);
     
@@ -66,9 +80,10 @@ fs.readdirSync('./modules').forEach(function(file) {
 // generate index.html
 app.get('/', function(req,res) {
     var header = fs.readFileSync('./templates/header.tpl', 'utf8'),
-        script = '<script>var modules = [\'' + moduleNames.join('\',\'') + '\']; </script>';
+        script = '<script>var modules = [\'' + moduleNames.join('\',\'') + '\']; </script>',
+        styles = startInDevMode ? moduleStyles.join('') : '<style type="text/css">' + moduleStyles.join('') + '</style>';
     
-    res.send(header + script + '\n<style type="text/css">' + moduleStyles.join('') + '</style>\n\n' + moduleTemplates.join('\n'));
+    res.send(header + script + '\n' + styles + '\n\n' + moduleTemplates.join('\n'));
 });
 
 // register rest services

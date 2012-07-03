@@ -22,7 +22,7 @@
     margin: 0 0 0 10px;
 }
 #whiteboard{
-    background: url('../images/background.gif');
+    background: url('/whiteboard/images/background.gif');
     position:relative;
     left:0px;
     top:0px;
