@@ -7,6 +7,7 @@ var application_root = __dirname,
     configs          = JSON.parse(fs.readFileSync('package.json', 'utf8')),
     faye             = require('faye'),
     util             = require('./rest/utils'),
+    minfier          = require('./utils/minifier'),
     bayeux           = new faye.NodeAdapter({mount: '/rest', timeout: 120}),
     client           = new faye.Client(configs.server.faye.host + ':' + configs.server.faye.port + '/rest'),
     app              = express.createServer();
@@ -34,17 +35,27 @@ var moduleTemplates = [],
     moduleNames     = [];
 
 fs.readdirSync('./modules').forEach(function(file) {
-    var module = require('./modules/'+file+'/module.js');
+    var module = require('./modules/'+file+'/module.js'),
+        name   = file;
     
     moduleTemplates = moduleTemplates.filter(function(e){return e;});
     moduleTemplates.push(module.template);
-    moduleStyles    = moduleStyles.filter(function(e){return e;});
+
     if(module.style) {
-        moduleStyles.push('<link rel="stylesheet" href="'+file+'/'+module.style+'">');
+        // read file content of all css files
+        fs.readdirSync('./modules/'+name+'/public/css').forEach(function(file) {
+            fs.readFile('./modules/'+name+'/public/css/'+file, 'utf8', function (err,data) {
+                if (err) {
+                    console.log(err);
+                    return false;
+                }
+                moduleStyles.push(minfier.compressCSS(data));
+            });
+        });
     }
-    moduleNames.push(file);
+    moduleNames.push(name);
     
-    app.use('/'+file,express.static(application_root+'/modules/'+file+'/public'));
+    app.use('/'+name,express.static(application_root+'/modules/'+name+'/public'));
     module.init();
     
     registerRestServices(module.rest);
@@ -57,7 +68,7 @@ app.get('/', function(req,res) {
     var header = fs.readFileSync('./templates/header.tpl', 'utf8'),
         script = '<script>var modules = [\'' + moduleNames.join('\',\'') + '\']; </script>';
     
-    res.send(header + script + '\n\n' + moduleStyles.join('\n') + '\n\n' + moduleTemplates.join('\n'));
+    res.send(header + script + '\n<style type="text/css">' + moduleStyles.join('') + '</style>\n\n' + moduleTemplates.join('\n'));
 });
 
 // register rest services
