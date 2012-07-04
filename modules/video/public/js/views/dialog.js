@@ -27,7 +27,7 @@ define([
             this.showDialog();
         },
         hideVideoDialog: function(evt) {
-            evt.preventDefault();
+            if(evt) evt.preventDefault();
             this.hideDialog();
         },
         parseVideoURL: function(url) {
@@ -57,7 +57,7 @@ define([
         },
         submitVideo: function(evt) {
             evt.preventDefault();
-
+            
             var url       = $('.videoURL').val(),
                 parsedURL = this.parseVideoURL(url);
 

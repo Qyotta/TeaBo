@@ -106,7 +106,7 @@ define([
             var elem = $('div.whiteboard > div.selected');
             // do it only if more than two are selected and elem itself is selected
             if(elem.length > 1) {
-                views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true;});
+                views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views).concat(window.app.modules.image.views).concat(window.app.modules.video.views)).filter(function(){return true;});
                 // persist views
                 var commands = [];
                 $.each(views,function(j,view) {

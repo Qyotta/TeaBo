@@ -118,7 +118,7 @@ define([
                         id: self.model.id,
                         x : parseInt($(self.el).css('left'),10),
                         y : parseInt($(self.el).css('top'),10),
-                        whiteboardid : self.controller.whiteboard.id
+                        whiteboardid : $('#whiteboard').data('id')
                     }
                 ));
             }
@@ -139,7 +139,7 @@ define([
 
             // do it only if more than two are selected and elem itself is selected
             if(elem.length > 1) {
-                window.app.eventDispatcher.trigger("whiteboardItem:delete_multiple", self.controller.whiteboard.id);
+                window.app.eventDispatcher.trigger("whiteboardItem:delete_multiple", $('#whiteboard').data('id'));
             }else {
                 window.app.eventDispatcher.trigger(this.name+":delete_clicked", this.model);
             }
