@@ -23,28 +23,28 @@ function generatePassword() {
 var getAssignments = function(req,res) {
     var id = new QueryObjectId(req.params.id);
 
+    var toSend = [];
+    var getUser = function(a, max){
+        User.findOne({'_id':a.user},function(err,foundUser){
+            toSend.push({
+                _id : a._id,
+                user: foundUser,
+                isOwner: a.isOwner,
+                onWhiteboard: a.onWhiteboard,
+                whiteboard: a.whiteboard,
+                color: a.color
+            });
+            if(toSend.length == max){
+                res.send(toSend);
+            }
+        });
+
+    };
+    
     Assignments.find({'whiteboard._id':id},function(err,foundAssignments) {
-        var changedAssignments = foundAssignments.length;
-        var assignments = [];
         if(!err) {
             for(var i=0;i<foundAssignments.length;i++){
-                var assignment = foundAssignments[i];
-
-                User.findOne({'_id':assignment.user},function(err,foundUser){
-                    assignments.push({
-                        _id : assignment._id,
-                        user: foundUser,
-                        isOwner: assignment.isOwner,
-                        onWhiteboard: assignment.onWhiteboard,
-                        whiteboard: assignment.whiteboard,
-                        color: assignment.color
-                    });
-                    changedAssignments--;
-
-                    if(changedAssignments==0){
-                        res.send(assignments);
-                    }
-                });
+                getUser(foundAssignments[i], foundAssignments.length);
             }
         }
     });

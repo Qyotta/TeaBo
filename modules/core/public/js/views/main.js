@@ -14,16 +14,17 @@ define([
         },
         initialize:function(){
             _.bindAll(this,'removeWhiteboardView','render','synced','getOwnWhiteboards','getAssignedWhiteboards','deleteWhiteboard');
+            window.app.eventDispatcher.bind('whiteboard:open',this.whiteboardOpen);
+            window.app.eventDispatcher.bind('whiteboard:closed',this.whiteboardClosed);
             window.app.eventDispatcher.bind('whiteboard:synced',this.synced);
             window.app.eventDispatcher.bind('whiteboard:remove',this.deleteWhiteboard);
             window.app.eventDispatcher.bind('mainpanel:show',this.render);
-        
+            
             if(!this.removeWhiteboardDialog) {
                 this.removeWhiteboardDialog = new removeWhiteboardDialog();
             }
         },
-        deleteWhiteboard: function(id){
-            
+        deleteWhiteboard: function(id){            
             if(id === undefined) {
                 return;
             }
