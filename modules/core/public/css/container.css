@@ -5,13 +5,13 @@
     left: 50%;
     top: 50%;
     margin:-138px 0 0 -217px;
-    -webkit-box-shadow: 0px 0px 5px #AAA;
-    -moz-box-shadow: 0px 0px 5px #AAA;
-    -o-box-shadow: 0px 0px 5px #AAA;
+    -webkit-box-shadow: 0 0 5px #AAA;
+    -moz-box-shadow: 0 0 5px #AAA;
+    -o-box-shadow: 0 0 5px #AAA;
     box-shadow: 0 0 5px #AAAAAA;
 }
 .registerContainer h1 {
-    background: url("../images/lao_register.png") no-repeat scroll 0 0 transparent;
+    background: url("/core/images/lao_register.png") no-repeat scroll 0 0 transparent;
     bottom: 3px;
     color: #B2B2B2;
     font-size: 16px;
@@ -23,7 +23,7 @@
 }
 
 .registerContainer dl {
-    margin:0px;
+    margin:0;
 }
 .registerContainer dl dt {
     width:191px!important;
@@ -54,7 +54,7 @@
 }
 
 .loginContainer h1 {
-    background: url("../images/lao_login.jpg") no-repeat scroll 0 0 transparent;
+    background: url("/core/images/lao_login.jpg") no-repeat scroll 0 0 transparent;
     bottom: 3px;
     color: #B2B2B2;
     font-size: 16px;
@@ -158,11 +158,13 @@
 #dialogs{
 	display:none;
 	position: absolute;
-	left: 0px;
-	top: 0px;
+	left: 0;
+	top: 0;
     width:100%;
     height:100%;
     z-index: 1000;
+    background:#a4a4a4\9;
+    filter: alpha(opacity=75)\9;
 }
 
 .dialog{
@@ -185,6 +187,26 @@
     -o-box-shadow: 4px 4px 8px #222;
     box-shadow: 4px 4px 8px #222;
     z-index:101;
+}
+
+.dialog > form {
+    text-align: left;
+}
+.dialog > h1 > span {
+    float: right;
+    font-size: 11px;
+    width: 100%;
+}
+.dialog > form > div {
+    margin: 10px 0 0 0;
+    width: 100%;
+    text-align: right;
+}
+.dialog > form > input {
+    font-size: 12px;
+    padding: 3px 0 0;
+    width: 230px;
+    margin: 0 0 0 15px;
 }
 
 .delete-attachment-button form, .dialog .delete-note-button form {

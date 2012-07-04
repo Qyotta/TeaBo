@@ -30,7 +30,7 @@ nav#topNavigation > h1 > a {
     color:#000000;
     text-decoration:none;
     padding: 25px 3px 10px;
-    background: url('../images/lao_logo.jpg') no-repeat;
+    background: url('/topbar/images/lao_logo.jpg') no-repeat;
     
 }
 nav#topNavigation > div.left {

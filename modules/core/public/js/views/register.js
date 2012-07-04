@@ -13,7 +13,8 @@ define([
             'submit form[name="register"]' : 'submitClicked',
             'mousedown .registerCancelButtons button' : 'cancelClicked',
             'hover .exclamation' : 'showError',
-            'keyup input[name="email"]' : 'validateEmailInput'
+            'keyup input[name="email"]' : 'validateEmailInput',
+            'focusout input[name="email"]' : 'validateEmailInput'
         },
         initialize:function(){
             this.registerInProgress = false;

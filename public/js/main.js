@@ -3,7 +3,7 @@ require.config({
         jquery : 'libs/jquery/jquery-min',
         underscore : 'libs/underscore/underscore-min',
         backbone : 'libs/backbone/backbone-optamd3-min',
-        jqueryui : 'libs/jquery/jquery-ui-1.8.17',
+        jqueryui : 'libs/jquery/jquery-ui-1.8.21.custom.min',
         jquerycollision : 'libs/jquery/jquery-collision-1.0.1',
         jqueryfancy : 'libs/jquery/jquery.fancybox.pack',
         text : 'libs/require/text',

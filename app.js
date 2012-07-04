@@ -1,5 +1,6 @@
 // define vars
-var application_root = __dirname,
+var startInDevMode   = process.argv[2] !== 'prod',
+    application_root = __dirname,
     express          = require("express"),
     path             = require("path"),
     mongoose         = require('mongoose'),
@@ -7,6 +8,7 @@ var application_root = __dirname,
     configs          = JSON.parse(fs.readFileSync('package.json', 'utf8')),
     faye             = require('faye'),
     util             = require('./rest/utils'),
+    minfier          = require('./utils/minifier'),
     bayeux           = new faye.NodeAdapter({mount: '/rest', timeout: 120}),
     client           = new faye.Client(configs.server.faye.host + ':' + configs.server.faye.port + '/rest'),
     app              = express.createServer();
@@ -34,19 +36,45 @@ var moduleTemplates = [],
     moduleNames     = [];
 
 fs.readdirSync('./modules').forEach(function(file) {
-    var module = require('./modules/'+file+'/module.js');
+    var name   = file,
+        module = require('./modules/'+name+'/module.js'),
+        cssDir = application_root+'/modules/'+name+'/public/css';
     
     moduleTemplates = moduleTemplates.filter(function(e){return e;});
     moduleTemplates.push(module.template);
-    moduleStyles    = moduleStyles.filter(function(e){return e;});
-    if(module.style) {
-        moduleStyles.push('<link rel="stylesheet" href="'+file+'/'+module.style+'">');
+
+    if(startInDevMode) {
+        moduleStyles = moduleStyles.filter(function(e){return e;});
+        
+        // get all css files
+        if(path.existsSync(cssDir)) {
+            fs.readdirSync(cssDir).forEach(function(file) {
+                moduleStyles.push('<link rel="stylesheet" href="/'+name+'/css/'+file+'">\n');
+            });
+        }
+    } else {
+
+        // read file content of all css files and compress it
+        if(path.existsSync(cssDir)) {
+            fs.readdirSync(cssDir).forEach(function(file) {
+                fs.readFile(cssDir+'/'+file, 'utf8', function (err,data) {
+                    if (err) {
+                        console.log(err);
+                        return false;
+                    }
+                    moduleStyles.push(minfier.compressCSS(data));
+                });
+            });
+        }
     }
-    moduleNames.push(file);
+    moduleNames.push(name);
     
-    app.use('/'+file,express.static(application_root+'/modules/'+file+'/public'));
-    module.init();
+    app.use('/'+name,express.static(application_root+'/modules/'+name+'/public'));
     
+    if(typeof module.init === 'function') {
+        module.init();
+    }
+
     registerRestServices(module.rest);
     registerIOServices(module.io);
     console.log(file + ' module loaded');
@@ -55,9 +83,10 @@ fs.readdirSync('./modules').forEach(function(file) {
 // generate index.html
 app.get('/', function(req,res) {
     var header = fs.readFileSync('./templates/header.tpl', 'utf8'),
-        script = '<script>var modules = [\'' + moduleNames.join('\',\'') + '\']; </script>';
+        script = '<script>var modules = [\'' + moduleNames.join('\',\'') + '\']; </script>',
+        styles = startInDevMode ? moduleStyles.join('') : '<style type="text/css">' + moduleStyles.join('') + '</style>';
     
-    res.send(header + script + '\n\n' + moduleStyles.join('\n') + '\n\n' + moduleTemplates.join('\n'));
+    res.send(header + script + '\n' + styles + '\n\n' + moduleTemplates.join('\n'));
 });
 
 // register rest services
