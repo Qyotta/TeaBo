@@ -39,7 +39,7 @@ var register = function(req,res) {
                 });
             });
 
-            req.session.user = user;
+            req.session.user = getUserDTO(user);
             res.send(user);
 
         } else {
@@ -54,6 +54,17 @@ var getUser = function(req,res) {
     });
 };
 
+var getUserDTO = function(user){
+    return {
+        _id         : user._id,
+        email       : user.email,
+        firstname   : user.firstname,
+        lastname    : user.lastname,
+        position    : user.position,
+        settings    : user.settings
+    };
+}
+
 var postLogin = function(req,res) {
     var query = {'email':req.body.email};
     console.log('check auth for ',query);
@@ -63,8 +74,8 @@ var postLogin = function(req,res) {
             var curPW = bcrypt.hashSync(req.body.password, user.salt);
             if(user.password === curPW){
                 console.log('login successful for ',user.email);
-                req.session.user = user;
-                res.send(user);
+                req.session.user = getUserDTO(user);
+                res.send(req.session.user);
             }
             else {
                 console.log('access denied!');
@@ -105,15 +116,17 @@ var getSession = function(req,res) {
 
 var changePreferences = function(req,res){
     User.findOne({'_id':req.body._id},function(err,user) {
-        user.password = bcrypt.hashSync(req.body.password, user.salt);
-        user.email = req.body.email;
+        if(req.body.password){
+            user.password = bcrypt.hashSync(req.body.password, user.salt);
+        }
+		user.email = req.body.email;
         user.firstname = req.body.firstname;
         user.lastname = req.body.lastname;
         user.position = req.body.position;
         user.save(function(err) {
             res.send({success:true});
         });
-        req.session.user = user;
+        req.session.user = getUserDTO(user);
     });
 };
 
