@@ -8,7 +8,6 @@ define([
     '/core/js/views/notice/error.js'
 ], function($, _, Backbone, User,registerTemplate,Notice,Error){
     var RegisterView = Backbone.View.extend({
-        el: $("#page"),
         events:{
             'submit form[name="register"]' : 'submitClicked',
             'mousedown .registerCancelButtons button' : 'cancelClicked',
@@ -21,15 +20,20 @@ define([
             this.render();
         },
         render:function(){
+            console.log("render");
             this.unrender();
             this.delegateEvents();
             this.registerInProgress = false;
+            
+            $(this.el).addClass("registerContainer");
+
             var data = {email:this.email,firstname:this.firstname,lastname:this.lastname,position:this.position,errors:this.errors};
             var compiledTemplate = _.template( registerTemplate , data);
-            this.el.html(compiledTemplate);
+            this.el.innerHTML = compiledTemplate;
+            $("#page").html(this.el);
         },
         unrender:function(){
-            this.el.html('');
+            $('#page').empty();
         },
         submitClicked:function(evt){
             evt.preventDefault();

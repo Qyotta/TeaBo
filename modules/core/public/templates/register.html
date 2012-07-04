@@ -1,53 +1,50 @@
-<div class="registerContainer">
+<h1>
+    Registration
+    <span>Fields with * are required.</span>
+</h1>
 
-    <h1>
-        Registration
-        <span>Fields with * are required.</span>
-    </h1>
+<form name="register" method="POST" action="user/register" accept-charset="utf-8">
+    <dl>
+        <dt>E-Mail Address*</dt>
+        <dd>
+            <input name="email" value="<%=email%>" />
+            <% if(errors && errors.email){ %>
+                <div class="exclamation emailerror">
+                    <img src="/images/exclamation_mark.png">
+                    <div class="errors"><%= errors.email%></div>
+                </div>
+            <% } %>
+        </dd>
+        <dt>Choose Password*</dt>
+        <dd>
+            <input type="password" name="password"/>
+            <% if(errors && errors.password){ %>
+                <div class="exclamation pwerror">
+                    <img src="/images/exclamation_mark.png">
+                    <div class="errors"><%= errors.password %></div>
+                </div>
+            <% } %>
+        </dd>
+        <dt>Confirm Password*</dt>
+        <dd>
+            <input type="password" name="passwordvalidate" />
+            <% if(errors && errors.verify){ %>
+                <div class="exclamation verifyerror">
+                    <img src="/images/exclamation_mark.png">
+                    <div class="errors"><%= errors.verify%></div>
+                </div>
+            <% } %>
+        </dd>
+        <dt>First Name</dt>
+        <dd><input type="text" name="firstname" value="<%=firstname%>"/></dd>
+        <dt>Last Name</dt>
+        <dd><input type="text" name="lastname" value="<%=lastname%>"/></dd>
+        <dt>Position <span>(e.g. Project Manager)</span></dt>
+        <dd><input type="text" name="position" value="<%=position%>"/></dd>
+    </dl>
 
-    <form name="register" method="POST" action="user/register" accept-charset="utf-8">
-        <dl>
-            <dt>E-Mail Address*</dt>
-            <dd>
-                <input name="email" value="<%=email%>" />
-                <% if(errors && errors.email){ %>
-                    <div class="exclamation emailerror">
-                        <img src="/images/exclamation_mark.png">
-                        <div class="errors"><%= errors.email%></div>
-                    </div>
-                <% } %>
-            </dd>
-            <dt>Choose Password*</dt>
-            <dd>
-                <input type="password" name="password"/>
-                <% if(errors && errors.password){ %>
-                    <div class="exclamation pwerror">
-                        <img src="/images/exclamation_mark.png">
-                        <div class="errors"><%= errors.password %></div>
-                    </div>
-                <% } %>
-            </dd>
-            <dt>Confirm Password*</dt>
-            <dd>
-                <input type="password" name="passwordvalidate" />
-                <% if(errors && errors.verify){ %>
-                    <div class="exclamation verifyerror">
-                        <img src="/images/exclamation_mark.png">
-                        <div class="errors"><%= errors.verify%></div>
-                    </div>
-                <% } %>
-            </dd>
-            <dt>First Name</dt>
-            <dd><input type="text" name="firstname" value="<%=firstname%>"/></dd>
-            <dt>Last Name</dt>
-            <dd><input type="text" name="lastname" value="<%=lastname%>"/></dd>
-            <dt>Position <span>(e.g. Project Manager)</span></dt>
-            <dd><input type="text" name="position" value="<%=position%>"/></dd>
-        </dl>
-
-        <div class="registerCancelButtons">
-            <input type="submit" value="Register Now" class="submitButton">
-            <button type="button" class="submitButton">Cancel</button>
-        </div>
-    </form>
-</div>
+    <div class="registerCancelButtons">
+        <input type="submit" value="Register Now" class="submitButton">
+        <button type="button" class="submitButton">Cancel</button>
+    </div>
+</form>
