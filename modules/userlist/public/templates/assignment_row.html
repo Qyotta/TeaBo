@@ -1,6 +1,6 @@
 <img src="/userlist/images/<%= online %>.png" alt="<%= online %>" />
 <div class="assigned-user-color" style="background:rgb(<%=color[0]%>,<%=color[1]%>,<%=color[2]%>);"></div>
-<% if(user.get('firstname') && user.get('lastname') && user.get('firstname') != '' && user.get('lastname') != '') { %>
+<% if(user.get('firstname') && user.get('firstname') != '' || user.get('lastname') && user.get('lastname') != '') { %>
     <%= user.get('firstname')+' '+user.get('lastname') %>
 <% } else { %>
     <%= user.get('email') %>
