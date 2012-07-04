@@ -11,9 +11,10 @@ define([
             'click .assigned-user-color' : 'colorClicked'
         },
         initialize:function(){
-            _.bindAll(this,'render');
+            _.bindAll(this,'render', 'colorClicked');
             this.model.bind("change",this.render);
             this.model.get('user').bind("change",this.render);
+            window.app.eventDispatcher.bind("userlist:color_clicked",this.colorClicked);
             this.render();
         },
         colorClicked : function(e){

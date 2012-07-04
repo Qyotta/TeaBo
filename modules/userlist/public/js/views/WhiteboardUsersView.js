@@ -14,10 +14,14 @@ define([
             'submit form#invite' : 'inviteUser',
             'focus .mailaddress' : 'freezeUserlist',
             'blur .mailaddress' : 'freezeUserlist',
-            'click a[href="/userlist/invite"]' : 'inviteUser'
+            'click a[href="/userlist/invite"]' : 'inviteUser',
+            'click .assigned-user-color:first' : 'colorClicked',
         },
         preventDefault:function(e) {
             e.preventDefault();
+        },
+        colorClicked:function(e){
+            window.app.eventDispatcher.trigger('userlist:color_clicked', null);
         },
         inviteUser:function(e) {
             e.preventDefault();
