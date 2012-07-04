@@ -14,7 +14,7 @@ define([
             'mousemove' : 'mouseMove',
             'mouseup'   : 'mouseUp'
         },
-        initialize:function(){
+        initialize:function(options){
             _.bindAll(this,'modusChanged','keydown','keyup','mouseDown','mouseUp','mouseMove','startMove','move','endMove','render','entersWhiteboardItem','leavesWhiteboardItem');
 
             this.model.bind('change', this.render, this);
@@ -26,7 +26,9 @@ define([
             
             $(document).keydown(this.keydown);
             $(document).keyup(this.keyup);
-            this.modus = WhiteboardModus.SELECT;
+
+            this.whiteboard = options.model;
+            this.modus      = WhiteboardModus.SELECT;
             this.render();
         },
         mouseDown:function(event){
@@ -104,7 +106,7 @@ define([
             var elem = $('div.whiteboard > div.selected');
             // do it only if more than two are selected and elem itself is selected
             if(elem.length > 1) {
-                views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views)).filter(function(){return true;});
+                views = ((window.app.modules.note.views).concat(window.app.modules.attachment.views).concat(window.app.modules.image.views).concat(window.app.modules.video.views)).filter(function(){return true;});
                 // persist views
                 var commands = [];
                 $.each(views,function(j,view) {
@@ -138,7 +140,8 @@ define([
             $(this.el).addClass("whiteboard draggable");
             $(this.el).css('left', this.model.get('x') + 'px');
             $(this.el).css('top', this.model.get('y') + 'px');
-
+            $(this.el).data('id',this.whiteboard.id);
+            
             if ($("#whiteboard").length === 0) {
                 $('#page').empty();
                 this.delegateEvents();

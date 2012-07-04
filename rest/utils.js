@@ -28,6 +28,16 @@ rest.push({
 
 rest.push({
     type: 'get',
+    url: '/see/whiteboardItems',
+    callback: function(req,res) {
+        WhiteboardItem.find(function(err,users) {
+            res.send(JSON.stringify(users));
+        });
+    }
+});
+
+rest.push({
+    type: 'get',
     url: '/see/user',
     callback: function(req,res) {
         User.find(function(err,users) {
@@ -129,14 +139,6 @@ rest.push({
                 user[i].remove();
             }
         });
-        
-        var user = new User({
-            email:'max-mustermann@gmail.com',
-            password:'testtest',
-            firstname: 'Max',
-            lastname: 'Mustermann'
-        });
-        user.save();
     
         res.send('DB cleared!');
         
