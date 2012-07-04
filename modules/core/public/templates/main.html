@@ -1,3 +1,10 @@
+<h2>You are logged in as  
+<% if(user.get('firstname') && user.get('lastname') && user.get('firstname') != '' && user.get('lastname') != '') { %>
+    <%= user.get('firstname')+' '+user.get('lastname') %>
+<% } else { %>
+    <%= user.get('email') %>
+<% } %>
+</h2>
 <h2>Create Whiteboard</h2>
 <form method="post">
     <span>Name: </span><br />
