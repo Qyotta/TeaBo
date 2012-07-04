@@ -31,7 +31,7 @@ define([
                 this.uploadDialogView = new UploadDialogView({controller:this});
                 this.confirmDeleteView = new ConfirmDeleteView();
             },
-            // index: 4,
+            index: 4,
             toolbarTool: {
                 name: 'Images',
                 action: 'createImage',

@@ -70,8 +70,11 @@ fs.readdirSync('./modules').forEach(function(file) {
     moduleNames.push(name);
     
     app.use('/'+name,express.static(application_root+'/modules/'+name+'/public'));
-    module.init();
     
+    if(typeof module.init === 'function') {
+        module.init();
+    }
+
     registerRestServices(module.rest);
     registerIOServices(module.io);
     console.log(file + ' module loaded');
