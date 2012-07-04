@@ -189,6 +189,26 @@
     z-index:101;
 }
 
+.dialog > form {
+    text-align: left;
+}
+.dialog > h1 > span {
+    float: right;
+    font-size: 11px;
+    width: 100%;
+}
+.dialog > form > div {
+    margin: 10px 0 0 0;
+    width: 100%;
+    text-align: right;
+}
+.dialog > form > input {
+    font-size: 12px;
+    padding: 3px 0 0;
+    width: 230px;
+    margin: 0 0 0 15px;
+}
+
 .delete-attachment-button form, .dialog .delete-note-button form {
     margin:10px 0 0 0;
 }
