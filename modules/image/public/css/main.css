@@ -63,3 +63,8 @@
 .whiteboard .image.hoverable:hover .imageMenu {
     display:block;
 }
+
+#tooltips #uploadImage {
+    bottom: 105px;
+    left: 185px;
+}
