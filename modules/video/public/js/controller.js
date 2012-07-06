@@ -26,7 +26,7 @@ define([
         toolbarTool: {
             name: 'Video',
             action: 'addVideo',
-            imageURL: '/attachment/images/new_file.png',
+            imageURL: '/video/images/video.png',
             imageTitle: 'add a new video'
         },
         openDialog: function() {
