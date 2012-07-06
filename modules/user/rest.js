@@ -130,6 +130,56 @@ var changePreferences = function(req,res){
     });
 };
 
+// util functions
+function generatePassword() {
+    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz!§$%&/()=?+*#-_<>";
+    var string_length = 10;
+    var randomstring = '';
+    for (var i=0; i<string_length; i++) {
+        var rnum = Math.floor(Math.random() * chars.length);
+        randomstring += chars.substring(rnum,rnum+1);
+    }
+    return randomstring;
+}
+
+var forgotPassword = function(req,res){
+    var email = req.body.email;
+    
+    User.findOne({'email':email},function(err,user) {
+        if(!err && user) {
+            var username = user.firstname.length && user.lastname.length ? ' ' + user.firstname + ' ' + user.lastname : '';
+            
+            var genSalt = bcrypt.genSaltSync();
+            var genPassword = generatePassword();
+            user.password = bcrypt.hashSync(genPassword, genSalt);
+            user.salt = genSalt;
+            user.save(function(err){
+                if(!err){
+                    mailer.send({
+                        receiver: email,
+                        subject : 'New credentials to [lao]!',
+                        text: '<body style="font-size:12px; font-family:Helvetiva, sans serif;">'+
+                              '<h1 style="margin-bottom:10px;">Hello'+username+'</h1><br>'+
+                              'you forgot your password for the <a href="'+configs.server.express.host+':'+configs.server.express.port+'">[lao]</a> plattform.<br>'+
+                              'Here are your login credentials:<br><br>'+
+                              '<table>'+
+                              '<tr><td><b>Email:</b></td><td>'  + email  + '</td></tr>'+
+                              '<tr><td><b>Password:</b></td><td>'  + genPassword  + '</td></tr>'+
+                              '</table><br><br>'+
+                              'With Regards,<br>' +
+                              '<h2>[l]ook [a]head [o]nline</h2>'+
+                              '</body>'
+                    });
+                }
+            });
+
+            res.send({success:true,message:"An email with your credentials was send."});
+        }else{
+            res.send({success:false,message:"User wasn't found. "})
+        }
+    });
+}
+
 exports.rest = [
     { url: '/user',                     type: 'post',   callback: register},
     { url: '/user/login',               type: 'post',   callback: postLogin},
@@ -137,5 +187,6 @@ exports.rest = [
     { url: '/user/session',             type: 'get',    callback: getSession},
     { url: '/user',                     type: 'get',    callback: getUser},
     { url: '/user',                     type: 'put',    callback: changePreferences},
-    { url: '/user/validatePassword',    type: 'post',   callback: checkPassword}
+    { url: '/user/validatePassword',    type: 'post',   callback: checkPassword},
+    { url: '/user/forgotPassword',      type: 'post',   callback: forgotPassword}
 ];

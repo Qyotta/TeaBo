@@ -4,13 +4,15 @@ define([
     'backbone',
     'text!/core/templates/login.html',
     '/core/js/views/notice/error.js',
-], function($, _, Backbone, loginTemplate,Error){
+    '/core/js/views/dialogs/ForgotPasswordDialog.js'
+], function($, _, Backbone, loginTemplate,Error,ForgotPasswordDialog){
     var LoginDialogView = Backbone.View.extend({
         initialize:function(){
             
         },
         events:{
             'click .loginContainer input[type=submit]' : 'loginBtnClicked',
+            'click a[href=#forgotPassword]' : 'forgetLinkClicked',
         },
         render: function(){
             var compiledTemplate = _.template( loginTemplate );
@@ -19,6 +21,11 @@ define([
         },
         unrender: function(){
             $(this.el).remove();
+        },
+        forgetLinkClicked:function(evt){
+            evt.preventDefault();
+            console.log("forgetLinkClicked");
+            new ForgotPasswordDialog().showDialog();
         },
         loginBtnClicked:function(evt){
             evt.preventDefault();

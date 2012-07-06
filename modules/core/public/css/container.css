@@ -78,7 +78,7 @@
     width: 133px;
     clear:both;
 }
-.loginContainer dl dt a, .registerContainer dl dt a {
+.registerContainer dl dt a , .loginOptions a{
     color: #B2B2B2
 }
 .loginContainer dl dd, .registerContainer dl dd {
@@ -274,4 +274,21 @@
 
 .mainPanelBlur h2, .mainPanelBlur a, .mainPanelBlur p, .mainPanelBlur span{
     color:rgba(50, 50, 50, 0.7)!important;
+}
+
+#forgotPasswordContainer > a.close, #forgotPasswordContainer > a.accept{
+    background: url("/settings/images/close.png") no-repeat;
+    text-indent: -3000px; 
+    font-size:0px;
+    display:block;
+    width: 22px;
+    height:22px;
+    position:absolute;
+    top:-7px;
+    right:-16px;
+}
+
+#forgotPasswordContainer > a.accept{
+    background: url("/settings/images/accept.png") no-repeat;
+    top: 17px;
 }

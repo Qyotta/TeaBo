@@ -106,3 +106,6 @@ div.loginContainer > form > dl > dd > input[type="password"] {
     font-weight: bold;
     padding: 8px 0 8px 0;
 }
+
+ul.loginOptions{list-style: none; margin: 0;}
+ul.loginOptions li{margin:0 3px;display:inline;}
