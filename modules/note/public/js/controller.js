@@ -4,9 +4,8 @@ define([
     'backbone',
     '/core/js/utils/model_command.js',
     '/core/js/utils/subscribe_command.js',
-    '/note/js/views/note.js',
-    '/note/js/views/confirm_delete.js'
-], function($, _, Backbone, ModelCommand, SubscribeCommand, NoteView, ConfirmDeleteView) {
+    '/note/js/views/note.js'
+], function($, _, Backbone, ModelCommand, SubscribeCommand, NoteView) {
     var NoteController = function(options) {
         _.bindAll(this, 'whiteboardOpened', 'createNote','loadedNote','deletedNote', '_handleEditedNote', '_reportElementOrder', 'handleForegroundWhiteboardItem','assignmentSynced','whiteboardClosed','subscribeChannels');
         window.app.eventDispatcher.bind("whiteboardItem:loaded:note", this.loadedNote);
@@ -25,7 +24,6 @@ define([
         initialize : function() {
             this.views    = [];
             this.assignmentSynced = false;
-            this.confirmDeleteView = new ConfirmDeleteView();
         },
         index: 2,
         toolbarTool: {
@@ -123,7 +121,6 @@ define([
         deletedNote : function(_note){
             var view = this.findViewById(_note.id);
             if(view)view.remove();
-            this.confirmDeleteView = new ConfirmDeleteView();
         }
     };
 

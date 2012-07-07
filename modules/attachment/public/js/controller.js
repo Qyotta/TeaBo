@@ -5,9 +5,8 @@ define([
     '/core/js/utils/model_command.js',
     '/core/js/utils/subscribe_command.js',
     '/attachment/js/views/attachment.js',
-    '/attachment/js/views/confirm_delete.js',
     '/attachment/js/views/upload.js'
-], function($, _, Backbone, ModelCommand, SubscribeCommand, AttachmentView,  ConfirmDeleteView, UploadDialogView){
+], function($, _, Backbone, ModelCommand, SubscribeCommand, AttachmentView, UploadDialogView){
 
     var AttachmentController = function(options){
 
@@ -29,7 +28,6 @@ define([
                 this.views             = [];
                 this.assignmentSynced  = false;
                 this.uploadDialogView  = new UploadDialogView({controller:this});
-                this.confirmDeleteView = new ConfirmDeleteView();
             },
             index: 3,
             toolbarTool: {
@@ -156,7 +154,6 @@ define([
             deletedAttachment : function(_attachment){
                 var view = this.findViewById(_attachment.id);
                 if(view)view.remove();
-                this.confirmDeleteView = new ConfirmDeleteView();
             },
             deleteAttachment : function(message) {
                 //delete physical file

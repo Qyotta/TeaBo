@@ -3,24 +3,26 @@ define([
     'underscore',
     'backbone',
     '/core/js/views/dialogs/dialog.js',
-    'text!/attachment/templates/confirm_delete.html'
+    'text!/whiteboardItem/templates/confirm_delete.html'
 ], function($, _, Backbone, Dialog, confirmDeleteTemplate){
    
     var ConfirmDeleteView = Dialog.extend({
         showDialogFlag:"DeleteConfirmFlag",
         initialize:function(){
             _.bindAll(this,'showConfirmDialog', 'confirmed', 'hideConfirmDialog', 'shouldShowDialog');
-            window.app.eventDispatcher.bind("attachment:delete_clicked",this.showConfirmDialog);
+            window.app.eventDispatcher.bind("whiteboardItem:showConfirmDelete", this.showConfirmDialog);
         },
         events:{
             'click .dialog button.cancel' : 'hideConfirmDialog',
             'click .dialog input[type=submit]': 'confirmed'
         },
         render: function(){
-            var compiledTemplate = _.template(confirmDeleteTemplate);
+            var data = {whiteboardItem:this.model};
+            var compiledTemplate = _.template(confirmDeleteTemplate,data);
             $(this.el).attr('class','dialog');
             $(this.el).html(compiledTemplate);
             $('#dialogs').html(this.el);
+            this.delegateEvents();
         },
         showConfirmDialog:function(model){
             this.model = model;
@@ -29,7 +31,6 @@ define([
             }
             else {
                 window.app.eventDispatcher.trigger('whiteboardItem:delete',this.model);
-                window.app.eventDispatcher.trigger('attachment:delete',this.model);
             }
         },
         shouldShowDialog : function(){
@@ -48,7 +49,6 @@ define([
             evt.preventDefault();
             window.app.modules.settings.set(this.showDialogFlag,!$('#dialogs :checkbox').is(':checked'));
             this.hideDialog();
-            window.app.eventDispatcher.trigger('attachment:delete',this.model);
             window.app.eventDispatcher.trigger('whiteboardItem:delete',this.model);
         }
     });    

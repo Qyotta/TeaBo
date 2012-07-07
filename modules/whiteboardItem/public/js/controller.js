@@ -4,8 +4,9 @@ define([
         '/core/js/utils/model_command.js',
         '/whiteboardItem/js/collection/WhiteboardItemCollection.js',
         '/whiteboardItem/js/models/WhiteboardItem.js',
-        '/whiteboard/js/utils/modus.js'
-], function(_,SubscribeCommand,ModelCommand,WhiteboardItemCollection,WhiteboardItem,WhiteboardModus){
+        '/whiteboard/js/utils/modus.js',
+        '/whiteboardItem/js/views/confirm_delete.js'
+], function(_,SubscribeCommand,ModelCommand,WhiteboardItemCollection,WhiteboardItem,WhiteboardModus,ConfirmDeleteDialog){
     
     var WhiteboardItemController = function(options){
         _.bindAll(this,'whiteboardOpened','whiteboardClosed','movedItem','deletedItem','deleteItem','postedItem','startedEditing','stoppedEditing','stopEditing','changeOrder','changedOrder');
@@ -23,7 +24,7 @@ define([
     
     WhiteboardItemController.prototype = {
         initialize : function(){
-            
+            this.confirmDelete = new ConfirmDeleteDialog();
         },
         index: 6,
         subscribeChannels:function(){
@@ -62,7 +63,6 @@ define([
             var y = message.y;
             var item = this.collection.get(id);
             item.set({x:x,y:y});
-            console.log("Whiteboard item moved");
         },
         deletedItem : function(message){
             var _id = message.id;

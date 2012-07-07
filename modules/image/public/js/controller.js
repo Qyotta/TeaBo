@@ -5,9 +5,8 @@ define([
     '/core/js/utils/model_command.js',
     '/core/js/utils/subscribe_command.js',
     '/image/js/views/image.js',
-    '/image/js/views/confirm_delete.js',
     '/image/js/views/upload.js'
-], function($, _, Backbone, ModelCommand, SubscribeCommand, ImageView,  ConfirmDeleteView, UploadDialogView){
+], function($, _, Backbone, ModelCommand, SubscribeCommand, ImageView, UploadDialogView){
     
     var ImageController = function(options){
 
@@ -29,7 +28,6 @@ define([
                 this.views    = [];
                 this.assignmentSynced = false;
                 this.uploadDialogView = new UploadDialogView({controller:this});
-                this.confirmDeleteView = new ConfirmDeleteView();
             },
             index: 4,
             toolbarTool: {
@@ -127,7 +125,6 @@ define([
             deletedImage : function(_image){
                 var view = this.findViewById(_image.id);
                 if(view)view.remove();
-                this.confirmDeleteView = new ConfirmDeleteView();
             },
             resizedImage : function(message) {
                 if (typeof message === undefined || message === null) {

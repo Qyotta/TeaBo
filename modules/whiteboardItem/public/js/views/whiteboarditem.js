@@ -141,7 +141,7 @@ define([
             if(elem.length > 1) {
                 window.app.eventDispatcher.trigger("whiteboardItem:delete_multiple", $('#whiteboard').data('id'));
             }else {
-                window.app.eventDispatcher.trigger(this.name+":delete_clicked", this.model);
+                window.app.eventDispatcher.trigger("whiteboardItem:showConfirmDelete", this.model);
             }
         },
         changedOrderIndex : function(){

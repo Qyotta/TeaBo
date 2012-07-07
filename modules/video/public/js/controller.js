@@ -2,8 +2,7 @@ define([
     'underscore',
     '/video/js/views/video.js',
     '/video/js/views/dialog.js',
-    '/video/js/views/confirm_delete.js'
-], function(_, VideoView, Dialog, ConfirmDeleteView){
+], function(_, VideoView, Dialog){
     
     var VideoController = function(options){
         _.bindAll(this,'openDialog','loadedVideo','whiteboardOpened','deletedVideo');
@@ -19,7 +18,6 @@ define([
     VideoController.prototype = {
         initialize: function() {
             this.dialog = new Dialog({controller:this});
-            this.confirmDeleteView = new ConfirmDeleteView();
             this.views  = [];
         },
         index: 5,
