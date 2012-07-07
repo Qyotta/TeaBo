@@ -202,7 +202,7 @@
     color: #B2B2B2;
     text-align: center;
     border: 1px solid #B2B2B2;
-    font-size: 16px;
+    font-size: 13px;
     -webkit-box-shadow: 4px 4px 8px #222;
     -moz-box-shadow: 4px 4px 8px #222;
     -o-box-shadow: 4px 4px 8px #222;
@@ -226,7 +226,7 @@
 .dialog > form > input {
     font-size: 12px;
     padding: 3px 0 0;
-    width: 230px;
+    width: 231px;
     margin: 0 0 0 15px;
 }
 
@@ -235,7 +235,8 @@
 }
 
 .hide-confirm-container{
-    margin: 5px 0 0 -100px;
+    margin: 15px 0 0;
+    text-align: left
 }
 
 .hide-confirm-container label{
