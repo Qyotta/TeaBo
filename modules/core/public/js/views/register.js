@@ -20,7 +20,6 @@ define([
             this.render();
         },
         render:function(){
-            console.log("render");
             this.unrender();
             this.delegateEvents();
             this.registerInProgress = false;

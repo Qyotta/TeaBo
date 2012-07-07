@@ -3,9 +3,10 @@ define([
     'underscore',
     'backbone',
     '/core/js/views/register.js',
+    '/core/js/views/forgotPassword.js',
     '/core/js/views/main.js',
     '/core/js/views/login.js'
-], function($, _, Backbone, RegisterView,MainHomeView,LoginView){
+], function($, _, Backbone, RegisterView, ForgotPasswordView, MainHomeView, LoginView){
     var AppRouter = Backbone.Router.extend({
         initialize: function(){
             window.app.eventDispatcher.bind('application:loggedIn',this.loggedIn);
@@ -13,6 +14,7 @@ define([
         routes: {
             // Define some URL routes
             'register':'loadRegister',
+            'forgotPassword':'loadForgotPassword',
             'whiteboard/:id': 'showWhiteboard',
             'login':'showLogin',
             'main':'showMainPanel'
@@ -22,6 +24,10 @@ define([
         loadRegister:function(){
             document.title = "[lao] look ahead online - register";
             new RegisterView();
+        },
+        loadForgotPassword: function() {
+            document.title = '[lao] look ahead online - forgot password';
+            new ForgotPasswordView();
         },
         showWhiteboard: function(id){
             document.title = "[lao] look ahead online - whiteboard view";

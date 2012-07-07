@@ -2,33 +2,41 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    '/core/js/views/dialogs/dialog.js',
     '/core/js/views/notice/error.js',
     '/core/js/views/notice/notice.js',
-    'text!/core/templates/dialogs/forgotPasswordDialog.html'
-], function($, _, Backbone, Dialog, Error, Notice, forgotPasswordDialogTemplate){
-    var ForgotPasswordDialog = Dialog.extend({
+    'text!/core/templates/forgotPassword.html'
+], function($, _, Backbone, Error, Notice, forgotPasswordTemplate){
+    var ForgotPasswordDialog = Backbone.View.extend({
         initialize:function(){
-             $(this.el).attr("id","forgotPasswordContainer");
+            this.render();
         },
         events:{
-            'click a.close' : 'close',
-            'click a.accept': 'accept'
+            'mousedown .registerCancelButtons button' : 'close',
+            'submit form': 'accept',
+            'keyup input#emailField' : 'validateEmailInput',
+            'focusout input#emailField' : 'validateEmailInput'
         },
         render: function(){
-            $('#dialogs').empty();
+            this.unrender();
             this.delegateEvents();
-            var compiledTemplate = _.template(forgotPasswordDialogTemplate);
-            $(this.el).html(compiledTemplate);
-            $('#dialogs').html(this.el);
+            
+            $(this.el).addClass("forgotPasswordContainer");
+
+            var data = {},
+                compiledTemplate = _.template( forgotPasswordTemplate, data);
+
+            this.el.innerHTML = compiledTemplate;
+            $("#page").html(this.el);
+        },
+        unrender:function(){
+            $('#page').empty();
         },
         close:function(e) {
-            e.preventDefault();
-            this.hideDialog();
+            this.unrender();
+            window.router.navigate("login", {trigger: true});
         },
         accept:function(e) {
             e.preventDefault();
-            this.hideDialog();
             var email = $("#emailField").val();
             if(this.validateEmail(email)){
                 $.ajax({
@@ -38,12 +46,22 @@ define([
                     success: function(data) {
                         if(data.success){
                             new Notice({message:data.message});
+                            window.router.navigate("login", {trigger: true});
                         }
                         else{
                             new Error({message:data.message});
                         }
                     }
                 });
+            }
+        },
+        validateEmailInput: function(e) {
+            email = e.target.value;
+            console.log(e.target);
+            if(!this.validateEmail(email)) {
+                $(e.target).addClass('error');
+            } else {
+                $(e.target).removeClass('error');
             }
         },
         validateEmail:function(email){

@@ -3,16 +3,11 @@ define([
     'underscore',
     'backbone',
     'text!/core/templates/login.html',
-    '/core/js/views/notice/error.js',
-    '/core/js/views/dialogs/ForgotPasswordDialog.js'
+    '/core/js/views/notice/error.js'
 ], function($, _, Backbone, loginTemplate,Error,ForgotPasswordDialog){
     var LoginDialogView = Backbone.View.extend({
-        initialize:function(){
-            
-        },
         events:{
-            'click .loginContainer input[type=submit]' : 'loginBtnClicked',
-            'click a[href=#forgotPassword]' : 'forgetLinkClicked',
+            'click .loginContainer input[type=submit]' : 'loginBtnClicked'
         },
         render: function(){
             var compiledTemplate = _.template( loginTemplate );
@@ -22,11 +17,6 @@ define([
         unrender: function(){
             $(this.el).remove();
         },
-        forgetLinkClicked:function(evt){
-            evt.preventDefault();
-            console.log("forgetLinkClicked");
-            new ForgotPasswordDialog().showDialog();
-        },
         loginBtnClicked:function(evt){
             evt.preventDefault();
             var self = this;
@@ -35,7 +25,7 @@ define([
                 type: 'post',
                 contentType: 'application/json',
                 data: '{"email":"'+$('input[name=email]').val()+'","password":"'+$('input[name=password]').val()+'"}',
-                success: function(data){ 
+                success: function(data){
                     if(data !== '') {
                         window.app.user.set(data);
                         window.app.user.synced = true;
