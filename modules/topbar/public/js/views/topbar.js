@@ -52,7 +52,7 @@ define([
             this.el.html(compiledTemplate);
             
             if(window.app.loggedIn()){
-                $(".right",this.el).append(this.settingsMenuView.render().el);
+                $(this.el).find('.right > div').prepend(this.settingsMenuView.render().el);
             }
             
             $.each(components,function(i, component) {

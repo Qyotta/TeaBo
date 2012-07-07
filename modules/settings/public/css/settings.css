@@ -1,31 +1,29 @@
-#settingsMenu div{
-    display:block;
-    float:none!important;
+div.settingsMenuContainer {
+    left: 0;
+    position: absolute;
+    top: 15px;
+    width: 200px;
+    display: none;
 }
 
-#settingsMenu:hover .settingsMenuContainer ul{
-    display:block;
-}
-
-#settingsMenu .settingsMenuContainer ul{
-    display:none;
+div.settingsMenuContainer ul {
     background: none repeat scroll 0 0 #494949;
     padding: 10px ;
     position:absolute;
-    margin: 0px 0 0 -10px;
+    margin: 0 0 0 -10px;
 }
 
-#settingsMenu .settingsMenuContainer ul li{
+.settingsMenuContainer ul li{
     text-align:left;
 }
 
 .dialog h1 {
     font-size: 16px;
     height: 42px;
-    margin: 0px;
+    margin: 0;
     float: left;
     text-align: left;
-    padding: 0px 0px 6px 0px;
+    padding: 0 0 6px 0;
     width: 100%;
 }
 

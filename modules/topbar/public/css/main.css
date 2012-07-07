@@ -85,13 +85,11 @@ nav#topNavigation div.right {
     color: #FFFFFF;
     float: right;
     padding: 5px 0 0 0;
-    width:500px;
     text-align:right;
 }
-nav#topNavigation div.right div {
-    float:right;
-    border-left:1px solid #c2c2c2;
-    padding:0 10px;
+nav#topNavigation div.right > div > div {
+    display:inline;
+    position:relative;
 }
 nav#topNavigation div a {
     text-decoration:none;
@@ -106,6 +104,9 @@ nav#topNavigation > div a > img {
 }
 nav#topNavigation div.right div:last-Child {
     border-left:0px;
+}
+#topNavigation > div.right > div > div:hover > div {
+    display: block;
 }
 nav#topNavigation div.right b {
     margin-right:5px;

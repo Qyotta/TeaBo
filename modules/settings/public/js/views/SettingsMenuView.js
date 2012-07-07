@@ -5,9 +5,8 @@ define([
     'text!/settings/templates/settingsMenu.html'
 ], function($, _, Backbone, settingsMenuTemplate){
     var SettingsMenuView = Backbone.View.extend({
-        id: "settingsMenu",
         events : {
-            'click li a' :'menuItemClicked',
+            'click li a' :'menuItemClicked'
         },
         menuItems: [
             {display:"User Preferences",css:"userPreferences"},
@@ -21,9 +20,7 @@ define([
             $(this.el).empty();
         },
         render : function() {
-            var data = {
-                
-            };
+            var data = {};
             var compiledTemplate = _.template( settingsMenuTemplate, data );
             $(this.el).html(compiledTemplate);
             for(var i=0;i<this.menuItems.length;i++){

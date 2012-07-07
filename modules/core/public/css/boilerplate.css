@@ -96,6 +96,7 @@ a:hover {
 
 a:focus {
     outline: thin dotted;
+    outline: none;
 }
 
 /* Improve readability when focused and hovered in all browsers: h5bp.com/h */
