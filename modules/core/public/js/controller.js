@@ -83,7 +83,7 @@ define([
                 return;
             }
 
-            this.io = new Faye.Client('http://localhost:3001/rest', {
+            this.io = new Faye.Client(window.fayeURL, {
                 timeout: 120
             });
             this.io.connect();
