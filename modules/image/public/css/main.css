@@ -47,24 +47,26 @@
     font-size:11px;
 }
 
-
-.whiteboard .imageItems.content{
+.image .content{
     float:left;
 }
 
-.imageMenu{
+.image .whiteboardItemMenu{
     float:left;
-    width:13px;
-    display:none;
-    padding: 12px 0 0;
-    font-size:0px; /* to avoid whitespace underneath each picture*/
-}
-
-.whiteboard .image.hoverable:hover .imageMenu {
-    display:block;
+    padding: 0px 0 0;
 }
 
 #tooltips #uploadImage {
     bottom: 105px;
     left: 185px;
+}
+
+.blurBox .image .content {
+    background: none repeat scroll 0 0 rgba(85, 85, 85, 0.5);
+    box-shadow: 0 0 10px #555555
+
+}
+
+.blurBox .image .content img {
+    visibility:hidden!important;
 }

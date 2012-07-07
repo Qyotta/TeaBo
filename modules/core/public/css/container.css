@@ -230,10 +230,6 @@
     margin: 0 0 0 15px;
 }
 
-.delete-attachment-button form, .dialog .delete-note-button form {
-    margin:10px 0 0 0;
-}
-
 .hide-confirm-container{
     margin: 15px 0 0;
     text-align: left
@@ -243,8 +239,7 @@
     font-size:12px;
 }
 
-
-.blurBox .attachmentMenu, .blurBox .noteMenu {
+.blurBox .whiteboardItemMenu{
     display:none!important;
 }
 
@@ -256,35 +251,9 @@
     background:transparent!important;
     border:none;
 }
-.blurBox .creator {
-    display:none!important;
-}
 
-.blurBox .noteItems {
-    box-shadow:0 0 10px #F8F7B6!important;
-    background-color:rgba(248, 247, 187, 0.5)!important;
-}
-
-.blurBox .attachmentItems p.image {
-    background: none repeat scroll 0 0 rgba(85, 85, 85, 0.5);
-    box-shadow: 0 0 10px #555555 !important;
-    margin: 12px 0 12px 18px;
-    width: 32px;
-}
-
-
-.blurBox .imageItems {
-    background: none repeat scroll 0 0 rgba(85, 85, 85, 0.5);
-    box-shadow: 0 0 10px #555555
-
-}
-.blurBox .attachmentItems p.image img, 
-.blurBox .imageItems img, .mainPanelBlur ul li a.delete img {
+.mainPanelBlur ul li a.delete img {
     visibility:hidden;
-}
-.blurBox .attachmentItems p.filename {
-    text-shadow:0 0 5px rgba(50, 50, 50, 0.7);
-    color:rgba(94, 94, 94, 0);
 }
 
 #removeWhiteboardContainer span{
@@ -296,21 +265,4 @@
 
 .mainPanelBlur h2, .mainPanelBlur a, .mainPanelBlur p, .mainPanelBlur span{
     color:rgba(50, 50, 50, 0.7)!important;
-}
-
-#forgotPasswordContainer > a.close, #forgotPasswordContainer > a.accept{
-    background: url("/settings/images/close.png") no-repeat;
-    text-indent: -3000px; 
-    font-size:0px;
-    display:block;
-    width: 22px;
-    height:22px;
-    position:absolute;
-    top:-7px;
-    right:-16px;
-}
-
-#forgotPasswordContainer > a.accept{
-    background: url("/settings/images/accept.png") no-repeat;
-    top: 17px;
 }

@@ -1,7 +1,36 @@
 .whiteboarditem.selected .content {
-    box-shadow: 0 0 15px #4B99CE;
+    box-shadow: 0 0 15px #4B99CE !important ;
 }
 
 .whiteboarditem.edited .content {
-    box-shadow: 0 0 20px #FF0000;
+    box-shadow: 0 0 20px #FF0000 !important ;
+}
+
+.whiteboard .note {
+    min-width: 235px;
+}
+
+.whiteboard .whiteboarditem:hover .whiteboardItemMenu{
+    display:block;
+}
+
+.whiteboardItemMenu{
+    float:right;
+    width:13px;
+    display:none;
+    padding: 9px 0 0;
+    font-size:0px; /* to avoid whitespace underneath each picture*/
+}
+
+.whiteboarditem{
+    position:absolute;
+}
+
+.locked {
+    position: relative;
+    left: 5px;
+    top:4px;
+    margin: 3px 0 0;
+    width: 10px;
+    padding: 0 0 5px;
 }

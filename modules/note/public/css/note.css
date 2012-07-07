@@ -1,0 +1,54 @@
+.note:hover .creator {
+    display:block;
+}
+
+.note textarea {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    height: 17px;
+    line-height: 17px;
+    width: 199px;
+    /*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FDFDCC), to(#F8F7B6) );
+    background: -moz-linear-gradient(100% 100% 90deg, #F8F7B6, #FDFDCC);*/
+    overflow: hidden;
+}
+
+.note input {
+    /*background: #FDFDCC;*/
+    border: 0;
+    font-size: 20px;
+    height: 30px;
+    width: 199px;
+}
+
+.note .creator {
+    display: none;
+    float: left;
+    font-size: 10px;
+    position: relative;
+    top: 7px;
+    padding: 0 0 4px 0;
+    margin: 3px 0 2px 0;
+}
+
+.note .content{
+    /*background: none repeat scroll 0 0 #F8F7B6;*/
+    position: absolute;
+    padding: 5px;
+    float: left;
+    margin: 10px;
+    -webkit-box-shadow: 0px 0px 5px #AAA;
+    -moz-box-shadow: 0px 0px 5px #AAA;
+    -o-box-shadow: 0px 0px 5px #AAA;
+    box-shadow: 0px 0px 5px #AAA;
+    width:200px;
+}
+
+.blurBox .creator {
+    display:none!important;
+}
+
+.blurBox .content {
+    box-shadow:0 0 10px #F8F7B6!important;
+    background-color:rgba(248, 247, 187, 0.5)!important;
+}

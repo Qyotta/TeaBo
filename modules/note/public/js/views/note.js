@@ -47,7 +47,7 @@ define([ 'jquery',
             }
         },
         edited : function() {
-            this.input = $('.noteItems textarea',this.el);
+            this.input = $('.content textarea',this.el);
             var _text  = this.input.val();
             var _oldText = this.model.get('content').get('text');
 
@@ -107,7 +107,7 @@ define([ 'jquery',
             textarea.css('height', textarea[0].scrollHeight + 'px');
             var _color = window.app.modules.assignment.getColor(this.model.get('creator'));
             if(_color){
-                $('.noteItems',$(this.el)).css('background',"rgb("+_color[0]+","+_color[1]+","+_color[2]+")");
+                $('.content',$(this.el)).css('background',"rgb("+_color[0]+","+_color[1]+","+_color[2]+")");
             }
         }
     });
