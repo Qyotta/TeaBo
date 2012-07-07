@@ -121,9 +121,7 @@ function registerRestServices(rest) {
 function registerIOServices(io) {
     if(io) {
         bayeux.bind('publish', function(client_id,channel,obj) {
-            console.log('got message on ',channel, obj);
             if(io[channel]) {
-                console.log('channel found');
                 io[channel](bayeux,channel,obj);
             }
         });

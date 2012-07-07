@@ -3,7 +3,7 @@ define([
     '/assignment/js/collection/assignment.js',
     '/assignment/js/model/assignment.js',
     '/core/js/utils/model_command.js',
-    '/core/js/utils/subscribe_command.js',
+    '/core/js/utils/subscribe_command.js'
 ], function(_,AssignmentCollection,Assignment,ModelCommand,SubscribeCommand){
     
     var AssignmentController = function(options){
@@ -28,7 +28,7 @@ define([
         unsubscribeChannels:function(){
             _.each(this.subscriptions,function(subscription){
                 subscription.cancel();
-            })
+            });
         },
         userChanged:function(message){
             var assignments = this.assignments;
@@ -59,13 +59,26 @@ define([
         whiteboardOpened:function(whiteboard){
             this.whiteboard = whiteboard;
             this.assignments = new AssignmentCollection(null,{whiteboardId: whiteboard.id});
+            console.log(this.assignments);
             var self = this;
             this.assignments.fetch({success: function(collection,response) {
                 self.setOnlineStatus(true);
                 self.subscribeChannels();
+
+                _.each(collection.models,function(assignment){
+                    if(assignment.get('user').id === window.app.user.id){
+                        self.ping(assignment.id);
+                    }
+                });
                 window.app.eventDispatcher.trigger('assignment:synced',collection);
             }});
-            
+        },
+        ping: function(assignmentId) {
+            var self = this;
+            window.app.io.publish('/service/assignment/ping',{userId: window.app.user.id, assignmentId: assignmentId});
+            pingTimeout = window.setTimeout(function() {
+                self.ping(assignmentId);
+            }, 1000);
         },
         whiteboardClosed:function(){
             this.unsubscribeChannels();
