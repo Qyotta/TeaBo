@@ -1,8 +1,9 @@
 define([
     'jquery',
     'underscore',
-    'backbone'
-], function($, _, Backbone) {
+    'backbone',
+    'text!/infotour/templates/infotour-end.html'
+], function($, _, Backbone, InfotourEnd) {
     
     var TooltipsView = Backbone.View.extend({
         el: $('#tooltips'),
@@ -79,16 +80,27 @@ define([
                 if(typeof module.index === 'number') {
                     require(['text!/'+key+'/templates/infotour.html'],function(template) {
                         if(module.index === 0) {
+                            if(that.templates[0] === undefined) {
+                                that.templates[0] = '';
+                            }
                             that.templates[0] += template;
                         } else {
-                            that.templates[module.index] = template;
+                            if(that.templates[module.index] === undefined) {
+                                that.templates[module.index] = '';
+                            }
+                            that.templates[module.index] += template;
                         }
-                        
+
                         ++i;
                         if(i === window.modules.length) {
-                            var unrelevantElements = that.templates[0];
+                            var unrelevantElements = '';
+
+                            if(that.templates[0] !== undefined) {
+                                unrelevantElements = that.templates[0];
+                            }
+
                             that.templates.shift();
-                            that.templates = that.templates.join('\n') + unrelevantElements;
+                            that.templates = that.templates.join('\n') + unrelevantElements + InfotourEnd;
                             that.render();
                         }
                     });

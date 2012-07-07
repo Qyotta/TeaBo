@@ -5,3 +5,14 @@
     top: 0;
     width: 13px;
 }
+#tooltips #uploadVideo {
+    bottom: 105px;
+    left: 235px;
+    width:400px;
+}
+#tooltips #uploadVideo img.infoimage {
+	margin:20px 0;
+}
+#tooltips #uploadVideo a {
+	color:#ffffff;
+}

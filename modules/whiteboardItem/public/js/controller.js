@@ -25,7 +25,7 @@ define([
         initialize : function(){
             
         },
-        index: 5,
+        index: 6,
         subscribeChannels:function(){
             this.subscriptions = [];
             this.subscriptions.push(window.app.io.subscribe('/whiteboardItem/posted/'+this.whiteboard.id,      this.postedItem));
