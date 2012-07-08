@@ -44,11 +44,13 @@ define([
         },
         loadedNote:function(_note){
             if (this.checkIfViewExists(_note))return;
-            
             var view = new NoteView({
                 model : _note,
                 controller: this
             });
+            if(this.isAssignmentSynced){
+                this.addSingleNote(view);
+            }
             this.views.push(view);
         },
         whiteboardOpened : function(whiteboard) {
@@ -58,14 +60,13 @@ define([
             this.isAssignmentSynced = false;
         },
         findViewById:function(id){
-            var result=null;
-            _.each(this.views,function(view){
+            for(var i=0;i<this.views.length;i++){
+                var view = this.views[i];
                 if(id === view.model.id){
-                    result = view;
-                    return;
+                    return view;
                 }
-            });
-            return result;
+            }
+            return null;
         },
         checkIfViewExists : function(model){
             var view = this.findViewById(model.id);
@@ -75,10 +76,14 @@ define([
             this.isAssignmentSynced = true;
             this.renderNotes();
         },
+        addSingleNote:function(view){
+            $("#whiteboard").append($(view.render().el));
+        },
         renderNotes : function(){
             if(!this.isAssignmentSynced)return false;
+            var self = this;
             _.each(this.views,function(view){        
-                $("#whiteboard").append($(view.render().el));
+                self.addSingleNote(view);
             });
         },
         whiteboardClosed:function(){

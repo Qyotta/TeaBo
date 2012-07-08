@@ -46,7 +46,6 @@ define([
             this.collection.fetch({
                     success : function(collection, response) {
                         collection.each(function(_item) {
-                            console.log('whiteboardItem:loaded:'+_item.get('type'));
                             window.app.eventDispatcher.trigger('whiteboardItem:loaded:'+_item.get('type'),_item);
                         });
                         self.subscribeChannels();
