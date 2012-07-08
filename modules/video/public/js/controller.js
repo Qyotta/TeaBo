@@ -31,13 +31,13 @@ define([
             this.dialog.showVideoDialog();
         },
         loadedVideo: function(video) {
-
             var view = new VideoView({
                 model : video,
                 controller: this
             });
-
-            view.render();
+            
+            $("#whiteboard").append($(view.render().el));
+            
             this.views.push(view);
         },
         whiteboardOpened: function() {

@@ -19,6 +19,9 @@ define([ 'jquery',
             WhiteboardItemView.prototype.initialize.apply( this );
             _.bindAll(this, 'isFocused', 'isBlured', 'edited','changed','assignmentChanged','assignmentsSynced');
             
+            $(this.el).attr("id", this.model.id);
+            $(this.el).addClass("note");
+
             this.model.get('content').bind('change:text',this.changed,this);
             
             this.controller = options.controller;
@@ -96,21 +99,11 @@ define([ 'jquery',
                 _ : _
             };
             var compiledTemplate = _.template(noteTemplate, data);
-            
-            $(this.el).attr("id", this.model.id);
-            $(this.el).addClass("note");
-            
-            if ($('#'+this.model.id).length > 0) {
-                $('#'+this.model.id).css('left', this.model.get('x') + 'px');
-                $('#'+this.model.id).css('top', this.model.get('y') + 'px');
-                $('#'+this.model.id).css('z-index', this.model.get('orderIndex'));
-                $('#'+this.model.id).html(compiledTemplate);
-            } else {
-                $(this.el).css('left', this.model.get('x') + 'px');
-                $(this.el).css('top', this.model.get('y') + 'px');
-                $(this.el).css('z-index', this.model.get('orderIndex'));
-                $("#whiteboard").append($(this.el).html(compiledTemplate));
-            }
+            $(this.el).html(compiledTemplate);
+
+            $(this.el).css('left', this.model.get('x') + 'px');
+            $(this.el).css('top', this.model.get('y') + 'px');
+            $(this.el).css('z-index', this.model.get('orderIndex'));
             
             var textarea = $(this.el).find('textarea');
             textarea.css('height', textarea[0].scrollHeight / 2 + 'px');
@@ -119,6 +112,7 @@ define([ 'jquery',
             if(_color){
                 $('.content',$(this.el)).css('background',"rgb("+_color[0]+","+_color[1]+","+_color[2]+")");
             }
+            return this;
         }
     });
 

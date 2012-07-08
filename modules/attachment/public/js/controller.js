@@ -55,8 +55,8 @@ define([
                     model : _attachment,
                     controller: this
                 });
-                view.render();
                 
+                $("#whiteboard").append($(view.render().el));
                 this.views.push(view);
             },
             whiteboardOpened : function(whiteboard) {

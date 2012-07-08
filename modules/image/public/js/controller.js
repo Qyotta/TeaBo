@@ -47,7 +47,8 @@ define([
                     model : _image,
                     controller: this
                 });
-                view.render();
+                
+                $("#whiteboard").append($(view.render().el));
                 
                 this.views.push(view);
             },

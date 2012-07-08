@@ -23,7 +23,7 @@ define([
     NoteController.prototype = {
         initialize : function() {
             this.views    = [];
-            this.assignmentSynced = false;
+            this.isAssignmentSynced = false;
         },
         index: 2,
         toolbarTool: {
@@ -49,15 +49,13 @@ define([
                 model : _note,
                 controller: this
             });
-            view.render();
-            
             this.views.push(view);
         },
         whiteboardOpened : function(whiteboard) {
             this.whiteboard = whiteboard;
             this.views = [];
             this.subscribeChannels();
-            this.assignmentSynced = false;
+            this.isAssignmentSynced = false;
         },
         findViewById:function(id){
             var result=null;
@@ -74,17 +72,17 @@ define([
             return view !== null;
         },
         assignmentSynced : function(){
-            this.assignmentSynced = true;
+            this.isAssignmentSynced = true;
             this.renderNotes();
         },
         renderNotes : function(){
-            if(!this.assignmentSynced)return false;
-            _.each(this.views,function(view){
-                view.render();
+            if(!this.isAssignmentSynced)return false;
+            _.each(this.views,function(view){        
+                $("#whiteboard").append($(view.render().el));
             });
         },
         whiteboardClosed:function(){
-            this.assignmentSynced = false;
+            this.isAssignmentSynced = false;
             _.each(this.views,function(view){
                 view.destroy();
             });

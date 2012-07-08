@@ -10,8 +10,8 @@ define([ 'jquery',
         name : 'image',
         baseWidth : null,
         events : {
-            'dblclick .imageItems' : 'openFancybox',
-            'click .imageItems' : 'isClicked'
+            'dblclick .content' : 'openFancybox',
+            'click .content' : 'isClicked'
         },
         constructor: function(){
             this.events = _.extend( {}, WhiteboardItemView.prototype.events, this.events );
@@ -20,8 +20,12 @@ define([ 'jquery',
         initialize : function(options) {
             WhiteboardItemView.prototype.initialize.apply( this );
             _.bindAll(this, 'changed','assignmentChanged', 'isClicked', 'openFancybox', 'render');
+            
             this.model.get('content').bind('change:scale',this.changed,this);
             
+            $(this.el).attr("id", this.model.id);
+            $(this.el).addClass("image");
+
             this.controller = options.controller;
             this.delegateEvents();
         },
@@ -32,53 +36,38 @@ define([ 'jquery',
             this.render();
         },
         render : function() {
-            var _creator = window.app.modules.assignment.getUser(this.model.get('creator'));
-            if(!_creator)return false;
             
             var data = {
                 image : this.model,
-                creator:_creator,
                 _ : _
             };
             var compiledTemplate = _.template(imageTemplate, data);
-            $(this.el).attr("id", this.model.id);
-            $(this.el).addClass("image");
             
             var imageWidth;
-            if ($('#'+this.model.id).length > 0) {
-                $('#'+this.model.id).css('left',
-                        this.model.get('x') + 'px');
-                $('#'+this.model.id).css('top',
-                        this.model.get('y') + 'px');
-                $('#'+this.model.id).css('z-index', this.model.get('orderIndex'));
-                $('#'+this.model.id).html(compiledTemplate);
-                if (this.baseWidth != null) {
-                    imageWidth = this.model.get('content').get('scale') * this.baseWidth;
-                    $("#" + this.model.id).find(".imageItems img").attr(
-                            'width', imageWidth);
-                }
-            } 
-            else {
-                $(this.el).css('left', this.model.get('x') + 'px');
-                $(this.el).css('top', this.model.get('y') + 'px');
-                $(this.el).css('z-index', this.model.get('orderIndex'));
-                $("#whiteboard").append($(this.el).html(compiledTemplate));
-                if (this.baseWidth != null) {
-                    imageWidth = this.model.get('content').get('scale') * this.baseWidth;
-                    $(this.el).find('.imageItems img').attr('width', imageWidth);
-                }
+            
+            $(this.el).css('left', this.model.get('x') + 'px');
+            $(this.el).css('top', this.model.get('y') + 'px');
+            $(this.el).css('z-index', this.model.get('orderIndex'));
+            $(this.el).html(compiledTemplate);
+            
+            if (this.baseWidth != null) {
+                imageWidth = this.model.get('content').get('scale') * this.baseWidth;
+                $(this.el).find('.content img').attr('width', imageWidth);
+            }else{
+                var self = this;
+                var model = this.model;
+                var id = model.id;
+                
+                $(this.el).find('.content img').load(
+                    function() {
+                        self.baseWidth = this.width;
+                        imageWidth = model.get('content').get('scale') * this.width;
+                        $(this).attr('width', imageWidth);
+                        self.render();
+                    }
+                );
             }
-            var self = this;
-            var model = this.model;
-            var id = model.id;
-            if (this.baseWidth == null) {
-                $("#" + id + ' .imageItems').find('img').load(
-                        function() {
-                            self.baseWidth = this.width;
-                            imageWidth = model.get('content').get('scale') * this.width;
-                            $(this).attr('width', imageWidth);
-                        });
-            }
+            return this;
         },
         isClicked : function(evt) {
             evt.preventDefault();
@@ -86,7 +75,7 @@ define([ 'jquery',
         },
         openFancybox : function(evt) {
             evt.preventDefault();
-            var imgSrc = $(this.el).find('.imageItems img').attr('src')+"?type=.png";
+            var imgSrc = $(this.el).find('.content img').attr('src')+"?type=.png";
             
             $.fancybox({
                 href: imgSrc

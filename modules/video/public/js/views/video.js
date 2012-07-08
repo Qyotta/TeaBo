@@ -16,12 +16,13 @@ define([ 'jquery',
         initialize : function(options) {
             WhiteboardItemView.prototype.initialize.apply( this );
             // _.bindAll(this, );
-            
+
+            $(this.el).attr("id", this.model.id).addClass("video");
+
             this.controller = options.controller;
             this.delegateEvents();
         },
         getPlayerInstance: function() {
-            
             var player = {};
 
             if(this.model.get('content').get('provider') === 'youtube') {
@@ -42,41 +43,18 @@ define([ 'jquery',
             return player;
         },
         render : function() {
-
             var data = {
                 player: this.getPlayerInstance()
             };
 
             var compiledTemplate = _.template(videoTemplate, data);
             
-            $(this.el)
-                .attr("id", this.model.id)
-                .addClass("video");
+            $(this.el).css('left', this.model.get('x') + 'px');
+            $(this.el).css('top', this.model.get('y') + 'px');
+            $(this.el).css('z-index', this.model.get('orderIndex'));
+            $(this.el).html(compiledTemplate);
 
-            if ($('#'+this.model.id).length > 0) {
-                $('#'+this.model.id).css('left',
-                        this.model.get('x') + 'px');
-                $('#'+this.model.id).css('top',
-                        this.model.get('y') + 'px');
-                $('#'+this.model.id).css('z-index', this.model.get('orderIndex'));
-                $('#'+this.model.id).html(compiledTemplate);
-                // if (this.baseWidth != null) {
-                //     imageWidth = this.model.get('content').get('scale') * this.baseWidth;
-                //     $("#" + this.model.id).find(".imageItems img").attr(
-                //             'width', imageWidth);
-                // }
-            } 
-            else {
-                $(this.el).css('left', this.model.get('x') + 'px');
-                $(this.el).css('top', this.model.get('y') + 'px');
-                $(this.el).css('z-index', this.model.get('orderIndex'));
-                $("#whiteboard").append($(this.el).html(compiledTemplate));
-                // if (this.baseWidth != null) {
-                //     imageWidth = this.model.get('content').get('scale') * this.baseWidth;
-                //     $(this.el).find('.imageItems img').attr('width', imageWidth);
-                // }
-            }
-            
+            return this;
         }
     });
 

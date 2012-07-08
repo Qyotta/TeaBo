@@ -67,22 +67,17 @@ var getUserDTO = function(user){
 
 var postLogin = function(req,res) {
     var query = {'email':req.body.email};
-    console.log('check auth for ',query);
     User.findOne(query,function(err,user) {
         if(!err && user) {
-            console.log(user);
             var curPW = bcrypt.hashSync(req.body.password, user.salt);
             if(user.password === curPW){
-                console.log('login successful for ',user.email);
                 req.session.user = getUserDTO(user);
                 res.send(req.session.user);
             }
             else {
-                console.log('access denied!');
                 res.send('');
             }
         } else {
-            console.log('access denied!');
             res.send('');
         }
     });
@@ -94,7 +89,6 @@ var postLogout = function(req,res) {
 };
 
 var checkPassword = function(req, res){
-    console.log(req.session.user._id);
     User.findOne({'_id':req.session.user._id},function(err,user) {
         if(user.password === bcrypt.hashSync(req.body.password, user.salt)){
             res.send(true);

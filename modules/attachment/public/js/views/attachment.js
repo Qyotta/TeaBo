@@ -20,6 +20,9 @@ define([ 'jquery',
             WhiteboardItemView.prototype.initialize.apply( this );
             _.bindAll(this, 'changed','assignmentChanged', 'isClicked', 'downloadAttachment', 'render');
             
+            $(this.el).attr("id", this.model.id);
+            $(this.el).addClass("attachment");
+            
             this.controller = options.controller;
             this.delegateEvents();
         },
@@ -60,25 +63,12 @@ define([ 'jquery',
                 _ : _
             };
             var compiledTemplate = _.template(attachmentTemplate, data);
-            $(this.el).attr("id", this.model.id);
-            $(this.el).addClass("attachment");
             
-            if ($('#'+this.model.id).length > 0) {
-                $('#'+this.model.id).css('left',
-                        this.model.get('x') + 'px');
-                $('#'+this.model.id).css('top',
-                        this.model.get('y') + 'px');
-                $('#'+this.model.id).css('z-index', this.model.get('orderIndex'));
-                $('#'+this.model.id).html(compiledTemplate);
-                
-
-            } else {
-                $(this.el).css('left', this.model.get('x') + 'px');
-                $(this.el).css('top', this.model.get('y') + 'px');
-                $(this.el).css('z-index', this.model.get('orderIndex'));
-                $("#whiteboard").append($(this.el).html(compiledTemplate));
-
-            }
+            $(this.el).css('left', this.model.get('x') + 'px');
+            $(this.el).css('top', this.model.get('y') + 'px');
+            $(this.el).css('z-index', this.model.get('orderIndex'));
+            $(this.el).html(compiledTemplate);
+            return this;
         },
         isClicked : function(evt) {
             evt.preventDefault();
