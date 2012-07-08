@@ -9,8 +9,8 @@ define([ 'jquery',
     var AttachmentView = WhiteboardItemView.extend({
         name : 'attachment',
         events : {
-            'dblclick .attachmentItems' : 'downloadAttachment',
-            'click .attachmentItems' : 'isClicked'
+            'dblclick .content' : 'downloadAttachment',
+            'click .content' : 'isClicked'
         },
         constructor: function(){
             this.events = _.extend( {}, WhiteboardItemView.prototype.events, this.events );
