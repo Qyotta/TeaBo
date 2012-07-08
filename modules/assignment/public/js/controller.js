@@ -1,10 +1,11 @@
 define([
+    'jquery',
     'underscore',
     '/assignment/js/collection/assignment.js',
     '/assignment/js/model/assignment.js',
     '/core/js/utils/model_command.js',
     '/core/js/utils/subscribe_command.js'
-], function(_,AssignmentCollection,Assignment,ModelCommand,SubscribeCommand){
+], function($,_,AssignmentCollection,Assignment,ModelCommand,SubscribeCommand){
     
     var AssignmentController = function(options){
         _.bindAll(this,'assignmentCreated','whiteboardOpened','whiteboardClosed','userColorUpdated','userOnlineStatusUpdated','userChanged','assignmentAdded');

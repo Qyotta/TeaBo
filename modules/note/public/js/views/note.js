@@ -45,6 +45,7 @@ define([ 'jquery',
             this.render();
         },
         assignmentChanged:function(){
+            console.log("assignmentChanged");
             this.render();
         },
         changed:function(){

@@ -1,9 +1,10 @@
 define([
+    'jquery',
     'underscore',
     'backbone',
     '/user/js/model/user.js',
     '/core/js/utils/group_command.js'
-], function( _, Backbone, User, GroupCommand ){
+], function( $,_, Backbone, User, GroupCommand ){
         
     var Application = function() {
         _.bindAll(this,'onMetaConnect', 'setSettings','loggedIn');

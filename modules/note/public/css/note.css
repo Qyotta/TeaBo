@@ -5,7 +5,7 @@
 .note textarea {
     background: none repeat scroll 0 0 transparent;
     border: 0 none;
-    height: 17px;
+    min-height: 17px;
     line-height: 17px;
     width: 199px;
     /*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FDFDCC), to(#F8F7B6) );

@@ -24,7 +24,7 @@ define([
         render : function() {
             var data = {};
             var compiledTemplate = _.template( this.templates, data );
-            this.el.html(compiledTemplate);
+            this.$el.html(compiledTemplate);
             this.toolTips = $('#tooltips div[data-type="tooltip"]');
         },
         startTour : function() {

@@ -49,7 +49,7 @@ define([
             var that             = this;
             var components       = this.getTopbarComponents();
             var compiledTemplate = _.template( topbarTemplate, data );
-            this.el.html(compiledTemplate);
+            this.$el.html(compiledTemplate);
             
             if(window.app.loggedIn()){
                 $(this.el).find('.right > div').prepend(this.settingsMenuView.render().el);
@@ -57,7 +57,7 @@ define([
             
             $.each(components,function(i, component) {
                 // append view to the topbar
-                that.el.find('div.left').append(component.el);
+                that.$el.find('div.left').append(component.el);
                 // delegate events to the module view
                 // note: events don't fire, if the view isn't in the dom
                 component.delegateEvents(component.events);

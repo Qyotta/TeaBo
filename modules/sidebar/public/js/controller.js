@@ -25,7 +25,7 @@ define([
         fillAttachmentDataSidebar : function(model){
             var _creator = window.app.modules.assignment.getUser(model.get('creator'));
             if(!_creator)return false;
-            var rightNavigation = this.view.el.find('.wrapper');
+            var rightNavigation = this.view.$el.find('.wrapper');
             
             rightNavigation.empty();
             var _username;
@@ -54,7 +54,7 @@ define([
             }, 200);
         },
         fillImageDataSidebar : function(model){
-            var rightNavigation = this.view.el.find('.wrapper');
+            var rightNavigation = this.view.$el.find('.wrapper');
             
             rightNavigation.empty();
             
