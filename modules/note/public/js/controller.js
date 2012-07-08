@@ -57,6 +57,7 @@ define([
             this.whiteboard = whiteboard;
             this.views = [];
             this.subscribeChannels();
+            this.assignmentSynced = false;
         },
         findViewById:function(id){
             var result=null;
@@ -84,7 +85,9 @@ define([
         },
         whiteboardClosed:function(){
             this.assignmentSynced = false;
-            this.views = [];
+            _.each(this.views,function(view){
+                view.destroy();
+            });
             this.unsubscribeChannels();
         },
         createNote : function() {

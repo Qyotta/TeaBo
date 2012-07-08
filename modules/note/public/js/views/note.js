@@ -20,11 +20,21 @@ define([ 'jquery',
             _.bindAll(this, 'isFocused', 'isBlured', 'edited','changed','assignmentChanged','assignmentsSynced');
             
             this.model.get('content').bind('change:text',this.changed,this);
-            window.app.eventDispatcher.bind('assignment:synced',this.assignmentsSynced);
-
+            
             this.controller = options.controller;
             this.editing    = false;
             this.delegateEvents();
+            this.bindEvents();
+        },
+        bindEvents:function(){
+            window.app.eventDispatcher.bind('assignment:synced',this.assignmentsSynced);
+        },
+        unbindEvents:function(){
+            window.app.eventDispatcher.unbind('assignment:synced',this.assignmentsSynced);
+        },
+        destroy:function(){
+            this.unbindEvents();
+            this.undelegateEvents();
         },
         assignmentsSynced:function(){
             this.assignment = window.app.modules.assignment.getAssignment(this.model.get('creator'));
