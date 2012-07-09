@@ -22,6 +22,7 @@ define([
             // '*actions': 'defaultAction'
         },
         loadRegister:function(){
+            window.app.eventDispatcher.trigger("teabo:changePage");
             document.title = "[lao] look ahead online - register";
             new RegisterView();
         },
@@ -30,10 +31,12 @@ define([
             new ForgotPasswordView();
         },
         showWhiteboard: function(id){
+            window.app.eventDispatcher.trigger("teabo:changePage");
             document.title = "[lao] look ahead online - whiteboard view";
             window.app.eventDispatcher.trigger("whiteboard:open", id);
         },
         showLogin: function(){
+            window.app.eventDispatcher.trigger("teabo:changePage");
             document.title = "[lao] look ahead online - login";
             if(!window.app.loggedIn()){
                 this.loginView = new LoginView();
@@ -47,6 +50,7 @@ define([
             this.showMainPanel();
         },
         showMainPanel: function(){
+            window.app.eventDispatcher.trigger("teabo:changePage");
             if(!window.app.user.synced) {
                 return;
             }

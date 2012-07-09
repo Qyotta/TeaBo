@@ -9,6 +9,9 @@ define([
     '/core/js/views/notice/notice.js',
 ], function($, _, Backbone, ModelCommand, Dialog, changePasswordDialogTemplate, Error, Notice) {
     var ChangePasswordDialog = Dialog.extend({
+        constructor: function(){
+            Dialog.prototype.constructor.apply( this, arguments );
+        },
         initialize : function(options) {
             _.bindAll(this, 'showChangePasswordDialog');
             window.app.eventDispatcher.bind("settingsMenu:changePassword", this.showChangePasswordDialog);

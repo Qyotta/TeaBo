@@ -8,6 +8,7 @@ define([
 ], function($, _, Backbone, ModelCommand, Dialog, imageUploadDialogTemplate) {
     var ImageUploadDialog = Dialog.extend({
         initialize : function(options) {
+            Dialog.prototype.initialize.apply( this );
             _.bindAll(this, 'showUploadDialog');
             window.app.eventDispatcher.bind("image:view_upload_dialog", this.showUploadDialog);
             this.controller = options.controller;
@@ -31,7 +32,6 @@ define([
             $('#dialogs').html(this.el);
         },
         showUploadDialog : function(whiteboard) {
-            console.log("show upload dialog");
             this.whiteboard = whiteboard;
             this.showDialog();
         },

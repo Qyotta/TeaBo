@@ -10,6 +10,7 @@ define([
         showDialogFlag:"DeleteConfirmFlag",
         whiteboardId:0,
         initialize:function(){
+            Dialog.prototype.initialize.apply( this );
             _.bindAll(this,'showConfirmDialog', 'confirmed', 'hideConfirmDialog', 'shouldShowDialog');
             window.app.eventDispatcher.bind("whiteboardItem:delete_multiple",this.showConfirmDialog);
         },

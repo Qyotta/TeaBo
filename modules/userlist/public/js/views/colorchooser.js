@@ -9,6 +9,7 @@ define([
 ], function($, _, Backbone, Dialog, Utils,ModelCommand,colorChooserDialogTemplate){
     var ColorChooserDialogView = Dialog.extend({
         initialize:function(){
+            Dialog.prototype.initialize.apply( this );
             _.bindAll(this,'showColorChooserDialog','saveClicked','setHexValue');
             window.app.eventDispatcher.bind("userlist:choose_color",this.showColorChooserDialog);
             this.menu      = $('div.left > div.invite > div');

@@ -8,6 +8,7 @@ define([
 ], function($, _, Backbone, Dialog, videoDialogTemplate, ModelCommand) {
     var VideoDialog = Dialog.extend({
         initialize: function(options) {
+            Dialog.prototype.initialize.apply( this );
             _.bindAll(this, 'showVideoDialog');
             this.controller = options.controller;
         },

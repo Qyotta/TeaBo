@@ -20,7 +20,7 @@ define([ 'jquery',
             this.delegateEvents();
         },
         unrender : function() {
-            this.el.empty();
+            this.$el.empty();
         },
         compareIndex: function(a,b) {
             if(a.index === undefined) {

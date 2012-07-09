@@ -7,6 +7,9 @@ define([
     'text!/attachment/templates/upload.html'
 ], function($, _, Backbone, ModelCommand, Dialog, attachmentUploadDialogTemplate) {
     var AttachmentUploadDialog = Dialog.extend({
+        constructor: function(){
+            Dialog.prototype.constructor.apply( this, arguments );
+        },
         initialize : function(options) {
             _.bindAll(this, 'showUploadDialog', 'postAttachment');
             window.app.eventDispatcher.bind("attachment:view_upload_dialog", this.showUploadDialog);

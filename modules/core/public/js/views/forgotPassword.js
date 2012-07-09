@@ -6,7 +6,7 @@ define([
     '/core/js/views/notice/notice.js',
     'text!/core/templates/forgotPassword.html'
 ], function($, _, Backbone, Error, Notice, forgotPasswordTemplate){
-    var ForgotPasswordDialog = Backbone.View.extend({
+    var ForgotPasswordView = Backbone.View.extend({
         initialize:function(){
             this.render();
         },
@@ -71,5 +71,5 @@ define([
             return re.test(email);
         }
     });
-    return ForgotPasswordDialog;
+    return ForgotPasswordView;
 });

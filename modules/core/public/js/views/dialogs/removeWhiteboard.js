@@ -6,6 +6,9 @@ define([
     'text!/core/templates/dialogs/removeWhiteboard.html'
 ], function($, _, Backbone, Dialog, removeWhiteboardDialogTemplate){
     var RemoveWhiteboardDialogView = Dialog.extend({
+        constructor: function(){
+            Dialog.prototype.constructor.apply( this, arguments );
+        },
         initialize:function(){
             _.bindAll(this,'showThisDialog','removeWhiteboard');
             window.app.eventDispatcher.bind("whiteboard:openRemoveDialog",this.showThisDialog);

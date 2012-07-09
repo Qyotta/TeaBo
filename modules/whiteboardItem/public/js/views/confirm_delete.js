@@ -9,6 +9,7 @@ define([
     var ConfirmDeleteView = Dialog.extend({
         showDialogFlag:"DeleteConfirmFlag",
         initialize:function(){
+            Dialog.prototype.initialize.apply( this );
             _.bindAll(this,'showConfirmDialog', 'confirmed', 'hideConfirmDialog', 'shouldShowDialog');
             window.app.eventDispatcher.bind("whiteboardItem:showConfirmDelete", this.showConfirmDialog);
         },

@@ -9,6 +9,9 @@ define([
     '/core/js/views/notice/notice.js',
 ], function($, _, Backbone, ModelCommand, Dialog, userPreferencesDialogTemplate,Error,Notice) {
     var UserPreferencesDialog = Dialog.extend({
+        constructor: function(){
+            Dialog.prototype.constructor.apply( this, arguments );
+        },
         initialize : function(options) {
             _.bindAll(this, 'showPreferencesDialog');
             window.app.eventDispatcher.bind("settingsMenu:userPreferences", this.showPreferencesDialog);
