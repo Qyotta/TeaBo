@@ -57,9 +57,10 @@
     "scripts": {
         "start": "node app",
         "install": "sh install.sh",
-        "test": "node ./test/test.somethink <browser>"
+        "test": "node ./test/test.something <browser>"
     },
     "dependencies": {
+        "bcrypt": "0.7.0",
         "express": "3.0.x",
         "faye": "0.8.2",
         "nodemailer": "0.3.x",
