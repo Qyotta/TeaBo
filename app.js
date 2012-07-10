@@ -29,6 +29,11 @@ app.configure(function(){
     app.set('view engine', 'jade');
 });
 
+process.on('uncaughtException', function(err) {
+  console.log("\n\n ##############\n\n");
+  console.log(err);
+  console.log("\n\n ##############\n\n");
+});
 
 // load lao modules
 var moduleTemplates = [],
