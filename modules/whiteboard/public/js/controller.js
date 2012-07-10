@@ -65,8 +65,10 @@ define([
             window.app.eventDispatcher.trigger('whiteboard:opened',this.whiteboard);
         },
         close:function(){
-            this.view.remove();
-            this.view = null;
+            if(this.view){
+                this.view.remove();
+                this.view = null;
+            }
             this.whiteboard = null;
             window.app.eventDispatcher.trigger('whiteboard:closed');
         }
