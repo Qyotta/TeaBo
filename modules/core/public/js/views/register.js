@@ -23,6 +23,7 @@ define([
             this.position = '';
             this.errors = '';
             this.render();
+            console.log("register view initialize")
         },
         render:function(){
             this.unrender();
@@ -33,11 +34,11 @@ define([
 
             var data = {email:this.email,firstname:this.firstname,lastname:this.lastname,position:this.position,errors:this.errors};
             var compiledTemplate = _.template( registerTemplate , data);
-            this.el.innerHTML = compiledTemplate;
-            $("#page").html(this.el);
+            this.$el.html(compiledTemplate);
+            $("#page").html(this.$el);
         },
         unrender:function(){
-            $('#page').empty();
+            this.remove();
         },
         submitClicked:function(evt){
             evt.preventDefault();
@@ -75,8 +76,7 @@ define([
                     console.log('register this user');
                     if(response) {
                         window.app.user.set(response);
-                        window.router.loggedIn();
-
+                        window.app.user.synced = true;
                         self.unrender();
 
                         window.router.navigate("main",{trigger: true});
