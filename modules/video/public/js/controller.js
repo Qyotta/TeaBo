@@ -1,8 +1,9 @@
 define([
+    'jquery',
     'underscore',
     '/video/js/views/video.js',
-    '/video/js/views/dialog.js',
-], function(_, VideoView, Dialog){
+    '/video/js/views/dialog.js'
+], function($, _, VideoView, Dialog){
     
     var VideoController = function(options){
         _.bindAll(this,'openDialog','loadedVideo','whiteboardOpened','deletedVideo');
