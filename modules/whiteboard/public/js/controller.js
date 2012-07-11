@@ -51,7 +51,7 @@ define([
                                 window.app.eventDispatcher.trigger("whiteboard:synced",collection);
                                 window.app.log('whiteboard:synced');
                                 self.open(id);
-                            }, 
+                            },
                             error: function() {
                                 window.app.log('You are not authorized, please login!');
                                 window.router.navigate("login", {trigger: true});

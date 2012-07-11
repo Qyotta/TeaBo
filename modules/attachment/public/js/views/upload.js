@@ -1,7 +1,7 @@
 define([
-    'jquery', 
-    'underscore', 
-    'backbone', 
+    'jquery',
+    'underscore',
+    'backbone',
     '/core/js/utils/model_command.js',
     '/core/js/views/dialogs/dialog.js',
     'text!/attachment/templates/upload.html'
@@ -17,16 +17,16 @@ define([
             $(this.el).attr("id","attachmentUploadContainer");
         },
         events : {
-            'click button.cancel' : 'hideConfirmDialog',
+            'click button' : 'hideConfirmDialog',
             'change input[type="file"]':'fileChanged',
-            'click #attachmentUpload input[type=submit]':'postAttachment',
+            'click #attachmentUpload input[type=submit]':'postAttachment'
         },
         render : function() {
             var data = {
                 whiteboard : this.controller.whiteboard,
                 x : Math.floor(Math.random() * 700),
                 y : Math.floor(Math.random() * 400),
-                _ : _,
+                _ : _
             };
             var compiledTemplate = _.template(attachmentUploadDialogTemplate, data);
             $(this.el).html(compiledTemplate);

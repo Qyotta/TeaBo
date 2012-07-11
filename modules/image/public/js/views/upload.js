@@ -1,7 +1,7 @@
 define([
-    'jquery', 
-    'underscore', 
-    'backbone', 
+    'jquery',
+    'underscore',
+    'backbone',
     '/core/js/utils/model_command.js',
     '/core/js/views/dialogs/dialog.js',
     'text!/image/templates/upload.html'
@@ -16,16 +16,16 @@ define([
             
         },
         events : {
-            'click button.cancel' : 'hideConfirmDialog',
+            'click button' : 'hideConfirmDialog',
             'change input[type="file"]':'fileChanged',
-            'click #imageUpload input[type=submit]':'postImage',
+            'click #imageUpload input[type=submit]':'postImage'
         },
         render : function() {
             var data = {
                 whiteboard : this.whiteboard,
                 x : Math.floor(Math.random() * 700),
                 y : Math.floor(Math.random() * 400),
-                _ : _,
+                _ : _
             };
             var compiledTemplate = _.template(imageUploadDialogTemplate, data);
             $(this.el).html(compiledTemplate);

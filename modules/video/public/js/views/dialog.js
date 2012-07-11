@@ -13,7 +13,7 @@ define([
             this.controller = options.controller;
         },
         events: {
-            'click button.cancel' : 'hideVideoDialog',
+            'click button' : 'hideVideoDialog',
             'submit form' : 'submitVideo'
         },
         render: function() {
