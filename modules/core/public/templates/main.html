@@ -1,8 +1,8 @@
-<h2>Hi!
+<h2>Hi
 <% if(user.get('firstname') && user.get('lastname') && user.get('firstname') != '' && user.get('lastname') != '') { %>
-    <%= user.get('firstname')+' '+user.get('lastname') %>
+    <%= user.get('firstname')+' '+user.get('lastname') %>!
 <% } else { %>
-    <%= user.get('email') %>
+    <%= user.get('email') %>!
 <% } %>
 
 <p></p>

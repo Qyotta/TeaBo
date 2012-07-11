@@ -15,7 +15,7 @@ define([
             window.app.eventDispatcher.bind("whiteboardItem:delete_multiple",this.showConfirmDialog);
         },
         events:{
-            'click button.cancel' : 'hideConfirmDialog',
+            'click button' : 'hideConfirmDialog',
             'submit form': 'confirmed'
         },
         render: function(){

@@ -17,7 +17,7 @@ define([
             this.whiteboardID = undefined;
         },
         events:{
-            'click button.cancel' : 'hideDialog',
+            'click button' : 'hideDialog',
             'click input[type=submit]': 'removeWhiteboard'
         },
         render: function(){
@@ -35,7 +35,7 @@ define([
             e.preventDefault();
             window.app.eventDispatcher.trigger('whiteboard:remove',this.whiteboardID);
             this.hideDialog();
-        },
+        }
     });
     return RemoveWhiteboardDialogView;
 });

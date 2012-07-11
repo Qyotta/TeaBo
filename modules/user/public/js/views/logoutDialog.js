@@ -12,7 +12,7 @@ define([
             $(this.el).attr("id","logoutContainer");
         },
         events:{
-            'click button.cancel' : 'hideLogoutDialog',
+            'click button' : 'hideLogoutDialog',
             'click input[type=submit]': 'logout'
         },
         render: function(){

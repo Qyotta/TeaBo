@@ -56,7 +56,16 @@ define([
         },
         postImage : function(event) {
             event.preventDefault();
-            this.controller.uploadImage($('#imageUploadContainer #imageUpload'));
+
+            var form = $('#imageUploadContainer #imageUpload'),
+                file = form.find('input[type=file]');
+
+            if(file.val() === '') {
+                file.css('border','#ff0000 1px solid');
+                return false;
+            }
+
+            this.controller.uploadImage(form);
             this.hideDialog();
         }
     });

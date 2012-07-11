@@ -70,7 +70,7 @@ define([
             
         },
         setCheckbox: function(value){
-            this.el.find(':checkbox').attr('checked', value);
+            $(this.el).find(':checkbox').attr('checked', value);
         },
         getInfoTourTemplates: function() {
             var i    = 0,

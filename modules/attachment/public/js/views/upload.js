@@ -57,7 +57,16 @@ define([
         },
         postAttachment : function(event) {
             event.preventDefault();
-            this.controller.generateUploadAttachment($('#attachmentUploadContainer #attachmentUpload'));
+
+            var form = $('#attachmentUploadContainer #attachmentUpload'),
+                file = form.find('input[type=file]');
+
+            if(file.val() === '') {
+                file.css('border','#ff0000 1px solid');
+                return false;
+            }
+
+            this.controller.generateUploadAttachment(form);
             this.hideDialog();
         }
     });

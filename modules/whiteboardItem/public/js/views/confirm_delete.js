@@ -14,7 +14,7 @@ define([
             window.app.eventDispatcher.bind("whiteboardItem:showConfirmDelete", this.showConfirmDialog);
         },
         events:{
-            'click .dialog button.cancel' : 'hideConfirmDialog',
+            'click .dialog button' : 'hideConfirmDialog',
             'click .dialog input[type=submit]': 'confirmed'
         },
         render: function(){
@@ -35,11 +35,11 @@ define([
             }
         },
         shouldShowDialog : function(){
-            if(typeof window.app.user.get("settings").where(this.showDialogFlag)[0] == "undefined" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == "true" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") == true){
+            if(typeof window.app.user.get("settings").where(this.showDialogFlag)[0] === "undefined" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") === "true" || window.app.user.get("settings").where(this.showDialogFlag)[0].get("value") === true){
                 return true;
             } else {
                 return false;
-            }   
+            }
         },
         hideConfirmDialog:function(evt){
             evt.preventDefault();
@@ -52,7 +52,7 @@ define([
             this.hideDialog();
             window.app.eventDispatcher.trigger('whiteboardItem:delete',this.model);
         }
-    });    
+    });
     
     return ConfirmDeleteView;
 });

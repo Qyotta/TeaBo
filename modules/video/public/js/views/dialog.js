@@ -59,8 +59,14 @@ define([
         submitVideo: function(evt) {
             evt.preventDefault();
             
-            var url       = $('.videoURL').val(),
-                parsedURL = this.parseVideoURL(url);
+            var url = $('.videoURL').val();
+
+            if(url === '') {
+                $('.videoURL').css('border','#ff0000 solid 1px');
+                return false;
+            }
+
+            var parsedURL = this.parseVideoURL(url);
 
             window.app.groupCommand.addCommands(new ModelCommand( '/service/whiteboardItem/post', {
                     creator      : window.app.user.id,
