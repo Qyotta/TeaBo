@@ -23,21 +23,21 @@ define([
         },
         loadRegister:function(){
             window.app.eventDispatcher.trigger("teabo:changePage");
-            document.title = "[lao] look ahead online - register";
+            document.title = "TeaBo - A Web-Application for Online Collaboration - register";
             new RegisterView();
         },
         loadForgotPassword: function() {
-            document.title = '[lao] look ahead online - forgot password';
+            document.title = 'TeaBo - A Web-Application for Online Collaboration - forgot password';
             new ForgotPasswordView();
         },
         showWhiteboard: function(id){
             window.app.eventDispatcher.trigger("teabo:changePage");
-            document.title = "[lao] look ahead online - whiteboard view";
+            document.title = "TeaBo - A Web-Application for Online Collaboration - whiteboard view";
             window.app.eventDispatcher.trigger("whiteboard:open", id);
         },
         showLogin: function(){
             window.app.eventDispatcher.trigger("teabo:changePage");
-            document.title = "[lao] look ahead online - login";
+            document.title = "TeaBo - A Web-Application for Online Collaboration";
             if(!window.app.loggedIn()){
                 this.loginView = new LoginView();
                 this.loginView.render();
@@ -59,7 +59,7 @@ define([
                 return;
             }
 
-            document.title = "[lao] look ahead online - main view";
+            document.title = "TeaBo - A Web-Application for Online Collaboration - main view";
             
             if($('#whiteboard').length) {
                 window.app.eventDispatcher.trigger("whiteboard:close",this.closedWhiteboard);

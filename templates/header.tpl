@@ -7,7 +7,7 @@
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>[lao] - Startseite</title>
+<title>TeaBo - A Web-Application for Online Collaboration</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <script data-main="/js/main" src="/js/libs/require/require.js"></script>

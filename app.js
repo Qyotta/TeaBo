@@ -19,9 +19,9 @@ mongoose.connect(configs.server.mongo.host);
 // configure express server
 app.configure(function(){
     app.use(express.bodyParser());
-    app.use(express.cookieParser('lao'));
+    app.use(express.cookieParser('teabo'));
     app.use(express.methodOverride());
-    app.use(express.session({secret:'lao'}));
+    app.use(express.session({secret:'teabo'}));
     app.use(app.router);
     app.use(express.static(path.join(application_root, "public")));
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
@@ -35,7 +35,7 @@ process.on('uncaughtException', function(err) {
   console.log("\n\n ##############\n\n");
 });
 
-// load lao modules
+// load teabo modules
 var moduleTemplates = [],
     moduleStyles    = [],
     moduleNames     = [];

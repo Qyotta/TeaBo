@@ -20,7 +20,7 @@ var mail = function(config) {
 
     // setup e-mail data with unicode symbols
     var mailOptions = {
-        from:    "LaoTeam <swplao@googlemail.com>", // sender address
+        from:    "TeaBo <swplao@googlemail.com>", // sender address
         to:      config.receiver,                   // list of receivers
         subject: config.subject,                    // Subject line
         html:    config.text                        // html body

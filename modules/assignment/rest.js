@@ -2,7 +2,7 @@ var Assignments   = require('../assignment/models/assignment').model,
     User          = require('../user/models/user').model,
     Whiteboard    = require('../whiteboard/models/whiteboard').model,
     mongoose      = require('mongoose'),
-    mailer        = require('../../utils/laoMailer'),
+    mailer        = require('../../utils/teaboMailer'),
     fs            = require('fs'),
     bcrypt        = require('bcrypt'),
     configs       = JSON.parse(fs.readFileSync('package.json', 'utf8')),
@@ -103,7 +103,7 @@ var inviteUser = function(req,res) {
                     var newUser = new User({
                         email: email,
                         password: bcrypt.hashSync(genPassword, genSalt),
-                        salt: genSalt,
+                        salt: genSalt
                     });
 
                     newUser.save(function() {
@@ -118,7 +118,7 @@ var inviteUser = function(req,res) {
                             assignment.save(function() {
                                 mailer.send({
                                     receiver: email,
-                                    subject : "[lao] Invitation to Whiteboard "+whiteboard.name,
+                                    subject : "[TeaBo] Invitation to Whiteboard "+whiteboard.name,
                                     text: '<body style="font-size:12px; font-family:Helvetiva, sans serif;">'+
                                           '<h1 style="margin-bottom:10px;">Hello</h1><br>'+
                                           'you were invited to <b>' + whiteboard.name + '</b> Whiteboard<br>'+
@@ -126,7 +126,7 @@ var inviteUser = function(req,res) {
                                           'User: ' + email + '<br>'+
                                           'Password: ' + genPassword + '<br><br>' +
                                           'With Regards,<br>' +
-                                          '<h2>[l]ook [a]head [o]nline</h2>'+
+                                          '<h2>Your TeaBo</h2>'+
                                           '</body>',
                                     callback: function(err, result){
                                         if(!err) {

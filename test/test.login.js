@@ -24,7 +24,7 @@ client = webdriverjs.remote({desiredCapabilities:config.capabilities[capability]
 client
     .testMode()
     .init()
-    .url(config.laoUrl)
+    .url(config.url)
     .waitFor('.email', 500)
     .waitFor('.password', 500)
     .click('.button')

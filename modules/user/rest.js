@@ -1,5 +1,5 @@
 var User    = require('./models/user').model,
-    mailer  = require('../../utils/laoMailer'),
+    mailer  = require('../../utils/teaboMailer'),
     fs      = require('fs'),
     bcrypt  = require('bcrypt'),
     configs = JSON.parse(fs.readFileSync('package.json', 'utf8'));
@@ -22,10 +22,10 @@ var register = function(req,res) {
             user.save(function(err) {
                 mailer.send({
                     receiver: req.body.email,
-                    subject : 'Welcome to [lao]!',
+                    subject : 'Welcome to TeaBo!',
                     text: '<body style="font-size:12px; font-family:Helvetiva, sans serif;">'+
                           '<h1 style="margin-bottom:10px;">Hello'+username+'</h1><br>'+
-                          'we are glad to welcome you to our <a href="'+configs.server.express.host+':'+configs.server.express.port+'">[lao]</a> project. Your registration was successful!<br>'+
+                          'we are glad to welcome you to our <a href="'+configs.server.express.host+':'+configs.server.express.port+'">TeaBo</a> project. Your registration was successful!<br>'+
                           'Now you can create your first whiteboard and develop amazing ideas!<br>'+
                           'Have fun and enjoy this tool!<br><br>'+
                           'Here are your login credentials:<br><br>'+
@@ -34,7 +34,7 @@ var register = function(req,res) {
                           '<tr><td><b>Password:</b></td><td>'  + req.body.password  + '</td></tr>'+
                           '</table><br><br>'+
                           'With Regards,<br>' +
-                          '<h2>[l]ook [a]head [o]nline</h2>'+
+                          '<h2>Your TeaBo</h2>'+
                           '</body>'
                 });
             });
@@ -63,7 +63,7 @@ var getUserDTO = function(user){
         position    : user.position,
         settings    : user.settings
     };
-}
+};
 
 var postLogin = function(req,res) {
     var query = {'email':req.body.email};
@@ -92,12 +92,11 @@ var checkPassword = function(req, res){
     User.findOne({'_id':req.session.user._id},function(err,user) {
         if(user.password === bcrypt.hashSync(req.body.password, user.salt)){
             res.send(true);
-        } 
-        else{
-            res.send(false)
+        } else{
+            res.send(false);
         }
     });
-}
+};
 
 var getSession = function(req,res) {
     if(req.session.user){
@@ -151,17 +150,17 @@ var forgotPassword = function(req,res){
                 if(!err){
                     mailer.send({
                         receiver: email,
-                        subject : 'New credentials to [lao]!',
+                        subject : 'New credentials to TeaBo!',
                         text: '<body style="font-size:12px; font-family:Helvetiva, sans serif;">'+
                               '<h1 style="margin-bottom:10px;">Hello'+username+'</h1><br>'+
-                              'you forgot your password for the <a href="'+configs.server.express.host+':'+configs.server.express.port+'">[lao]</a> plattform.<br>'+
+                              'you forgot your password for the <a href="'+configs.server.express.host+':'+configs.server.express.port+'">TeaBo</a> plattform.<br>'+
                               'Here are your login credentials:<br><br>'+
                               '<table>'+
                               '<tr><td><b>Email:</b></td><td>'  + email  + '</td></tr>'+
                               '<tr><td><b>Password:</b></td><td>'  + genPassword  + '</td></tr>'+
                               '</table><br><br>'+
                               'With Regards,<br>' +
-                              '<h2>[l]ook [a]head [o]nline</h2>'+
+                              '<h2>Your TeaBo</h2>'+
                               '</body>'
                     });
                 }
@@ -169,10 +168,10 @@ var forgotPassword = function(req,res){
 
             res.send({success:true,message:"An email with your credentials was send."});
         }else{
-            res.send({success:false,message:"User wasn't found. "})
+            res.send({success:false,message:"User wasn't found. "});
         }
     });
-}
+};
 
 exports.rest = [
     { url: '/user',                     type: 'post',   callback: register},

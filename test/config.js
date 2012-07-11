@@ -30,4 +30,4 @@ var capabilities = {
 };
 
 exports.capabilities = capabilities;
-exports.laoUrl  = configs.server.express.host+':'+configs.server.express.port;
+exports.url          = configs.server.express.host+':'+configs.server.express.port;

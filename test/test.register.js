@@ -34,7 +34,7 @@ function verifyIsVisible(found,text) {
 client
     .testMode()
     .init()
-    .url(config.laoUrl)
+    .url(config.url)
     .waitFor('.loginContainer a', 500)
     .click('.loginContainer a', function() {
         console.log('\033[33m---------------------- open registration ----------------------\033[0m');

@@ -1,11 +1,11 @@
 {
-    "name": "[lao] look ahead online",
+    "name": "TeaBo look ahead online",
     "version": "0.2.beta",
     "author": "Beuth Hochschule für Technik",
-    "description": "[lao] (Acronym for \"look ahead online\") is an online collaboration platform for collecting ideas and brainstorming. This is a project of students of the Beuth Hochschule für Technik Berlin, University of Applied Sciences and still under development.",
+    "description": "TeaBo (Acronym for \"look ahead online\") is an online collaboration platform for collecting ideas and brainstorming. This is a project of students of the Beuth Hochschule für Technik Berlin, University of Applied Sciences and still under development.",
     "engines": {"node": ">= 0.6.15"},
     "help": {
-        "web": "https://github.com/Softwareprojekt-BHT-Berlin/lao-Online-Collaboration-Platform/blob/backend-migration/README.md"
+        "web": "https://github.com/Qyotta/TeaBo/blob/master/README.md"
     },
     "contributors": [ 
         {
@@ -51,7 +51,7 @@
             "port": 3001
         },
         "mongo": {
-            "host": "mongodb://localhost/lao"
+            "host": "mongodb://localhost/teabo"
         }
     },
     "scripts": {
@@ -60,21 +60,21 @@
         "test": "node ./test/test.something <browser>"
     },
     "dependencies": {
-        "bcrypt": "0.7.0",
         "express": "3.0.x",
         "faye": "0.8.2",
         "nodemailer": "0.3.x",
 
         "mongodb": "1.0.2",
         "mongoose": "3.0.x",
-        "mime": "1.2.6"
+        "mime": "1.2.6",
+        "bcrypt": "0.7.0"
     },
     "devDependencies": {
         "webdriverjs": "x"
     },
     "repository" : {
         "type" : "git",
-         "url" : "git://github.com/Softwareprojekt-BHT-Berlin/lao-Online-Collaboration-Platform.git"
+         "url" : "https://github.com/Qyotta/TeaBo.git"
     },
     "licenses": [
     {
