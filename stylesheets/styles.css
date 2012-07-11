@@ -5,7 +5,7 @@
 body {
   padding:50px;
   font:14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color:#777777;
+  color:#000000;
   font-weight:300;
   background:url('../images/background.gif') repeat;
 }
@@ -44,7 +44,7 @@ a {
 
 a small {
   font-size:11px;
-  color:#777777;
+  color:#000000;
   margin-top:-0.3em;
   display:block;
 }
