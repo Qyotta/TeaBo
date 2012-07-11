@@ -18,10 +18,9 @@ define([
         },
         initialize:function(){
             _(this).bindAll('changedUser','render');
-            
-            this.isInviteInProgress = false;
 
-            this.settingsMenuView = new SettingsMenuView();
+            this.isInviteInProgress = false;
+            this.settingsMenuView   = new SettingsMenuView();
             
             window.app.user.bind("change", this.changedUser);
         },
@@ -42,8 +41,7 @@ define([
                 user:          user,
                 title:         title,
                 view:          view,
-                versionNumber: window.app.versionNumber,
-                versionType:   window.app.versionType
+                appVersion:    window.appVersion
             };
 
             var that             = this;

@@ -1,8 +1,8 @@
 {
     "name": "TeaBo look ahead online",
-    "version": "0.2.beta",
+    "version": "0.3.rc1",
     "author": "Beuth Hochschule für Technik",
-    "description": "TeaBo (Acronym for \"look ahead online\") is an online collaboration platform for collecting ideas and brainstorming. This is a project of students of the Beuth Hochschule für Technik Berlin, University of Applied Sciences and still under development.",
+    "description": "TeaBo (Acronym for team board) is an online collaboration platform for collecting ideas and brainstorming. This is a project of students of the Beuth Hochschule für Technik Berlin, University of Applied Sciences and still under development.",
     "engines": {"node": ">= 0.6.15"},
     "help": {
         "web": "https://github.com/Qyotta/TeaBo/blob/master/README.md"

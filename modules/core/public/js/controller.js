@@ -9,8 +9,6 @@ define([
     var Application = function() {
         _.bindAll(this,'onMetaConnect', 'setSettings','loggedIn');
         
-        this.versionNumber   = 0.2,
-        this.versionType     = 'beta',
         this.debugMode       = true,
         this.user            = {},
         this.modules         = {},

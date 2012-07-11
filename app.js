@@ -88,7 +88,7 @@ fs.readdirSync('./modules').forEach(function(file) {
 // generate index.html
 app.get('/', function(req,res) {
     var header = fs.readFileSync('./templates/header.tpl', 'utf8'),
-        script = '<script>var modules = [\'' + moduleNames.join('\',\'') + '\'], fayeURL = \'' + configs.server.faye.host + ':' + configs.server.faye.port + '/rest\';</script>',
+        script = '<script>var modules = [\'' + moduleNames.join('\',\'') + '\'], fayeURL = \'' + configs.server.faye.host + ':' + configs.server.faye.port + '/rest\', appVersion = \'' + configs.version + '\';</script>',
         styles = startInDevMode ? moduleStyles.join('') : '<style type="text/css">' + moduleStyles.join('') + '</style>';
     
     res.send(header + script + '\n' + styles + '\n\n' + moduleTemplates.join('\n'));
