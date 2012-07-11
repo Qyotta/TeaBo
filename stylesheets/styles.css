@@ -187,6 +187,19 @@ footer {
   bottom:50px;
 }
 
+div.fancybox a {
+  background: none repeat scroll 0 0 #FFFFFF;
+  box-shadow: 0 0 5px #888888;
+  display: block;
+  float: left;
+  height: 90px;
+  margin: 0 12px 12px 0;
+  width: 90px;
+}
+div.fancybox a:last-child {
+  margin: 0;
+}
+
 @media print, screen and (max-width: 960px) {
   
   div.wrapper {
