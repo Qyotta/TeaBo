@@ -88,11 +88,12 @@ define([
             window.app.eventDispatcher.trigger('whiteboardItem:loaded:'+item.get('type'),item);
         },
         startedEditing:function(view){
-            if(this.editing)this.editing.stopEditing();
             this.editing = view;
         },
         stopEditing:function(){
-            if(this.editing)this.editing.stopEditing();
+            if(this.editing) {
+                this.editing.stopEditing();
+            }
         },
         stoppedEditing:function(){
             this.editing = null;
